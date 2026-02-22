@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-22T22:59:13.265Z",
+  "fetchedAt": "2026-02-22T23:26:57.263Z",
   "overall": "green",
   "dataSource": "GeoSphere Austria INCA + danubealert.com + Strahlenschutz.gv.at",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 10.7,
+      "value": 11.31,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -19,7 +19,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 15,
+      "value": 17,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -50,14 +50,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 65,
+      "value": 64,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
         "red": 300
       },
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "22.02.2026 22:00 UTC",
+      "measuredAt": "22.02.2026 23:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)"
     }
   },
