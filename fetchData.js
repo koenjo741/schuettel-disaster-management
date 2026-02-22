@@ -32,32 +32,39 @@ const THRESHOLDS = {
     heat: { yellow: 30, red: 35 },  // °C
     wind: { yellow: 60, red: 80 },  // km/h
     rain: { yellow: 15, red: 25 },  // mm/h
-    // River discharge thresholds for Donaukanal area (GloFAS model, m³/s)
-    // Normal winter flow: ~1–5 m³/s; elevated: ≥150; critical: ≥500
-    flood: { yellow: 150, red: 500 },  // m³/s
+    // Donaukanal Schwedenbrücke cm gauge (Donau-Kommission official marks)
+    // LDC (Niedrigwasser): 288 cm | HDC (Hochwasser): 432 cm
+    flood: { yellow: 380, red: 432 },  // cm
 };
 
 // ── Helper: Derive alert level ────────────────────────────────────────────────
 const alertLevel = (value, { yellow, red }) =>
     value >= red ? 'red' : value >= yellow ? 'yellow' : 'green';
 
-// ── Flood: Open-Meteo Flood API (GloFAS river discharge model) ────────────────
-// Station reference: eHYD HZBNR 207233 Wien (Schwedenbrücke), Donaukanal
+// ── Flood: danubealert.com HTML scraper (Schwedenbrücke cm gauge) ───────────────
+// Scrapes the public page for real-time Pegel (cm), LDC and HDC values.
+// No API key or authentication required.
 async function fetchFloodData() {
-    const qs = new URLSearchParams({
-        latitude: LOCATION.lat,
-        longitude: LOCATION.lon,
-        daily: 'river_discharge',
-        forecast_days: '1',
-        models: 'seamless_v4',
+    const res = await fetch('https://danubealert.com/at/history/schwedenbrucke', {
+        headers: { 'User-Agent': 'Mozilla/5.0', Accept: 'text/html' },
     });
-    const res = await fetch(`https://flood-api.open-meteo.com/v1/flood?${qs}`, {
-        headers: { Accept: 'application/json' },
-    });
-    if (!res.ok) throw new Error(`Open-Meteo Flood API error: ${res.status}`);
-    const json = await res.json();
-    const discharge = json.daily?.river_discharge?.at(-1) ?? null; // m³/s
-    return { discharge, source: 'Open-Meteo GloFAS (seamless_v4)' };
+    if (!res.ok) throw new Error(`danubealert.com error: ${res.status}`);
+    const html = await res.text();
+
+    // "erreichte der Pegel 280 cm"
+    const pegelMatch = html.match(/erreichte der Pegel (\d+) cm/);
+    // "minimal akzeptabler Pegel (288 cm)" / "maximal akzeptabler Pegel (432 cm)"
+    const ldcMatch = html.match(/minimal akzeptabler Pegel \((\d+) cm\)/);
+    const hdcMatch = html.match(/maximal akzeptabler Pegel \((\d+) cm\)/);
+
+    if (!pegelMatch) throw new Error('danubealert.com: Pegel value not found in HTML');
+
+    return {
+        pegelCm: parseInt(pegelMatch[1], 10),
+        ldc: ldcMatch ? parseInt(ldcMatch[1], 10) : 288,
+        hdc: hdcMatch ? parseInt(hdcMatch[1], 10) : 432,
+        source: 'danubealert.com (Schwedenbrücke / eHYD #207233)',
+    };
 }
 
 // ── Fetch GeoSphere Austria data ─────────────────────────────────────────────
@@ -101,7 +108,7 @@ async function main() {
         const heatLevel = alertLevel(weather.tempC ?? 0, THRESHOLDS.heat);
         const windLevel = alertLevel(weather.windKmH ?? 0, THRESHOLDS.wind);
         const rainLevel = alertLevel(weather.rainMmH ?? 0, THRESHOLDS.rain);
-        const floodLevel = alertLevel(floodData.discharge ?? 0, THRESHOLDS.flood);
+        const floodLevel = alertLevel(floodData.pegelCm ?? 0, THRESHOLDS.flood);
 
         // Overall status = worst individual status
         const severityRank = { green: 0, yellow: 1, red: 2 };
@@ -111,7 +118,7 @@ async function main() {
         status = {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria INCA (inca-v1-1h-1km) + Open-Meteo GloFAS',
+            dataSource: 'GeoSphere Austria INCA (inca-v1-1h-1km) + danubealert.com',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: {
@@ -134,9 +141,11 @@ async function main() {
                 },
                 flood: {
                     level: floodLevel,
-                    value: floodData.discharge != null ? +floodData.discharge.toFixed(2) : null,
-                    unit: 'm³/s',
+                    value: floodData.pegelCm ?? null,
+                    unit: 'cm',
                     thresholds: THRESHOLDS.flood,
+                    ldc: floodData.ldc,
+                    hdc: floodData.hdc,
                     source: floodData.source,
                     hzbnr: 207233,  // eHYD Wien (Schwedenbrücke)
                 },

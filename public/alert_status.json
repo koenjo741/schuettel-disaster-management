@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-22T20:49:53.473Z",
+  "fetchedAt": "2026-02-22T21:12:37.526Z",
   "overall": "green",
-  "dataSource": "GeoSphere Austria INCA (inca-v1-1h-1km) + Open-Meteo GloFAS",
+  "dataSource": "GeoSphere Austria INCA (inca-v1-1h-1km) + danubealert.com",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 9.99,
+      "value": 10.25,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -19,7 +19,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 12,
+      "value": 8,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -37,13 +37,15 @@
     },
     "flood": {
       "level": "green",
-      "value": 1.12,
-      "unit": "m³/s",
+      "value": 280,
+      "unit": "cm",
       "thresholds": {
-        "yellow": 150,
-        "red": 500
+        "yellow": 380,
+        "red": 432
       },
-      "source": "Open-Meteo GloFAS (seamless_v4)",
+      "ldc": 288,
+      "hdc": 432,
+      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
       "hzbnr": 207233
     }
   },
