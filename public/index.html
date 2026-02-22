@@ -221,7 +221,7 @@
       // (Netlify only updates on redeploy; GitHub raw is instant after each Actions push)
       const RAW_URL = 'https://raw.githubusercontent.com/koenjo741/schuettel-disaster-management/main/public/alert_status.json';
       try {
-        const res = await fetch(RAW_URL);
+        const res = await fetch(`${RAW_URL}?t=${Date.now()}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
