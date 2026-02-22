@@ -33,8 +33,10 @@ const THRESHOLDS = {
     wind: { yellow: 60, red: 80 },  // km/h
     rain: { yellow: 15, red: 25 },  // mm/h
     // Donaukanal Schwedenbrücke cm gauge (Donau-Kommission official marks)
-    // LDC (Niedrigwasser): 288 cm | HDC (Hochwasser): 432 cm
     flood: { yellow: 380, red: 432 },  // cm
+    // Strahlung AT2002 Wien-Radetzkystrasse (Normalhintergrund Wien: ~60–100 nSv/h)
+    // Österreichisches Strahlenschutz-Meldesystem (IMIS): erhöht ≥2×, kritisch ≥5× Hintergrund
+    radiation: { yellow: 200, red: 300 },  // nSv/h
 };
 
 // ── Helper: Derive alert level ────────────────────────────────────────────────
@@ -64,6 +66,29 @@ async function fetchFloodData() {
         ldc: ldcMatch ? parseInt(ldcMatch[1], 10) : 288,
         hdc: hdcMatch ? parseInt(hdcMatch[1], 10) : 432,
         source: 'danubealert.com (Schwedenbrücke / eHYD #207233)',
+    };
+}
+
+// ── Radiation: Strahlenschutz.gv.at HTML scraper (Station AT2002, nSv/h) ────────
+async function fetchRadiationData() {
+    const res = await fetch('https://mb.strahlenschutz.gv.at/station/AT2002', {
+        headers: { 'User-Agent': 'Mozilla/5.0', Accept: 'text/html' },
+    });
+    if (!res.ok) throw new Error(`Strahlenschutz.gv.at error: ${res.status}`);
+    const html = await res.text();
+
+    // <td>AT2002</td> ... <td>66</td>  (value is 3rd cell in the row)
+    const match = html.match(/AT2002[\s\S]{0,300}?<td>(\d+)<\/td>/);
+    if (!match) throw new Error('Strahlenschutz.gv.at: AT2002 value not found');
+
+    // Extract measurement timestamp from noscript block: "Stand: 22.02.2026 21:00 UTC"
+    const tsMatch = html.match(/Stand: ([^<]+)</);
+
+    return {
+        nsvH: parseInt(match[1], 10),
+        station: 'AT2002 Wien-Radetzkystraße',
+        measuredAt: tsMatch?.[1]?.trim() ?? null,
+        source: 'Strahlenschutz.gv.at (IMIS)',
     };
 }
 
@@ -97,28 +122,30 @@ async function fetchWeather() {
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
     const timestamp = new Date().toISOString();
-    let weather, floodData, status;
+    let weather, floodData, radiationData, status;
 
     try {
-        [weather, floodData] = await Promise.all([
+        [weather, floodData, radiationData] = await Promise.all([
             fetchWeather(),
             fetchFloodData(),
+            fetchRadiationData(),
         ]);
 
         const heatLevel = alertLevel(weather.tempC ?? 0, THRESHOLDS.heat);
         const windLevel = alertLevel(weather.windKmH ?? 0, THRESHOLDS.wind);
         const rainLevel = alertLevel(weather.rainMmH ?? 0, THRESHOLDS.rain);
         const floodLevel = alertLevel(floodData.pegelCm ?? 0, THRESHOLDS.flood);
+        const radiationLevel = alertLevel(radiationData.nsvH ?? 0, THRESHOLDS.radiation);
 
         // Overall status = worst individual status
         const severityRank = { green: 0, yellow: 1, red: 2 };
-        const overallLevel = [heatLevel, windLevel, rainLevel, floodLevel]
+        const overallLevel = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel]
             .reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         status = {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria INCA (inca-v1-1h-1km) + danubealert.com',
+            dataSource: 'GeoSphere Austria INCA + danubealert.com + Strahlenschutz.gv.at',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: {
@@ -147,7 +174,16 @@ async function main() {
                     ldc: floodData.ldc,
                     hdc: floodData.hdc,
                     source: floodData.source,
-                    hzbnr: 207233,  // eHYD Wien (Schwedenbrücke)
+                    hzbnr: 207233,
+                },
+                radiation: {
+                    level: radiationLevel,
+                    value: radiationData.nsvH ?? null,
+                    unit: 'nSv/h',
+                    thresholds: THRESHOLDS.radiation,
+                    station: radiationData.station,
+                    measuredAt: radiationData.measuredAt,
+                    source: radiationData.source,
                 },
             },
             error: null,
