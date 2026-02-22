@@ -29,28 +29,36 @@ const buildGeoSphereUrl = () => {
 
 // ── Alert Thresholds ─────────────────────────────────────────────────────────
 const THRESHOLDS = {
-    heat: { yellow: 30, red: 35 },     // °C
-    wind: { yellow: 60, red: 80 },     // km/h
-    rain: { yellow: 15, red: 25 },     // mm/h
-    flood: { yellow: 'VORWARNUNG', red: 'HOCHWASSER' },
+    heat: { yellow: 30, red: 35 },  // °C
+    wind: { yellow: 60, red: 80 },  // km/h
+    rain: { yellow: 15, red: 25 },  // mm/h
+    // River discharge thresholds for Donaukanal area (GloFAS model, m³/s)
+    // Normal winter flow: ~1–5 m³/s; elevated: ≥150; critical: ≥500
+    flood: { yellow: 150, red: 500 },  // m³/s
 };
 
 // ── Helper: Derive alert level ────────────────────────────────────────────────
 const alertLevel = (value, { yellow, red }) =>
     value >= red ? 'red' : value >= yellow ? 'yellow' : 'green';
 
-// ── Flood: Mock/Dummy until eHYD Donaukanal station ID is confirmed ───────────
-const fetchFloodLevel = () => ({
-    level: 'NORMAL',   // Replace with: 'VORWARNUNG' | 'HOCHWASSER' when live
-    pegelCm: 142,      // Mock gauge reading in cm
-    source: 'mock',
-});
-
-const floodAlert = (floodData) => {
-    if (floodData.level === THRESHOLDS.flood.red) return 'red';
-    if (floodData.level === THRESHOLDS.flood.yellow) return 'yellow';
-    return 'green';
-};
+// ── Flood: Open-Meteo Flood API (GloFAS river discharge model) ────────────────
+// Station reference: eHYD HZBNR 207233 Wien (Schwedenbrücke), Donaukanal
+async function fetchFloodData() {
+    const qs = new URLSearchParams({
+        latitude: LOCATION.lat,
+        longitude: LOCATION.lon,
+        daily: 'river_discharge',
+        forecast_days: '1',
+        models: 'seamless_v4',
+    });
+    const res = await fetch(`https://flood-api.open-meteo.com/v1/flood?${qs}`, {
+        headers: { Accept: 'application/json' },
+    });
+    if (!res.ok) throw new Error(`Open-Meteo Flood API error: ${res.status}`);
+    const json = await res.json();
+    const discharge = json.daily?.river_discharge?.at(-1) ?? null; // m³/s
+    return { discharge, source: 'Open-Meteo GloFAS (seamless_v4)' };
+}
 
 // ── Fetch GeoSphere Austria data ─────────────────────────────────────────────
 async function fetchWeather() {
@@ -87,13 +95,13 @@ async function main() {
     try {
         [weather, floodData] = await Promise.all([
             fetchWeather(),
-            Promise.resolve(fetchFloodLevel()),
+            fetchFloodData(),
         ]);
 
         const heatLevel = alertLevel(weather.tempC ?? 0, THRESHOLDS.heat);
         const windLevel = alertLevel(weather.windKmH ?? 0, THRESHOLDS.wind);
         const rainLevel = alertLevel(weather.rainMmH ?? 0, THRESHOLDS.rain);
-        const floodLevel = floodAlert(floodData);
+        const floodLevel = alertLevel(floodData.discharge ?? 0, THRESHOLDS.flood);
 
         // Overall status = worst individual status
         const severityRank = { green: 0, yellow: 1, red: 2 };
@@ -103,7 +111,7 @@ async function main() {
         status = {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria INCA (inca-v1-1h-1km)',
+            dataSource: 'GeoSphere Austria INCA (inca-v1-1h-1km) + Open-Meteo GloFAS',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: {
@@ -126,10 +134,11 @@ async function main() {
                 },
                 flood: {
                     level: floodLevel,
-                    pegelCm: floodData.pegelCm,
-                    floodStage: floodData.level,
+                    value: floodData.discharge != null ? +floodData.discharge.toFixed(2) : null,
+                    unit: 'm³/s',
+                    thresholds: THRESHOLDS.flood,
                     source: floodData.source,
-                    unit: 'cm',
+                    hzbnr: 207233,  // eHYD Wien (Schwedenbrücke)
                 },
             },
             error: null,
