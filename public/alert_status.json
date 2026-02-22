@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-22T20:26:20.508Z",
+  "fetchedAt": "2026-02-22T20:47:39.905Z",
   "overall": "green",
-  "dataSource": "GeoSphere Austria INCA (inca-v1-1h-1km)",
+  "dataSource": "GeoSphere Austria INCA (inca-v1-1h-1km) + Open-Meteo GloFAS",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -37,10 +37,14 @@
     },
     "flood": {
       "level": "green",
-      "pegelCm": 142,
-      "floodStage": "NORMAL",
-      "source": "mock",
-      "unit": "cm"
+      "value": 1.12,
+      "unit": "m³/s",
+      "thresholds": {
+        "yellow": 150,
+        "red": 500
+      },
+      "source": "Open-Meteo GloFAS (seamless_v4)",
+      "hzbnr": 207233
     }
   },
   "error": null
