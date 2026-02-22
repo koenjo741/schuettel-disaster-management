@@ -1,0 +1,16 @@
+{
+  "name": "schuettel-disaster-management",
+  "version": "1.0.0",
+  "description": "Automated disaster warning system for Schüttelstraße 79 & 81, Vienna",
+  "type": "module",
+  "scripts": {
+    "fetch": "node fetchData.js",
+    "dev": "node --watch fetchData.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

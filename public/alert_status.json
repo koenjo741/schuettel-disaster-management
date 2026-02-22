@@ -1,0 +1,47 @@
+{
+  "fetchedAt": "2026-02-22T20:11:59.951Z",
+  "overall": "green",
+  "dataSource": "GeoSphere Austria (klima-v2-1h)",
+  "location": {
+    "address": "Schüttelstraße 79 & 81, 1020 Wien",
+    "lat": 48.2092,
+    "lon": 16.405
+  },
+  "hazards": {
+    "heat": {
+      "level": "green",
+      "value": 9.99,
+      "unit": "°C",
+      "thresholds": {
+        "yellow": 30,
+        "red": 35
+      }
+    },
+    "wind": {
+      "level": "green",
+      "value": 12,
+      "unit": "km/h",
+      "thresholds": {
+        "yellow": 60,
+        "red": 80
+      }
+    },
+    "rain": {
+      "level": "green",
+      "value": 0,
+      "unit": "mm/h",
+      "thresholds": {
+        "yellow": 15,
+        "red": 25
+      }
+    },
+    "flood": {
+      "level": "green",
+      "pegelCm": 142,
+      "floodStage": "NORMAL",
+      "source": "mock",
+      "unit": "cm"
+    }
+  },
+  "error": null
+}
