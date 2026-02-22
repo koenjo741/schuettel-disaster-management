@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-22T20:11:59.951Z",
+  "fetchedAt": "2026-02-22T20:26:20.508Z",
   "overall": "green",
-  "dataSource": "GeoSphere Austria (klima-v2-1h)",
+  "dataSource": "GeoSphere Austria INCA (inca-v1-1h-1km)",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
