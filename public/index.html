@@ -249,7 +249,7 @@
         if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
         if (hazard.description) extraHtml += `<p class="text-xs text-slate-500 mt-1 italic">${hazard.description.slice(0, 120)}${hazard.description.length > 120 ? '…' : ''}</p>`;
       }
-      if (key === 'pandemic' && hazard && hazard.active) {
+      if (key === 'pandemic' && hazard && hazard.level !== 'green') {
         const parts = [];
         if (hazard.title) parts.push(`<strong>${hazard.title}</strong>`);
         if (hazard.date) {
