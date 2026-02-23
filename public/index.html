@@ -8,6 +8,9 @@
   <meta name="description"
     content="Echtzeit-Gefahrenwarnsystem für die Gründerzeithäuser Schüttelstraße 79 und 81 in Wien." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -126,6 +129,10 @@
         </div>
       </div>
       <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
+      <button id="installBtn"
+        class="hidden ml-4 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
+        <span>📲 App installieren</span>
+      </button>
     </div>
   </header>
 
@@ -337,8 +344,20 @@
 
         // Hazard cards
         const grid = document.getElementById('hazardGrid');
-        grid.innerHTML = Object.entries(LABELS)
-          .map(([key]) => renderHazardCard(key, data.hazards?.[key]))
+        const severityRank = { red: 3, yellow: 2, green: 1, unknown: 0 };
+
+        const sortedHazards = Object.entries(LABELS)
+          .map(([key, label]) => ({ key, label, data: data.hazards?.[key] }))
+          .sort((a, b) => {
+            const rankA = severityRank[a.data?.level] ?? 0;
+            const rankB = severityRank[b.data?.level] ?? 0;
+            if (rankA !== rankB) return rankB - rankA;
+            // Stable sort by original order if severity is same
+            return Object.keys(LABELS).indexOf(a.key) - Object.keys(LABELS).indexOf(b.key);
+          });
+
+        grid.innerHTML = sortedHazards
+          .map(({ key, data: hazardData }) => renderHazardCard(key, hazardData))
           .join('');
 
         // Data source
@@ -381,6 +400,35 @@
         loadStatus();
       }
     });
+
+    // ── PWA & Installation ───────────────────────────────────────────
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('installBtn').classList.remove('hidden');
+    });
+
+    document.getElementById('installBtn').addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        document.getElementById('installBtn').classList.add('hidden');
+      }
+      deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      document.getElementById('installBtn').classList.add('hidden');
+      deferredPrompt = null;
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW registration failed:', err));
+      });
+    }
   </script>
 </body>
 
