@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T21:23:17.456Z",
+  "fetchedAt": "2026-02-23T21:30:33.963Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T21:23:17.712Z",
+      "date": "2026-02-23T21:30:34.335Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -212,6 +212,13 @@
       "city": "Starkes Unwetter",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
+    },
+    "thunderstorm": {
+      "level": "green",
+      "value": "Keine Gewitterzellen detektiert",
+      "intensity": 0,
+      "source": "GeoSphere Austria (ZAMG)",
+      "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350"
     }
   },
   "error": null

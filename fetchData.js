@@ -612,6 +612,36 @@ async function fetchUWZWarnings() {
         };
     });
 }
+async function fetchThunderstormData() {
+    return withRetry(async () => {
+        const res = await fetch('https://warnungen.zamg.at/wsapp/api/getGewitterAuto');
+        if (!res.ok) throw new Error('Thunderstorm API fetch failed');
+        const data = await res.json();
+
+        // Vienna municipalities start with 9 (90101 to 92301)
+        const wienFeatures = (data.features || []).filter(f =>
+            f.properties?.gemeindenr?.toString().startsWith('9')
+        );
+
+        const maxIntensity = wienFeatures.reduce((max, f) =>
+            Math.max(max, f.properties.intensitaet || 0), 0
+        );
+
+        const levels = ['green', 'yellow', 'red']; // 0: green, 1: yellow, 2+: red
+        const level = levels[Math.min(maxIntensity, 2)];
+        const messages = ['Keine Gewitterzellen detektiert', 'Moderate Gewitteraktivität', 'Starke Gewitterzellen / Hagelgefahr!'];
+        const message = messages[Math.min(maxIntensity, 2)];
+
+        return {
+            level,
+            intensity: maxIntensity,
+            message,
+            count: wienFeatures.length,
+            source: 'GeoSphere Austria (ZAMG)',
+            sourceUrl: 'https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350'
+        };
+    });
+}
 
 // ── Core: Fetch all alert data and return status object ─────────────────────
 export async function fetchAlertData() {
@@ -632,7 +662,8 @@ export async function fetchAlertData() {
             fetchSpaceWeatherData(),
             fetchPowerOutageData(),
             fetchSnowData(),
-            fetchUWZWarnings(), // Added UWZ warnings
+            fetchUWZWarnings(),
+            fetchThunderstormData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -646,9 +677,10 @@ export async function fetchAlertData() {
         const spaceData = results[8].status === 'fulfilled' ? results[8].value : null;
         const powerData = results[9].status === 'fulfilled' ? results[9].value : null;
         const snowData = results[10].status === 'fulfilled' ? results[10].value : null;
-        const uwzData = results[11].status === 'fulfilled' ? results[11].value : null; // Extracted UWZ data
+        const uwzData = results[11].status === 'fulfilled' ? results[11].value : null;
+        const thunderData = results[12].status === 'fulfilled' ? results[12].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData) {
             throw new Error('All data sources failed.');
         }
 
@@ -698,8 +730,9 @@ export async function fetchAlertData() {
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
         // UWZ Logic
         const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
+        const thunderLevel = thunderData?.level ?? 'green';
 
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel, iceLevel, uwzLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -852,6 +885,13 @@ export async function fetchAlertData() {
                     city: uwzData?.wien.text ?? 'Keine Warnung',
                     source: uwzData?.source ?? 'Offline',
                     sourceUrl: uwzData?.sourceUrl ?? 'https://uwz.at/'
+                },
+                thunderstorm: {
+                    level: thunderLevel,
+                    value: thunderData?.message ?? 'Keine Zellen',
+                    intensity: thunderData?.intensity ?? 0,
+                    source: thunderData?.source ?? 'ZAMG',
+                    sourceUrl: thunderData?.sourceUrl ?? 'https://warnungen.zamg.at/wsapp/de/gewitter/heute/'
                 }
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,
