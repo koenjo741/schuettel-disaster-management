@@ -314,6 +314,9 @@
         parts.push(`Wien: ${hazard.city || 'Keine Warnung'}`);
         parts.push(`Leopoldstadt: ${hazard.district || 'Keine Warnung'}`);
         if (parts.length > 0) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
+        if (!thresholdHtml && sourceUrl) {
+          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Quelle: UWZ.at</a>`;
+        }
       }
       if (key === 'space' && hazard) {
         const parts = [];
