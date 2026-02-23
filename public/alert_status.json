@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T09:37:12.775Z",
+  "fetchedAt": "2026-02-23T10:34:41.697Z",
   "overall": "green",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 11.3,
+      "value": 12.42,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -19,7 +19,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 23,
+      "value": 25,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
