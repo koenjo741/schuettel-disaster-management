@@ -48,6 +48,7 @@ const THRESHOLDS = {
     flood: { yellow: 380, red: 432 },
     radiation: { yellow: 200, red: 300 },
     airQuality: { yellow: 25, red: 50 },  // PM10 µg/m³ (EU 24h limit: 50)
+    earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
 };
 
 const alertLevel = (value, { yellow, red }) =>
@@ -143,6 +144,91 @@ async function fetchAirQualityData() {
     });
 }
 
+// ── Earthquake: ZAMG FDSN + EMSC fallback ────────────────────────────────────
+const haversineKm = (lat1, lon1, lat2, lon2) => {
+    const R = 6371;
+    const toRad = (v) => (v * Math.PI) / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+};
+
+function parseQuakeText(text) {
+    return text
+        .split('\n')
+        .filter((l) => l.trim() && !l.startsWith('#'))
+        .map((line) => {
+            const cols = line.split('|').map((c) => c.trim());
+            // FDSN text format: EventID|Time|Lat|Lon|Depth|...|Magnitude|...
+            const lat = parseFloat(cols[2]);
+            const lon = parseFloat(cols[3]);
+            return {
+                id: cols[0],
+                time: cols[1],
+                lat,
+                lon,
+                depthKm: parseFloat(cols[4]) || null,
+                magnitude: parseFloat(cols[10]) || 0,
+                distanceKm: Math.round(haversineKm(LOCATION.lat, LOCATION.lon, lat, lon)),
+            };
+        })
+        .filter((q) => !isNaN(q.magnitude));
+}
+
+async function fetchEarthquakeData() {
+    const now = new Date();
+    const yesterday = new Date(now - 24 * 60 * 60 * 1000);
+    const fmt = (d) => d.toISOString().slice(0, 19);
+
+    const bbox = 'minlat=47.2&maxlat=49.2&minlon=14.9&maxlon=18.1';
+    const params = `${bbox}&minmag=0.5&starttime=${fmt(yesterday)}&endtime=${fmt(now)}&format=text&orderby=magnitude`;
+
+    const sources = [
+        { name: 'ZAMG/GeoSphere', url: `https://geoweb.zamg.ac.at/fdsnws/event/1/query?${params}` },
+        { name: 'EMSC', url: `https://www.seismicportal.eu/fdsnws/event/1/query?${params}` },
+    ];
+
+    for (const { name, url } of sources) {
+        try {
+            const res = await withRetry(async () => {
+                const r = await fetch(url, { headers: { Accept: 'text/plain' } });
+                if (r.status === 204 || r.status === 404) return null; // no events found
+                if (!r.ok) throw new Error(`${name} error: ${r.status}`);
+                return r;
+            });
+
+            if (!res) {
+                // No seismic events – that's good news
+                return { magnitude: 0, distanceKm: null, depthKm: null, time: null, source: `${name} (keine Ereignisse)` };
+            }
+
+            const text = await res.text();
+            const quakes = parseQuakeText(text);
+
+            if (!quakes.length) {
+                return { magnitude: 0, distanceKm: null, depthKm: null, time: null, source: `${name} (keine Ereignisse)` };
+            }
+
+            // Strongest quake first (already sorted by API, but ensure)
+            quakes.sort((a, b) => b.magnitude - a.magnitude);
+            const strongest = quakes[0];
+
+            return {
+                magnitude: strongest.magnitude,
+                distanceKm: strongest.distanceKm,
+                depthKm: strongest.depthKm,
+                time: strongest.time,
+                eventCount: quakes.length,
+                source: `${name} FDSN`,
+            };
+        } catch (err) {
+            console.warn(`Earthquake ${name}: ${err.message}. Trying next source...`);
+        }
+    }
+    throw new Error('All earthquake data sources failed');
+}
+
 // ── Fetch GeoSphere Austria data ─────────────────────────────────────────────
 async function fetchWeather() {
     for (let offset = 1; offset <= 3; offset++) {
@@ -192,14 +278,16 @@ export async function fetchAlertData() {
             fetchFloodData(),
             fetchRadiationData(),
             fetchAirQualityData(),
+            fetchEarthquakeData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
         const floodData = results[1].status === 'fulfilled' ? results[1].value : null;
         const radiationData = results[2].status === 'fulfilled' ? results[2].value : null;
         const airQualityData = results[3].status === 'fulfilled' ? results[3].value : null;
+        const earthquakeData = results[4].status === 'fulfilled' ? results[4].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData) {
             throw new Error('All data sources failed.');
         }
 
@@ -209,15 +297,16 @@ export async function fetchAlertData() {
         const floodLevel = floodData ? alertLevel(floodData.pegelCm ?? 0, THRESHOLDS.flood) : 'unknown';
         const radiationLevel = radiationData ? alertLevel(radiationData.nsvH ?? 0, THRESHOLDS.radiation) : 'unknown';
         const airQualityLevel = airQualityData ? alertLevel(airQualityData.pm10 ?? 0, THRESHOLDS.airQuality) : 'unknown';
+        const earthquakeLevel = earthquakeData ? alertLevel(earthquakeData.magnitude ?? 0, THRESHOLDS.earthquake) : 'unknown';
 
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht',
+            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: { level: heatLevel, value: weather?.tempC ?? null, unit: '°C', thresholds: THRESHOLDS.heat },
@@ -245,6 +334,17 @@ export async function fetchAlertData() {
                     pm25: airQualityData?.pm25 ?? null,
                     luftIndex: airQualityData?.luftIndex ?? null,
                     source: airQualityData?.source ?? 'Offline',
+                },
+                earthquake: {
+                    level: earthquakeLevel,
+                    value: earthquakeData?.magnitude ?? null,
+                    unit: 'M',
+                    thresholds: THRESHOLDS.earthquake,
+                    distanceKm: earthquakeData?.distanceKm ?? null,
+                    depthKm: earthquakeData?.depthKm ?? null,
+                    time: earthquakeData?.time ?? null,
+                    eventCount: earthquakeData?.eventCount ?? 0,
+                    source: earthquakeData?.source ?? 'Offline',
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,

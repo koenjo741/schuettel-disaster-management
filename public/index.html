@@ -170,6 +170,7 @@
       flood: { icon: '🌊', title: 'Hochwasser', sub: 'Pegel Donaukanal / Schwedenbrücke' },
       radiation: { icon: '☢️', title: 'Radioaktivität', sub: 'Station AT2002 Wien-Radetzkystraße' },
       airQuality: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M44 38H20a10 10 0 0 1-1.5-19.9A14 14 0 0 1 44.8 24 8 8 0 0 1 44 38Z" fill="none" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 36c4-3 7-8 7-14a8 8 0 0 0-3-2" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/><ellipse cx="40" cy="46" rx="10" ry="6" fill="none" stroke="#22c55e" stroke-width="3" transform="rotate(-35 40 46)"/><path d="M40 46 c-3 3-6 5-10 6" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/></svg>', title: 'Luftverschmutzung / Feinstaub', sub: 'PM10 Wien-Maximum (MA 22 Luftmessnetz)' },
+      earthquake: { icon: '🔴', title: 'Erdbeben', sub: 'Seismische Aktivität im Umkreis 150 km' },
     };
 
     const LEVEL_TEXT = { green: 'Alles im grünen Bereich', yellow: 'Erhöhte Wachsamkeit empfohlen', red: 'Sofortige Maßnahmen erforderlich!', unknown: 'Daten werden geladen …' };
@@ -211,6 +212,17 @@
           const indexLabels = { 1: 'sehr gut', 2: 'gut', 3: 'befriedigend', 4: 'unbefriedigend', 5: 'schlecht', 6: 'sehr schlecht' };
           parts.push(`Luftgüteindex: ${hazard.luftIndex} (${indexLabels[hazard.luftIndex] ?? '?'})`);
         }
+        if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
+      }
+      if (key === 'earthquake' && hazard) {
+        const parts = [];
+        if (hazard.distanceKm != null) parts.push(`Entfernung: ${hazard.distanceKm} km`);
+        if (hazard.depthKm != null) parts.push(`Tiefe: ${hazard.depthKm} km`);
+        if (hazard.time) {
+          const t = new Date(hazard.time);
+          parts.push(`Zeit: ${t.toLocaleString('de-AT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}`);
+        }
+        if (hazard.eventCount > 1) parts.push(`${hazard.eventCount} Ereignisse (24h)`);
         if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
       }
 
