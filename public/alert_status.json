@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T20:19:58.666Z",
+  "fetchedAt": "2026-02-23T20:30:20.817Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T20:19:58.868Z",
+      "date": "2026-02-23T20:30:22.815Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -145,6 +145,28 @@
         {
           "name": "Waldbrand-Datenbank (BOKU)",
           "url": "https://waldbrand.at/"
+        }
+      ]
+    },
+    "space": {
+      "level": "unknown",
+      "value": 0,
+      "unit": "Scale",
+      "thresholds": {
+        "yellow": 2,
+        "red": 3
+      },
+      "scales": {
+        "g": 0,
+        "s": 0,
+        "r": 0
+      },
+      "source": "Offline",
+      "sourceUrl": "https://www.swpc.noaa.gov/",
+      "extraLinks": [
+        {
+          "name": "ESA Space Weather Network",
+          "url": "https://swe.ssa.esa.int/"
         }
       ]
     }
