@@ -47,6 +47,7 @@ const THRESHOLDS = {
     rain: { yellow: 15, red: 25 },
     flood: { yellow: 380, red: 432 },
     radiation: { yellow: 200, red: 300 },
+    airQuality: { yellow: 25, red: 50 },  // PM10 µg/m³ (EU 24h limit: 50)
 };
 
 const alertLevel = (value, { yellow, red }) =>
@@ -99,6 +100,49 @@ async function fetchRadiationData() {
     });
 }
 
+// ── Air Quality: Wien.gv.at Luftgütebericht scraper ─────────────────────────
+async function fetchAirQualityData() {
+    return withRetry(async () => {
+        const res = await fetch('https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm', {
+            headers: { 'User-Agent': 'Mozilla/5.0', Accept: 'text/html' },
+        });
+        if (!res.ok) throw new Error(`Wien Luftgütebericht error: ${res.status}`);
+        const html = await res.text();
+
+        // Parse WIEN - MAXIMUM row for PM10 and PM2.5 values
+        // Format: "WIEN - MAXIMUM | ... | ... | ... | pm10 | pm25 | ..."
+        const maxMatch = html.match(/WIEN\s*-\s*MAXIMUM\s*\|([^\n]+)/);
+        if (!maxMatch) throw new Error('Wien Luftgütebericht: WIEN-MAXIMUM row not found');
+
+        const maxParts = maxMatch[1].split('|').map(s => s.trim());
+        // Column layout: NO2 | O3 | B | PM10 | PM2.5 | SO2/CO | CO/MW8
+        // Index:           0  |  1 | 2 |  3   |   4   |   5    |   6
+        const pm10 = parseFloat(maxParts[3]) || null;
+        const pm25 = parseFloat(maxParts[4]) || null;
+
+        // Parse WIEN - INDEX row for Luftgüteindex
+        const idxMatch = html.match(/WIEN\s*-\s*INDEX\s*\|([^\n]+)/);
+        let luftIndex = null;
+        if (idxMatch) {
+            const idxParts = idxMatch[1].split('|').map(s => s.trim());
+            // First column group has current and max index values
+            const firstVal = idxParts[0]?.match(/(\d)/)?.[1];
+            luftIndex = firstVal ? parseInt(firstVal, 10) : null;
+        }
+
+        if (pm10 === null && pm25 === null) {
+            throw new Error('Wien Luftgütebericht: No PM values found in MAXIMUM row');
+        }
+
+        return {
+            pm10,
+            pm25,
+            luftIndex,
+            source: 'Wien.gv.at Luftgütebericht (MA 22)',
+        };
+    });
+}
+
 // ── Fetch GeoSphere Austria data ─────────────────────────────────────────────
 async function fetchWeather() {
     for (let offset = 1; offset <= 3; offset++) {
@@ -147,13 +191,15 @@ export async function fetchAlertData() {
             fetchWeather(),
             fetchFloodData(),
             fetchRadiationData(),
+            fetchAirQualityData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
         const floodData = results[1].status === 'fulfilled' ? results[1].value : null;
         const radiationData = results[2].status === 'fulfilled' ? results[2].value : null;
+        const airQualityData = results[3].status === 'fulfilled' ? results[3].value : null;
 
-        if (!weather && !floodData && !radiationData) {
+        if (!weather && !floodData && !radiationData && !airQualityData) {
             throw new Error('All data sources failed.');
         }
 
@@ -162,15 +208,16 @@ export async function fetchAlertData() {
         const rainLevel = weather ? alertLevel(weather.rainMmH ?? 0, THRESHOLDS.rain) : 'unknown';
         const floodLevel = floodData ? alertLevel(floodData.pegelCm ?? 0, THRESHOLDS.flood) : 'unknown';
         const radiationLevel = radiationData ? alertLevel(radiationData.nsvH ?? 0, THRESHOLDS.radiation) : 'unknown';
+        const airQualityLevel = airQualityData ? alertLevel(airQualityData.pm10 ?? 0, THRESHOLDS.airQuality) : 'unknown';
 
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at',
+            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: { level: heatLevel, value: weather?.tempC ?? null, unit: '°C', thresholds: THRESHOLDS.heat },
@@ -189,6 +236,15 @@ export async function fetchAlertData() {
                     unit: 'nSv/h',
                     thresholds: THRESHOLDS.radiation,
                     source: radiationData?.source ?? 'Offline',
+                },
+                airQuality: {
+                    level: airQualityLevel,
+                    value: airQualityData?.pm10 ?? null,
+                    unit: 'µg/m³',
+                    thresholds: THRESHOLDS.airQuality,
+                    pm25: airQualityData?.pm25 ?? null,
+                    luftIndex: airQualityData?.luftIndex ?? null,
+                    source: airQualityData?.source ?? 'Offline',
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,

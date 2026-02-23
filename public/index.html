@@ -169,6 +169,7 @@
       rain: { icon: '🌧️', title: 'Starkregen', sub: 'Risiko: Kanalrückstau im Keller' },
       flood: { icon: '🌊', title: 'Hochwasser', sub: 'Pegel Donaukanal / Schwedenbrücke' },
       radiation: { icon: '☢️', title: 'Radioaktivität', sub: 'Station AT2002 Wien-Radetzkystraße' },
+      airQuality: { icon: '🌫️', title: 'Luftverschmutzung / Feinstaub', sub: 'PM10 Wien-Maximum (MA 22 Luftmessnetz)' },
     };
 
     const LEVEL_TEXT = { green: 'Alles im grünen Bereich', yellow: 'Erhöhte Wachsamkeit empfohlen', red: 'Sofortige Maßnahmen erforderlich!', unknown: 'Daten werden geladen …' };
@@ -202,6 +203,17 @@
         thresholdHtml = `<p class="text-xs text-slate-500 mt-2 italic">Schwellenwerte: <span class="text-yellow-500">${t.yellow}</span> / <span class="text-red-500">${t.red}</span> ${hazard.unit}</p>`;
       }
 
+      let extraHtml = '';
+      if (key === 'airQuality' && hazard) {
+        const parts = [];
+        if (hazard.pm25 != null) parts.push(`PM2.5: ${hazard.pm25} µg/m³`);
+        if (hazard.luftIndex != null) {
+          const indexLabels = { 1: 'sehr gut', 2: 'gut', 3: 'befriedigend', 4: 'unbefriedigend', 5: 'schlecht', 6: 'sehr schlecht' };
+          parts.push(`Luftgüteindex: ${hazard.luftIndex} (${indexLabels[hazard.luftIndex] ?? '?'})`);
+        }
+        if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
+      }
+
       return `
         <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 card-glow-${level} transition-all duration-1000">
           <div class="flex items-start justify-between gap-3">
@@ -215,6 +227,7 @@
             <span class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold transition-colors duration-500">${LEVEL_LABEL[level]}</span>
           </div>
           <p class="mt-4 text-3xl font-bold tabular-nums tracking-tight text-slate-100">${value}</p>
+          ${extraHtml}
           ${thresholdHtml}
         </div>`;
     }

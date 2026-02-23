@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-23T11:26:24.489Z",
+  "fetchedAt": "2026-02-23T11:41:37.129Z",
   "overall": "green",
-  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at",
+  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -54,6 +54,18 @@
         "red": 300
       },
       "source": "Strahlenschutz.gv.at (IMIS)"
+    },
+    "airQuality": {
+      "level": "green",
+      "value": 6,
+      "unit": "µg/m³",
+      "thresholds": {
+        "yellow": 25,
+        "red": 50
+      },
+      "pm25": 5,
+      "luftIndex": 1,
+      "source": "Wien.gv.at Luftgütebericht (MA 22)"
     }
   },
   "error": null
