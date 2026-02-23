@@ -57,7 +57,8 @@ async function runHealthCheck() {
         { name: 'WHO Pandemic News', url: 'https://www.who.int/api/news/diseaseoutbreaknews?$top=15' },
         { name: 'MedUni Wien SVG', url: 'https://viro.meduniwien.ac.at/fileadmin/content/OE/virologie/dokumente/Virus_Epidemiogie/RespiratorischeViren/ATKarte.svg' },
         { name: 'EFFIS (Copernicus) Portal', url: 'https://effis.jrc.ec.europa.at/' },
-        { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' }
+        { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' },
+        { name: 'NOAA Space Weather API', url: 'https://services.swpc.noaa.gov/products/noaa-scales.json' }
     ];
 
     for (const endpoint of apiEndpoints) {

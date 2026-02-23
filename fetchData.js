@@ -50,6 +50,7 @@ const THRESHOLDS = {
     airQuality: { yellow: 25, red: 50 },  // PM10 µg/m³ (EU 24h limit: 50)
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
+    space: { yellow: 2, red: 3 },          // NOAA Scale (1-5)
 };
 
 const alertLevel = (value, { yellow, red }) =>
@@ -319,6 +320,29 @@ async function fetchFireData() {
     }
 }
 
+async function fetchSpaceWeatherData() {
+    return withRetry(async () => {
+        // NOAA SWPC Real-time Scales (G, S, R)
+        const res = await fetch('https://services.swpc.noaa.gov/products/noaa-scales.json');
+        if (!res.ok) throw new Error(`NOAA API error: ${res.status}`);
+        const data = await res.json();
+
+        // 0 = None, 1-5 = NOAA Scale Level
+        const g = parseInt(data['0'].Scale) || 0; // Geomagnetic
+        const s = parseInt(data['1'].Scale) || 0; // Solar Radiation
+        const r = parseInt(data['2'].Scale) || 0; // Radio Blackout
+
+        const maxLevel = Math.max(g, s, r);
+
+        return {
+            level: maxLevel,
+            scales: { g, s, r },
+            source: 'NOAA Space Weather Prediction Center',
+            sourceUrl: 'https://www.swpc.noaa.gov/'
+        };
+    }, 'NOAA Space Weather');
+}
+
 async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
@@ -513,6 +537,7 @@ export async function fetchAlertData() {
             fetchATAlertData(),
             fetchPandemicData(),
             fetchFireData(),
+            fetchSpaceWeatherData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -523,8 +548,9 @@ export async function fetchAlertData() {
         const atAlertData = results[5].status === 'fulfilled' ? results[5].value : null;
         const pandemicData = results[6].status === 'fulfilled' ? results[6].value : null;
         const fireData = results[7].status === 'fulfilled' ? results[7].value : null;
+        const spaceData = results[8].status === 'fulfilled' ? results[8].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData) {
             throw new Error('All data sources failed.');
         }
 
@@ -542,8 +568,10 @@ export async function fetchAlertData() {
         let fireLevel = alertLevel(wbi, THRESHOLDS.fire);
         if (fireData?.alert) fireLevel = 'red'; // Upgrade to red if NASA detects hotspot
 
+        const spaceLevel = spaceData ? alertLevel(spaceData.level, THRESHOLDS.space) : 'unknown';
+
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -649,6 +677,18 @@ export async function fetchAlertData() {
                     extraLinks: [
                         { name: 'EFFIS (Copernicus)', url: 'https://effis.jrc.ec.europa.at/' },
                         { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' }
+                    ]
+                },
+                space: {
+                    level: spaceLevel,
+                    value: spaceData?.level ?? 0,
+                    unit: 'Scale',
+                    thresholds: THRESHOLDS.space,
+                    scales: spaceData?.scales ?? { g: 0, s: 0, r: 0 },
+                    source: spaceData?.source ?? 'Offline',
+                    sourceUrl: spaceData?.sourceUrl ?? 'https://www.swpc.noaa.gov/',
+                    extraLinks: [
+                        { name: 'ESA Space Weather Network', url: 'https://swe.ssa.esa.int/' }
                     ]
                 },
             },
