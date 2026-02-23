@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T20:46:19.300Z",
+  "fetchedAt": "2026-02-23T20:56:35.360Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -85,16 +85,16 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 1.9,
+      "value": 1.6,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 76,
-      "depthKm": 12.3,
-      "time": "2026-02-22T20:54:57.994Z",
-      "eventCount": 3,
+      "distanceKm": 75,
+      "depthKm": 4.9,
+      "time": "2026-02-23T09:38:52.722Z",
+      "eventCount": 2,
       "source": "ZAMG/GeoSphere FDSN",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T20:46:19.617Z",
+      "date": "2026-02-23T20:56:35.532Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -181,6 +181,25 @@
       "message": "Normalbetrieb",
       "source": "Wiener Netze Statusseite",
       "sourceUrl": "https://www.wienernetze.at/stromversorgung"
+    },
+    "snow": {
+      "level": "green",
+      "value": 0,
+      "unit": "cm",
+      "thresholds": {
+        "yellow": 3,
+        "red": 10
+      },
+      "condition": "Kein relevanter Schnee",
+      "source": "GeoSphere Austria (SNOWGRID)",
+      "sourceUrl": "https://www.geosphere.at/"
+    },
+    "ice": {
+      "level": "green",
+      "value": "Sicher",
+      "unit": "",
+      "source": "GeoSphere Rohdaten-Analyse",
+      "sourceUrl": "https://www.geosphere.at/"
     }
   },
   "error": null

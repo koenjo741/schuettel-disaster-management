@@ -634,8 +634,23 @@ export async function fetchAlertData() {
             else if (depth >= THRESHOLDS.snow.yellow || (rain > 0 && temp < 1.5)) snowLevel = 'yellow';
         }
 
+        // Ice (Glatteis) Logic
+        let iceLevel = 'green';
+        let iceMessage = 'Sicher';
+        const temp = weather?.tempC ?? 10;
+        const rain = weather?.rainMmH ?? 0;
+        const hum = weather?.humidity ?? 50;
+
+        if (temp <= 0 && rain > 0) {
+            iceLevel = 'red';
+            iceMessage = 'Gefrierender Regen! ⚠️';
+        } else if (temp < 1.5 && (rain > 0 || (temp < 0 && hum > 85))) {
+            iceLevel = 'yellow';
+            iceMessage = temp < 0 ? 'Überfrierende Nässe / Reif' : 'Glatteisgefahr möglich';
+        }
+
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel, iceLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -773,6 +788,13 @@ export async function fetchAlertData() {
                     source: snowData?.source ?? 'Offline',
                     sourceUrl: snowData?.sourceUrl ?? 'https://www.geosphere.at/',
                 },
+                ice: {
+                    level: iceLevel,
+                    value: iceMessage,
+                    unit: '',
+                    source: 'GeoSphere Rohdaten-Analyse',
+                    sourceUrl: 'https://www.geosphere.at/',
+                }
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,
         };
