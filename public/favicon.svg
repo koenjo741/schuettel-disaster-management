@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="#0b0f1a"/>
+  
+  <!-- Buildings -->
+  <rect x="180" y="80" width="160" height="280" rx="10" fill="#0066cc" stroke="#1e293b" stroke-width="4"/>
+  <rect x="120" y="140" width="180" height="220" rx="10" fill="#3399ff" stroke="#1e293b" stroke-width="4"/>
+  
+  <!-- Windows -->
+  <rect x="235" y="110" width="40" height="40" rx="4" fill="#66b2ff"/>
+  <rect x="235" y="170" width="40" height="40" rx="4" fill="#66b2ff"/>
+  <rect x="235" y="230" width="40" height="40" rx="4" fill="#66b2ff"/>
+  
+  <rect x="150" y="170" width="40" height="40" rx="4" fill="#99ccff"/>
+  <rect x="150" y="230" width="40" height="40" rx="4" fill="#99ccff"/>
+  <rect x="210" y="170" width="40" height="40" rx="4" fill="#99ccff"/>
+  <rect x="210" y="230" width="40" height="40" rx="4" fill="#99ccff"/>
+
+  <!-- Base -->
+  <path d="M100 360 L412 360 Q430 360 430 380 L430 400 Q430 420 412 420 L100 420 Q82 420 82 400 L82 380 Q82 360 100 360 Z" fill="#f43f5e"/>
+  
+  <!-- Gear (Simplified) -->
+  <circle cx="340" cy="280" r="50" fill="#f43f5e" stroke="#1e293b" stroke-width="4"/>
+  <circle cx="340" cy="280" r="20" fill="#0b0f1a"/>
+  <!-- Gear teeth -->
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(0 340 280)"/>
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(45 340 280)"/>
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(90 340 280)"/>
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(135 340 280)"/>
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(180 340 280)"/>
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(225 340 280)"/>
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(270 340 280)"/>
+  <rect x="330" y="220" width="20" height="30" rx="2" fill="#f43f5e" transform="rotate(315 340 280)"/>
+
+  <!-- Lightning Bolt / Crack -->
+  <path d="M180 160 L130 240 L180 230 L110 380 L230 320 L160 330 L220 220 Z" fill="#facc15" stroke="#1e293b" stroke-width="2"/>
+  <path d="M180 160 L210 100" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
+</svg>
