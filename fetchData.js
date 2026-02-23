@@ -316,12 +316,6 @@ async function fetchPandemicData() {
         if (medUniRes.status === 'fulfilled' && medUniRes.value.ok) {
             const svg = await medUniRes.value.text();
 
-            // Logic: 
-            // - Wien/Niederösterreich focus
-            // - Red if Wien/NÖ is red OR any red on map
-            // - Yellow if Wien/NÖ is yellow/orange
-            // - Green if Wien/NÖ is green
-
             const wienMatch = svg.match(/class="Wien"[^>]*fill="([^"]+)"/);
             const noeMatch = svg.match(/class="Niederösterreich"[^>]*fill="([^"]+)"/);
             const hasAnyRed = svg.includes('fill="red"') || svg.includes('fill="#ff0000"');
@@ -380,7 +374,7 @@ async function fetchPandemicData() {
         if (influenzaLevel !== 'green') {
             infoParts.push(`Influenza: ${influenzaLevel === 'red' ? 'Welle' : 'Aktivität'} (MedUni)`);
             details.push({
-                name: 'Influenza (MedUni Wien)',
+                name: 'Influenza',
                 url: medUniDetailUrl
             });
         }
@@ -390,7 +384,7 @@ async function fetchPandemicData() {
             level: finalLevel,
             title: infoParts[0] ?? (influenzaLevel !== 'green' ? 'Influenza-Warnung' : 'Keine aktuellen Meldungen'),
             summary: infoParts.slice(1).join(' | ') || (topWho?.Summary ? topWho.Summary.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 150) + '...' : null),
-            details: details, // Added structured details with links
+            details: details,
             source: `WHO DON${influenzaSource ? ' + ' + influenzaSource : ''}`,
             date: topWho?.PublicationDateAndTime ?? now.toISOString(),
         };
