@@ -210,7 +210,7 @@ async function main() {
 
     mkdirSync('public', { recursive: true });
     writeFileSync(OUTPUT_PATH, JSON.stringify(status, null, 2), 'utf-8');
-    console.log(`[${timestamp}] alert_status.json written → overall: ${status.overall}`);
+    console.log(`[${timestamp}] ${OUTPUT_PATH} written → overall: ${status.overall}`);
 }
 
 main();

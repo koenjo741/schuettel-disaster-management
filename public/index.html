@@ -255,11 +255,11 @@
       const lastUpdateEl = document.getElementById('lastUpdate');
       lastUpdateEl.classList.add('animate-pulse');
 
-      const RAW_URL = 'https://raw.githubusercontent.com/koenjo741/schuettel-disaster-management/main/public/alert_status.json';
+      const DATA_URL = './alert_status.json';
       try {
         // Advanced cache busting: timestamp + random string
         const cacheBuster = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
-        const res = await fetch(`${RAW_URL}?cb=${cacheBuster}`);
+        const res = await fetch(`${DATA_URL}?cb=${cacheBuster}`, { cache: 'no-store' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         lastFetchedData = data;

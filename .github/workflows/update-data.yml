@@ -2,7 +2,7 @@ name: Update Disaster Alert Data
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # every 5 minutes
+    - cron: '1,6,11,16,21,26,31,36,41,46,51,56 * * * *'   # every 5 minutes, slightly offset
   workflow_dispatch:           # allow manual trigger
 
 permissions:
