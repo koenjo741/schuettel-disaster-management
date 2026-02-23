@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T05:20:58.328Z",
+  "fetchedAt": "2026-02-23T06:38:57.839Z",
   "overall": "green",
   "dataSource": "GeoSphere Austria INCA + danubealert.com + Strahlenschutz.gv.at",
   "location": {
@@ -28,7 +28,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0.086,
+      "value": 0.103,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -57,7 +57,7 @@
         "red": 300
       },
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "23.02.2026 05:00 UTC",
+      "measuredAt": "23.02.2026 06:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)"
     }
   },
