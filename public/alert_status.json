@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T12:02:29.021Z",
+  "fetchedAt": "2026-02-23T13:39:55.960Z",
   "overall": "green",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.15,
+      "value": 12.26,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -19,7 +19,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 34,
+      "value": 25,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -28,7 +28,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0.01,
+      "value": 0.022,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
