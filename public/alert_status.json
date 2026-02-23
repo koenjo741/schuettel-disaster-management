@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-23T19:46:51.160Z",
+  "fetchedAt": "2026-02-23T20:19:58.666Z",
   "overall": "red",
-  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON",
+  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 11.98,
+      "value": 11.57,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -20,7 +20,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 21,
+      "value": 20,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -47,7 +47,17 @@
         "red": 432
       },
       "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
-      "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke"
+      "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke",
+      "extraLinks": [
+        {
+          "name": "EFAS (European Flood Awareness)",
+          "url": "https://www.copernicus.eu/en/european-flood-awareness-system"
+        },
+        {
+          "name": "ERCC (Emergency Response Coordination)",
+          "url": "https://erccportal.jrc.ec.europa.eu/"
+        }
+      ]
     },
     "radiation": {
       "level": "green",
@@ -62,7 +72,7 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 6,
+      "value": 5,
       "unit": "µg/m³",
       "thresholds": {
         "yellow": 25,
@@ -112,9 +122,31 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T19:46:53.576Z",
+      "date": "2026-02-23T20:19:58.868Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
+    },
+    "fire": {
+      "level": "green",
+      "value": 1,
+      "unit": "WBI",
+      "thresholds": {
+        "yellow": 3,
+        "red": 4
+      },
+      "hotspots": 0,
+      "source": "NASA FIRMS Satelliten-Monitoring",
+      "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
+      "extraLinks": [
+        {
+          "name": "EFFIS (Copernicus)",
+          "url": "https://effis.jrc.ec.europa.at/"
+        },
+        {
+          "name": "Waldbrand-Datenbank (BOKU)",
+          "url": "https://waldbrand.at/"
+        }
+      ]
     }
   },
   "error": null
