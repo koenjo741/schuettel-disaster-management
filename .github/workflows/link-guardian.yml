@@ -1,0 +1,54 @@
+name: Link Guardian (Self-Healing Check)
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # Every day at 9:00 AM UTC
+  push:
+    branches: [ main ]
+    paths:
+      - 'fetchData.js'
+      - 'scripts/**'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm install # Even if empty, for future-proofing
+        
+      - name: Run Link Health Check
+        id: health-check
+        run: node scripts/checkLinks.js
+        continue-on-error: true
+
+      - name: Create Issue on Failure
+        if: steps.health-check.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueTitle = '🚨 Link-Guardian Alert: Broken Hazard Links Detected';
+            const issueBody = `The daily Link Guardian check failed. One or more data sources or source links are unreachable.
+            
+            Please check the [Workflow Run](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for details.
+            
+            **Self-Healing Option:**
+            If you are an AI agent viewing this, please:
+            1. Run \`node scripts/checkLinks.js\` to identify broken URLs.
+            2. Search for new stable URLs for the affected hazards.
+            3. Update \`fetchData.js\` and provide a fix.`;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issueTitle,
+              body: issueBody,
+              labels: ['bug', 'automated-alert']
+            });

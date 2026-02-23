@@ -482,21 +482,21 @@ export async function fetchAlertData() {
                     value: weather?.tempC ?? null,
                     unit: '°C',
                     thresholds: THRESHOLDS.heat,
-                    sourceUrl: 'https://www.geosphere.at/'
+                    sourceUrl: 'https://warnungen.zamg.at/'
                 },
                 wind: {
                     level: windLevel,
                     value: weather?.windKmH ?? null,
                     unit: 'km/h',
                     thresholds: THRESHOLDS.wind,
-                    sourceUrl: 'https://www.geosphere.at/'
+                    sourceUrl: 'https://warnungen.zamg.at/'
                 },
                 rain: {
                     level: rainLevel,
                     value: weather?.rainMmH ?? null,
                     unit: 'mm/h',
                     thresholds: THRESHOLDS.rain,
-                    sourceUrl: 'https://www.geosphere.at/'
+                    sourceUrl: 'https://warnungen.zamg.at/'
                 },
                 flood: {
                     level: floodLevel,
@@ -534,7 +534,7 @@ export async function fetchAlertData() {
                     time: earthquakeData?.time ?? null,
                     eventCount: earthquakeData?.eventCount ?? 0,
                     source: earthquakeData?.source ?? 'Offline',
-                    sourceUrl: 'https://www.zamg.ac.at/cms/de/geophysik/erdbeben/aktuell-in-oesterreich'
+                    sourceUrl: 'https://www.emsc-csem.org/Earthquake/'
                 },
                 atAlert: {
                     level: atAlertLevel,
