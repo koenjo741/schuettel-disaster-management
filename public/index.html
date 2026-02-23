@@ -275,6 +275,17 @@
           thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Quelle: WHO / MedUni Wien</a>`;
         }
       }
+      if (key === 'fire' && hazard) {
+        const parts = [];
+        const wbiLabels = { 1: 'gering', 2: 'mäßig', 3: 'erhöht', 4: 'hoch', 5: 'sehr hoch' };
+        parts.push(`WBI: ${hazard.value} (${wbiLabels[hazard.value] ?? '?'})`);
+        if (hazard.hotspots > 0) {
+          parts.push(`<span class="text-red-500 font-bold">NASA: ${hazard.hotspots} Hotspots detektiert</span>`);
+        } else {
+          parts.push(`NASA: Keine Hotspots (20km)`);
+        }
+        if (parts.length > 0) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
+      }
       if (hazard?.extraLinks?.length) {
         const links = hazard.extraLinks.map(l => `<a href="${l.url}" target="_blank" class="text-slate-400 hover:text-slate-300 no-underline">${l.name}</a>`).join(' · ');
         extraHtml += `<p class="text-[10px] text-slate-500 mt-2 border-t border-slate-700/50 pt-1 leading-tight">${links}</p>`;

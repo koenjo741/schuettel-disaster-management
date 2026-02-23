@@ -55,7 +55,9 @@ async function runHealthCheck() {
         { name: 'Wien Luftgüte', url: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm' },
         { name: 'AT-Alert API', url: 'https://warnungen.at-alert.at/api/filteredAlerts' },
         { name: 'WHO Pandemic News', url: 'https://www.who.int/api/news/diseaseoutbreaknews?$top=15' },
-        { name: 'MedUni Wien SVG', url: 'https://viro.meduniwien.ac.at/fileadmin/content/OE/virologie/dokumente/Virus_Epidemiogie/RespiratorischeViren/ATKarte.svg' }
+        { name: 'MedUni Wien SVG', url: 'https://viro.meduniwien.ac.at/fileadmin/content/OE/virologie/dokumente/Virus_Epidemiogie/RespiratorischeViren/ATKarte.svg' },
+        { name: 'EFFIS (Copernicus) Portal', url: 'https://effis.jrc.ec.europa.at/' },
+        { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' }
     ];
 
     for (const endpoint of apiEndpoints) {

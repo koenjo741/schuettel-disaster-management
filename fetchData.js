@@ -35,7 +35,7 @@ const buildGeoSphereUrl = (offsetHours = 1) => {
     const fmt = (d) => d.toISOString().slice(0, 19);
 
     const qs = new URLSearchParams({ start: fmt(start), end: fmt(end), lat_lon: `${LOCATION.lat},${LOCATION.lon}` });
-    for (const p of ['T2M', 'RR', 'UU', 'VV']) qs.append('parameters', p);
+    for (const p of ['T2M', 'RR', 'UU', 'VV', 'RH2M']) qs.append('parameters', p);
 
     return `https://dataset.api.hub.geosphere.at/v1/timeseries/historical/inca-v1-1h-1km?${qs}`;
 };
@@ -49,6 +49,7 @@ const THRESHOLDS = {
     radiation: { yellow: 200, red: 300 },
     airQuality: { yellow: 25, red: 50 },  // PM10 µg/m³ (EU 24h limit: 50)
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
+    fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
 };
 
 const alertLevel = (value, { yellow, red }) =>
@@ -251,6 +252,73 @@ const AT_ALERT_LEVEL_MAP = {
     MonthlyTest: 'green',
 };
 
+// ── Fire: Waldbrandindex (WBI) & NASA FIRMS Hotspots ────────────────────────
+function calculateWBI(temp, humidity, windKmH, rainMm) {
+    // Simplified Waldbrandindex (WBI) logic inspired by BOKU/ZAMG
+    // returns 1 (low) to 5 (extreme)
+    if (temp === null || humidity === null) return 1;
+
+    let score = 0;
+    if (temp > 20) score += 1;
+    if (temp > 25) score += 1;
+    if (temp > 30) score += 1;
+
+    if (humidity < 50) score += 1;
+    if (humidity < 35) score += 1;
+    if (humidity < 25) score += 1;
+
+    if (windKmH > 20) score += 1;
+    if (windKmH > 40) score += 1;
+
+    if (rainMm > 0.5) score -= 2;
+    if (rainMm > 5) score -= 5;
+
+    const index = Math.max(1, Math.min(5, Math.floor(score / 2) + 1));
+    return index;
+}
+
+async function fetchFireData() {
+    const NASA_KEY = process.env.NASA_FIRMS_KEY || 'YOUR_NASA_MAP_KEY'; // User will provide this
+
+    // Bounding Box approx 20km around 1020 Wien
+    const area = [
+        LOCATION.lon - 0.2, // minLon
+        LOCATION.lat - 0.15, // minLat
+        LOCATION.lon + 0.2, // maxLon
+        LOCATION.lat + 0.15  // maxLat
+    ].join(',');
+
+    const sources = [
+        { name: 'NASA FIRMS (VIIRS SNPP)', url: `https://firms.modaps.eosdis.nasa.gov/api/area/csv/${NASA_KEY}/VIIRS_SNPP_NRT/${area}/1` },
+        { name: 'NASA FIRMS (MODIS)', url: `https://firms.modaps.eosdis.nasa.gov/api/country/csv/${NASA_KEY}/MODIS_NRT/AUT/1` }
+    ];
+
+    if (NASA_KEY === 'YOUR_NASA_MAP_KEY') {
+        return { activeHotspots: 0, source: 'NASA (Key fehlt)', alert: false };
+    }
+
+    try {
+        // We only check VIIRS for high-res local monitoring
+        const res = await withRetry(async () => {
+            const r = await fetch(sources[0].url);
+            if (!r.ok) throw new Error(`NASA API error: ${r.status}`);
+            return r;
+        });
+        const csv = await res.text();
+        const lines = csv.trim().split('\n');
+        const hotspots = lines.length - 1; // Subtract header
+
+        return {
+            activeHotspots: hotspots > 0 ? hotspots : 0,
+            source: 'NASA FIRMS Satelliten-Monitoring',
+            alert: hotspots > 0
+        };
+    } catch (err) {
+        console.warn(`NASA FIRMS failed: ${err.message}`);
+        return { activeHotspots: 0, source: 'NASA (Offline)', alert: false };
+    }
+}
+
 async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
@@ -414,6 +482,7 @@ async function fetchWeather() {
                 tempC: last('T2M'),
                 rainMmH: last('RR'),
                 windKmH: windMs != null ? Math.round(windMs * 3.6) : null,
+                humidity: last('RH2M'),
             };
 
             if (result.tempC !== null) {
@@ -443,6 +512,7 @@ export async function fetchAlertData() {
             fetchEarthquakeData(),
             fetchATAlertData(),
             fetchPandemicData(),
+            fetchFireData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -452,8 +522,9 @@ export async function fetchAlertData() {
         const earthquakeData = results[4].status === 'fulfilled' ? results[4].value : null;
         const atAlertData = results[5].status === 'fulfilled' ? results[5].value : null;
         const pandemicData = results[6].status === 'fulfilled' ? results[6].value : null;
+        const fireData = results[7].status === 'fulfilled' ? results[7].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData) {
             throw new Error('All data sources failed.');
         }
 
@@ -467,14 +538,18 @@ export async function fetchAlertData() {
         const atAlertLevel = atAlertData?.level ?? 'unknown';
         const pandemicLevel = pandemicData?.level ?? 'unknown';
 
+        const wbi = weather ? calculateWBI(weather.tempC, weather.humidity, weather.windKmH, weather.rainMmH) : 1;
+        let fireLevel = alertLevel(wbi, THRESHOLDS.fire);
+        if (fireData?.alert) fireLevel = 'red'; // Upgrade to red if NASA detects hotspot
+
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON',
+            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: {
@@ -562,6 +637,19 @@ export async function fetchAlertData() {
                     date: pandemicData?.date ?? null,
                     source: pandemicData?.source ?? 'Offline',
                     sourceUrl: 'https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/'
+                },
+                fire: {
+                    level: fireLevel,
+                    value: wbi,
+                    unit: 'WBI',
+                    thresholds: THRESHOLDS.fire,
+                    hotspots: fireData?.activeHotspots ?? 0,
+                    source: fireData?.source ?? 'Offline',
+                    sourceUrl: 'https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z',
+                    extraLinks: [
+                        { name: 'EFFIS (Copernicus)', url: 'https://effis.jrc.ec.europa.at/' },
+                        { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' }
+                    ]
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,
