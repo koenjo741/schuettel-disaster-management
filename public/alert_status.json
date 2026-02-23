@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-23T06:38:57.839Z",
+  "fetchedAt": "2026-02-23T06:44:08.150Z",
   "overall": "green",
-  "dataSource": "GeoSphere Austria INCA + danubealert.com + Strahlenschutz.gv.at",
+  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -43,10 +43,7 @@
         "yellow": 380,
         "red": 432
       },
-      "ldc": 288,
-      "hdc": 432,
-      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
-      "hzbnr": 207233
+      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)"
     },
     "radiation": {
       "level": "green",
@@ -56,8 +53,6 @@
         "yellow": 200,
         "red": 300
       },
-      "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "23.02.2026 06:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)"
     }
   },
