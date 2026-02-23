@@ -504,7 +504,11 @@ export async function fetchAlertData() {
                     unit: 'cm',
                     thresholds: THRESHOLDS.flood,
                     source: floodData?.source ?? 'Offline',
-                    sourceUrl: 'https://danubealert.com/at/history/schwedenbrucke'
+                    sourceUrl: 'https://danubealert.com/at/history/schwedenbrucke',
+                    extraLinks: [
+                        { name: 'EFAS (European Flood Awareness)', url: 'https://www.copernicus.eu/en/european-flood-awareness-system' },
+                        { name: 'ERCC (Emergency Response Coordination)', url: 'https://erccportal.jrc.ec.europa.eu/' }
+                    ]
                 },
                 radiation: {
                     level: radiationLevel,

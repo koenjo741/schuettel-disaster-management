@@ -35,21 +35,26 @@ async function runHealthCheck() {
 
     const results = [];
 
-    // Check all sourceUrls sequentially
+    // Check all sourceUrls and extraLinks
     for (const [key, hazard] of Object.entries(hazards)) {
         if (hazard.sourceUrl) {
             results.push(await checkUrl(`Source link: ${key}`, hazard.sourceUrl));
+        }
+        if (hazard.extraLinks?.length) {
+            for (const link of hazard.extraLinks) {
+                results.push(await checkUrl(`Extra link: ${key} -> ${link.name}`, link.url));
+            }
         }
     }
 
     // Static API endpoints check
     const apiEndpoints = [
-        { name: 'GeoSphere API', url: 'https://dataset.api.hub.geosphere.at/v1/timeseries/historical/inca-v1-1h-1km' },
+        { name: 'GeoSphere API', url: 'https://dataset.api.hub.geosphere.at/v1/timeseries/historical/inca-v1-1h-1km/metadata' },
         { name: 'DanubeAlert Pegel', url: 'https://danubealert.com/at/history/schwedenbrucke' },
         { name: 'Strahlenschutz IMIS', url: 'https://mb.strahlenschutz.gv.at/station/AT2002' },
         { name: 'Wien Luftgüte', url: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm' },
         { name: 'AT-Alert API', url: 'https://warnungen.at-alert.at/api/filteredAlerts' },
-        { name: 'WHO Pandemic News', url: 'https://www.who.int/api/news/diseaseoutbreaknews' },
+        { name: 'WHO Pandemic News', url: 'https://www.who.int/api/news/diseaseoutbreaknews?$top=15' },
         { name: 'MedUni Wien SVG', url: 'https://viro.meduniwien.ac.at/fileadmin/content/OE/virologie/dokumente/Virus_Epidemiogie/RespiratorischeViren/ATKarte.svg' }
     ];
 
