@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-23T15:52:46.634Z",
+  "fetchedAt": "2026-02-23T16:28:36.765Z",
   "overall": "green",
-  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert",
+  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 11.83,
+      "value": 12.63,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -19,7 +19,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 21,
+      "value": 25,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -47,7 +47,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 66,
+      "value": 67,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -63,7 +63,7 @@
         "yellow": 25,
         "red": 50
       },
-      "pm25": 5,
+      "pm25": 4,
       "luftIndex": 1,
       "source": "Wien.gv.at Luftgütebericht (MA 22)"
     },
@@ -91,6 +91,15 @@
       "expires": null,
       "sender": null,
       "source": "AT-Alert (keine Warnungen)"
+    },
+    "pandemic": {
+      "level": "green",
+      "value": 0,
+      "unit": "Aktiv",
+      "title": "Keine aktuellen Meldungen",
+      "summary": null,
+      "date": null,
+      "source": "WHO Disease Outbreak News"
     }
   },
   "error": null

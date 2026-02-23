@@ -292,6 +292,63 @@ async function fetchATAlertData() {
     });
 }
 
+// ── Pandemic: WHO Disease Outbreak News (DON) API ─────────────────────────────
+async function fetchPandemicData() {
+    return withRetry(async () => {
+        const url = 'https://www.who.int/api/news/diseaseoutbreaknews?$top=30';
+        const res = await fetch(url, { headers: { Accept: 'application/json', 'User-Agent': 'Mozilla/5.0' } });
+        if (!res.ok) throw new Error(`WHO API error: ${res.status}`);
+        const data = await res.json();
+
+        const alerts = data.value ?? [];
+        const now = new Date();
+        const thirtyDaysAgo = new Date(now - 30 * 24 * 60 * 60 * 1000);
+
+        // Filter for relevance to Vienna/Austria/Europe
+        const relevantAlerts = alerts
+            .filter((a) => new Date(a.PublicationDateAndTime) > thirtyDaysAgo)
+            .map((a) => {
+                const text = `${a.Title} ${a.Summary ?? ''}`.toLowerCase();
+                let score = 0;
+
+                // Priority 1: Austria/Vienna (Red alert territory)
+                if (text.includes('austria') || text.includes('österreich') || text.includes('vienna') || text.includes('wien')) {
+                    score = 100;
+                }
+                // Priority 2: Neighboring countries (Yellow/Red potential)
+                else if (/germany|deutschland|slovakia|slovakei|czech|tschechien|hungary|ungarn|slovenia|slowenien|italy|italien|switzerland|schweiz/.test(text)) {
+                    score = 50;
+                }
+                // Priority 3: Europe / Global Pandemic
+                else if (text.includes('europe') || text.includes('global') || text.includes('multi-country') || text.includes('pandemic')) {
+                    score = 25;
+                }
+
+                return { ...a, relevanceScore: score };
+            })
+            .filter((a) => a.relevanceScore > 0)
+            .sort((a, b) => b.relevanceScore - a.relevanceScore || new Date(b.PublicationDateAndTime) - new Date(a.PublicationDateAndTime));
+
+        if (!relevantAlerts.length) {
+            return { active: false, level: 'green', title: 'Keine aktuellen Meldungen', source: 'WHO Disease Outbreak News' };
+        }
+
+        const top = relevantAlerts[0];
+        let level = 'yellow';
+        if (top.relevanceScore === 100) level = 'red';
+        if (top.relevanceScore === 25 && !/mpox|influenza|h5n1|cholera|ebola/.test(top.Title.toLowerCase())) level = 'green'; // Ignore minor global notes
+
+        return {
+            active: true,
+            level,
+            title: top.Title,
+            date: top.PublicationDateAndTime,
+            summary: top.Summary ? top.Summary.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 200) + '...' : null,
+            source: 'WHO Disease Outbreak News',
+        };
+    });
+}
+
 // ── Fetch GeoSphere Austria data ─────────────────────────────────────────────
 async function fetchWeather() {
     for (let offset = 1; offset <= 3; offset++) {
@@ -343,6 +400,7 @@ export async function fetchAlertData() {
             fetchAirQualityData(),
             fetchEarthquakeData(),
             fetchATAlertData(),
+            fetchPandemicData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -351,8 +409,9 @@ export async function fetchAlertData() {
         const airQualityData = results[3].status === 'fulfilled' ? results[3].value : null;
         const earthquakeData = results[4].status === 'fulfilled' ? results[4].value : null;
         const atAlertData = results[5].status === 'fulfilled' ? results[5].value : null;
+        const pandemicData = results[6].status === 'fulfilled' ? results[6].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData) {
             throw new Error('All data sources failed.');
         }
 
@@ -364,15 +423,16 @@ export async function fetchAlertData() {
         const airQualityLevel = airQualityData ? alertLevel(airQualityData.pm10 ?? 0, THRESHOLDS.airQuality) : 'unknown';
         const earthquakeLevel = earthquakeData ? alertLevel(earthquakeData.magnitude ?? 0, THRESHOLDS.earthquake) : 'unknown';
         const atAlertLevel = atAlertData?.level ?? 'unknown';
+        const pandemicLevel = pandemicData?.level ?? 'unknown';
 
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert',
+            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: { level: heatLevel, value: weather?.tempC ?? null, unit: '°C', thresholds: THRESHOLDS.heat },
@@ -422,6 +482,15 @@ export async function fetchAlertData() {
                     expires: atAlertData?.expires ?? null,
                     sender: atAlertData?.sender ?? null,
                     source: atAlertData?.source ?? 'Offline',
+                },
+                pandemic: {
+                    level: pandemicLevel,
+                    value: pandemicData?.active ? 1 : 0,
+                    unit: 'Aktiv',
+                    title: pandemicData?.title ?? null,
+                    summary: pandemicData?.summary ?? null,
+                    date: pandemicData?.date ?? null,
+                    source: pandemicData?.source ?? 'Offline',
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,
