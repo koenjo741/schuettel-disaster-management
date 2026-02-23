@@ -229,6 +229,69 @@ async function fetchEarthquakeData() {
     throw new Error('All earthquake data sources failed');
 }
 
+// ── AT-Alert: Official Austrian Cell Broadcast warnings ──────────────────────
+function pointInPolygon(lat, lon, polygon) {
+    // Ray-casting algorithm
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+        const [yi, xi] = polygon[i];
+        const [yj, xj] = polygon[j];
+        if ((yi > lon) !== (yj > lon) && lat < ((xj - xi) * (lon - yi)) / (yj - yi) + xi) {
+            inside = !inside;
+        }
+    }
+    return inside;
+}
+
+const AT_ALERT_LEVEL_MAP = {
+    Extreme: 'red',
+    Severe: 'red',
+    Moderate: 'yellow',
+    Minor: 'yellow',
+    MonthlyTest: 'green',
+};
+
+async function fetchATAlertData() {
+    return withRetry(async () => {
+        const today = new Date().toISOString().slice(0, 10);
+        const url = `https://warnungen.at-alert.at/api/filteredAlerts?from=${today}&to=${today}&limit=100&offset=0`;
+        const res = await fetch(url, { headers: { Accept: 'application/json', 'User-Agent': 'Mozilla/5.0' } });
+        if (!res.ok) throw new Error(`AT-Alert API error: ${res.status}`);
+        const data = await res.json();
+
+        const now = new Date();
+        const activeAlerts = (data.alerts ?? [])
+            .filter((a) => a.alert_level !== 'MonthlyTest')
+            .filter((a) => new Date(a.info_expires) > now)
+            .filter((a) => {
+                // Check if any polygon covers our location
+                if (!a.polygons?.length) return true; // No polygon = nationwide
+                return a.polygons.some((poly) => pointInPolygon(LOCATION.lat, LOCATION.lon, poly));
+            });
+
+        if (!activeAlerts.length) {
+            return { active: false, count: 0, level: 'green', alerts: [], source: 'AT-Alert (keine Warnungen)' };
+        }
+
+        // Use highest severity alert
+        const severityOrder = ['Extreme', 'Severe', 'Moderate', 'Minor'];
+        activeAlerts.sort((a, b) => severityOrder.indexOf(a.alert_level) - severityOrder.indexOf(b.alert_level));
+        const top = activeAlerts[0];
+
+        return {
+            active: true,
+            count: activeAlerts.length,
+            level: AT_ALERT_LEVEL_MAP[top.alert_level] ?? 'yellow',
+            title: top.title ?? top.info_area_description ?? 'Warnung',
+            description: top.description ?? top.info_description ?? null,
+            alertLevel: top.alert_level,
+            expires: top.info_expires,
+            sender: top.sender,
+            source: 'AT-Alert (warnungen.at-alert.at)',
+        };
+    });
+}
+
 // ── Fetch GeoSphere Austria data ─────────────────────────────────────────────
 async function fetchWeather() {
     for (let offset = 1; offset <= 3; offset++) {
@@ -279,6 +342,7 @@ export async function fetchAlertData() {
             fetchRadiationData(),
             fetchAirQualityData(),
             fetchEarthquakeData(),
+            fetchATAlertData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -286,8 +350,9 @@ export async function fetchAlertData() {
         const radiationData = results[2].status === 'fulfilled' ? results[2].value : null;
         const airQualityData = results[3].status === 'fulfilled' ? results[3].value : null;
         const earthquakeData = results[4].status === 'fulfilled' ? results[4].value : null;
+        const atAlertData = results[5].status === 'fulfilled' ? results[5].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData) {
             throw new Error('All data sources failed.');
         }
 
@@ -298,15 +363,16 @@ export async function fetchAlertData() {
         const radiationLevel = radiationData ? alertLevel(radiationData.nsvH ?? 0, THRESHOLDS.radiation) : 'unknown';
         const airQualityLevel = airQualityData ? alertLevel(airQualityData.pm10 ?? 0, THRESHOLDS.airQuality) : 'unknown';
         const earthquakeLevel = earthquakeData ? alertLevel(earthquakeData.magnitude ?? 0, THRESHOLDS.earthquake) : 'unknown';
+        const atAlertLevel = atAlertData?.level ?? 'unknown';
 
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst',
+            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: { level: heatLevel, value: weather?.tempC ?? null, unit: '°C', thresholds: THRESHOLDS.heat },
@@ -345,6 +411,17 @@ export async function fetchAlertData() {
                     time: earthquakeData?.time ?? null,
                     eventCount: earthquakeData?.eventCount ?? 0,
                     source: earthquakeData?.source ?? 'Offline',
+                },
+                atAlert: {
+                    level: atAlertLevel,
+                    value: atAlertData?.active ? atAlertData.count : 0,
+                    unit: 'Warnungen',
+                    title: atAlertData?.title ?? null,
+                    description: atAlertData?.description ?? null,
+                    alertLevel: atAlertData?.alertLevel ?? null,
+                    expires: atAlertData?.expires ?? null,
+                    sender: atAlertData?.sender ?? null,
+                    source: atAlertData?.source ?? 'Offline',
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,

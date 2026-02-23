@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-23T15:31:21.236Z",
+  "fetchedAt": "2026-02-23T15:52:46.634Z",
   "overall": "green",
-  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst",
+  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -80,6 +80,17 @@
       "time": "2026-02-22T17:09:20.806Z",
       "eventCount": 4,
       "source": "ZAMG/GeoSphere FDSN"
+    },
+    "atAlert": {
+      "level": "green",
+      "value": 0,
+      "unit": "Warnungen",
+      "title": null,
+      "description": null,
+      "alertLevel": null,
+      "expires": null,
+      "sender": null,
+      "source": "AT-Alert (keine Warnungen)"
     }
   },
   "error": null
