@@ -278,7 +278,7 @@ function calculateWBI(temp, humidity, windKmH, rainMm) {
 }
 
 async function fetchFireData() {
-    const NASA_KEY = process.env.NASA_FIRMS_KEY || 'YOUR_NASA_MAP_KEY'; // User will provide this
+    const NASA_KEY = process.env.NASA_FIRMS_KEY || '1433f5fc2df52ddc1c7c17d45445e2dd';
 
     // Bounding Box approx 20km around 1020 Wien
     const area = [
