@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T21:33:08.955Z",
+  "fetchedAt": "2026-02-23T21:43:51.589Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T21:33:09.107Z",
+      "date": "2026-02-23T21:43:51.828Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -191,7 +191,7 @@
         "red": 10
       },
       "condition": "Kein relevanter Schnee",
-      "source": "GeoSphere Austria (SNOWGRID)",
+      "source": "Offline",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "ice": {
@@ -215,11 +215,11 @@
     },
     "thunderstorm": {
       "level": "green",
-      "value": "Keine Gewitterzellen detektiert",
+      "value": "Keine Gewitterzellen",
       "intensity": 0,
       "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350"
     }
   },
-  "error": null
+  "error": "GeoSphere SNOWGRID error: 503"
 }

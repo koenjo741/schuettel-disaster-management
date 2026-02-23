@@ -629,7 +629,7 @@ async function fetchThunderstormData() {
 
         const levels = ['green', 'yellow', 'red']; // 0: green, 1: yellow, 2+: red
         const level = levels[Math.min(maxIntensity, 2)];
-        const messages = ['Keine Gewitterzellen detektiert', 'Moderate Gewitteraktivität', 'Starke Gewitterzellen / Hagelgefahr!'];
+        const messages = ['Keine Gewitterzellen', 'Moderate Gewitteraktivität', 'Starke Gewitterzellen / Hagelgefahr!'];
         const message = messages[Math.min(maxIntensity, 2)];
 
         return {
