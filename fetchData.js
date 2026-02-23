@@ -327,10 +327,11 @@ async function fetchSpaceWeatherData() {
         if (!res.ok) throw new Error(`NOAA API error: ${res.status}`);
         const data = await res.json();
 
-        // 0 = None, 1-5 = NOAA Scale Level
-        const g = parseInt(data['0'].Scale) || 0; // Geomagnetic
-        const s = parseInt(data['1'].Scale) || 0; // Solar Radiation
-        const r = parseInt(data['2'].Scale) || 0; // Radio Blackout
+        // Key 0 contains current observation
+        const current = data['0'] || {};
+        const g = parseInt(current.G?.Scale) || 0;
+        const s = parseInt(current.S?.Scale) || 0;
+        const r = parseInt(current.R?.Scale) || 0;
 
         const maxLevel = Math.max(g, s, r);
 
@@ -340,7 +341,7 @@ async function fetchSpaceWeatherData() {
             source: 'NOAA Space Weather Prediction Center',
             sourceUrl: 'https://www.swpc.noaa.gov/'
         };
-    }, 'NOAA Space Weather');
+    });
 }
 
 async function fetchATAlertData() {

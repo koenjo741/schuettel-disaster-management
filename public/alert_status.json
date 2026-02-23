@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T20:30:20.817Z",
+  "fetchedAt": "2026-02-23T20:37:17.891Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T20:30:22.815Z",
+      "date": "2026-02-23T20:37:18.060Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -149,7 +149,7 @@
       ]
     },
     "space": {
-      "level": "unknown",
+      "level": "green",
       "value": 0,
       "unit": "Scale",
       "thresholds": {
@@ -161,7 +161,7 @@
         "s": 0,
         "r": 0
       },
-      "source": "Offline",
+      "source": "NOAA Space Weather Prediction Center",
       "sourceUrl": "https://www.swpc.noaa.gov/",
       "extraLinks": [
         {
