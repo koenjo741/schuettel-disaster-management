@@ -241,9 +241,7 @@
           innerContent = `Logik: <span class="text-yellow-500/80">${t.yellow}</span> (Reif/Nässe) / <span class="text-red-500/80">${t.red}</span> (Regen)`;
         }
 
-        thresholdHtml = sourceUrl
-          ? `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">${innerContent}</a>`
-          : `<p class="text-xs text-slate-500 mt-2 italic">${innerContent}</p>`;
+        thresholdHtml = `<p class="text-[10px] text-slate-500 mt-2 italic">${innerContent}</p>`;
       }
 
       let extraHtml = '';
@@ -266,10 +264,6 @@
         }
         if (hazard.eventCount > 1) parts.push(`${hazard.eventCount} Ereignisse (24h)`);
         if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
-
-        if (!thresholdHtml && sourceUrl) {
-          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Datenquelle: ZAMG/GeoSphere</a>`;
-        }
       }
       if (key === 'atAlert' && hazard) {
         if (hazard.title) {
@@ -282,9 +276,6 @@
           if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
           if (hazard.description) extraHtml += `<p class="text-xs text-slate-500 mt-1 italic">${hazard.description.slice(0, 120)}${hazard.description.length > 120 ? '…' : ''}</p>`;
         }
-        if (sourceUrl) {
-          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Quelle: AT-Alert</a>`;
-        }
       }
       if (key === 'pandemic' && hazard) {
         if (hazard.level !== 'green') {
@@ -292,10 +283,8 @@
 
           if (hazard.details && hazard.details.length > 0) {
             const links = hazard.details.map(d => `<a href="${d.url}" target="_blank" class="text-yellow-400 hover:text-yellow-200 no-underline">${d.name}</a>`).join(', ');
-            thresholdHtml = `<p class="text-xs text-slate-500 mt-2 italic">Warnung vor: ${links}</p>`;
+            extraHtml += `<p class="text-xs text-slate-500 mt-2 italic">Warnung vor: ${links}</p>`;
           }
-        } else if (sourceUrl) {
-          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Quelle: WHO / MedUni Wien</a>`;
         }
       }
       if (key === 'fire' && hazard) {
@@ -314,9 +303,6 @@
         parts.push(`Wien: ${hazard.city || 'Keine Warnung'}`);
         parts.push(`Leopoldstadt: ${hazard.district || 'Keine Warnung'}`);
         if (parts.length > 0) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
-        if (!thresholdHtml && sourceUrl) {
-          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Quelle: UWZ.at</a>`;
-        }
       }
       if (key === 'space' && hazard) {
         const parts = [];
@@ -326,10 +312,29 @@
         parts.push(`R: ${r}`);
         if (parts.length > 0) extraHtml = `<p class="text-xs text-slate-400 mt-1 font-mono">${parts.join(' | ')} (Skala 0-5)</p>`;
       }
-      if (hazard?.extraLinks?.length) {
-        const links = hazard.extraLinks.map(l => `<a href="${l.url}" target="_blank" class="text-slate-400 hover:text-slate-300 no-underline">${l.name}</a>`).join(' · ');
-        extraHtml += `<p class="text-[10px] text-slate-500 mt-2 border-t border-slate-700/50 pt-1 leading-tight">${links}</p>`;
+
+      // ── Footer & Links (Unified) ──
+      const footerLinks = [];
+      const SOURCE_LABELS = {
+        heat: 'ZAMG / GeoSphere', wind: 'ZAMG / GeoSphere', rain: 'ZAMG / GeoSphere',
+        flood: 'danubealert', radiation: 'Strahlenschutz.gv.at', airQuality: 'Wien.gv.at',
+        earthquake: 'GeoSphere / EMSC', atAlert: 'AT-Alert', pandemic: 'WHO / MedUni Wien',
+        fire: 'NASA / GeoSphere', space: 'NOAA / SWPC', power: 'Wiener Netze',
+        snow: 'GeoSphere (SNOWGRID)', ice: 'GeoSphere', uwz: 'UWZ.at'
+      };
+
+      if (sourceUrl) {
+        footerLinks.push(`<a href="${sourceUrl}" target="_blank" class="${linkClass}">${SOURCE_LABELS[key] || 'Quelle'}</a>`);
       }
+      if (hazard?.extraLinks?.length) {
+        hazard.extraLinks.forEach(l => {
+          footerLinks.push(`<a href="${l.url}" target="_blank" class="${linkClass}">${l.name}</a>`);
+        });
+      }
+
+      const footerHtml = footerLinks.length
+        ? `<div class="mt-4 pt-2 border-t border-slate-700/50 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500 leading-tight">${footerLinks.join('<span class="opacity-30">·</span>')}</div>`
+        : '';
 
       return `
         <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 card-glow-${level} transition-all duration-1000">
@@ -346,6 +351,7 @@
           <p class="mt-4 text-3xl font-bold tabular-nums tracking-tight text-slate-100">${value}</p>
           ${extraHtml}
           ${thresholdHtml}
+          ${footerHtml}
         </div>`;
     }
 
