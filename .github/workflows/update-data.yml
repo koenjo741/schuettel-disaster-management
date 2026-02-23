@@ -37,5 +37,6 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/alert_status.json
-          git diff --staged --quiet || git commit -m "chore: update alert_status.json [skip ci]"
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          git diff --staged --quiet || git commit -m "data: update alert_status.json at $TIMESTAMP [skip ci]"
           git push

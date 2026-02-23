@@ -155,7 +155,7 @@
     <!-- Data source + info -->
     <section class="fade-in-3 rounded-xl border border-slate-800 bg-slate-900/40 p-5 text-sm text-slate-400 space-y-1">
       <p id="dataSource"></p>
-      <p class="text-xs text-slate-600">Daten werden alle 15 Minuten via GitHub Actions aktualisiert.</p>
+      <p class="text-xs text-slate-600">Daten werden alle 5 Minuten via GitHub Actions aktualisiert.</p>
       <p id="errorMsg" class="text-red-400 hidden"></p>
     </section>
   </main>
@@ -173,7 +173,11 @@
     const LEVEL_TEXT = { green: 'Alles im grünen Bereich', yellow: 'Erhöhte Wachsamkeit empfohlen', red: 'Sofortige Maßnahmen erforderlich!', unknown: 'Daten werden geladen …' };
     const LEVEL_LABEL = { green: 'SICHER', yellow: 'WARNUNG', red: 'ALARM', unknown: 'UNBEKANNT' };
 
+    let lastFetchedData = null;
+    let isFetching = false;
+
     function applyLevel(el, level, part) {
+      if (!el) return;
       el.classList.remove(...['green', 'yellow', 'red', 'unknown'].map(l => `${part}-${l}`));
       el.classList.add(`${part}-${level}`);
     }
@@ -194,14 +198,11 @@
       let thresholdHtml = '';
       if (hazard?.thresholds) {
         const t = hazard.thresholds;
-        thresholdHtml = `<p class="text-xs text-slate-500 mt-2">Schwellenwerte: <span class="text-yellow-500">${t.yellow}</span> / <span class="text-red-500">${t.red}</span> ${hazard.unit}</p>`;
-      }
-      if (key === 'flood' && hazard?.floodStage) {
-        thresholdHtml = `<p class="text-xs text-slate-500 mt-2">Meldestufe: <span class="text-slate-400">${hazard.floodStage}</span>${hazard.source === 'mock' ? ' <span class="text-slate-600">(Mock)</span>' : ''}</p>`;
+        thresholdHtml = `<p class="text-xs text-slate-500 mt-2 italic">Schwellenwerte: <span class="text-yellow-500">${t.yellow}</span> / <span class="text-red-500">${t.red}</span> ${hazard.unit}</p>`;
       }
 
       return `
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 card-glow-${level} transition-all duration-700">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 card-glow-${level} transition-all duration-1000">
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">${icon}</span>
@@ -210,21 +211,58 @@
                 <p class="text-xs text-slate-500">${sub}</p>
               </div>
             </div>
-            <span class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold">${LEVEL_LABEL[level]}</span>
+            <span class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold transition-colors duration-500">${LEVEL_LABEL[level]}</span>
           </div>
           <p class="mt-4 text-3xl font-bold tabular-nums tracking-tight text-slate-100">${value}</p>
           ${thresholdHtml}
         </div>`;
     }
 
+    function updateRelativeTime() {
+      if (!lastFetchedData || !lastFetchedData.fetchedAt) return;
+      const lastUpdateEl = document.getElementById('lastUpdate');
+      const d = new Date(lastFetchedData.fetchedAt);
+      const diffMs = Date.now() - d.getTime();
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+
+      let timeStr = 'Gerade eben';
+      if (diffMin > 0) {
+        timeStr = `vor ${diffMin} Min.`;
+      } else if (diffSec > 10) {
+        timeStr = `vor ${diffSec} Sek.`;
+      }
+
+      const exactTime = d.toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      lastUpdateEl.innerHTML = `<span class="opacity-60">Zuletzt aktualisiert:</span> <span class="font-medium text-slate-300 ml-1">${exactTime}</span> <span class="text-[10px] ml-1 bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 font-mono">${timeStr}</span>`;
+      lastUpdateEl.classList.remove('hidden');
+
+      // Warning if data is older than 8 minutes (should be 5 min)
+      const warningEl = document.getElementById('errorMsg');
+      if (diffMin >= 8) {
+        warningEl.textContent = `⚠️ Hinweis: Die Daten sind bereits ${diffMin} Minuten alt. Möglicherweise verzögert sich die Aktualisierung.`;
+        warningEl.classList.remove('hidden');
+      } else if (!lastFetchedData.error) {
+        warningEl.classList.add('hidden');
+      }
+    }
+
     async function loadStatus() {
-      // Fetch directly from GitHub raw content – always reflects the latest commit
-      // (Netlify only updates on redeploy; GitHub raw is instant after each Actions push)
+      if (isFetching && lastFetchedData) return;
+      isFetching = true;
+
+      // Pulse the update time to show activity
+      const lastUpdateEl = document.getElementById('lastUpdate');
+      lastUpdateEl.classList.add('animate-pulse');
+
       const RAW_URL = 'https://raw.githubusercontent.com/koenjo741/schuettel-disaster-management/main/public/alert_status.json';
       try {
-        const res = await fetch(`${RAW_URL}?t=${Date.now()}`);
+        // Advanced cache busting: timestamp + random string
+        const cacheBuster = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
+        const res = await fetch(`${RAW_URL}?cb=${cacheBuster}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
+        lastFetchedData = data;
 
         // Overall banner
         const overall = data.overall ?? 'unknown';
@@ -234,15 +272,6 @@
         applyLevel(document.getElementById('overallBadge'), overall, 'badge');
         document.getElementById('overallText').textContent = LEVEL_TEXT[overall] ?? overall;
         document.getElementById('overallBadge').textContent = LEVEL_LABEL[overall] ?? overall;
-        banner.classList.add(`border-slate-800`);
-
-        // Last update
-        if (data.fetchedAt) {
-          const d = new Date(data.fetchedAt);
-          document.getElementById('lastUpdate').textContent =
-            `Zuletzt aktualisiert: ${d.toLocaleString('de-AT', { timeZone: 'Europe/Vienna', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
-          document.getElementById('lastUpdate').classList.remove('hidden');
-        }
 
         // Hazard cards
         const grid = document.getElementById('hazardGrid');
@@ -254,22 +283,42 @@
         document.getElementById('dataSource').textContent =
           `Datenquelle: ${data.dataSource ?? 'Unbekannt'} · Standort: ${data.location?.address ?? ''}`;
 
-        // Error
+        // Error handling
+        const errEl = document.getElementById('errorMsg');
         if (data.error) {
-          const errEl = document.getElementById('errorMsg');
           errEl.textContent = `⚠️ Fehler beim letzten Datenabruf: ${data.error}`;
           errEl.classList.remove('hidden');
+        } else {
+          errEl.classList.add('hidden');
         }
+
+        updateRelativeTime();
       } catch (err) {
         console.error('Dashboard load error:', err);
-        document.getElementById('overallText').textContent = 'Verbindungsfehler';
-        document.getElementById('errorMsg').textContent = `Dashboard-Fehler: ${err.message}`;
-        document.getElementById('errorMsg').classList.remove('hidden');
+        const errEl = document.getElementById('errorMsg');
+        errEl.textContent = `Verbindungsfehler: ${err.message}`;
+        errEl.classList.remove('hidden');
+      } finally {
+        isFetching = false;
+        lastUpdateEl.classList.remove('animate-pulse');
       }
     }
 
+    // Initialize
     loadStatus();
-    setInterval(loadStatus, 5 * 60 * 1000); // refresh every 5 min client-side
+
+    // Aggressive polling: Every 60 seconds (down from 5 min)
+    setInterval(loadStatus, 60 * 1000);
+
+    // Relative time update: Every 5 seconds
+    setInterval(updateRelativeTime, 5000);
+
+    // Visibility listener: Refresh immediately when tab becomes active
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        loadStatus();
+      }
+    });
   </script>
 </body>
 
