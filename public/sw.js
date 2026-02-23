@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schuettel-dm-v1';
+const CACHE_NAME = 'schuettel-dm-v2';
 const ASSETS = [
     '/',
     '/index.html',
