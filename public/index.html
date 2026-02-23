@@ -222,7 +222,10 @@
       if (key === 'uwz') {
         return hazard?.district ?? 'Sicher';
       }
-      return `${hazard.value} ${hazard.unit}`;
+      if (key === 'thunderstorm') {
+        return hazard.value;
+      }
+      return `${hazard.value}${hazard.unit ? ' ' + hazard.unit : ''}`;
     }
 
     function renderHazardCard(key, hazard) {
