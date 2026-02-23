@@ -58,7 +58,8 @@ async function runHealthCheck() {
         { name: 'MedUni Wien SVG', url: 'https://viro.meduniwien.ac.at/fileadmin/content/OE/virologie/dokumente/Virus_Epidemiogie/RespiratorischeViren/ATKarte.svg' },
         { name: 'EFFIS (Copernicus) Portal', url: 'https://effis.jrc.ec.europa.at/' },
         { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' },
-        { name: 'NOAA Space Weather API', url: 'https://services.swpc.noaa.gov/products/noaa-scales.json' }
+        { name: 'NOAA Space Weather API', url: 'https://services.swpc.noaa.gov/products/noaa-scales.json' },
+        { name: 'Wiener Netze Status (Power)', url: 'https://www.wienernetze.at/stromversorgung' }
     ];
 
     for (const endpoint of apiEndpoints) {

@@ -51,6 +51,7 @@ const THRESHOLDS = {
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
     space: { yellow: 2, red: 3 },          // NOAA Scale (1-5)
+    power: { yellow: 1, red: 2 },          // Status level (1: OK, 2: Outage)
 };
 
 const alertLevel = (value, { yellow, red }) =>
@@ -344,6 +345,26 @@ async function fetchSpaceWeatherData() {
     });
 }
 
+async function fetchPowerOutageData() {
+    return withRetry(async () => {
+        const url = 'https://www.wienernetze.at/stromversorgung';
+        const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (!res.ok) throw new Error(`Wiener Netze error: ${res.status}`);
+        const html = await res.text();
+
+        // Target phrase for normal operation
+        const okPhrase = 'Derzeit sind alle Kundinnen und Kunden im Versorgungsgebiet der Wiener Netze versorgt.';
+        const isOk = html.includes(okPhrase);
+
+        return {
+            status: isOk ? 1 : 2,
+            message: isOk ? 'Normalbetrieb' : 'Störung / Ausfall gemeldet',
+            source: 'Wiener Netze Statusseite',
+            sourceUrl: url
+        };
+    });
+}
+
 async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
@@ -539,6 +560,7 @@ export async function fetchAlertData() {
             fetchPandemicData(),
             fetchFireData(),
             fetchSpaceWeatherData(),
+            fetchPowerOutageData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -550,8 +572,9 @@ export async function fetchAlertData() {
         const pandemicData = results[6].status === 'fulfilled' ? results[6].value : null;
         const fireData = results[7].status === 'fulfilled' ? results[7].value : null;
         const spaceData = results[8].status === 'fulfilled' ? results[8].value : null;
+        const powerData = results[9].status === 'fulfilled' ? results[9].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData) {
             throw new Error('All data sources failed.');
         }
 
@@ -570,9 +593,10 @@ export async function fetchAlertData() {
         if (fireData?.alert) fireLevel = 'red'; // Upgrade to red if NASA detects hotspot
 
         const spaceLevel = spaceData ? alertLevel(spaceData.level, THRESHOLDS.space) : 'unknown';
+        const powerLevel = powerData ? alertLevel(powerData.status, THRESHOLDS.power) : 'unknown';
 
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -691,6 +715,15 @@ export async function fetchAlertData() {
                     extraLinks: [
                         { name: 'ESA Space Weather Network', url: 'https://swe.ssa.esa.int/' }
                     ]
+                },
+                power: {
+                    level: powerLevel,
+                    value: powerData?.status ?? 0,
+                    unit: 'Status',
+                    thresholds: THRESHOLDS.power,
+                    message: powerData?.message ?? 'Unbekannt',
+                    source: powerData?.source ?? 'Offline',
+                    sourceUrl: powerData?.sourceUrl ?? 'https://www.wienernetze.at/stromversorgung',
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,
