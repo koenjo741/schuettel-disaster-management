@@ -258,6 +258,11 @@
         }
         if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
         if (hazard.summary) extraHtml += `<p class="text-xs text-slate-500 mt-1 italic">${hazard.summary.substring(0, 150)}...</p>`;
+
+        if (hazard.details && hazard.details.length > 0) {
+          const links = hazard.details.map(d => `<a href="${d.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 underline decoration-cyan-400/30 underline-offset-2">${d.name}</a>`).join(', ');
+          thresholdHtml = `<p class="text-xs text-slate-500 mt-2 italic">Warnung vor: ${links}</p>`;
+        }
       }
 
       return `

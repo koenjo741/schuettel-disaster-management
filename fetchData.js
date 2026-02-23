@@ -311,6 +311,8 @@ async function fetchPandemicData() {
 
         let influenzaLevel = 'green';
         let influenzaSource = '';
+        const medUniDetailUrl = 'https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/';
+
         if (medUniRes.status === 'fulfilled' && medUniRes.value.ok) {
             const svg = await medUniRes.value.text();
 
@@ -365,14 +367,30 @@ async function fetchPandemicData() {
         const finalLevel = severityRank[whoLevel] >= severityRank[influenzaLevel] ? whoLevel : influenzaLevel;
 
         const infoParts = [];
-        if (topWho) infoParts.push(`WHO: ${topWho.Title}`);
-        if (influenzaLevel !== 'green') infoParts.push(`Influenza: ${influenzaLevel === 'red' ? 'Welle' : 'Aktivität'} (MedUni)`);
+        const details = [];
+
+        if (topWho) {
+            infoParts.push(`WHO: ${topWho.Title}`);
+            details.push({
+                name: topWho.Title,
+                url: topWho.Url ? (topWho.Url.startsWith('http') ? topWho.Url : `https://www.who.int${topWho.Url}`) : 'https://www.who.int/emergencies/disease-outbreak-news'
+            });
+        }
+
+        if (influenzaLevel !== 'green') {
+            infoParts.push(`Influenza: ${influenzaLevel === 'red' ? 'Welle' : 'Aktivität'} (MedUni)`);
+            details.push({
+                name: 'Influenza (MedUni Wien)',
+                url: medUniDetailUrl
+            });
+        }
 
         return {
             active: finalLevel !== 'green',
             level: finalLevel,
             title: infoParts[0] ?? (influenzaLevel !== 'green' ? 'Influenza-Warnung' : 'Keine aktuellen Meldungen'),
             summary: infoParts.slice(1).join(' | ') || (topWho?.Summary ? topWho.Summary.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 150) + '...' : null),
+            details: details, // Added structured details with links
             source: `WHO DON${influenzaSource ? ' + ' + influenzaSource : ''}`,
             date: topWho?.PublicationDateAndTime ?? now.toISOString(),
         };
@@ -519,6 +537,7 @@ export async function fetchAlertData() {
                     unit: 'Aktiv',
                     title: pandemicData?.title ?? null,
                     summary: pandemicData?.summary ?? null,
+                    details: pandemicData?.details ?? [],
                     date: pandemicData?.date ?? null,
                     source: pandemicData?.source ?? 'Offline',
                 },
