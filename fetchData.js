@@ -51,7 +51,7 @@ const THRESHOLDS = {
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
     space: { yellow: 2, red: 3 },          // NOAA Scale (1-5)
-    power: { yellow: 1, red: 2 },          // Status level (1: OK, 2: Outage)
+    power: { yellow: 2, red: 2 },          // Status level (1: OK, 2: Outage)
 };
 
 const alertLevel = (value, { yellow, red }) =>

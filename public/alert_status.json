@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T20:37:17.891Z",
+  "fetchedAt": "2026-02-23T20:46:19.300Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T20:37:18.060Z",
+      "date": "2026-02-23T20:46:19.617Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -169,6 +169,18 @@
           "url": "https://swe.ssa.esa.int/"
         }
       ]
+    },
+    "power": {
+      "level": "green",
+      "value": 1,
+      "unit": "Status",
+      "thresholds": {
+        "yellow": 2,
+        "red": 2
+      },
+      "message": "Normalbetrieb",
+      "source": "Wiener Netze Statusseite",
+      "sourceUrl": "https://www.wienernetze.at/stromversorgung"
     }
   },
   "error": null
