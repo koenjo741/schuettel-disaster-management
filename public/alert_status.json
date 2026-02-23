@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T19:03:12.297Z",
+  "fetchedAt": "2026-02-23T19:46:51.160Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON",
   "location": {
@@ -16,7 +16,7 @@
         "yellow": 30,
         "red": 35
       },
-      "sourceUrl": "https://www.geosphere.at/"
+      "sourceUrl": "https://warnungen.zamg.at/"
     },
     "wind": {
       "level": "green",
@@ -26,7 +26,7 @@
         "yellow": 60,
         "red": 80
       },
-      "sourceUrl": "https://www.geosphere.at/"
+      "sourceUrl": "https://warnungen.zamg.at/"
     },
     "rain": {
       "level": "green",
@@ -36,7 +36,7 @@
         "yellow": 15,
         "red": 25
       },
-      "sourceUrl": "https://www.geosphere.at/"
+      "sourceUrl": "https://warnungen.zamg.at/"
     },
     "flood": {
       "level": "green",
@@ -68,7 +68,7 @@
         "yellow": 25,
         "red": 50
       },
-      "pm25": 4,
+      "pm25": 3,
       "luftIndex": 1,
       "source": "Wien.gv.at Luftgütebericht (MA 22)",
       "sourceUrl": "https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm"
@@ -86,7 +86,7 @@
       "time": "2026-02-22T20:54:57.994Z",
       "eventCount": 3,
       "source": "ZAMG/GeoSphere FDSN",
-      "sourceUrl": "https://www.zamg.ac.at/cms/de/geophysik/erdbeben/aktuell-in-oesterreich"
+      "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
       "level": "green",
@@ -112,7 +112,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T19:03:12.570Z",
+      "date": "2026-02-23T19:46:53.576Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     }
