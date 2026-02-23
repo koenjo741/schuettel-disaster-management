@@ -231,7 +231,12 @@
 
       if (hazard?.thresholds) {
         const t = hazard.thresholds;
-        const innerContent = `Schwellenwerte: <span class="text-yellow-500/80">${t.yellow}</span> / <span class="text-red-500/80">${t.red}</span> ${hazard.unit}`;
+        let innerContent = `Schwellenwerte: <span class="text-yellow-500/80">${t.yellow}</span> / <span class="text-red-500/80">${t.red}</span> ${hazard.unit}`;
+
+        if (key === 'ice') {
+          innerContent = `Logik: <span class="text-yellow-500/80">${t.yellow}</span> (Reif/Nässe) / <span class="text-red-500/80">${t.red}</span> (Regen)`;
+        }
+
         thresholdHtml = sourceUrl
           ? `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">${innerContent}</a>`
           : `<p class="text-xs text-slate-500 mt-2 italic">${innerContent}</p>`;

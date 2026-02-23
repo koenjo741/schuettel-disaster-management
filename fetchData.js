@@ -792,6 +792,7 @@ export async function fetchAlertData() {
                     level: iceLevel,
                     value: iceMessage,
                     unit: '',
+                    thresholds: { yellow: 'Risk', red: 'Gefahr' },
                     source: 'GeoSphere Rohdaten-Analyse',
                     sourceUrl: 'https://www.geosphere.at/',
                 }

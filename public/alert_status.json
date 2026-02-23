@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T20:56:35.360Z",
+  "fetchedAt": "2026-02-23T20:58:36.051Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T20:56:35.532Z",
+      "date": "2026-02-23T20:58:36.392Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -198,6 +198,10 @@
       "level": "green",
       "value": "Sicher",
       "unit": "",
+      "thresholds": {
+        "yellow": "Risk",
+        "red": "Gefahr"
+      },
       "source": "GeoSphere Rohdaten-Analyse",
       "sourceUrl": "https://www.geosphere.at/"
     }
