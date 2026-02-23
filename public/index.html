@@ -251,17 +251,25 @@
       if (isFetching && lastFetchedData) return;
       isFetching = true;
 
-      // Pulse the update time to show activity
       const lastUpdateEl = document.getElementById('lastUpdate');
       lastUpdateEl.classList.add('animate-pulse');
 
-      const DATA_URL = './alert_status.json';
       try {
-        // Advanced cache busting: timestamp + random string
-        const cacheBuster = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
-        const res = await fetch(`${DATA_URL}?cb=${cacheBuster}`, { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
+        // Primary: Netlify Function (live data from APIs)
+        let data;
+        try {
+          const res = await fetch('/.netlify/functions/refresh', { cache: 'no-store' });
+          if (!res.ok) throw new Error(`Function HTTP ${res.status}`);
+          data = await res.json();
+        } catch (fnErr) {
+          // Fallback: static file (last known good from GitHub Actions)
+          console.warn('Live fetch failed, falling back to static file:', fnErr.message);
+          const cb = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
+          const res = await fetch(`./alert_status.json?cb=${cb}`, { cache: 'no-store' });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          data = await res.json();
+        }
+
         lastFetchedData = data;
 
         // Overall banner

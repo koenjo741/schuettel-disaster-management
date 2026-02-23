@@ -3,6 +3,10 @@
 [build]
   publish = "public"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Prevent CDN from caching the live data file
 [[headers]]
   for = "/alert_status.json"
@@ -10,6 +14,12 @@
     Cache-Control = "no-cache, no-store, must-revalidate"
     Pragma        = "no-cache"
     Expires       = "0"
+
+# Prevent caching of function responses
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
 
 # Static assets (HTML, CSS, JS) can be cached briefly
 [[headers]]

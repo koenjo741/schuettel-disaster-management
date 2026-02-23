@@ -2,9 +2,11 @@
  * fetchData.js – Disaster Management Data Fetcher
  * Fetches weather data from GeoSphere Austria API and evaluates alert levels
  * for Schüttelstraße 79 & 81, Vienna (Lat: 48.2092, Lon: 16.4050)
+ *
+ * Exports `fetchAlertData()` for use by Netlify Functions.
+ * Also runs as a CLI script (writes JSON to disk) when executed directly.
  */
 
-import fetch from 'node-fetch';
 import { writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
@@ -26,11 +28,8 @@ async function withRetry(fn, retries = 3, delay = 2000) {
 }
 
 // GeoSphere Austria – INCA analysis (hourly, 1 km grid, near-realtime)
-// Parameters: T2M = temperature 2 m, RR = precipitation sum 1h, UU/VV = wind components m/s
 const buildGeoSphereUrl = (offsetHours = 1) => {
     const now = new Date();
-    // offsetHours determines how far back we look.
-    // INCA usually has ~1h lag, so default is 1h back.
     const start = new Date(now - (offsetHours + 1) * 60 * 60 * 1000);
     const end = new Date(now - offsetHours * 60 * 60 * 1000);
     const fmt = (d) => d.toISOString().slice(0, 19);
@@ -43,14 +42,13 @@ const buildGeoSphereUrl = (offsetHours = 1) => {
 
 // ── Alert Thresholds ─────────────────────────────────────────────────────────
 const THRESHOLDS = {
-    heat: { yellow: 30, red: 35 },  // °C
-    wind: { yellow: 60, red: 80 },  // km/h
-    rain: { yellow: 15, red: 25 },  // mm/h
-    flood: { yellow: 380, red: 432 },  // cm
-    radiation: { yellow: 200, red: 300 },  // nSv/h
+    heat: { yellow: 30, red: 35 },
+    wind: { yellow: 60, red: 80 },
+    rain: { yellow: 15, red: 25 },
+    flood: { yellow: 380, red: 432 },
+    radiation: { yellow: 200, red: 300 },
 };
 
-// ── Helper: Derive alert level ────────────────────────────────────────────────
 const alertLevel = (value, { yellow, red }) =>
     value >= red ? 'red' : value >= yellow ? 'yellow' : 'green';
 
@@ -103,7 +101,6 @@ async function fetchRadiationData() {
 
 // ── Fetch GeoSphere Austria data ─────────────────────────────────────────────
 async function fetchWeather() {
-    // Attempt with increasing lag if data is missing
     for (let offset = 1; offset <= 3; offset++) {
         try {
             const data = await withRetry(async () => {
@@ -127,7 +124,6 @@ async function fetchWeather() {
                 windKmH: windMs != null ? Math.round(windMs * 3.6) : null,
             };
 
-            // If we have at least temperature, we consider it valid
             if (result.tempC !== null) {
                 if (offset > 1) console.log(`GeoSphere: Using data with ${offset}h offset as fallback.`);
                 return result;
@@ -140,10 +136,9 @@ async function fetchWeather() {
     throw new Error('GeoSphere API: No data found after trying multiple time windows');
 }
 
-// ── Main ─────────────────────────────────────────────────────────────────────
-async function main() {
+// ── Core: Fetch all alert data and return status object ─────────────────────
+export async function fetchAlertData() {
     const timestamp = new Date().toISOString();
-    let weather, floodData, radiationData, status;
 
     console.log(`[${timestamp}] Starting data fetch...`);
 
@@ -154,9 +149,9 @@ async function main() {
             fetchRadiationData(),
         ]);
 
-        weather = results[0].status === 'fulfilled' ? results[0].value : null;
-        floodData = results[1].status === 'fulfilled' ? results[1].value : null;
-        radiationData = results[2].status === 'fulfilled' ? results[2].value : null;
+        const weather = results[0].status === 'fulfilled' ? results[0].value : null;
+        const floodData = results[1].status === 'fulfilled' ? results[1].value : null;
+        const radiationData = results[2].status === 'fulfilled' ? results[2].value : null;
 
         if (!weather && !floodData && !radiationData) {
             throw new Error('All data sources failed.');
@@ -172,7 +167,7 @@ async function main() {
         const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
-        status = {
+        return {
             fetchedAt: timestamp,
             overall: overallLevel,
             dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at',
@@ -200,17 +195,20 @@ async function main() {
         };
     } catch (err) {
         console.error('Fetch failed:', err.message);
-        status = {
+        return {
             fetchedAt: timestamp,
             overall: 'unknown',
             error: err.message,
             hazards: {},
         };
     }
-
-    mkdirSync('public', { recursive: true });
-    writeFileSync(OUTPUT_PATH, JSON.stringify(status, null, 2), 'utf-8');
-    console.log(`[${timestamp}] ${OUTPUT_PATH} written → overall: ${status.overall}`);
 }
 
-main();
+// ── CLI entry point (for GitHub Actions) ─────────────────────────────────────
+const isDirectRun = process.argv[1]?.endsWith('fetchData.js');
+if (isDirectRun) {
+    const status = await fetchAlertData();
+    mkdirSync('public', { recursive: true });
+    writeFileSync(OUTPUT_PATH, JSON.stringify(status, null, 2), 'utf-8');
+    console.log(`[${status.fetchedAt}] ${OUTPUT_PATH} written → overall: ${status.overall}`);
+}

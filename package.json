@@ -7,9 +7,7 @@
     "fetch": "node fetchData.js",
     "dev": "node --watch fetchData.js"
   },
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=18.0.0"
   }
