@@ -568,6 +568,50 @@ async function fetchWeather() {
     }
     throw new Error('GeoSphere API: No data found after trying multiple time windows');
 }
+async function fetchUWZWarnings() {
+    return withRetry(async () => {
+        const [mainRes, wienRes] = await Promise.all([
+            fetch('https://uwz.at/'),
+            fetch('https://uwz.at/de/s/wien')
+        ]);
+
+        if (!mainRes.ok || !wienRes.ok) throw new Error('UWZ fetch failed');
+
+        const mainHtml = await mainRes.text();
+        const wienHtml = await wienRes.text();
+
+        // Helper to extract level from sidebar HTML
+        const extractLevel = (html, regionName) => {
+            // Find the region name, then look for the next indicator class
+            const escapedName = regionName.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const regex = new RegExp(`${escapedName}[^>]*[\\s\\S]*?indicator--([a-z]+)`, 'i');
+            const match = html.match(regex);
+            return match ? match[1] : 'no';
+        };
+
+        const wienLevelRaw = extractLevel(mainHtml, 'Wien');
+        const leoLevelRaw = extractLevel(wienHtml, 'Leopoldstadt');
+
+        const mapLevel = (raw) => {
+            if (raw === 'no') return 'green';
+            if (raw === 'forewarn' || raw === 'moderate') return 'yellow';
+            if (raw === 'heavy' || raw === 'extreme') return 'red';
+            return 'green';
+        };
+
+        const mapText = (raw) => {
+            const texts = { no: 'Keine Warnung', forewarn: 'Vorwarnung', moderate: 'Unwetter', heavy: 'Starkes Unwetter', extreme: 'Sehr starkes Unwetter' };
+            return texts[raw] || 'Unbekannt';
+        };
+
+        return {
+            wien: { level: mapLevel(wienLevelRaw), text: mapText(wienLevelRaw) },
+            leopoldstadt: { level: mapLevel(leoLevelRaw), text: mapText(leoLevelRaw) },
+            source: 'Österreichische Unwetterzentrale (UWZ)',
+            sourceUrl: 'https://uwz.at/'
+        };
+    });
+}
 
 // ── Core: Fetch all alert data and return status object ─────────────────────
 export async function fetchAlertData() {
@@ -588,6 +632,7 @@ export async function fetchAlertData() {
             fetchSpaceWeatherData(),
             fetchPowerOutageData(),
             fetchSnowData(),
+            fetchUWZWarnings(), // Added UWZ warnings
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -601,8 +646,9 @@ export async function fetchAlertData() {
         const spaceData = results[8].status === 'fulfilled' ? results[8].value : null;
         const powerData = results[9].status === 'fulfilled' ? results[9].value : null;
         const snowData = results[10].status === 'fulfilled' ? results[10].value : null;
+        const uwzData = results[11].status === 'fulfilled' ? results[11].value : null; // Extracted UWZ data
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData) {
             throw new Error('All data sources failed.');
         }
 
@@ -650,7 +696,10 @@ export async function fetchAlertData() {
         }
 
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel, iceLevel];
+        // UWZ Logic
+        const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
+
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel, iceLevel, uwzLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -795,6 +844,14 @@ export async function fetchAlertData() {
                     thresholds: { yellow: 'Risk', red: 'Gefahr' },
                     source: 'GeoSphere Rohdaten-Analyse',
                     sourceUrl: 'https://www.geosphere.at/',
+                },
+                uwz: {
+                    level: uwzLevel,
+                    value: uwzData?.leopoldstadt.text ?? 'Keine Warnung',
+                    district: uwzData?.leopoldstadt.text ?? 'Keine Warnung',
+                    city: uwzData?.wien.text ?? 'Keine Warnung',
+                    source: uwzData?.source ?? 'Offline',
+                    sourceUrl: uwzData?.sourceUrl ?? 'https://uwz.at/'
                 }
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,

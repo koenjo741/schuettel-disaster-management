@@ -60,7 +60,9 @@ async function runHealthCheck() {
         { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' },
         { name: 'NOAA Space Weather API', url: 'https://services.swpc.noaa.gov/products/noaa-scales.json' },
         { name: 'Wiener Netze Status (Power)', url: 'https://www.wienernetze.at/stromversorgung' },
-        { name: 'GeoSphere SNOWGRID API', url: 'https://dataset.api.hub.geosphere.at/v1/timeseries/historical/snowgrid_cl-v2-1d-1km?metadata=true' }
+        { name: 'GeoSphere SNOWGRID API', url: 'https://dataset.api.hub.geosphere.at/v1/timeseries/historical/snowgrid_cl-v2-1d-1km?metadata=true' },
+        { name: 'UWZ (A-Gesamt)', url: 'https://uwz.at/' },
+        { name: 'UWZ (Wien-Detail)', url: 'https://uwz.at/de/s/wien' }
     ];
 
     for (const endpoint of apiEndpoints) {

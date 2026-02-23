@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-23T20:58:36.051Z",
+  "fetchedAt": "2026-02-23T21:13:27.903Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 11.57,
+      "value": 11.08,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -20,7 +20,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 20,
+      "value": 23,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -30,7 +30,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0,
+      "value": 0.017,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -61,7 +61,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 66,
+      "value": 71,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -78,7 +78,7 @@
         "yellow": 25,
         "red": 50
       },
-      "pm25": 3,
+      "pm25": 2,
       "luftIndex": 1,
       "source": "Wien.gv.at Luftgütebericht (MA 22)",
       "sourceUrl": "https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm"
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-23T20:58:36.392Z",
+      "date": "2026-02-23T21:13:28.221Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -204,6 +204,14 @@
       },
       "source": "GeoSphere Rohdaten-Analyse",
       "sourceUrl": "https://www.geosphere.at/"
+    },
+    "uwz": {
+      "level": "red",
+      "value": "Vorwarnung",
+      "district": "Vorwarnung",
+      "city": "Starkes Unwetter",
+      "source": "Österreichische Unwetterzentrale (UWZ)",
+      "sourceUrl": "https://uwz.at/"
     }
   },
   "error": null

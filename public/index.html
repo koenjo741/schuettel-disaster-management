@@ -184,7 +184,8 @@
       space: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><defs><radialGradient id="sunGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#f59e0b"/></radialGradient></defs><path d="M32 4 C33 12 30 12 32 16 M46 8 C42 15 45 15 48 18 M56 20 C48 22 48 18 52 24 M60 32 C52 33 52 30 56 32 M56 46 C48 42 52 45 49 49 M46 56 C42 48 45 52 38 52 M32 60 C33 52 30 52 32 48 M18 56 C22 48 19 52 15 49 M8 46 C15 42 12 45 15 38 M4 32 C12 33 12 30 8 32 M8 20 C15 18 12 22 15 15 M18 8 C22 15 19 12 24 15" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="32" r="14" fill="url(#sunGrad)" stroke="#d97706" stroke-width="1"/></svg>', title: 'Weltraumwetter', sub: 'Sonnenaktivität & Erdmagnetfeld' },
       power: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M38 4 18 36h14l-4 24 20-32H34L38 4Z" fill="#fbbf24" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/></svg>', title: 'Stromversorgung', sub: 'Status Wiener Netze (Echtzeit)' },
       snow: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 8v48M8 32h48M15 15l34 34M49 15L15 49" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#fff" stroke="#60a5fa" stroke-width="1"/></svg>', title: 'Schnee & Winterdienst', sub: 'SNOWGRID & Niederschlagsprognose' },
-      ice: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 10v34M24 44h16m-8 0v10" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="50" r="6" fill="#38bdf8"/><path d="M22 18h20M22 28h20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/><path d="M32 6c1 12 8 8 12 16c2 4 0 10-4 10s-8-4-8-10" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/></svg>', title: 'Glatteis-Gefahr', sub: 'Analyse von Reif & gefrierendem Regen' }
+      ice: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 10v34M24 44h16m-8 0v10" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="50" r="6" fill="#38bdf8"/><path d="M22 18h20M22 28h20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/><path d="M32 6c1 12 8 8 12 16c2 4 0 10-4 10s-8-4-8-10" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/></svg>', title: 'Glatteis-Gefahr', sub: 'Analyse von Reif & gefrierendem Regen' },
+      uwz: { icon: '🏛️', title: 'Unwetter­warnungen', sub: 'Status Wien (Gesamt) & Leopoldstadt (Lokal)' }
     };
 
     const LEVEL_TEXT = { green: 'Alles im grünen Bereich', yellow: 'Erhöhte Wachsamkeit empfohlen', red: 'Sofortige Maßnahmen erforderlich!', unknown: 'Daten werden geladen …' };
@@ -216,6 +217,9 @@
       }
       if (key === 'ice') {
         return hazard?.value ?? 'Sicher';
+      }
+      if (key === 'uwz') {
+        return hazard?.district ?? 'Sicher';
       }
       return `${hazard.value} ${hazard.unit}`;
     }
@@ -303,6 +307,12 @@
         } else {
           parts.push(`NASA: Keine Hotspots (20km)`);
         }
+        if (parts.length > 0) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
+      }
+      if (key === 'uwz' && hazard) {
+        const parts = [];
+        parts.push(`Wien: ${hazard.city || 'Keine Warnung'}`);
+        parts.push(`Leopoldstadt: ${hazard.district || 'Keine Warnung'}`);
         if (parts.length > 0) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
       }
       if (key === 'space' && hazard) {
