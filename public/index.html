@@ -154,8 +154,7 @@
     <!-- Hazard cards grid -->
     <section class="fade-in-2">
       <h2 class="text-sm font-semibold uppercase tracking-widest text-slate-500 mb-4">Gefahren­indikatoren</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 lg:gap-6"
-        id="hazardGrid">
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-6" id="hazardGrid">
         <!-- injected by JS -->
       </div>
     </section>
@@ -426,7 +425,16 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW registration failed:', err));
+        navigator.serviceWorker.register('/sw.js?v=3').then(reg => {
+          reg.onupdatefound = () => {
+            const newSW = reg.installing;
+            newSW.onstatechange = () => {
+              if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+                window.location.reload();
+              }
+            };
+          };
+        }).catch(err => console.warn('SW registration failed:', err));
       });
     }
   </script>
