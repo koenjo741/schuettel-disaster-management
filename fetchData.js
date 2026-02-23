@@ -52,6 +52,7 @@ const THRESHOLDS = {
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
     space: { yellow: 2, red: 3 },          // NOAA Scale (1-5)
     power: { yellow: 2, red: 2 },          // Status level (1: OK, 2: Outage)
+    snow: { yellow: 0.03, red: 0.10 },     // Snow depth in meters
 };
 
 const alertLevel = (value, { yellow, red }) =>
@@ -321,6 +322,31 @@ async function fetchFireData() {
     }
 }
 
+async function fetchSnowData() {
+    return withRetry(async () => {
+        const now = new Date();
+        const fmt = (d) => d.toISOString().slice(0, 19);
+        const q = new URLSearchParams({
+            start: fmt(new Date(now - 2 * 60 * 60 * 1000)), // Query last 2h to be safe
+            end: fmt(now),
+            lat_lon: `${LOCATION.lat},${LOCATION.lon}`,
+            parameters: 'snow_depth'
+        });
+        const url = `https://dataset.api.hub.geosphere.at/v1/timeseries/historical/snowgrid_cl-v2-1d-1km?${q}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`GeoSphere SNOWGRID error: ${res.status}`);
+        const data = await res.json();
+        const depth = data.features?.[0]?.properties?.parameters?.snow_depth?.data?.at(-1) ?? 0;
+
+        return {
+            value: depth,
+            unit: 'm',
+            source: 'GeoSphere Austria (SNOWGRID)',
+            sourceUrl: 'https://www.geosphere.at/'
+        };
+    });
+}
+
 async function fetchSpaceWeatherData() {
     return withRetry(async () => {
         // NOAA SWPC Real-time Scales (G, S, R)
@@ -561,6 +587,7 @@ export async function fetchAlertData() {
             fetchFireData(),
             fetchSpaceWeatherData(),
             fetchPowerOutageData(),
+            fetchSnowData(),
         ]);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
@@ -573,8 +600,9 @@ export async function fetchAlertData() {
         const fireData = results[7].status === 'fulfilled' ? results[7].value : null;
         const spaceData = results[8].status === 'fulfilled' ? results[8].value : null;
         const powerData = results[9].status === 'fulfilled' ? results[9].value : null;
+        const snowData = results[10].status === 'fulfilled' ? results[10].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData) {
             throw new Error('All data sources failed.');
         }
 
@@ -595,8 +623,19 @@ export async function fetchAlertData() {
         const spaceLevel = spaceData ? alertLevel(spaceData.level, THRESHOLDS.space) : 'unknown';
         const powerLevel = powerData ? alertLevel(powerData.status, THRESHOLDS.power) : 'unknown';
 
+        // Winterdienst Logic: Combination of depth, temp and rain
+        let snowLevel = 'green';
+        if (snowData) {
+            const depth = snowData.value;
+            const temp = weather?.tempC ?? 10;
+            const rain = weather?.rainMmH ?? 0;
+
+            if (depth >= THRESHOLDS.snow.red || (rain > 2 && temp < 1.0)) snowLevel = 'red';
+            else if (depth >= THRESHOLDS.snow.yellow || (rain > 0 && temp < 1.5)) snowLevel = 'yellow';
+        }
+
         const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -724,6 +763,15 @@ export async function fetchAlertData() {
                     message: powerData?.message ?? 'Unbekannt',
                     source: powerData?.source ?? 'Offline',
                     sourceUrl: powerData?.sourceUrl ?? 'https://www.wienernetze.at/stromversorgung',
+                },
+                snow: {
+                    level: snowLevel,
+                    value: Math.round((snowData?.value ?? 0) * 100), // Convert to cm for UI
+                    unit: 'cm',
+                    thresholds: { yellow: THRESHOLDS.snow.yellow * 100, red: THRESHOLDS.snow.red * 100 },
+                    condition: snowLevel === 'red' ? 'Schneechaos / Räumpflicht!' : (snowLevel === 'yellow' ? 'Schneefall / Räumung empfohlen' : 'Kein relevanter Schnee'),
+                    source: snowData?.source ?? 'Offline',
+                    sourceUrl: snowData?.sourceUrl ?? 'https://www.geosphere.at/',
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,

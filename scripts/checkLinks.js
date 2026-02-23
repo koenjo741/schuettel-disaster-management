@@ -59,7 +59,8 @@ async function runHealthCheck() {
         { name: 'EFFIS (Copernicus) Portal', url: 'https://effis.jrc.ec.europa.at/' },
         { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' },
         { name: 'NOAA Space Weather API', url: 'https://services.swpc.noaa.gov/products/noaa-scales.json' },
-        { name: 'Wiener Netze Status (Power)', url: 'https://www.wienernetze.at/stromversorgung' }
+        { name: 'Wiener Netze Status (Power)', url: 'https://www.wienernetze.at/stromversorgung' },
+        { name: 'GeoSphere SNOWGRID API', url: 'https://dataset.api.hub.geosphere.at/v1/timeseries/historical/snowgrid_cl-v2-1d-1km?metadata=true' }
     ];
 
     for (const endpoint of apiEndpoints) {
