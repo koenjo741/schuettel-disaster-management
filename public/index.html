@@ -219,12 +219,6 @@
       if (key === 'ice') {
         return hazard?.value ?? 'Sicher';
       }
-      if (key === 'uwz') {
-        return hazard?.district ?? 'Sicher';
-      }
-      if (key === 'thunderstorm') {
-        return hazard.value;
-      }
       return `${hazard.value}${hazard.unit ? ' ' + hazard.unit : ''}`;
     }
 

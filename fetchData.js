@@ -880,7 +880,7 @@ export async function fetchAlertData() {
                 },
                 uwz: {
                     level: uwzLevel,
-                    value: uwzData?.leopoldstadt.text ?? 'Keine Warnung',
+                    value: severityRank[uwzData?.wien.level] > severityRank[uwzData?.leopoldstadt.level] ? uwzData.wien.text : (uwzData?.leopoldstadt.text ?? 'Keine Warnung'),
                     district: uwzData?.leopoldstadt.text ?? 'Keine Warnung',
                     city: uwzData?.wien.text ?? 'Keine Warnung',
                     source: uwzData?.source ?? 'Offline',
