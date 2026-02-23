@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-02-23T16:33:21.782Z",
-  "overall": "green",
+  "fetchedAt": "2026-02-23T17:44:37.697Z",
+  "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
@@ -10,21 +10,23 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.63,
+      "value": 12.34,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
         "red": 35
-      }
+      },
+      "sourceUrl": "https://www.geosphere.at/"
     },
     "wind": {
       "level": "green",
-      "value": 25,
+      "value": 30,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
         "red": 80
-      }
+      },
+      "sourceUrl": "https://www.geosphere.at/"
     },
     "rain": {
       "level": "green",
@@ -33,7 +35,8 @@
       "thresholds": {
         "yellow": 15,
         "red": 25
-      }
+      },
+      "sourceUrl": "https://www.geosphere.at/"
     },
     "flood": {
       "level": "green",
@@ -43,17 +46,19 @@
         "yellow": 380,
         "red": 432
       },
-      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)"
+      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
+      "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke"
     },
     "radiation": {
       "level": "green",
-      "value": 67,
+      "value": 66,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
         "red": 300
       },
-      "source": "Strahlenschutz.gv.at (IMIS)"
+      "source": "Strahlenschutz.gv.at (IMIS)",
+      "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002"
     },
     "airQuality": {
       "level": "green",
@@ -65,21 +70,23 @@
       },
       "pm25": 4,
       "luftIndex": 1,
-      "source": "Wien.gv.at Luftgütebericht (MA 22)"
+      "source": "Wien.gv.at Luftgütebericht (MA 22)",
+      "sourceUrl": "https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm"
     },
     "earthquake": {
       "level": "green",
-      "value": 2.6,
+      "value": 1.9,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 71,
-      "depthKm": 5,
-      "time": "2026-02-22T17:09:20.806Z",
-      "eventCount": 4,
-      "source": "ZAMG/GeoSphere FDSN"
+      "distanceKm": 76,
+      "depthKm": 12.3,
+      "time": "2026-02-22T20:54:57.994Z",
+      "eventCount": 3,
+      "source": "ZAMG/GeoSphere FDSN",
+      "sourceUrl": "https://www.zamg.ac.at/cms/de/geophysik/erdbeben/aktuell-in-oesterreich"
     },
     "atAlert": {
       "level": "green",
@@ -90,16 +97,24 @@
       "alertLevel": null,
       "expires": null,
       "sender": null,
-      "source": "AT-Alert (keine Warnungen)"
+      "source": "AT-Alert (keine Warnungen)",
+      "sourceUrl": "https://warnungen.at-alert.at"
     },
     "pandemic": {
-      "level": "green",
-      "value": 0,
+      "level": "red",
+      "value": 1,
       "unit": "Aktiv",
-      "title": "Keine aktuellen Meldungen",
+      "title": "Influenza: Welle (MedUni)",
       "summary": null,
-      "date": null,
-      "source": "WHO Disease Outbreak News"
+      "details": [
+        {
+          "name": "Influenza",
+          "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
+        }
+      ],
+      "date": "2026-02-23T17:44:40.145Z",
+      "source": "WHO DON + MedUni Wien Map",
+      "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     }
   },
   "error": null
