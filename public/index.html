@@ -212,9 +212,15 @@
       const value = formatValue(key, hazard);
 
       let thresholdHtml = '';
+      const sourceUrl = hazard?.sourceUrl;
+      const linkClass = "hover:text-slate-300 transition-colors no-underline";
+
       if (hazard?.thresholds) {
         const t = hazard.thresholds;
-        thresholdHtml = `<p class="text-xs text-slate-500 mt-2 italic">Schwellenwerte: <span class="text-yellow-500">${t.yellow}</span> / <span class="text-red-500">${t.red}</span> ${hazard.unit}</p>`;
+        const innerContent = `Schwellenwerte: <span class="text-yellow-500/80">${t.yellow}</span> / <span class="text-red-500/80">${t.red}</span> ${hazard.unit}`;
+        thresholdHtml = sourceUrl
+          ? `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">${innerContent}</a>`
+          : `<p class="text-xs text-slate-500 mt-2 italic">${innerContent}</p>`;
       }
 
       let extraHtml = '';
@@ -237,24 +243,36 @@
         }
         if (hazard.eventCount > 1) parts.push(`${hazard.eventCount} Ereignisse (24h)`);
         if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
-      }
-      if (key === 'atAlert' && hazard && hazard.title) {
-        const parts = [];
-        if (hazard.title) parts.push(hazard.title);
-        if (hazard.sender) parts.push(`Absender: ${hazard.sender}`);
-        if (hazard.expires) {
-          const t = new Date(hazard.expires);
-          parts.push(`Gültig bis: ${t.toLocaleString('de-AT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}`);
-        }
-        if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
-        if (hazard.description) extraHtml += `<p class="text-xs text-slate-500 mt-1 italic">${hazard.description.slice(0, 120)}${hazard.description.length > 120 ? '…' : ''}</p>`;
-      }
-      if (key === 'pandemic' && hazard && hazard.level !== 'green') {
-        if (hazard.summary) extraHtml = `<p class="text-xs text-slate-500 mt-1 italic">${hazard.summary.substring(0, 150)}...</p>`;
 
-        if (hazard.details && hazard.details.length > 0) {
-          const links = hazard.details.map(d => `<a href="${d.url}" target="_blank" class="text-yellow-400 hover:text-yellow-300 underline decoration-yellow-400/30 underline-offset-2">${d.name}</a>`).join(', ');
-          thresholdHtml = `<p class="text-xs text-slate-500 mt-2 italic">Warnung vor: ${links}</p>`;
+        if (!thresholdHtml && sourceUrl) {
+          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Datenquelle: ZAMG/GeoSphere</a>`;
+        }
+      }
+      if (key === 'atAlert' && hazard) {
+        if (hazard.title) {
+          const parts = [];
+          if (hazard.sender) parts.push(`Absender: ${hazard.sender}`);
+          if (hazard.expires) {
+            const t = new Date(hazard.expires);
+            parts.push(`Gültig bis: ${t.toLocaleString('de-AT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}`);
+          }
+          if (parts.length) extraHtml = `<p class="text-xs text-slate-400 mt-1">${parts.join(' · ')}</p>`;
+          if (hazard.description) extraHtml += `<p class="text-xs text-slate-500 mt-1 italic">${hazard.description.slice(0, 120)}${hazard.description.length > 120 ? '…' : ''}</p>`;
+        }
+        if (sourceUrl) {
+          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Quelle: AT-Alert</a>`;
+        }
+      }
+      if (key === 'pandemic' && hazard) {
+        if (hazard.level !== 'green') {
+          if (hazard.summary) extraHtml = `<p class="text-xs text-slate-500 mt-1 italic">${hazard.summary.substring(0, 150)}...</p>`;
+
+          if (hazard.details && hazard.details.length > 0) {
+            const links = hazard.details.map(d => `<a href="${d.url}" target="_blank" class="text-yellow-400 hover:text-yellow-200 no-underline">${d.name}</a>`).join(', ');
+            thresholdHtml = `<p class="text-xs text-slate-500 mt-2 italic">Warnung vor: ${links}</p>`;
+          }
+        } else if (sourceUrl) {
+          thresholdHtml = `<a href="${sourceUrl}" target="_blank" class="block text-xs text-slate-500 mt-2 italic ${linkClass}">Quelle: WHO / MedUni Wien</a>`;
         }
       }
 

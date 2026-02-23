@@ -477,15 +477,34 @@ export async function fetchAlertData() {
             dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
-                heat: { level: heatLevel, value: weather?.tempC ?? null, unit: '°C', thresholds: THRESHOLDS.heat },
-                wind: { level: windLevel, value: weather?.windKmH ?? null, unit: 'km/h', thresholds: THRESHOLDS.wind },
-                rain: { level: rainLevel, value: weather?.rainMmH ?? null, unit: 'mm/h', thresholds: THRESHOLDS.rain },
+                heat: {
+                    level: heatLevel,
+                    value: weather?.tempC ?? null,
+                    unit: '°C',
+                    thresholds: THRESHOLDS.heat,
+                    sourceUrl: 'https://www.geosphere.at/'
+                },
+                wind: {
+                    level: windLevel,
+                    value: weather?.windKmH ?? null,
+                    unit: 'km/h',
+                    thresholds: THRESHOLDS.wind,
+                    sourceUrl: 'https://www.geosphere.at/'
+                },
+                rain: {
+                    level: rainLevel,
+                    value: weather?.rainMmH ?? null,
+                    unit: 'mm/h',
+                    thresholds: THRESHOLDS.rain,
+                    sourceUrl: 'https://www.geosphere.at/'
+                },
                 flood: {
                     level: floodLevel,
                     value: floodData?.pegelCm ?? null,
                     unit: 'cm',
                     thresholds: THRESHOLDS.flood,
                     source: floodData?.source ?? 'Offline',
+                    sourceUrl: 'https://danubealert.com/at/history/schwedenbrucke'
                 },
                 radiation: {
                     level: radiationLevel,
@@ -493,6 +512,7 @@ export async function fetchAlertData() {
                     unit: 'nSv/h',
                     thresholds: THRESHOLDS.radiation,
                     source: radiationData?.source ?? 'Offline',
+                    sourceUrl: 'https://mb.strahlenschutz.gv.at/station/AT2002'
                 },
                 airQuality: {
                     level: airQualityLevel,
@@ -502,6 +522,7 @@ export async function fetchAlertData() {
                     pm25: airQualityData?.pm25 ?? null,
                     luftIndex: airQualityData?.luftIndex ?? null,
                     source: airQualityData?.source ?? 'Offline',
+                    sourceUrl: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm'
                 },
                 earthquake: {
                     level: earthquakeLevel,
@@ -513,6 +534,7 @@ export async function fetchAlertData() {
                     time: earthquakeData?.time ?? null,
                     eventCount: earthquakeData?.eventCount ?? 0,
                     source: earthquakeData?.source ?? 'Offline',
+                    sourceUrl: 'https://www.zamg.ac.at/cms/de/geophysik/erdbeben/aktuell-in-oesterreich'
                 },
                 atAlert: {
                     level: atAlertLevel,
@@ -524,6 +546,7 @@ export async function fetchAlertData() {
                     expires: atAlertData?.expires ?? null,
                     sender: atAlertData?.sender ?? null,
                     source: atAlertData?.source ?? 'Offline',
+                    sourceUrl: 'https://warnungen.at-alert.at'
                 },
                 pandemic: {
                     level: pandemicLevel,
@@ -534,6 +557,7 @@ export async function fetchAlertData() {
                     details: pandemicData?.details ?? [],
                     date: pandemicData?.date ?? null,
                     source: pandemicData?.source ?? 'Offline',
+                    sourceUrl: 'https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/'
                 },
             },
             error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,
