@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-24T13:26:48.902Z",
+  "fetchedAt": "2026-02-24T14:34:54.118Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -12,15 +12,26 @@
       "level": "green",
       "value": 10.05,
       "unit": "°C",
+      "uvi": 0.5,
       "thresholds": {
         "yellow": 30,
         "red": 35
       },
-      "sourceUrl": "https://warnungen.zamg.at/"
+      "uvThresholds": {
+        "yellow": 6,
+        "red": 8
+      },
+      "sourceUrl": "https://warnungen.zamg.at/",
+      "extraLinks": [
+        {
+          "name": "UV-Index (UV-Messnetz)",
+          "url": "https://www.uv-index.at/station/?site=Wien&prod=uve"
+        }
+      ]
     },
     "wind": {
       "level": "green",
-      "value": 20,
+      "value": 21,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -123,7 +134,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-24T13:26:51.830Z",
+      "date": "2026-02-24T14:34:56.859Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -151,11 +162,11 @@
     },
     "space": {
       "level": "green",
-      "value": 0,
+      "value": 2.33,
       "unit": "Scale",
       "thresholds": {
-        "yellow": 2,
-        "red": 3
+        "yellow": 5,
+        "red": 7
       },
       "scales": {
         "g": 0,
@@ -219,7 +230,13 @@
       "value": "Keine Gewitterzellen",
       "intensity": 0,
       "source": "GeoSphere Austria (ZAMG)",
-      "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350"
+      "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
+      "extraLinks": [
+        {
+          "name": "Hagelradar",
+          "url": "https://warnungen.zamg.at/wsapp/de/hagel/heute/"
+        }
+      ]
     }
   },
   "error": null
