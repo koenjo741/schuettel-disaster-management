@@ -27,6 +27,16 @@ async function withRetry(fn, retries = 3, delay = 2000) {
     }
 }
 
+async function fetchJSON(url, options = {}, sourceName = 'API') {
+    const res = await fetch(url, options);
+    if (!res.ok) throw new Error(`${sourceName} error: ${res.status}`);
+    const contentType = res.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(`${sourceName}: Expected JSON but received ${contentType || 'unknown content'}`);
+    }
+    return res.json();
+}
+
 // GeoSphere Austria – INCA analysis (hourly, 1 km grid, near-realtime)
 const buildGeoSphereUrl = (offsetHours = 1) => {
     const now = new Date();
@@ -333,9 +343,7 @@ async function fetchSnowData() {
             parameters: 'snow_depth'
         });
         const url = `https://dataset.api.hub.geosphere.at/v1/timeseries/historical/snowgrid_cl-v2-1d-1km?${q}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`GeoSphere SNOWGRID error: ${res.status}`);
-        const data = await res.json();
+        const data = await fetchJSON(url, {}, 'GeoSphere SNOWGRID');
         const depth = data.features?.[0]?.properties?.parameters?.snow_depth?.data?.at(-1) ?? 0;
 
         return {
@@ -350,9 +358,7 @@ async function fetchSnowData() {
 async function fetchSpaceWeatherData() {
     return withRetry(async () => {
         // NOAA SWPC Real-time Scales (G, S, R)
-        const res = await fetch('https://services.swpc.noaa.gov/products/noaa-scales.json');
-        if (!res.ok) throw new Error(`NOAA API error: ${res.status}`);
-        const data = await res.json();
+        const data = await fetchJSON('https://services.swpc.noaa.gov/products/noaa-scales.json', {}, 'NOAA Space Weather');
 
         // Key 0 contains current observation
         const current = data['0'] || {};
@@ -395,9 +401,7 @@ async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
         const url = `https://warnungen.at-alert.at/api/filteredAlerts?from=${today}&to=${today}&limit=100&offset=0`;
-        const res = await fetch(url, { headers: { Accept: 'application/json', 'User-Agent': 'Mozilla/5.0' } });
-        if (!res.ok) throw new Error(`AT-Alert API error: ${res.status}`);
-        const data = await res.json();
+        const data = await fetchJSON(url, { headers: { Accept: 'application/json', 'User-Agent': 'Mozilla/5.0' } }, 'AT-Alert API');
 
         const now = new Date();
         const activeAlerts = (data.alerts ?? [])
@@ -446,7 +450,12 @@ async function fetchPandemicData() {
 
         let whoData = null;
         if (whoRes.status === 'fulfilled' && whoRes.value.ok) {
-            whoData = await whoRes.value.json();
+            const contentType = whoRes.value.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                whoData = await whoRes.value.json();
+            } else {
+                console.warn('WHO API: Expected JSON but received', contentType);
+            }
         }
 
         let influenzaLevel = 'green';
@@ -537,9 +546,7 @@ async function fetchWeather() {
         try {
             const data = await withRetry(async () => {
                 const url = buildGeoSphereUrl(offset);
-                const res = await fetch(url, { headers: { Accept: 'application/json' } });
-                if (!res.ok) throw new Error(`GeoSphere API error: ${res.status}`);
-                const json = await res.json();
+                const json = await fetchJSON(url, { headers: { Accept: 'application/json' } }, 'GeoSphere API');
                 const features = json.features ?? [];
                 if (!features.length) throw new Error('No feature data');
                 return features[0].properties.parameters;
@@ -614,9 +621,7 @@ async function fetchUWZWarnings() {
 }
 async function fetchThunderstormData() {
     return withRetry(async () => {
-        const res = await fetch('https://warnungen.zamg.at/wsapp/api/getGewitterAuto');
-        if (!res.ok) throw new Error('Thunderstorm API fetch failed');
-        const data = await res.json();
+        const data = await fetchJSON('https://warnungen.zamg.at/wsapp/api/getGewitterAuto', {}, 'Thunderstorm API');
 
         // Vienna municipalities start with 9 (90101 to 92301)
         const wienFeatures = (data.features || []).filter(f =>
@@ -665,6 +670,12 @@ export async function fetchAlertData() {
             fetchUWZWarnings(),
             fetchThunderstormData(),
         ]);
+
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG'];
+
+        const errors = results
+            .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
+            .filter(Boolean);
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
         const floodData = results[1].status === 'fulfilled' ? results[1].value : null;
@@ -894,7 +905,7 @@ export async function fetchAlertData() {
                     sourceUrl: thunderData?.sourceUrl ?? 'https://warnungen.zamg.at/wsapp/de/gewitter/heute/'
                 }
             },
-            error: results.filter(r => r.status === 'rejected').map(r => r.reason.message).join('; ') || null,
+            error: errors.length > 0 ? errors.join('; ') : null,
         };
     } catch (err) {
         console.error('Fetch failed:', err.message);

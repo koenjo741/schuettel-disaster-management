@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-24T10:09:04.615Z",
+  "fetchedAt": "2026-02-24T10:33:58.664Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-24T10:09:06.799Z",
+      "date": "2026-02-24T10:33:58.887Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -221,5 +221,5 @@
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350"
     }
   },
-  "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+  "error": "AT-Alert: AT-Alert API: Expected JSON but received text/html; charset=utf-8"
 }
