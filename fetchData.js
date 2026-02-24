@@ -105,6 +105,8 @@ const THRESHOLDS = {
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
     space: { yellow: 5, red: 7 },          // Kp-Index (0-9)
     power: { yellow: 2, red: 2 },          // Status level (1: OK, 2: Outage)
+    water: { yellow: 2, red: 2 },          // Status level (1: OK, 2: Outage)
+    gas: { yellow: 2, red: 2 },            // Status level (1: OK, 2: Outage)
     snow: { yellow: 0.03, red: 0.10 },     // Snow depth in meters
 };
 
@@ -482,6 +484,72 @@ async function fetchPowerOutageData() {
     });
 }
 
+async function fetchGasStatus() {
+    return withRetry(async () => {
+        const url = 'https://www.wienernetze.at/stoerungen';
+        const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' }, redirect: 'follow' });
+        if (!res.ok) throw new Error(`Wiener Netze (Stoerungen) error: ${res.status}`);
+        const html = await res.text();
+
+        // Check for specific gas disruption indicators that are likely to be present in HTML
+        // We look for active markers. If none found, assume Normalbetrieb.
+        const disruptionMarkers = ['aktuelles Gasgebrechen', 'Gasversorgung unterbrochen', 'Gasaustritt gemeldet'];
+        const hasSpecificDisruption = disruptionMarkers.some(kw => html.includes(kw));
+
+        return {
+            status: hasSpecificDisruption ? 2 : 1,
+            message: hasSpecificDisruption ? 'Störung gemeldet' : 'Normalbetrieb',
+            source: 'Wiener Netze (Erdgas)',
+            sourceUrl: url
+        };
+    });
+}
+
+async function fetchWaterStatus() {
+    try {
+        return await withRetry(async () => {
+            // MA 31 main page as primary because disruption page is often 500
+            const url = 'https://www.wien.gv.at/wasser/versorgung/index.html';
+            const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+
+            const disruptionUrl = 'https://www.wien.gv.at/kontakte/ma31/stoerungen.html';
+
+            if (!res.ok) {
+                // Main page down, try disruption page
+                const resFallback = await fetch(disruptionUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+                if (!resFallback.ok) throw new Error(`Status: ${resFallback.status}`);
+                const html = await resFallback.text();
+
+                const hasDisruption = ['Rohrbruch', 'Wasserrohrbruch', 'Versorgung unterbrochen', 'Großgebrechen'].some(kw => html.includes(kw));
+                return {
+                    status: hasDisruption ? 2 : 1,
+                    message: hasDisruption ? 'Störung gemeldet' : 'Normalbetrieb',
+                    source: 'Wiener Wasser (MA 31)',
+                    sourceUrl: disruptionUrl
+                };
+            }
+
+            const html = await res.text();
+            // Check for major disruption news on main page
+            const hasDisruption = ['Rohrbruch', 'Wasserrohrbruch', 'Großgebrechen'].some(kw => html.includes(kw));
+
+            return {
+                status: hasDisruption ? 2 : 1,
+                message: hasDisruption ? 'Einschränkungen möglich' : 'Normalbetrieb',
+                source: 'Wiener Wasser (MA 31)',
+                sourceUrl: url
+            };
+        });
+    } catch (err) {
+        return {
+            status: 0, // Green / Unknown
+            message: 'Information aktuell nicht erreichbar',
+            source: 'Wiener Wasser (MA 31) - Offline',
+            sourceUrl: 'https://www.wien.gv.at/wasser/versorgung/index.html'
+        };
+    }
+}
+
 async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
@@ -792,13 +860,15 @@ export async function fetchAlertData() {
             fetchFireData(),
             fetchSpaceWeatherData(),
             fetchPowerOutageData(),
+            fetchGasStatus(),
+            fetchWaterStatus(),
             fetchSnowData(),
             fetchUWZWarnings(),
             fetchThunderstormData(),
             fetchUVData(),
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -813,11 +883,13 @@ export async function fetchAlertData() {
         const pandemicData = results[6].status === 'fulfilled' ? results[6].value : null;
         const fireData = results[7].status === 'fulfilled' ? results[7].value : null;
         const spaceData = results[8].status === 'fulfilled' ? results[8].value : null;
-        const powerData = results[9].status === 'fulfilled' ? results[9].value : null;
-        const snowData = results[10].status === 'fulfilled' ? results[10].value : null;
-        const uwzData = results[11].status === 'fulfilled' ? results[11].value : null;
-        const thunderData = results[12].status === 'fulfilled' ? results[12].value : null;
-        const uvData = results[13].status === 'fulfilled' ? results[13].value : null;
+        const powerData = results[9].status === 'fulfilled' ? results[9].value : { level: 'unknown' };
+        const gasData = results[10].status === 'fulfilled' ? results[10].value : { level: 'unknown' };
+        const waterData = results[11].status === 'fulfilled' ? results[11].value : { level: 'unknown' };
+        const snowData = results[12].status === 'fulfilled' ? results[12].value : { level: 'unknown' };
+        const uwzData = results[13].status === 'fulfilled' ? results[13].value : { level: 'unknown' };
+        const thunderData = results[14].status === 'fulfilled' ? results[14].value : { level: 'unknown' };
+        const uvData = results[15].status === 'fulfilled' ? results[15].value : { level: 'unknown' };
 
         if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData) {
             throw new Error('All data sources failed.');
@@ -847,6 +919,8 @@ export async function fetchAlertData() {
 
         const spaceLevel = spaceData ? alertLevel(spaceData.level, THRESHOLDS.space) : 'unknown';
         const powerLevel = powerData ? alertLevel(powerData.status, THRESHOLDS.power) : 'unknown';
+        const gasLevel = gasData ? alertLevel(gasData.status, THRESHOLDS.gas) : 'unknown';
+        const waterLevel = waterData ? alertLevel(waterData.status, THRESHOLDS.water) : 'unknown';
 
         // Winterdienst Logic: Combination of depth, temp and rain
         let snowLevel = 'green';
@@ -878,7 +952,7 @@ export async function fetchAlertData() {
         const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
         const thunderLevel = thunderData?.level ?? 'green';
 
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, gasLevel, waterLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -1012,6 +1086,24 @@ export async function fetchAlertData() {
                     message: powerData?.message ?? 'Unbekannt',
                     source: powerData?.source ?? 'Offline',
                     sourceUrl: powerData?.sourceUrl ?? 'https://www.wienernetze.at/stromversorgung',
+                },
+                gas: {
+                    level: gasLevel,
+                    value: gasData?.status ?? 0,
+                    unit: 'Status',
+                    thresholds: THRESHOLDS.gas,
+                    message: gasData?.message ?? 'Unbekannt',
+                    source: gasData?.source ?? 'Offline',
+                    sourceUrl: gasData?.sourceUrl ?? 'https://www.wienernetze.at/gas',
+                },
+                water: {
+                    level: waterLevel,
+                    value: waterData?.status ?? 0,
+                    unit: 'Status',
+                    thresholds: THRESHOLDS.water,
+                    message: waterData?.message ?? 'Unbekannt',
+                    source: waterData?.source ?? 'Offline',
+                    sourceUrl: waterData?.sourceUrl ?? 'https://www.wien.gv.at/wasser/versorgung/index.html',
                 },
                 snow: {
                     level: snowLevel,
