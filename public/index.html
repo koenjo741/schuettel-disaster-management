@@ -132,7 +132,7 @@
         <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
         <div
           class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-          v1.5.1</div>
+          v1.5.2</div>
         <button id="installBtn"
           class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
           <span>📲 App installieren</span>
@@ -356,8 +356,8 @@
             <div class="flex items-center gap-3">
               <span class="text-2xl">${icon}</span>
               <div>
-                <p class="font-semibold sm:font-medium text-slate-100 sm:text-slate-400">${title}</p>
-                <p class="text-xs text-slate-200 sm:text-slate-400 font-semibold">${sub}</p>
+                <p class="text-[16.5px] font-semibold sm:font-semibold text-slate-100 sm:text-slate-400">${title}</p>
+                <p class="text-[12.5px] mt-0.5 text-slate-200 sm:text-slate-400 font-semibold">${sub}</p>
               </div>
             </div>
             <span class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold transition-colors duration-500">${LEVEL_LABEL[level]}</span>
@@ -516,7 +516,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=6').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=7').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();
