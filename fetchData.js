@@ -122,6 +122,7 @@ async function fetchFloodData() {
         const pegelMatch = html.match(/erreichte der Pegel (\d+) cm/);
         const ldcMatch = html.match(/minimal akzeptabler Pegel \((\d+) cm\)/);
         const hdcMatch = html.match(/maximal akzeptabler Pegel \((\d+) cm\)/);
+        const trendMatch = html.match(/Trend des Wasserpegels in den letzten 7 Tagen:\s*([^\s<]+)/);
 
         if (!pegelMatch) throw new Error('danubealert.com: Pegel value not found in HTML');
 
@@ -129,6 +130,7 @@ async function fetchFloodData() {
             pegelCm: parseInt(pegelMatch[1], 10),
             ldc: ldcMatch ? parseInt(ldcMatch[1], 10) : 288,
             hdc: hdcMatch ? parseInt(hdcMatch[1], 10) : 432,
+            trend: trendMatch ? trendMatch[1].trim() : null,
             source: 'danubealert.com (Schwedenbrücke / eHYD #207233)',
         };
     });
@@ -869,6 +871,7 @@ export async function fetchAlertData() {
                     level: floodLevel,
                     value: floodData?.pegelCm ?? null,
                     unit: 'cm',
+                    trend: floodData?.trend ?? null,
                     thresholds: THRESHOLDS.flood,
                     source: floodData?.source ?? 'Offline',
                     sourceUrl: 'https://danubealert.com/at/history/schwedenbrucke',

@@ -202,10 +202,19 @@
     }
 
     function formatValue(key, hazard) {
-      if (!hazard || hazard.value == null) {
-        if (key === 'flood') return `Pegel: ${hazard?.pegelCm ?? '?'} cm`;
+      if (!hazard || (hazard.value == null && hazard.pegelCm == null)) {
         return '— Kein Messwert —';
       }
+
+      let val = hazard.value ?? hazard.pegelCm;
+      let unit = hazard.unit ?? '';
+
+      if (key === 'flood') {
+        const trendMap = { 'Erhöhung': '↑', 'Verringerung': '↓', 'Gleichbleibend': '→', 'Stabil': '→' };
+        const arrow = hazard.trend ? (trendMap[hazard.trend] || '') : '';
+        return `${val} ${unit} ${arrow}`.trim();
+      }
+
       if (key === 'atAlert' || key === 'pandemic') {
         if (!hazard || !hazard.value) return 'Keine aktiven Meldungen';
         return `${hazard.value} ${hazard.unit}`;
