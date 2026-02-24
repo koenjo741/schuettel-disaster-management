@@ -365,6 +365,7 @@
         flood: 'danubealert', radiation: 'Strahlenschutz.gv.at', airQuality: 'Wien.gv.at',
         earthquake: 'GeoSphere / EMSC', atAlert: 'AT-Alert', pandemic: 'WHO / MedUni Wien',
         fire: 'NASA / GeoSphere', space: 'NOAA / SWPC', power: 'Wiener Netze',
+        gas: 'Wiener Netze', water: 'Wiener Wasser (MA 31)',
         snow: 'GeoSphere (SNOWGRID)', ice: 'GeoSphere', uwz: 'UWZ.at', thunderstorm: 'GeoSphere / ZAMG'
       };
 
@@ -443,6 +444,7 @@
           const res = await fetch('/.netlify/functions/refresh', { cache: 'no-store' });
           if (!res.ok) throw new Error(`Function HTTP ${res.status}`);
           data = await res.json();
+          console.log('Live data loaded:', data);
         } catch (fnErr) {
           // Fallback: static file (last known good from GitHub Actions)
           console.warn('Live fetch failed, falling back to static file:', fnErr.message);
