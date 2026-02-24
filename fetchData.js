@@ -776,6 +776,7 @@ async function fetchThunderstormData() {
 // ── Core: Fetch all alert data and return status object ─────────────────────
 export async function fetchAlertData() {
     const timestamp = new Date().toISOString();
+    const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
 
     console.log(`[${timestamp}] Starting data fetch...`);
 
@@ -834,7 +835,6 @@ export async function fetchAlertData() {
             if (!airQualityData) return 'unknown';
             const pmLevel = alertLevel(airQualityData.pm10 ?? 0, THRESHOLDS.airQuality);
             const idxLevel = airQualityData.luftIndex ? alertLevel(airQualityData.luftIndex, THRESHOLDS.airQualityIndex) : 'green';
-            const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
             return severityRank[pmLevel] > severityRank[idxLevel] ? pmLevel : idxLevel;
         })();
         const earthquakeLevel = earthquakeData ? alertLevel(earthquakeData.magnitude ?? 0, THRESHOLDS.earthquake) : 'unknown';
@@ -874,7 +874,6 @@ export async function fetchAlertData() {
             iceMessage = temp < 0 ? 'Überfrierende Nässe / Reif' : 'Glatteisgefahr möglich';
         }
 
-        const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
         // UWZ Logic
         const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
         const thunderLevel = thunderData?.level ?? 'green';
