@@ -128,11 +128,16 @@
           <p class="text-xs text-slate-400 mt-0.5">1020 Wien -<br />Vorbeugender Katastrophenschutz</p>
         </div>
       </div>
-      <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
-      <button id="installBtn"
-        class="hidden ml-4 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
-        <span>📲 App installieren</span>
-      </button>
+      <div class="flex items-center gap-2">
+        <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
+        <div
+          class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
+          v1.5.0</div>
+        <button id="installBtn"
+          class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
+          <span>📲 App installieren</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -511,13 +516,22 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=4').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=5').then(reg => {
+          // Check for updates every 15 minutes
+          setInterval(() => {
+            reg.update();
+          }, 15 * 60 * 1000);
+
+          // Check for update on window focus
+          window.addEventListener('focus', () => {
+            reg.update();
+          });
+
           reg.onupdatefound = () => {
             const newSW = reg.installing;
             newSW.onstatechange = () => {
               if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
-                // New worker available, usually skipWaiting() in sw handles this
-                // but we also listen for controllerchange below
+                // Controller change listener below handles the reload
               }
             };
           };
