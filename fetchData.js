@@ -743,8 +743,8 @@ async function fetchThunderstormData() {
 
         const levels = ['green', 'yellow', 'red']; // 0: green, 1: yellow, 2+: red
         const level = levels[Math.min(maxIntensity, 2)];
-        const messages = ['Keine Gewitterzellen', 'Moderate Gewitteraktivität', 'Starke Gewitterzellen / Hagelgefahr!'];
-        const message = messages[Math.min(maxIntensity, 2)];
+        const messages = ['Keine Gewitterzellen', 'Moderate Gewitteraktivität', 'Starke Gewitterzellen / Hagelgefahr!', 'Extreme Gewitterzellen / HAGEL-ALARM!'];
+        const message = messages[Math.min(maxIntensity, 3)];
 
         return {
             level,
@@ -752,7 +752,10 @@ async function fetchThunderstormData() {
             message,
             count: wienFeatures.length,
             source: 'GeoSphere Austria (ZAMG)',
-            sourceUrl: 'https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350'
+            sourceUrl: 'https://warnungen.zamg.at/wsapp/de/gewitter/heute/',
+            extraLinks: [
+                { name: 'Hagelradar', url: 'https://warnungen.zamg.at/wsapp/de/hagel/heute/' }
+            ]
         };
     });
 }
@@ -1018,7 +1021,8 @@ export async function fetchAlertData() {
                     value: thunderData?.message ?? 'Keine Zellen',
                     intensity: thunderData?.intensity ?? 0,
                     source: thunderData?.source ?? 'ZAMG',
-                    sourceUrl: thunderData?.sourceUrl ?? 'https://warnungen.zamg.at/wsapp/de/gewitter/heute/'
+                    sourceUrl: thunderData?.sourceUrl ?? 'https://warnungen.zamg.at/wsapp/de/gewitter/heute/',
+                    extraLinks: thunderData?.extraLinks ?? []
                 }
             },
             error: errors.length > 0 ? errors.join('; ') : null,

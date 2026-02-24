@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.5.4</div>
+            v1.5.5</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -201,7 +201,7 @@
       snow: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 8v48M8 32h48M15 15l34 34M49 15L15 49" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#fff" stroke="#60a5fa" stroke-width="1"/></svg>', title: 'Schnee & Winterdienst', sub: 'SNOWGRID & Niederschlagsprognose' },
       ice: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 10v34M24 44h16m-8 0v10" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="50" r="6" fill="#38bdf8"/><path d="M22 18h20M22 28h20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/><path d="M32 6c1 12 8 8 12 16c2 4 0 10-4 10s-8-4-8-10" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/></svg>', title: 'Glatteis-Gefahr', sub: 'Analyse von Reif & gefrierendem Regen' },
       uwz: { icon: '🏛️', title: 'Unwetter­warnungen', sub: 'Status Wien (Gesamt) & Leopoldstadt (Lokal)' },
-      thunderstorm: { icon: '⛈️⚡', title: 'Gewitter-Warnung', sub: 'Echtzeit-Analyse (GeoSphere/ZAMG)' }
+      thunderstorm: { icon: '⛈️🧊', title: 'Gewitter & Hagel', sub: 'Echtzeit-Analyse (GeoSphere/ZAMG)' }
     };
 
     const LEVEL_TEXT = { green: 'Alles im grünen Bereich', yellow: 'Erhöhte Wachsamkeit empfohlen', red: 'Sofortige Maßnahmen erforderlich!', unknown: 'Daten werden geladen …' };
@@ -528,7 +528,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=9').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=10').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();
