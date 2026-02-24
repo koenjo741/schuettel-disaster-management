@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.5.5</div>
+            v1.5.6</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -186,7 +186,7 @@
   <!-- ── Script ─────────────────────────────────────────────────────────── -->
   <script>
     const LABELS = {
-      heat: { icon: '🌡️', title: 'Extreme Hitze', sub: 'Gefahr für Bausubstanz & Dachgeschoss' },
+      heat: { icon: '🌡️☀️', title: 'Extreme Hitze & UV', sub: 'Gefahr für Bausubstanz & Gesundheit' },
       wind: { icon: '💨', title: 'Sturm / Windböen', sub: 'Gefahr für Dach & Fassade' },
       rain: { icon: '🌧️', title: 'Starkregen', sub: 'Risiko: Kanalrückstau im Keller' },
       flood: { icon: '🌊', title: 'Hochwasser', sub: 'Pegel Donaukanal / Schwedenbrücke' },
@@ -230,6 +230,11 @@
         return `${val} ${unit} ${arrow}`.trim();
       }
 
+      if (key === 'heat') {
+        const uvPart = hazard.uvi != null ? ` | UV ${hazard.uvi}` : '';
+        return `${val} ${unit}${uvPart}`;
+      }
+
       if (key === 'atAlert' || key === 'pandemic') {
         if (!hazard || !hazard.value) return 'Keine aktiven Meldungen';
         return `${hazard.value} ${hazard.unit}`;
@@ -270,6 +275,18 @@
       }
 
       let extraHtml = '';
+      if (key === 'heat' && hazard && hazard.uvi != null) {
+        const uv = hazard.uvi;
+        let uvCat = 'Gering';
+        let uvColor = 'text-green-400';
+        if (uv >= 11) { uvCat = 'Extrem'; uvColor = 'text-purple-500'; }
+        else if (uv >= 8) { uvCat = 'Sehr hoch'; uvColor = 'text-red-500'; }
+        else if (uv >= 6) { uvCat = 'Hoch'; uvColor = 'text-orange-500'; }
+        else if (uv >= 3) { uvCat = 'Mittel'; uvColor = 'text-yellow-400'; }
+
+        extraHtml = `<p class="text-xs text-slate-400 mt-1">UV-Index: <span class="${uvColor} font-bold">${uv} (${uvCat})</span></p>`;
+      }
+
       if (key === 'airQuality' && hazard) {
         const parts = [];
         if (hazard.pm25 != null) parts.push(`PM2.5: ${hazard.pm25} µg/m³`);
@@ -528,7 +545,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=10').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=11').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();

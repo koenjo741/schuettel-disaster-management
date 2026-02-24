@@ -94,6 +94,7 @@ const buildGeoSphereUrl = (offsetHours = 1) => {
 // ── Alert Thresholds ─────────────────────────────────────────────────────────
 const THRESHOLDS = {
     heat: { yellow: 30, red: 35 },
+    uv: { yellow: 6, red: 8 },
     wind: { yellow: 60, red: 80 },
     rain: { yellow: 15, red: 25 },
     flood: { yellow: 380, red: 432 },
@@ -449,6 +450,18 @@ async function fetchSpaceWeatherData() {
     });
 }
 
+async function fetchUVData() {
+    return withRetry(async () => {
+        const url = `https://currentuvindex.com/api/v1/uvi?latitude=${LOCATION.lat}&longitude=${LOCATION.lon}`;
+        const data = await fetchJSON(url, {}, 'CurrentUVIndex');
+        return {
+            uvi: data.now?.uvi ?? null,
+            source: 'currentuvindex.com (NOAA Data)',
+            sourceUrl: 'https://currentuvindex.com/'
+        };
+    });
+}
+
 async function fetchPowerOutageData() {
     return withRetry(async () => {
         const url = 'https://www.wienernetze.at/stromversorgung';
@@ -781,9 +794,10 @@ export async function fetchAlertData() {
             fetchSnowData(),
             fetchUWZWarnings(),
             fetchThunderstormData(),
+            fetchUVData(),
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -802,12 +816,16 @@ export async function fetchAlertData() {
         const snowData = results[10].status === 'fulfilled' ? results[10].value : null;
         const uwzData = results[11].status === 'fulfilled' ? results[11].value : null;
         const thunderData = results[12].status === 'fulfilled' ? results[12].value : null;
+        const uvData = results[13].status === 'fulfilled' ? results[13].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData) {
             throw new Error('All data sources failed.');
         }
 
-        const heatLevel = weather ? alertLevel(weather.tempC ?? 0, THRESHOLDS.heat) : 'unknown';
+        const heatTempLevel = weather ? alertLevel(weather.tempC ?? 0, THRESHOLDS.heat) : 'unknown';
+        const uvIndexLevel = uvData ? alertLevel(uvData.uvi ?? 0, THRESHOLDS.uv) : 'unknown';
+        const heatLevel = severityRank[heatTempLevel] > severityRank[uvIndexLevel] ? heatTempLevel : uvIndexLevel;
+
         const windLevel = weather ? alertLevel(weather.windKmH ?? 0, THRESHOLDS.wind) : 'unknown';
         const rainLevel = weather ? alertLevel(weather.rainMmH ?? 0, THRESHOLDS.rain) : 'unknown';
         const floodLevel = floodData ? alertLevel(floodData.pegelCm ?? 0, THRESHOLDS.flood) : 'unknown';
@@ -874,8 +892,13 @@ export async function fetchAlertData() {
                     level: heatLevel,
                     value: weather?.tempC ?? null,
                     unit: '°C',
+                    uvi: uvData?.uvi ?? null,
                     thresholds: THRESHOLDS.heat,
-                    sourceUrl: 'https://warnungen.zamg.at/'
+                    uvThresholds: THRESHOLDS.uv,
+                    sourceUrl: 'https://warnungen.zamg.at/',
+                    extraLinks: [
+                        { name: 'UV-Index (UV-Messnetz)', url: 'https://www.uv-index.at/station/?site=Wien&prod=uve' }
+                    ]
                 },
                 wind: {
                     level: windLevel,
