@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-24T11:56:05.376Z",
+  "fetchedAt": "2026-02-24T13:26:48.902Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 9.98,
+      "value": 10.05,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -20,7 +20,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 18,
+      "value": 20,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -40,7 +40,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 292,
+      "value": 290,
       "unit": "cm",
       "trend": "Erhöhung",
       "thresholds": {
@@ -62,7 +62,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 65,
+      "value": 66,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -73,30 +73,30 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 5,
+      "value": 6,
       "unit": "µg/m³",
       "thresholds": {
         "yellow": 25,
         "red": 50
       },
-      "pm25": 2,
+      "pm25": 3,
       "luftIndex": 2,
       "source": "Wien.gv.at Luftgütebericht (MA 22)",
       "sourceUrl": "https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm"
     },
     "earthquake": {
       "level": "green",
-      "value": 1.2,
+      "value": 0,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 129,
-      "depthKm": 10.4,
-      "time": "2026-02-23T12:28:17.819Z",
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "distanceKm": null,
+      "depthKm": null,
+      "time": null,
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -123,7 +123,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-24T11:56:07.677Z",
+      "date": "2026-02-24T13:26:51.830Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
