@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.5.3</div>
+            v1.5.4</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -243,6 +243,9 @@
       if (key === 'ice') {
         return hazard?.value ?? 'Sicher';
       }
+      if (key === 'space') {
+        return `Kp ${val}`;
+      }
       return `${hazard.value}${hazard.unit ? ' ' + hazard.unit : ''}`;
     }
 
@@ -329,10 +332,11 @@
       if (key === 'space' && hazard) {
         const parts = [];
         const { g, s, r } = hazard.scales || { g: 0, s: 0, r: 0 };
-        parts.push(`G: ${g}`);
-        parts.push(`S: ${s}`);
-        parts.push(`R: ${r}`);
-        if (parts.length > 0) extraHtml = `<p class="text-xs text-slate-400 mt-1 font-mono">${parts.join(' | ')} (Skala 0-5)</p>`;
+        if (g > 0) parts.push(`G${g}`);
+        if (s > 0) parts.push(`S${s}`);
+        if (r > 0) parts.push(`R${r}`);
+        const scalesText = parts.length > 0 ? parts.join(' | ') : 'Keine Stürme aktiv';
+        extraHtml = `<p class="text-xs text-slate-400 mt-1 font-mono">${scalesText} (Skala 0-5)</p>`;
       }
 
       // ── Footer & Links (Unified) ──
@@ -524,7 +528,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=8').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=9').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();

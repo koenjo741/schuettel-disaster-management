@@ -102,7 +102,7 @@ const THRESHOLDS = {
     airQualityIndex: { yellow: 3, red: 5 }, // Wiener Luftgüteindex (1-6)
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
-    space: { yellow: 2, red: 3 },          // NOAA Scale (1-5)
+    space: { yellow: 5, red: 7 },          // Kp-Index (0-9)
     power: { yellow: 2, red: 2 },          // Status level (1: OK, 2: Outage)
     snow: { yellow: 0.03, red: 0.10 },     // Snow depth in meters
 };
@@ -408,19 +408,40 @@ async function fetchSnowData() {
 
 async function fetchSpaceWeatherData() {
     return withRetry(async () => {
-        // NOAA SWPC Real-time Scales (G, S, R)
-        const data = await fetchJSON('https://services.swpc.noaa.gov/products/noaa-scales.json', {}, 'NOAA Space Weather');
+        // Fetch both NOAA Scales and Planetary K-index in parallel
+        const [scalesRes, kpRes] = await Promise.allSettled([
+            fetchJSON('https://services.swpc.noaa.gov/products/noaa-scales.json', {}, 'NOAA Scales'),
+            fetchJSON('https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json', {}, 'NOAA K-Index')
+        ]);
 
-        // Key 0 contains current observation
-        const current = data['0'] || {};
-        const g = parseInt(current.G?.Scale) || 0;
-        const s = parseInt(current.S?.Scale) || 0;
-        const r = parseInt(current.R?.Scale) || 0;
+        let g = 0, s = 0, r = 0;
+        if (scalesRes.status === 'fulfilled') {
+            const data = scalesRes.value;
+            const current = data['0'] || {};
+            g = parseInt(current.G?.Scale) || 0;
+            s = parseInt(current.S?.Scale) || 0;
+            r = parseInt(current.R?.Scale) || 0;
+        }
 
-        const maxLevel = Math.max(g, s, r);
+        let kp = 0;
+        if (kpRes.status === 'fulfilled') {
+            const data = kpRes.value;
+            // K-index JSON format: [["time_tag","Kp",...], ["2024-02-24...", "2.33", ...]]
+            // Latest value is the last element
+            const latest = data.at(-1);
+            if (latest && latest[1]) {
+                kp = parseFloat(latest[1]);
+            }
+        }
+
+        // The alert level is primarily driven by Kp (G-scale equivalent)
+        // Kp 5 = G1, Kp 6 = G2, Kp 7 = G3, Kp 8 = G4, Kp 9 = G5
+        const maxScaleLevel = Math.max(g, s, r);
 
         return {
-            level: maxLevel,
+            value: kp,
+            unit: 'Kp',
+            level: kp, // We return kp as value, alertLevel evaluator will use it
             scales: { g, s, r },
             source: 'NOAA Space Weather Prediction Center',
             sourceUrl: 'https://www.swpc.noaa.gov/'
