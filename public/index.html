@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.5.8</div>
+            v1.5.9</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -465,14 +465,23 @@
         const grid = document.getElementById('hazardGrid');
         const severityRank = { red: 3, yellow: 2, green: 1, unknown: 0 };
 
+        const PRIORITY_ORDER = [
+          'space', 'radiation', 'earthquake', 'atAlert', 'pandemic', 'power',
+          'uwz', 'heat', 'fire', 'rain', 'wind', 'thunderstorm',
+          'flood', 'ice', 'snow', 'airQuality'
+        ];
+
         const sortedHazards = Object.entries(LABELS)
           .map(([key, label]) => ({ key, label, data: data.hazards?.[key] }))
           .sort((a, b) => {
             const rankA = severityRank[a.data?.level] ?? 0;
             const rankB = severityRank[b.data?.level] ?? 0;
             if (rankA !== rankB) return rankB - rankA;
-            // Stable sort by original order if severity is same
-            return Object.keys(LABELS).indexOf(a.key) - Object.keys(LABELS).indexOf(b.key);
+
+            // Priority sort by custom order
+            const pA = PRIORITY_ORDER.indexOf(a.key);
+            const pB = PRIORITY_ORDER.indexOf(b.key);
+            return pA - pB;
           });
 
         grid.innerHTML = sortedHazards
@@ -545,7 +554,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=13').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=14').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();
