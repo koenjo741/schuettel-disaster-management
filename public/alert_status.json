@@ -1,9 +1,5 @@
 {
-<<<<<<< Updated upstream
-  "fetchedAt": "2026-02-24T16:46:23.709Z",
-=======
-  "fetchedAt": "2026-02-24T17:35:51.320Z",
->>>>>>> Stashed changes
+  "fetchedAt": "2026-02-24T17:46:16.868Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -14,11 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-<<<<<<< Updated upstream
-      "value": 9.61,
-=======
       "value": 9.02,
->>>>>>> Stashed changes
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -39,11 +31,7 @@
     },
     "wind": {
       "level": "green",
-<<<<<<< Updated upstream
-      "value": 19,
-=======
       "value": 15,
->>>>>>> Stashed changes
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -146,11 +134,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-<<<<<<< Updated upstream
-      "date": "2026-02-24T16:46:27.231Z",
-=======
-      "date": "2026-02-24T17:35:51.492Z",
->>>>>>> Stashed changes
+      "date": "2026-02-24T17:46:19.075Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
