@@ -380,7 +380,7 @@
       }
 
       const exactTime = d.toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      lastUpdateEl.innerHTML = `<span class="opacity-60">Zuletzt aktualisiert:</span> <span class="font-medium text-slate-300 ml-1">${exactTime}</span> <span class="text-[10px] ml-1 bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 font-mono">${timeStr}</span>`;
+      lastUpdateEl.innerHTML = `<span class="opacity-60">Zuletzt aktualisiert:</span> <span class="font-medium text-slate-300 ml-1">${exactTime}</span> <span class="text-[11px] sm:text-[10px] ml-1 bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 font-mono">${timeStr}</span>`;
       lastUpdateEl.classList.remove('hidden');
 
       // Warning if data is older than 8 minutes (should be 5 min)
