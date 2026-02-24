@@ -589,7 +589,7 @@ async function fetchBlackoutStatus() {
 async function fetchTrafficStatus() {
     return withRetry(async () => {
         // VPI / Echtzeit-Verkehrsmeldungen der Stadt Wien
-        const url = 'https://www.wien.gv.at/verkehr/strassenzustand/aktuell/';
+        const url = 'https://www.wien.gv.at/verkehr/strassenzustand/';
         const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
         if (!res.ok) throw new Error(`Traffic status check failed: ${res.status}`);
 
@@ -942,13 +942,14 @@ export async function fetchAlertData() {
             fetchGasStatus(),
             fetchWaterStatus(),
             fetchBlackoutStatus(),
+            fetchTrafficStatus(),
             fetchSnowData(),
             fetchUWZWarnings(),
             fetchThunderstormData(),
             fetchUVData(),
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Blackout/Netzfrequenz', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -1032,6 +1033,7 @@ export async function fetchAlertData() {
         }
 
         // UWZ Logic
+        const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
         const thunderLevel = thunderData?.level ?? 'green';
         const trafficLevel = trafficData?.status ? (trafficData.status === 3 ? 'red' : (trafficData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
