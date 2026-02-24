@@ -250,7 +250,7 @@
           innerContent = `Logik: <span class="text-yellow-500/80">${t.yellow}</span> (Reif/Nässe) / <span class="text-red-500/80">${t.red}</span> (Regen)`;
         }
 
-        thresholdHtml = `<p class="text-[11px] sm:text-[10px] text-slate-500 mt-2 italic">${innerContent}</p>`;
+        thresholdHtml = `<p class="text-xs sm:text-[10px] text-slate-300 sm:text-slate-500 mt-2 italic">${innerContent}</p>`;
       }
 
       let extraHtml = '';
@@ -342,7 +342,7 @@
       }
 
       const footerHtml = footerLinks.length
-        ? `<div class="mt-4 pt-2 border-t border-slate-700/50 flex flex-wrap gap-x-3 gap-y-1 text-[11px] sm:text-[10px] text-slate-500 leading-tight">${footerLinks.join('<span class="opacity-30">·</span>')}</div>`
+        ? `<div class="mt-4 pt-2 border-t border-slate-700/50 flex flex-wrap gap-x-3 gap-y-1 text-xs sm:text-[10px] text-slate-300 sm:text-slate-500 leading-tight">${footerLinks.join('<span class="opacity-30">·</span>')}</div>`
         : '';
 
       return `
@@ -352,10 +352,10 @@
               <span class="text-2xl">${icon}</span>
               <div>
                 <p class="font-semibold text-slate-100">${title}</p>
-                <p class="text-xs text-slate-400 font-medium">${sub}</p>
+                <p class="text-xs text-slate-200 font-semibold">${sub}</p>
               </div>
             </div>
-            <span class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-[11px] sm:text-xs font-bold transition-colors duration-500">${LEVEL_LABEL[level]}</span>
+            <span class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold transition-colors duration-500">${LEVEL_LABEL[level]}</span>
           </div>
           <p class="mt-4 text-3xl font-bold tabular-nums tracking-tight text-slate-100">${value}</p>
           ${extraHtml}
@@ -380,7 +380,7 @@
       }
 
       const exactTime = d.toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      lastUpdateEl.innerHTML = `<span class="opacity-60">Zuletzt aktualisiert:</span> <span class="font-medium text-slate-300 ml-1">${exactTime}</span> <span class="text-[11px] sm:text-[10px] ml-1 bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 font-mono">${timeStr}</span>`;
+      lastUpdateEl.innerHTML = `<span class="opacity-60">Zuletzt aktualisiert:</span> <span class="font-medium text-slate-300 ml-1">${exactTime}</span> <span class="text-xs sm:text-[10px] ml-1 bg-slate-800 px-1.5 py-0.5 rounded text-slate-300 sm:text-slate-400 font-mono">${timeStr}</span>`;
       lastUpdateEl.classList.remove('hidden');
 
       // Warning if data is older than 8 minutes (should be 5 min)
