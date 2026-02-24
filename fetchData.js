@@ -525,7 +525,7 @@ async function fetchWaterStatus() {
                     status: hasDisruption ? 2 : 1,
                     message: hasDisruption ? 'Störung gemeldet' : 'Normalbetrieb',
                     source: 'Wiener Wasser (MA 31)',
-                    sourceUrl: disruptionUrl
+                    sourceUrl: 'https://www.wien.gv.at/kontakt/ma31'
                 };
             }
 
@@ -537,15 +537,15 @@ async function fetchWaterStatus() {
                 status: hasDisruption ? 2 : 1,
                 message: hasDisruption ? 'Einschränkungen möglich' : 'Normalbetrieb',
                 source: 'Wiener Wasser (MA 31)',
-                sourceUrl: url
+                sourceUrl: 'https://www.wien.gv.at/kontakt/ma31'
             };
         });
     } catch (err) {
         return {
             status: 0, // Green / Unknown
-            message: 'Information aktuell nicht erreichbar',
-            source: 'Wiener Wasser (MA 31) - Offline',
-            sourceUrl: 'https://www.wien.gv.at/wasser/versorgung/index.html'
+            message: 'Information aktuell eingeschränkt erreichbar',
+            source: 'Wiener Wasser (MA 31)',
+            sourceUrl: 'https://www.wien.gv.at/kontakt/ma31'
         };
     }
 }
