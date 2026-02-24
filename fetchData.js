@@ -27,6 +27,47 @@ async function withRetry(fn, retries = 3, delay = 2000) {
     }
 }
 
+/**
+ * Scrapes AT-Alert data from the Next.js HTML response if the JSON API is unavailable.
+ * This extracts the 'initialAlerts' data from the self.__next_f.push scripts.
+ */
+function scrapeATAlertHTML(html) {
+    const scripts = [];
+    const regex = /self\.__next_f\.push\(\[1,"(.+?)"\]\)/g;
+    let match;
+    while ((match = regex.exec(html)) !== null) {
+        scripts.push(match[1]);
+    }
+    if (scripts.length === 0) return null;
+
+    const fullData = scripts.join('').replace(/\\"/g, '"').replace(/\\n/g, '\n');
+    const marker = '"initialAlerts":';
+    const startIdx = fullData.indexOf(marker);
+    if (startIdx === -1) return null;
+
+    let braceCount = 0;
+    let endIdx = -1;
+    for (let i = startIdx + marker.length; i < fullData.length; i++) {
+        if (fullData[i] === '{') braceCount++;
+        else if (fullData[i] === '}') {
+            braceCount--;
+            if (braceCount === 0) {
+                endIdx = i + 1;
+                break;
+            }
+        }
+    }
+    if (endIdx === -1) return null;
+
+    try {
+        const jsonData = JSON.parse(fullData.substring(startIdx + marker.length, endIdx));
+        return jsonData.data || [];
+    } catch (e) {
+        console.warn('AT-Alert Scraper: Failed to parse data snippet:', e.message);
+        return null;
+    }
+}
+
 async function fetchJSON(url, options = {}, sourceName = 'API') {
     const res = await fetch(url, options);
     if (!res.ok) throw new Error(`${sourceName} error: ${res.status}`);
@@ -401,10 +442,47 @@ async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
         const url = `https://warnungen.at-alert.at/api/filteredAlerts?from=${today}&to=${today}&limit=100&offset=0`;
-        const data = await fetchJSON(url, { headers: { Accept: 'application/json', 'User-Agent': 'Mozilla/5.0' } }, 'AT-Alert API');
+        const userAgent = 'Mozilla/5.0';
+
+        let rawAlerts = [];
+        try {
+            const data = await fetchJSON(url, { headers: { Accept: 'application/json', 'User-Agent': userAgent } }, 'AT-Alert API');
+            rawAlerts = data.alerts ?? [];
+        } catch (err) {
+            // Fallback: If the API returns HTML (e.g. 404 or redirect), try scraping the main page
+            if (err.message.includes('Expected JSON but received text/html') || err.message.includes('Unexpected token')) {
+                try {
+                    // Use AbortController for timeout
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+                    const res = await fetch('https://warnungen.at-alert.at/de', {
+                        headers: { 'User-Agent': userAgent },
+                        signal: controller.signal
+                    });
+                    clearTimeout(timeoutId);
+
+                    if (res.ok) {
+                        const html = await res.text();
+                        const scraped = scrapeATAlertHTML(html);
+                        if (scraped) {
+                            rawAlerts = scraped;
+                        } else {
+                            throw err; // Re-throw original if scraper found no data markers
+                        }
+                    } else {
+                        throw err;
+                    }
+                } catch (fallbackErr) {
+                    throw err; // Always prioritize original API error if fallback also fails
+                }
+            } else {
+                throw err;
+            }
+        }
 
         const now = new Date();
-        const activeAlerts = (data.alerts ?? [])
+        const activeAlerts = rawAlerts
             .filter((a) => a.alert_level !== 'MonthlyTest')
             .filter((a) => new Date(a.info_expires) > now)
             .filter((a) => {
@@ -431,7 +509,7 @@ async function fetchATAlertData() {
             alertLevel: top.alert_level,
             expires: top.info_expires,
             sender: top.sender,
-            source: 'AT-Alert (warnungen.at-alert.at)',
+            source: 'AT-Alert (HTML Scraper Fallback)',
         };
     });
 }
