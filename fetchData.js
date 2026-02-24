@@ -550,6 +550,42 @@ async function fetchWaterStatus() {
     }
 }
 
+async function fetchBlackoutStatus() {
+    return withRetry(async () => {
+        const url = 'https://www.netzfrequenz.info/json/act.json';
+        const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (!res.ok) throw new Error(`Netzfrequenz check failed: ${res.status}`);
+
+        const data = await res.json();
+        const frequency = parseFloat(data);
+        if (isNaN(frequency)) throw new Error('Invalid frequency data');
+
+        let status = 1; // Green
+        let message = 'Normalbetrieb';
+
+        // Official thresholds for UCTE (Continental Europe)
+        // 49.90 - 50.10: Normal
+        // < 49.90 or > 50.10: Disturbance
+        // < 49.80 or > 50.20: Major Disturbance
+        if (frequency < 49.80 || frequency > 50.20) {
+            status = 3; // Red
+            message = 'Kritische Abweichung!';
+        } else if (frequency < 49.90 || frequency > 50.10) {
+            status = 2; // Yellow
+            message = 'Erhöhte Netzbelastung';
+        }
+
+        return {
+            status,
+            value: frequency,
+            unit: 'Hz',
+            message,
+            source: 'Netzfrequenz.info (UCTE)',
+            sourceUrl: 'https://gridradar.net/de/netzfrequenz'
+        };
+    });
+}
+
 async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
@@ -862,13 +898,14 @@ export async function fetchAlertData() {
             fetchPowerOutageData(),
             fetchGasStatus(),
             fetchWaterStatus(),
+            fetchBlackoutStatus(),
             fetchSnowData(),
             fetchUWZWarnings(),
             fetchThunderstormData(),
             fetchUVData(),
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Blackout/Netzfrequenz', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -886,10 +923,11 @@ export async function fetchAlertData() {
         const powerData = results[9].status === 'fulfilled' ? results[9].value : { level: 'unknown' };
         const gasData = results[10].status === 'fulfilled' ? results[10].value : { level: 'unknown' };
         const waterData = results[11].status === 'fulfilled' ? results[11].value : { level: 'unknown' };
-        const snowData = results[12].status === 'fulfilled' ? results[12].value : { level: 'unknown' };
-        const uwzData = results[13].status === 'fulfilled' ? results[13].value : { level: 'unknown' };
-        const thunderData = results[14].status === 'fulfilled' ? results[14].value : { level: 'unknown' };
-        const uvData = results[15].status === 'fulfilled' ? results[15].value : { level: 'unknown' };
+        const blackoutData = results[12].status === 'fulfilled' ? results[12].value : { level: 'unknown' };
+        const snowData = results[13].status === 'fulfilled' ? results[13].value : { level: 'unknown' };
+        const uwzData = results[14].status === 'fulfilled' ? results[14].value : { level: 'unknown' };
+        const thunderData = results[15].status === 'fulfilled' ? results[15].value : { level: 'unknown' };
+        const uvData = results[16].status === 'fulfilled' ? results[16].value : { level: 'unknown' };
 
         if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData) {
             throw new Error('All data sources failed.');
@@ -921,6 +959,7 @@ export async function fetchAlertData() {
         const powerLevel = powerData ? alertLevel(powerData.status, THRESHOLDS.power) : 'unknown';
         const gasLevel = gasData ? alertLevel(gasData.status, THRESHOLDS.gas) : 'unknown';
         const waterLevel = waterData ? alertLevel(waterData.status, THRESHOLDS.water) : 'unknown';
+        const blackoutLevel = blackoutData?.status ? (blackoutData.status === 3 ? 'red' : (blackoutData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
         // Winterdienst Logic: Combination of depth, temp and rain
         let snowLevel = 'green';
@@ -952,13 +991,13 @@ export async function fetchAlertData() {
         const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
         const thunderLevel = thunderData?.level ?? 'green';
 
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, gasLevel, waterLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, gasLevel, waterLevel, blackoutLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS',
+            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: {
@@ -1104,6 +1143,15 @@ export async function fetchAlertData() {
                     message: waterData?.message ?? 'Unbekannt',
                     source: waterData?.source ?? 'Wiener Wasser (MA 31)',
                     sourceUrl: waterData?.sourceUrl ?? 'https://www.wien.gv.at/kontakt/ma31',
+                },
+                blackout: {
+                    level: blackoutLevel,
+                    value: blackoutData?.value ?? 50.000,
+                    unit: 'Hz',
+                    thresholds: { yellow: '±100mHz', red: '±200mHz' },
+                    message: blackoutData?.message ?? 'Normalbetrieb',
+                    source: blackoutData?.source ?? 'Offline',
+                    sourceUrl: blackoutData?.sourceUrl ?? 'https://gridradar.net/de/netzfrequenz',
                 },
                 snow: {
                     level: snowLevel,

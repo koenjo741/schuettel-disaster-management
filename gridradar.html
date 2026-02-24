@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html  class="no.webp" lang="de">
+    <head>
+        
+        <title>Aktuelle Frequenz in europäischen Verbundnetzen. | Gridradar</title>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Die Netzfrequenz in Stromnetzen schwankt, mit unter durch Handelsartefakte. Wir zeigen eine grapische Darstellungen des Frequenzverlaufs." />
+        <meta name="keywords" content="" />
+        <meta name="title" content="Aktuelle Frequenz in europäischen Verbundnetzen. | Gridradar" />
+        <meta property="og:title" content="Aktuelle Frequenz in europäischen Verbundnetzen. | Gridradar" />
+        <meta property="og:description" content="Die Netzfrequenz in Stromnetzen schwankt, mit unter durch Handelsartefakte. Wir zeigen eine grapische Darstellungen des Frequenzverlaufs." />
+                
+                
+            <link rel="alternate" hreflang="en" href="https://gridradar.net/en/mains-frequency" />
+    <link rel="alternate" hreflang="de" href="https://gridradar.net/de/netzfrequenz" />
+        <link rel="canonical" href="https://gridradar.net/de/netzfrequenz" />
+        
+                                                        <link rel="preload" as="image" href="/storage/app/media/images/headers/transport2.jpeg" >
+                            
+        <link rel="preload" as="font" href="https://gridradar.net/themes/gridradar/assets/fonts/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrE.woff2" type="font/woff2" crossorigin>
+        <link rel="preload" as="font" href="https://gridradar.net/themes/gridradar/assets/fonts/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvoorCIPrE.woff2" type="font/woff2" crossorigin>
+        <link rel="preload" as="font" href="https://gridradar.net/themes/gridradar/assets/fonts/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVs9pbCIPrE.woff2" type="font/woff2" crossorigin>
+        <link rel="preload" as="style" href="https://gridradar.net/themes/gridradar/assets/css/style_min.css">
+        <link rel="icon" href="/storage/app/media/images/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://gridradar.net/themes/gridradar/assets/css/style_min.css">
+                 
+    </head>
+    <body>
+                <!--Partial navbar-->
+
+<nav class="desktop">
+	<div>
+        <ul>
+			<li>
+				<a class="grow logo-link" href="https://gridradar.net/de">
+				    <img with="auto" height="70" class="logo" src="https://gridradar.net/themes/gridradar/assets/images/Gridradar_Logo_rgb.svg" alt="Gridradar Logo">
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="navbar-collapse collapse">
+    	    	<ul class="nav navbar-nav">
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de" 
+                 
+                 >
+                    Produkte
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/wide-area-monitoring-system" 
+                 
+                 >
+                    Monitoring
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                                                                                                                                                                                 
+        <li 
+            class="active 
+            dropdown grow"
+        >
+                            <div class="dropdown-toggle" data-toggle="dropdown"  onclick="ddOpen(this)">
+                    Frequenz
+                    <span class="caret"></span>
+                </div>
+                        
+                            <ul class="dropdown-menu">
+                                                                
+                                
+        <li 
+            class="active 
+             grow"
+        >
+                            <a href="/de/netzfrequenz" 
+                 
+                 >
+                    Netzfrequenz
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/netzfrequenz-histogramm" 
+                 
+                 >
+                    Histogramm
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/netzzeit" 
+                 
+                 >
+                    Netzzeit
+                                    </a>
+                        
+                    </li>
+        
+    
+        </ul>                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/blog" 
+                 
+                 >
+                    Blog
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="https://service.gridradar.net/login.php" 
+                 
+                target="_blank" rel="noopener noreferrer" >
+                    API
+                                    </a>
+                        
+                    </li>
+        
+    
+                <li class="dropdown grow">
+            <div class="dropdown-toggle" data-toggle="dropdown" onclick="ddOpen(this)">
+                DE
+                <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu">
+                                    <li class="grow active">
+                       
+                                                                                                                                                                                                                                                                                                                    
+                                                
+                                                
+                        
+                        <a href="/de/netzfrequenz" >DE</a>
+                    </li>
+                                    <li class="grow ">
+                       
+                                                                                                                                                                                                                                                                                                                    
+                                                
+                                                
+                        
+                        <a href="/en/mains-frequency" >EN</a>
+                    </li>
+                            </ul>
+        </li>
+    </ul>	</div>
+</nav>
+<div class="mobileNav">
+	<a class="grow logo-link" href="https://gridradar.net/de"><img with="auto" height="70" class="logo" src="https://gridradar.net/themes/gridradar/assets/images/Gridradar_Logo_rgb.svg" alt="Gridradar Logo" class="fr-fic fr-dii"></a>
+    <nav role="navigation" class="mobile">
+        <div id="menuToggle" class="navbar-toggler grow">
+            <label for="mswitch" style="height:0;line-height: 0;color: white;">-</label>
+            <input type="checkbox" id="mswitch" name="mswitch"/>
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="burger-menu nav navbar-nav">
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de" 
+                 
+                 >
+                    Produkte
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/wide-area-monitoring-system" 
+                 
+                 >
+                    Monitoring
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                                                                                                                                                                                 
+        <li 
+            class="active 
+            dropdown grow"
+        >
+                            <div class="dropdown-toggle" data-toggle="dropdown"  onclick="ddOpen(this)">
+                    Frequenz
+                    <span class="caret"></span>
+                </div>
+                        
+                            <ul class="dropdown-menu">
+                                                                
+                                
+        <li 
+            class="active 
+             grow"
+        >
+                            <a href="/de/netzfrequenz" 
+                 
+                 >
+                    Netzfrequenz
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/netzfrequenz-histogramm" 
+                 
+                 >
+                    Histogramm
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/netzzeit" 
+                 
+                 >
+                    Netzzeit
+                                    </a>
+                        
+                    </li>
+        
+    
+        </ul>                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="/de/blog" 
+                 
+                 >
+                    Blog
+                                    </a>
+                        
+                    </li>
+        
+                                            
+                                
+        <li 
+            class=" 
+             grow"
+        >
+                            <a href="https://service.gridradar.net/login.php" 
+                 
+                target="_blank" rel="noopener noreferrer" >
+                    API
+                                    </a>
+                        
+                    </li>
+        
+    
+                <li class="dropdown grow">
+            <div class="dropdown-toggle" data-toggle="dropdown" onclick="ddOpen(this)">
+                DE
+                <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu">
+                                    <li class="grow active">
+                       
+                                                                                                                                                                                                                                                                                                                    
+                                                
+                                                
+                        
+                        <a href="/de/netzfrequenz" >DE</a>
+                    </li>
+                                    <li class="grow ">
+                       
+                                                                                                                                                                                                                                                                                                                    
+                                                
+                                                
+                        
+                        <a href="/en/mains-frequency" >EN</a>
+                    </li>
+                            </ul>
+        </li>
+    </ul>        </div>
+    </nav>
+    <script>
+        function getDDMenu(e) {
+            var sibling = e.nextElementSibling;
+            while (sibling) {
+        		if ( sibling.classList.contains('dropdown-menu') ) {
+        		    return sibling;
+        		}
+                sibling = sibling.nextElementSibling;
+        	}
+            return null;
+        }
+        
+        function ddOpen(e) {
+            if ( e.classList.contains('dropdown-toggle') ) {
+                var ddmenu = getDDMenu(e);
+                closeAll(ddmenu);
+                if ( ddmenu ) {
+                    ddmenu.classList.toggle("show");
+                }
+            }
+          
+        }
+        
+        function closeAll(e) {
+            var dropdowns = document.getElementsByClassName("dropdown-menu");
+            for (var i = 0; i < dropdowns.length; i++) {
+                if ( (e.target !== undefined && !e.target.matches('.dropdown-toggle')) || (e.target === undefined && !e.isEqualNode(dropdowns[i])) ) {
+                    if ( dropdowns[i].classList.contains('show') ) {
+                        dropdowns[i].classList.remove('show');
+                    }
+                }
+            }
+        } 
+        
+        window.onclick = closeAll;
+    </script>
+</div>
+
+<!--Partial Header-->  
+        
+                                                            
+            <style>
+/*
+.no-js #page-header.product-forecasts, .no-webp #page-header.product-forecasts {
+  background-image: url("/storage/app/media/images/headers/forecast.jpeg");
+}
+.webp #page-header.product-forecasts {
+  background-image: url("/storage/app/media/images/headers/forecast.webp");
+}*/
+#page-header.product-forecasts {
+    background-position-y: 0%;
+}
+/*
+.no-js #page-header.product-api, .no-webp #page-header.product-api {
+  background-image: url("/storage/app/media/images/api3_1920.jpeg");
+}
+.webp #page-header.product-api {
+  background-image: url("/storage/app/media/images/api3_1920.webp");
+}*/
+#page-header.product-api {
+    background-position-y: 50%;
+}
+/*
+.no-js #page-header.product-data_hub, .no-webp #page-header.product-data_hub {
+  background-image: url("/storage/app/media/images/headers/data1.jpeg");
+}
+.webp #page-header.product-data_hub {
+  background-image: url("/storage/app/media/images/headers/data1.webp");
+}*/
+#page-header.product-data_hub {
+    background-position-y: 6%;
+}
+/*
+.no-js #page-header.product-forensics, .no-webp #page-header.product-forensics {
+  background-image: url("/storage/app/media/images/headers/forensic1.jpeg");
+}
+.webp #page-header.product-forensics {
+  background-image: url("/storage/app/media/images/headers/forensic1.webp");
+}*/
+#page-header.product-forensics {
+    background-position-y: 50%;
+}
+/*
+.no-js #page-header.product-wams, .no-webp #page-header.product-wams {
+  background-image: url("/storage/app/media/images/headers/transport1.jpeg");
+}
+.webp #page-header.product-wams {
+  background-image: url("/storage/app/media/images/headers/transport1.webp");
+}*/
+#page-header.product-wams {
+    background-position-y: 70%;
+}
+
+/*
+.no-js #page-header.product-mains_frequency, .no-webp #page-header.product-mains_frequency, .no-js #page-header.product-mains_frequency_new, .no-webp #page-header.product-mains_frequency_new {
+  background-image: url("/storage/app/media/images/headers/transport2.jpeg");
+}
+.webp #page-header.product-mains_frequency, .webp #page-header.product-mains_frequency_new {
+  background-image: url("/storage/app/media/images/headers/transport2.webp");
+}*/
+#page-header.product-mains_frequency, #page-header.product-mains_frequency_new {
+    background-position-y: 63%;
+}
+/*
+.no-js #page-header.product-frequency_histogram, .no-webp #page-header.product-frequency_histogram {
+  background-image: url("/storage/app/media/images/headers/ee1.jpeg");
+}
+.webp #page-header.product-frequency_histogram {
+  background-image: url("/storage/app/media/images/headers/ee1.webp");
+}*/
+#page-header.product-frequency_histogram {
+    background-position-y: 50%;
+}
+/*
+.no-js #page-header.product-nettime, .no-webp #page-header.product-nettime {
+  background-image: url("/storage/app/media/images/headers/consumption.jpeg");
+}
+.webp #page-header.product-nettime {
+  background-image: url("/storage/app/media/images/headers/consumption.webp");
+}*/
+#page-header.product-nettime {
+    background-position-y: 0%;
+}
+/*
+.no-js #page-header.product-blog, .no-webp #page-header.product-blog {
+  background-image: url("/storage/app/media/images/headers/power1.jpeg");
+}
+.webp #page-header.product-blog {
+  background-image: url("/storage/app/media/images/headers/power1.webp");
+}*/
+#page-header.product-blog {
+    background-position-y: 100%;
+}
+/*
+.no-js #page-header.product-blog-search-result , .no-webp #page-header.product-blog-search-result  {
+  background-image: url("/storage/app/media/images/headers/transport5.jpeg");
+}
+.webp #page-header.product-blog-search-result  {
+  background-image: url("/storage/app/media/images/headers/transport5.webp");
+}*/
+#page-header.product-blog-search-result  {
+    background-position-y: 60%;
+}
+/*
+.no-js #page-header.product-privacy_notice, .no-webp #page-header.product-privacy_notice {
+  background-image: url("/storage/app/media/images/headers/wind2.jpeg");
+}
+.webp #page-header.product-privacy_notice {
+  background-image: url("/storage/app/media/images/headers/wind2.webp");
+}*/
+#page-header.product-privacy_notice {
+    background-position-y: 70%;
+}
+/*
+.no-js #page-header.product-imprint, .no-webp #page-header.product-imprint {
+  background-image: url("/storage/app/media/images/headers/bulb1.jpeg");
+}
+.webp #page-header.product-imprint {
+  background-image: url("/storage/app/media/images/headers/bulb1.webp");
+}
+*/
+#page-header.product-imprint {
+    background-position-y: 20%;
+}
+
+#page-header.product-404  {
+  background-position-y: 70%;
+}
+
+.no-webp #page-header {
+  background-image: url("/storage/app/media/images/headers/transport2.jpeg");
+}
+.webp #page-header {
+  background-image: url("/storage/app/media/images/headers/transport2.webp");
+}
+
+
+</style>    <section id="page-header" class="product-mains_frequency ">
+        <div>
+            <div class="container mobileLandingHomeContainer">
+                <div><h1>Echtzeit-Verlauf der Netzfrequenz</h1></div>
+            </div>
+        </div>
+    </section>
+  
+        
+        <noscript>
+            <div style="width:100%; text-align:center;background-color: yellow; color: red; padding: 10px; font-size: 16px;">
+                                    <strong>WARNUNG:</strong> JavaScript ist in diesem Browser deaktiviert oder nicht verfügbar. Einige Inhalte auf gridradar.net können ohne JavaScript nicht angezeigt werden.
+                            </div>
+        </noscript>
+        
+                <section id="mains-frequency">
+    <article class="iframe-container">
+        <iframe id="mains-frequency-iframe" src="/charts/multigraph/frequency.php?lang=de" frameborder="0" onload="document.getElementById('mains-frequency-iframe').title = document.getElementById('mains-frequency-iframe').contentWindow.document.title;" loading="lazy"></iframe>
+        <p>Die nominale Netzfrequenz in den europäischen Verbundnetzen beträgt 50 Hz. Ein zentraler Indikator des Netzzustands, lokal gemessen aber von überregionaler Aussagekraft, ist die Netzfrequenz. Sie spiegelt das unabdingbare Gleichgewicht zwischen Erzeugung und Verbrauch elektrischer Energie. Eine stabile Frequenzhaltung ist von enormer Wichtigkeit für die Funktion des Stromnetzes und der damit verbundenen Erzeuger und Verbraucher. Es passieren allerdings fortlaufend größere und kleinere Abweichungen von der Sollfrequenz von 50 Hz. Im Normalfall schwankt die Netzfrequenz aufgrund stochastischer Effekte um die 50 Hz in einem +/- 20 mHz breiten Korridor, d.h. zwischen 49,98 und 50,02 Hz.</p>
+
+<p>Jedoch kommt es auch immer wieder zu <a href="/de/blog/post/unterfrequenz_januar_2021">größeren Abweichungen von der Sollfrequenz</a>, d.h. der +/- 20 mHz Korridor wird verlassen. Gründe gibt es hierfür viele, von <a href="/de/blog/post/resa-kkw-krsko-erdbeben-2020">Kraftwerksausfällen</a>, <a href="/de/blog/post/der-ball-im-netz-einfluss-des-fussball-auf-die-netzfrequenz">unerwarteten Großereignissen</a> oder einfach auch <a href="/de/blog/post/schweiz_blackout_entgangen">Fehlprognosen zu Wetter und Verbrauch</a>.&nbsp;</p>
+
+<p><a href="/de/blog/post/langfristanalyse_frequenzstabilitaet">Regelmäßige, immer wiederkehrende Abweichungen der Frequenz</a> im Stromnetz werden durch den Stromhandel hervorgerufen. Die Handelszeitscheiben haben 15 Minuten Länge und haben signifikanten Einfluss auf die Frequenz im Stromnetz. Die Schwankungen werden von Übergängen von Lieferhandlungen von Kraftwerk A -&gt; Kraftwerk B hervorgerufen. So wird zum Stundenwechsel zum Beispiel Kraftwerk A heruntergefahren, und Kraftwerk B übernimmt die Lieferaufgabe von Kraftwerk A. Diese Lieferwechsel durch verschiedene Kraftwerke lassen sich nicht immer ganz nahtlos vollziehen und führen aufgrund des Leistungsungleichgewichts zwischen Erzeugung und Verbrauch zu Schwankungen in der Netzfrequenz.&nbsp;</p>
+
+<p>Die Abbildung zeigt die Frequenzverläufe der letzten 75 Minuten mit einer Verzögerung von 15 Minuten. Betrachten Sie bspw. das Frequenzverhalten um den Stundenbruch. Die Abbildungen werden im 60-Sekunden-Takt aktualisiert.</p>
+
+<p>Vergleichen Sie auch mal den Frequenzverlauf in Kontinentaleuropa mit dem in England oder dem in Skandinavien. Sie werden recht schnell feststellen, welche Bedeutung die Größe des Netzes auf die Netzstabilität hat. Aber auch unterschiedliche Erzeugungssituationen zwischen den Netzen wirken sich auf die Netzstabilität und das Schwankungsverhalten der Frequenz aus.</p>
+
+<p>Schauen Sie sich auch gerne die Abbildungen parallel an, wenn bspw. ein Sturm über Europa zieht oder wenn es zu einem Split der Verbindungsleitungen zwischen den Synchrongebieten, den sogenannten Interkonnektoren, kommt.</p>
+
+<p>Das Gridradar-Alert System informiert Trader, Erzeuger und Großverbraucher in Echtzeit, wenn es zu ungewöhnlichen Ereignissen im Netz kommt. Sprechen Sie uns gerne an.</p>    </article>
+</section>
+                <section class="flex-col-grow"></section>
+        <footer id="layout-footer">
+    <div id="footer">
+        <div class="container">
+            <ul>
+                <li class="grow"><a href="https://gridradar.net/de">&copy;gridradar.net</a></li>
+                <li class="grow"><a href="https://gridradar.net/de/impressum">Impressum</a></li>
+                <li class="grow"><a href="https://gridradar.net/de/datenschutz">Datenschutzerklärung</a></li>
+                <li class="grow"><a class="icon-container" href="https://www.linkedin.com/company/gridradar" target="_blank" rel="noopener noreferrer"><img class="icon fr-fic fr-dii" src="/storage/app/media/images/icons/LI-In-w.png" alt="Gridradar on Linkedin" loading="lazy"></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>    </body>
+</html>

@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-02-24T17:46:16.868Z",
+  "fetchedAt": "2026-02-24T18:38:08.078Z",
   "overall": "red",
-  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
+  "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
     "lat": 48.2092,
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 9.02,
+      "value": 8.35,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,7 +31,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 15,
+      "value": 14,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -73,7 +73,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 66,
+      "value": 65,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -134,7 +134,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-24T17:46:19.075Z",
+      "date": "2026-02-24T18:38:08.326Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -162,7 +162,7 @@
     },
     "space": {
       "level": "green",
-      "value": 3.33,
+      "value": 2.33,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -204,7 +204,7 @@
       },
       "message": "Normalbetrieb",
       "source": "Wiener Netze (Erdgas)",
-      "sourceUrl": "https://www.wienernetze.at/stoerungen"
+      "sourceUrl": "https://www.wienernetze.at/gas"
     },
     "water": {
       "level": "green",
@@ -214,9 +214,21 @@
         "yellow": 2,
         "red": 2
       },
-      "message": "Information aktuell nicht erreichbar",
-      "source": "Wiener Wasser (MA 31) - Offline",
-      "sourceUrl": "https://www.wien.gv.at/wasser/versorgung/index.html"
+      "message": "Information aktuell eingeschränkt erreichbar",
+      "source": "Wiener Wasser (MA 31)",
+      "sourceUrl": "https://www.wien.gv.at/kontakt/ma31"
+    },
+    "blackout": {
+      "level": "green",
+      "value": 50.002,
+      "unit": "Hz",
+      "thresholds": {
+        "yellow": "±100mHz",
+        "red": "±200mHz"
+      },
+      "message": "Normalbetrieb",
+      "source": "Netzfrequenz.info (UCTE)",
+      "sourceUrl": "https://gridradar.net/de/netzfrequenz"
     },
     "snow": {
       "level": "green",
