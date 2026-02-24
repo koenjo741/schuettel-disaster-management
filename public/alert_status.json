@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-24T09:07:55.487Z",
+  "fetchedAt": "2026-02-24T10:09:04.615Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 9.13,
+      "value": 10.04,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -20,7 +20,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 20,
+      "value": 17,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -61,7 +61,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 65,
+      "value": 66,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -85,21 +85,21 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 1.6,
+      "value": 1.2,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 75,
-      "depthKm": 4.9,
-      "time": "2026-02-23T09:38:52.722Z",
-      "eventCount": 2,
+      "distanceKm": 129,
+      "depthKm": 10.4,
+      "time": "2026-02-23T12:28:17.819Z",
+      "eventCount": 1,
       "source": "ZAMG/GeoSphere FDSN",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
-      "level": "green",
+      "level": "unknown",
       "value": 0,
       "unit": "Warnungen",
       "title": null,
@@ -107,7 +107,7 @@
       "alertLevel": null,
       "expires": null,
       "sender": null,
-      "source": "AT-Alert (keine Warnungen)",
+      "source": "Offline",
       "sourceUrl": "https://warnungen.at-alert.at"
     },
     "pandemic": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-24T09:07:57.667Z",
+      "date": "2026-02-24T10:09:06.799Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -221,5 +221,5 @@
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350"
     }
   },
-  "error": null
+  "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
 }
