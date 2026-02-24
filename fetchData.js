@@ -500,7 +500,7 @@ async function fetchGasStatus() {
             status: hasSpecificDisruption ? 2 : 1,
             message: hasSpecificDisruption ? 'Störung gemeldet' : 'Normalbetrieb',
             source: 'Wiener Netze (Erdgas)',
-            sourceUrl: url
+            sourceUrl: 'https://www.wienernetze.at/gas' // More informative landing page
         };
     });
 }
@@ -1102,8 +1102,8 @@ export async function fetchAlertData() {
                     unit: 'Status',
                     thresholds: THRESHOLDS.water,
                     message: waterData?.message ?? 'Unbekannt',
-                    source: waterData?.source ?? 'Offline',
-                    sourceUrl: waterData?.sourceUrl ?? 'https://www.wien.gv.at/wasser/versorgung/index.html',
+                    source: waterData?.source ?? 'Wiener Wasser (MA 31)',
+                    sourceUrl: waterData?.sourceUrl ?? 'https://www.wien.gv.at/kontakt/ma31',
                 },
                 snow: {
                     level: snowLevel,
