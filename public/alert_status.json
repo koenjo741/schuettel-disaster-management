@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-24T10:33:58.664Z",
+  "fetchedAt": "2026-02-24T11:08:33.452Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 10.04,
+      "value": 9.98,
       "unit": "°C",
       "thresholds": {
         "yellow": 30,
@@ -20,7 +20,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 17,
+      "value": 18,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -61,7 +61,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 66,
+      "value": 65,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -79,7 +79,7 @@
         "red": 50
       },
       "pm25": 2,
-      "luftIndex": 1,
+      "luftIndex": 2,
       "source": "Wien.gv.at Luftgütebericht (MA 22)",
       "sourceUrl": "https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm"
     },
@@ -99,7 +99,7 @@
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
-      "level": "unknown",
+      "level": "green",
       "value": 0,
       "unit": "Warnungen",
       "title": null,
@@ -107,7 +107,7 @@
       "alertLevel": null,
       "expires": null,
       "sender": null,
-      "source": "Offline",
+      "source": "AT-Alert (keine Warnungen)",
       "sourceUrl": "https://warnungen.at-alert.at"
     },
     "pandemic": {
@@ -122,7 +122,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-24T10:33:58.887Z",
+      "date": "2026-02-24T11:08:36.269Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -221,5 +221,5 @@
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/-49170,55221,851562,737350"
     }
   },
-  "error": "AT-Alert: AT-Alert API: Expected JSON but received text/html; charset=utf-8"
+  "error": null
 }
