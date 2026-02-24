@@ -99,6 +99,7 @@ const THRESHOLDS = {
     flood: { yellow: 380, red: 432 },
     radiation: { yellow: 200, red: 300 },
     airQuality: { yellow: 25, red: 50 },  // PM10 µg/m³ (EU 24h limit: 50)
+    airQualityIndex: { yellow: 3, red: 5 }, // Wiener Luftgüteindex (1-6)
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
     space: { yellow: 2, red: 3 },          // NOAA Scale (1-5)
@@ -176,14 +177,21 @@ async function fetchAirQualityData() {
         const pm10 = parseFloat(maxParts[3]) || null;
         const pm25 = parseFloat(maxParts[4]) || null;
 
-        // Parse WIEN - INDEX row for Luftgüteindex
-        const idxMatch = html.match(/WIEN\s*-\s*INDEX\s*\|([^\n]+)/);
+        // Parse Luftgüteindex (overall)
+        // Look for the overall index statement at the top
+        const overallIdxMatch = html.match(/Die aktuelle Belastung heute um \d+ Uhr:\s*Index\s*(\d)/i);
         let luftIndex = null;
-        if (idxMatch) {
-            const idxParts = idxMatch[1].split('|').map(s => s.trim());
-            // First column group has current and max index values
-            const firstVal = idxParts[0]?.match(/(\d)/)?.[1];
-            luftIndex = firstVal ? parseInt(firstVal, 10) : null;
+        if (overallIdxMatch) {
+            luftIndex = parseInt(overallIdxMatch[1], 10);
+        } else {
+            // Fallback: Parse WIEN - INDEX row and take maximum value if available
+            const idxMatch = html.match(/WIEN\s*-\s*INDEX\s*\|([^\n]+)/);
+            if (idxMatch) {
+                const digits = idxMatch[1].match(/\d/g);
+                if (digits) {
+                    luftIndex = Math.max(...digits.map(d => parseInt(d, 10)));
+                }
+            }
         }
 
         if (pm10 === null && pm25 === null) {
@@ -778,7 +786,13 @@ export async function fetchAlertData() {
         const rainLevel = weather ? alertLevel(weather.rainMmH ?? 0, THRESHOLDS.rain) : 'unknown';
         const floodLevel = floodData ? alertLevel(floodData.pegelCm ?? 0, THRESHOLDS.flood) : 'unknown';
         const radiationLevel = radiationData ? alertLevel(radiationData.nsvH ?? 0, THRESHOLDS.radiation) : 'unknown';
-        const airQualityLevel = airQualityData ? alertLevel(airQualityData.pm10 ?? 0, THRESHOLDS.airQuality) : 'unknown';
+        const airQualityLevel = (() => {
+            if (!airQualityData) return 'unknown';
+            const pmLevel = alertLevel(airQualityData.pm10 ?? 0, THRESHOLDS.airQuality);
+            const idxLevel = airQualityData.luftIndex ? alertLevel(airQualityData.luftIndex, THRESHOLDS.airQualityIndex) : 'green';
+            const severityRank = { green: 0, yellow: 1, red: 2, unknown: -1 };
+            return severityRank[pmLevel] > severityRank[idxLevel] ? pmLevel : idxLevel;
+        })();
         const earthquakeLevel = earthquakeData ? alertLevel(earthquakeData.magnitude ?? 0, THRESHOLDS.earthquake) : 'unknown';
         const atAlertLevel = atAlertData?.level ?? 'unknown';
         const pandemicLevel = pandemicData?.level ?? 'unknown';
