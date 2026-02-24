@@ -201,6 +201,7 @@
       blackout: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 4 L60 54 H4 Z" fill="#fbbf24" stroke="#000" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="34" r="10" fill="none" stroke="#000" stroke-width="2"/><path d="M34 22 L24 38 H32 L30 48 L40 32 H32 L34 22 Z" fill="#000"/></svg>', title: 'Blackout-Frühwarnung', sub: 'Netzfrequenz (Echtzeit)' },
       gas: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 4c-5 8-10 12-10 24 0 10 8 18 10 18s10-8 10-18c0-12-5-16-10-24Z" fill="#f97316"/><path d="M32 18c-3 5-6 8-6 14 0 6 4 10 6 10s6-4 6-10c0-6-3-9-6-14Z" fill="#fbbf24"/></svg>', title: 'Erdgasversorgung', sub: 'Status Wiener Netze (Echtzeit)' },
       water: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 8 C22 24 16 32 16 44 A16 16 0 0 0 48 44 C48 32 42 24 32 8 Z" fill="#3b82f6" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/></svg>', title: 'Trinkwasser', sub: 'Status MA 31 (Wiener Wasser)' },
+      traffic: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M54 44H10l-2-4 4-20h40l4 20-2 4z" fill="#334155"/><rect x="14" y="24" width="8" height="8" rx="1" fill="#bae6fd"/><rect x="42" y="24" width="8" height="8" rx="1" fill="#bae6fd"/><circle cx="18" cy="48" r="6" fill="#1e293b"/><circle cx="46" cy="48" r="6" fill="#1e293b"/><path d="M22 10l-4 10h28l-4-10z" fill="#ef4444"/><rect x="28" y="14" width="8" height="4" fill="#60a5fa"/></svg>', title: 'Taktische Zufahrt', sub: 'Verkehr (1020 Leopoldstadt)' },
       snow: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 8v48M8 32h48M15 15l34 34M49 15L15 49" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#fff" stroke="#60a5fa" stroke-width="1"/></svg>', title: 'Schnee & Winterdienst', sub: 'SNOWGRID & Niederschlagsprognose' },
       ice: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 10v34M24 44h16m-8 0v10" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="50" r="6" fill="#38bdf8"/><path d="M22 18h20M22 28h20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/><path d="M32 6c1 12 8 8 12 16c2 4 0 10-4 10s-8-4-8-10" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/></svg>', title: 'Glatteis-Gefahr', sub: 'Analyse von Reif & gefrierendem Regen' },
       uwz: { icon: '<svg viewBox="0 0 64 64" width="28" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M32 10 L58 54 H6 Z" fill="#fff" stroke="#ef4444" stroke-width="6" stroke-linejoin="round"/><g transform="translate(20, 24) scale(0.7)"><path d="M22 6c-3.3 0-6 2.7-6 6 0 .3 0 .7.1 1-.9-.6-2-.9-3.1-.9-3.3 0-6 2.7-6 6s2.7 6 6 6h9c3.3 0 6-2.7 6-6s-2.7-6-6-6c0-3.3-2.7-6-6-6z" fill="#334155"/><path d="M10 18l-3 6h4l-3 8" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 18l-1 3m4-3l-1 3m4-3l-1 3" stroke="#334155" stroke-width="2" stroke-linecap="round"/></g></svg>', title: 'Unwetter­warnungen', sub: 'Status Wien (Gesamt) & Leopoldstadt (Lokal)' },
@@ -372,6 +373,7 @@
         fire: 'NASA / GeoSphere', space: 'NOAA / SWPC', power: 'Wiener Netze',
         blackout: 'GridRadar (Netzfrequenz)',
         gas: 'Wiener Netze', water: 'Wiener Wasser (MA 31)',
+        traffic: 'Stadt Wien (VPI)',
         snow: 'GeoSphere (SNOWGRID)', ice: 'GeoSphere', uwz: 'UWZ.at', thunderstorm: 'GeoSphere / ZAMG'
       };
 
@@ -476,7 +478,7 @@
         const severityRank = { red: 3, yellow: 2, green: 1, unknown: 0 };
 
         const PRIORITY_ORDER = [
-          'blackout', 'power', 'space', 'radiation', 'earthquake', 'atAlert', 'pandemic', 'gas', 'water',
+          'blackout', 'power', 'traffic', 'space', 'radiation', 'earthquake', 'atAlert', 'pandemic', 'gas', 'water',
           'uwz', 'heat', 'fire', 'rain', 'wind', 'thunderstorm',
           'flood', 'ice', 'snow', 'airQuality'
         ];

@@ -586,6 +586,49 @@ async function fetchBlackoutStatus() {
     });
 }
 
+async function fetchTrafficStatus() {
+    return withRetry(async () => {
+        // VPI / Echtzeit-Verkehrsmeldungen der Stadt Wien
+        const url = 'https://www.wien.gv.at/verkehr/strassenzustand/aktuell/';
+        const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (!res.ok) throw new Error(`Traffic status check failed: ${res.status}`);
+
+        const html = await res.text();
+
+        // Define key tactical routes for Schüttelstraße 79/81
+        const tacticalStreets = ['Schüttelstraße', 'Ausstellungsstraße', 'Engerthstraße'];
+
+        // Check for "Gesperrt" or "Sperre" near these streets
+        let status = 1; // Green
+        let message = 'Freie Zufahrt';
+
+        const hasCritical = tacticalStreets.some(street => {
+            const regex = new RegExp(`${street}.*(Gesperrt|Sperre|unterbrochen)`, 'i');
+            return regex.test(html);
+        });
+
+        const hasWarning = tacticalStreets.some(street => {
+            const regex = new RegExp(`${street}.*(Baustelle|Behinderung|Verzögerung)`, 'i');
+            return regex.test(html);
+        });
+
+        if (hasCritical) {
+            status = 3; // Red
+            message = 'Zufahrt gesperrt / blockiert!';
+        } else if (hasWarning) {
+            status = 2; // Yellow
+            message = 'Zufahrt erschwert (Baustelle)';
+        }
+
+        return {
+            status,
+            message,
+            source: 'Stadt Wien (VPI Echtzeit)',
+            sourceUrl: 'https://www.wien.gv.at/verkehr/strassenzustand/'
+        };
+    });
+}
+
 async function fetchATAlertData() {
     return withRetry(async () => {
         const today = new Date().toISOString().slice(0, 10);
@@ -924,10 +967,11 @@ export async function fetchAlertData() {
         const gasData = results[10].status === 'fulfilled' ? results[10].value : { level: 'unknown' };
         const waterData = results[11].status === 'fulfilled' ? results[11].value : { level: 'unknown' };
         const blackoutData = results[12].status === 'fulfilled' ? results[12].value : { level: 'unknown' };
-        const snowData = results[13].status === 'fulfilled' ? results[13].value : { level: 'unknown' };
-        const uwzData = results[14].status === 'fulfilled' ? results[14].value : { level: 'unknown' };
-        const thunderData = results[15].status === 'fulfilled' ? results[15].value : { level: 'unknown' };
-        const uvData = results[16].status === 'fulfilled' ? results[16].value : { level: 'unknown' };
+        const trafficData = results[13].status === 'fulfilled' ? results[13].value : { level: 'unknown' };
+        const snowData = results[14].status === 'fulfilled' ? results[14].value : { level: 'unknown' };
+        const uwzData = results[15].status === 'fulfilled' ? results[15].value : { level: 'unknown' };
+        const thunderData = results[16].status === 'fulfilled' ? results[16].value : { level: 'unknown' };
+        const uvData = results[17].status === 'fulfilled' ? results[17].value : { level: 'unknown' };
 
         if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData) {
             throw new Error('All data sources failed.');
@@ -988,10 +1032,10 @@ export async function fetchAlertData() {
         }
 
         // UWZ Logic
-        const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
         const thunderLevel = thunderData?.level ?? 'green';
+        const trafficLevel = trafficData?.status ? (trafficData.status === 3 ? 'red' : (trafficData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, gasLevel, waterLevel, blackoutLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, gasLevel, waterLevel, blackoutLevel, trafficLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -1152,6 +1196,14 @@ export async function fetchAlertData() {
                     message: blackoutData?.message ?? 'Normalbetrieb',
                     source: blackoutData?.source ?? 'Offline',
                     sourceUrl: blackoutData?.sourceUrl ?? 'https://gridradar.net/de/netzfrequenz',
+                },
+                traffic: {
+                    level: trafficLevel,
+                    value: trafficData?.status ?? 1,
+                    unit: 'Status',
+                    message: trafficData?.message ?? 'Unbekannt',
+                    source: trafficData?.source ?? 'Offline',
+                    sourceUrl: trafficData?.sourceUrl ?? 'https://www.wien.gv.at/verkehr/strassenzustand/',
                 },
                 snow: {
                     level: snowLevel,
