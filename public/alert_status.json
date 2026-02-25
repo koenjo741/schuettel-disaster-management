@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T22:48:24.606Z",
+  "fetchedAt": "2026-02-25T23:19:30.547Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 7.66,
+      "value": 6.91,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 10,
       "unit": "km/h",
-      "humidity": 78.28,
+      "humidity": 80.29,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -74,14 +74,20 @@
     },
     "radiation": {
       "level": "green",
-      "value": 66,
+      "value": 65,
       "unit": "nSv/h",
-      "thresholds": {
-        "yellow": 200,
-        "red": 300
-      },
+      "station": "AT2002 Wien-Radetzkystraße",
+      "measuredAt": "25.02.2026 23:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
-      "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002"
+      "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
+      "remoteWarning": null,
+      "maxNearbyValue": 191,
+      "extraLinks": [
+        {
+          "name": "EURDEP/REMAP Map",
+          "url": "https://remap.jrc.ec.europa.eu/"
+        }
+      ]
     },
     "airQuality": {
       "level": "green",
@@ -96,7 +102,7 @@
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "44",
+      "description": "50",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -108,17 +114,17 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 1.8,
+      "value": 0,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 56,
-      "depthKm": 9.5,
-      "time": "2026-02-24T23:17:32.395Z",
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "distanceKm": null,
+      "depthKm": null,
+      "time": null,
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -145,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T22:48:27.338Z",
+      "date": "2026-02-25T23:19:32.521Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -158,7 +164,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA FIRMS Satelliten-Monitoring",
+      "source": "NASA (Offline)",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -231,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.012,
+      "value": 49.998,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -287,7 +293,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1027.2312,
+      "pressureHpa": 1027.447,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
