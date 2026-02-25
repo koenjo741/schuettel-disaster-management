@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T14:55:06.973Z",
+  "fetchedAt": "2026-02-25T15:11:20.304Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.71,
+      "value": 12.87,
       "unit": "°C",
-      "uvi": 0.8,
+      "uvi": 0.3,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,8 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 12,
+      "value": 16,
       "unit": "km/h",
+      "humidity": 49.82,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -73,7 +74,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 65,
+      "value": 64,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -134,7 +135,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T14:55:07.184Z",
+      "date": "2026-02-25T15:11:20.523Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -162,7 +163,7 @@
     },
     "space": {
       "level": "green",
-      "value": 3,
+      "value": 2.67,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -220,7 +221,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.983,
+      "value": 49.978,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -266,7 +267,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1023.8347,
+      "pressureHpa": 1023.6408,
       "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
@@ -285,5 +286,5 @@
       ]
     }
   },
-  "error": "Traffic/VPI: Traffic status check failed: 504"
+  "error": "Traffic/VPI: Traffic status check failed: 404"
 }

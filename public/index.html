@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.6.2</div>
+            v1.6.3</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -227,6 +227,7 @@
 
       let val = hazard.value ?? hazard.pegelCm;
       let unit = hazard.unit ?? '';
+      const renderPipe = () => `<span class="mx-2 opacity-50 text-slate-100 sm:text-slate-400">|</span>`;
 
       if (key === 'flood') {
         const trendMap = { 'Erhöhung': '↑', 'Verringerung': '↓', 'Gleichbleibend': '→', 'Stabil': '→' };
@@ -260,7 +261,7 @@
         return `${valHz} Hz`;
       }
 
-      const renderPipe = () => `<span class="mx-2 opacity-50 text-slate-100 sm:text-slate-400">|</span>`;
+
 
       if (key === 'uwz') {
         const status = hazard.value || 'Keine Warnung';
@@ -580,7 +581,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=17').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=18').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();
