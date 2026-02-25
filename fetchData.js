@@ -588,43 +588,55 @@ async function fetchBlackoutStatus() {
 
 async function fetchTrafficStatus() {
     return withRetry(async () => {
-        // VPI / Echtzeit-Verkehrsmeldungen der Stadt Wien
-        const url = 'https://www.wien.gv.at/verkehr/strassenzustand/';
+        const url = 'https://www.wienerlinien.at/ogd_realtime/trafficInfoList';
         const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-        if (!res.ok) throw new Error(`Traffic status check failed: ${res.status}`);
+        if (!res.ok) throw new Error(`WL Traffic check failed: ${res.status}`);
 
-        const html = await res.text();
+        const json = await res.json();
+        const trafficInfos = json.data?.trafficInfos ?? [];
 
-        // Define key tactical routes for Schüttelstraße 79/81
-        const tacticalStreets = ['Schüttelstraße', 'Ausstellungsstraße', 'Engerthstraße'];
+        // Logical proxy: Line 80A, 1, 77A disruptions in 1020/Schüttelstraße area
+        const relevantLines = ['80A', '1', '77A'];
+        const areaKeywords = ['Schüttelstraße', 'Stadionbrücke', 'Prater', 'Ausstellungsstraße', 'Engerthstraße'];
 
-        // Check for "Gesperrt" or "Sperre" near these streets
-        let status = 1; // Green
+        const disruptions = trafficInfos.filter(info => {
+            const text = JSON.stringify(info).toLowerCase();
+            const lines = info.relatedLines ?? [];
+            const hasLine = lines.some(l => relevantLines.includes(l));
+            const hasArea = areaKeywords.some(kw => text.includes(kw.toLowerCase()));
+            return hasLine || hasArea;
+        });
+
+        let status = 1;
         let message = 'Freie Zufahrt';
 
-        const hasCritical = tacticalStreets.some(street => {
-            const regex = new RegExp(`${street}.*(Gesperrt|Sperre|unterbrochen)`, 'i');
-            return regex.test(html);
-        });
+        if (disruptions.length > 0) {
+            // Sort by severity: Sperre > Bauarbeiten
+            const critical = disruptions.find(d =>
+                d.title.toLowerCase().includes('sperre') ||
+                d.description.toLowerCase().includes('gesperrt')
+            );
 
-        const hasWarning = tacticalStreets.some(street => {
-            const regex = new RegExp(`${street}.*(Baustelle|Behinderung|Verzögerung)`, 'i');
-            return regex.test(html);
-        });
-
-        if (hasCritical) {
-            status = 3; // Red
-            message = 'Zufahrt gesperrt / blockiert!';
-        } else if (hasWarning) {
-            status = 2; // Yellow
-            message = 'Zufahrt erschwert (Baustelle)';
+            if (critical) {
+                status = 3;
+                message = critical.title;
+            } else {
+                status = 2;
+                message = disruptions[0].title;
+            }
         }
 
         return {
             status,
+            value: status,
+            unit: 'Status',
             message,
-            source: 'Stadt Wien (VPI Echtzeit)',
-            sourceUrl: 'https://www.wien.gv.at/verkehr/strassenzustand/'
+            source: 'Wiener Linien & Google',
+            sourceUrl: 'https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1', // Traffic layer
+            extraLinks: [
+                { name: 'WL Betriebsinfo', url: 'https://www.wienerlinien.at/betriebsinfo' },
+                { name: 'Baustellen Wien', url: 'https://www.wien.gv.at/verkehr/baustellen/' }
+            ]
         };
     });
 }
@@ -1218,7 +1230,8 @@ export async function fetchAlertData() {
                     unit: 'Status',
                     message: trafficData?.message ?? 'Unbekannt',
                     source: trafficData?.source ?? 'Offline',
-                    sourceUrl: trafficData?.sourceUrl ?? 'https://www.wien.gv.at/verkehr/strassenzustand/',
+                    sourceUrl: trafficData?.sourceUrl ?? 'https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1',
+                    extraLinks: trafficData?.extraLinks ?? []
                 },
                 snow: {
                     level: snowLevel,
