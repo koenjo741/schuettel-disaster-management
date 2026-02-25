@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T05:16:01.670Z",
+  "fetchedAt": "2026-02-25T06:36:08.694Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 5.6,
+      "value": 5.24,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,7 +31,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 9,
+      "value": 15,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -84,14 +84,14 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 10,
+      "value": 11,
       "unit": "µg/m³",
       "thresholds": {
         "yellow": 25,
         "red": 50
       },
       "pm25": 5,
-      "luftIndex": 2,
+      "luftIndex": 1,
       "source": "Wien.gv.at Luftgütebericht (MA 22)",
       "sourceUrl": "https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm"
     },
@@ -134,7 +134,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T05:16:04.838Z",
+      "date": "2026-02-25T06:36:11.169Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -162,7 +162,7 @@
     },
     "space": {
       "level": "green",
-      "value": 3.67,
+      "value": 2.33,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -220,7 +220,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.051,
+      "value": 50.019,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
