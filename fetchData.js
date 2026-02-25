@@ -1272,7 +1272,10 @@ export async function fetchAlertData() {
                     source: radiationData?.source ?? 'Offline',
                     sourceUrl: 'https://mb.strahlenschutz.gv.at/station/AT2002',
                     remoteWarning: remoteRadData?.nearestHighStation ?? null,
-                    maxNearbyValue: remoteRadData?.maxNearbyValue ?? 0
+                    maxNearbyValue: remoteRadData?.maxNearbyValue ?? 0,
+                    extraLinks: [
+                        { name: 'EURDEP/REMAP Map', url: 'https://remap.jrc.ec.europa.eu/Advanced.aspx' }
+                    ]
                 },
                 airQuality: {
                     level: airQualityLevel,

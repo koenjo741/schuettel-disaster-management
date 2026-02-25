@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.6.8</div>
+            v1.6.9</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -382,11 +382,15 @@
         extraHtml = `<p class="text-xs text-slate-400 mt-1 font-mono">${scalesText} (Skala 0-5)</p>`;
       }
 
-      if (key === 'radiation' && hazard && hazard.remoteWarning) {
-        extraHtml = `<div class="mt-2 p-2 bg-red-900/30 border border-red-500/50 rounded-lg">
-          <p class="text-[11px] text-red-200 font-bold uppercase tracking-wider">Umkreis-Warnung (500km)</p>
-          <p class="text-xs text-red-100 mt-0.5">⚠️ <b>${hazard.remoteWarning.value} nSv/h</b> in ${hazard.remoteWarning.name} (${hazard.remoteWarning.dist.toFixed(0)}km).</p>
-        </div>`;
+      if (key === 'radiation' && hazard) {
+        if (hazard.remoteWarning) {
+          extraHtml = `<div class="mt-2 p-2 bg-red-900/30 border border-red-500/50 rounded-lg">
+            <p class="text-[11px] text-red-200 font-bold uppercase tracking-wider">Umkreis-Warnung (500km)</p>
+            <p class="text-xs text-red-100 mt-0.5">⚠️ <b>${hazard.remoteWarning.value} nSv/h</b> in ${hazard.remoteWarning.name} (${hazard.remoteWarning.dist.toFixed(0)}km).</p>
+          </div>`;
+        } else {
+          extraHtml = `<p class="text-[11px] text-slate-500 mt-1 italic">Keine Werte > 300 nSv/h im Umkreis (500km)</p>`;
+        }
       }
 
       // ── Footer & Links (Unified) ──
