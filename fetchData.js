@@ -162,6 +162,88 @@ async function fetchRadiationData() {
     });
 }
 
+/**
+ * Monitors radiation values within 500km radius of Vienna.
+ * Uses BfS ODL (Germany) and multiple Austrian border stations.
+ */
+async function fetchRemoteRadiationData() {
+    const VIENNA = { lat: 48.2092, lon: 16.4050 };
+    const RADIUS_KM = 500;
+    const THRESHOLD = 300;
+
+    const haversine = (lat1, lon1, lat2, lon2) => {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    };
+
+    let maxVal = 0;
+    let nearestHigh = null;
+
+    // 1. Check BfS (Germany)
+    try {
+        const bfsUrl = 'https://www.imis.bfs.de/ogc/opendata/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=opendata:odlinfo_odl_1h_latest&outputFormat=application/json';
+        const res = await fetch(bfsUrl);
+        if (res.ok) {
+            const data = await res.json();
+            for (const f of (data.features || [])) {
+                const [lon, lat] = f.geometry.coordinates;
+                const val = f.properties.value * 1000; // Convert µSv/h to nSv/h
+                const dist = haversine(VIENNA.lat, VIENNA.lon, lat, lon);
+                if (dist <= RADIUS_KM) {
+                    if (val > maxVal) maxVal = val;
+                    if (val > THRESHOLD && (!nearestHigh || dist < nearestHigh.dist)) {
+                        nearestHigh = { name: f.properties.name, value: val, dist, source: 'BfS (DE)' };
+                    }
+                }
+            }
+        }
+    } catch (err) {
+        console.warn('Remote Radiation (BfS) check failed:', err.message);
+    }
+
+    // 2. Check key Austrian border stations (Gateways for CZ/SK/HU)
+    const borderStations = [
+        { id: 'AT3024', name: 'Hardegg (CZ-Grenze)' },
+        { id: 'AT3011', name: 'Drosendorf (CZ-Grenze)' },
+        { id: 'AT3114', name: 'Marchegg (SK-Grenze)' },
+        { id: 'AT1007', name: 'Kittsee (SK/HU-Grenze)' },
+        { id: 'AT4102', name: 'Schärding (DE-Grenze)' }
+    ];
+
+    for (const st of borderStations) {
+        try {
+            const res = await fetch(`https://mb.strahlenschutz.gv.at/station/${st.id}`, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+            if (res.ok) {
+                const html = await res.text();
+                const match = html.match(new RegExp(`${st.id}[\\s\\S]{0,300}?<td>(\\d+)<\\/td>`));
+                if (match) {
+                    const val = parseInt(match[1], 10);
+                    if (val > maxVal) maxVal = val;
+                    if (val > THRESHOLD) {
+                        // Distances are rough estimates for these specific border points
+                        const dist = st.id === 'AT1007' ? 50 : 80;
+                        if (!nearestHigh || dist < nearestHigh.dist) {
+                            nearestHigh = { name: st.name, value: val, dist, source: 'Strahlenschutz (AT-Border)' };
+                        }
+                    }
+                }
+            }
+        } catch (err) {
+            console.warn(`Remote Radiation (${st.id}) check failed:`, err.message);
+        }
+    }
+
+    return {
+        maxNearbyValue: maxVal,
+        nearestHighStation: nearestHigh
+    };
+}
+
 // ── Air Quality: Wien.gv.at Luftgütebericht scraper ─────────────────────────
 // ── Air Quality: IQAir + Wien.gv.at fallback ─────────────────────────
 async function fetchIQAirData() {
@@ -1040,9 +1122,10 @@ export async function fetchAlertData() {
             fetchUWZWarnings(),
             fetchThunderstormData(),
             fetchUVData(),
+            fetchRemoteRadiationData(),
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -1066,8 +1149,9 @@ export async function fetchAlertData() {
         const uwzData = results[15].status === 'fulfilled' ? results[15].value : { level: 'unknown' };
         const thunderData = results[16].status === 'fulfilled' ? results[16].value : { level: 'unknown' };
         const uvData = results[17].status === 'fulfilled' ? results[17].value : { level: 'unknown' };
+        const remoteRadData = results[18].status === 'fulfilled' ? results[18].value : null;
 
-        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData) {
+        if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData && !remoteRadData) {
             throw new Error('All data sources failed.');
         }
 
@@ -1183,9 +1267,12 @@ export async function fetchAlertData() {
                     level: radiationLevel,
                     value: radiationData?.nsvH ?? null,
                     unit: 'nSv/h',
-                    thresholds: THRESHOLDS.radiation,
+                    station: radiationData?.station ?? 'Unbekannt',
+                    measuredAt: radiationData?.measuredAt ?? null,
                     source: radiationData?.source ?? 'Offline',
-                    sourceUrl: 'https://mb.strahlenschutz.gv.at/station/AT2002'
+                    sourceUrl: 'https://mb.strahlenschutz.gv.at/station/AT2002',
+                    remoteWarning: remoteRadData?.nearestHighStation ?? null,
+                    maxNearbyValue: remoteRadData?.maxNearbyValue ?? 0
                 },
                 airQuality: {
                     level: airQualityLevel,
