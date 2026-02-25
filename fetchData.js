@@ -1274,7 +1274,7 @@ export async function fetchAlertData() {
                     remoteWarning: remoteRadData?.nearestHighStation ?? null,
                     maxNearbyValue: remoteRadData?.maxNearbyValue ?? 0,
                     extraLinks: [
-                        { name: 'EURDEP/REMAP Map', url: 'https://remap.jrc.ec.europa.eu/Advanced.aspx' }
+                        { name: 'EURDEP/REMAP Map', url: 'https://remap.jrc.ec.europa.eu/' }
                     ]
                 },
                 airQuality: {
