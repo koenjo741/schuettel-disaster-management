@@ -99,7 +99,7 @@ const THRESHOLDS = {
     rain: { yellow: 15, red: 25 },
     flood: { yellow: 380, red: 432 },
     radiation: { yellow: 200, red: 300 },
-    airQuality: { yellow: 25, red: 50 },  // PM10 µg/m³ (EU 24h limit: 50)
+    airQuality: { yellow: 51, red: 101 },   // PM10 µg/m³ or IQAir AQI (US AQI: 51-100 Mod, >100 Unhealthy)
     airQualityIndex: { yellow: 3, red: 5 }, // Wiener Luftgüteindex (1-6)
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
@@ -163,33 +163,88 @@ async function fetchRadiationData() {
 }
 
 // ── Air Quality: Wien.gv.at Luftgütebericht scraper ─────────────────────────
-async function fetchAirQualityData() {
+// ── Air Quality: IQAir + Wien.gv.at fallback ─────────────────────────
+async function fetchIQAirData() {
     return withRetry(async () => {
+        const url = 'https://www.iqair.com/de/austria/vienna/vienna';
+        const res = await fetch(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html'
+            },
+        });
+        if (!res.ok) throw new Error(`IQAir error: ${res.status}`);
+        const html = await res.text();
+
+        // 1. Try to find in a potential JSON blob or hidden input
+        const aqiMatch = html.match(/"aqi":\s*(\d+)/i) ||
+            html.match(/aqi":\s*(\d+)/i) ||
+            html.match(/>(\d+)<\/p><p[^>]*>US AQI/i) ||
+            html.match(/class="aqi-value__value">(\d+)/i) ||
+            html.match(/Luftqualitätsindex \(AQI\)[^0-9]*(\d+)/i);
+
+        const aqi = aqiMatch ? parseInt(aqiMatch[1], 10) : null;
+
+        // 2. Extract description (e.g. "Gut", "Moderate")
+        const descMatch = html.match(/class="aqi-status__text">([^<]+)</i) ||
+            html.match(/"status":"([^"]+)"/i) ||
+            html.match(/AQI[^<]*<p[^>]*>([^<]+)<\/p>/i);
+        const description = descMatch ? descMatch[1].trim() : null;
+
+        // 3. Extract main pollutant
+        const pollutantMatch = html.match(/Hauptschadstoff:[\s\S]*?<span>([^<]+)</i) ||
+            html.match(/Hauptschadstoff:[\s\S]*?<b>([^<]+)</i) ||
+            html.match(/"mainPollutant":"([^"]+)"/i);
+        const mainPollutant = pollutantMatch ? pollutantMatch[1].trim() : null;
+
+        if (aqi === null) {
+            // Last resort: Look for the first number after "Luftqualitätsindex"
+            const idx = html.indexOf('Luftqualitätsindex');
+            if (idx !== -1) {
+                const sub = html.substring(idx, idx + 1000);
+                const firstNum = sub.match(/>(\d+)</);
+                if (firstNum) return { aqi: parseInt(firstNum[1], 10), description, mainPollutant, source: 'IQAir (Echtzeit)', sourceUrl: url };
+            }
+            throw new Error('IQAir: AQI value not found');
+        }
+
+        return {
+            aqi,
+            mainPollutant,
+            description,
+            source: 'IQAir (Echtzeit)',
+            sourceUrl: url
+        };
+    });
+}
+
+async function fetchAirQualityData() {
+    let iqAir = null;
+    try {
+        iqAir = await fetchIQAirData();
+    } catch (err) {
+        console.warn(`IQAir fetch failed: ${err.message}`);
+    }
+
+    const wienData = await withRetry(async () => {
         const res = await fetch('https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm', {
             headers: { 'User-Agent': 'Mozilla/5.0', Accept: 'text/html' },
         });
         if (!res.ok) throw new Error(`Wien Luftgütebericht error: ${res.status}`);
         const html = await res.text();
 
-        // Parse WIEN - MAXIMUM row for PM10 and PM2.5 values
-        // Format: "WIEN - MAXIMUM | ... | ... | ... | pm10 | pm25 | ..."
         const maxMatch = html.match(/WIEN\s*-\s*MAXIMUM\s*\|([^\n]+)/);
         if (!maxMatch) throw new Error('Wien Luftgütebericht: WIEN-MAXIMUM row not found');
 
         const maxParts = maxMatch[1].split('|').map(s => s.trim());
-        // Column layout: NO2 | O3 | B | PM10 | PM2.5 | SO2/CO | CO/MW8
-        // Index:           0  |  1 | 2 |  3   |   4   |   5    |   6
         const pm10 = parseFloat(maxParts[3]) || null;
         const pm25 = parseFloat(maxParts[4]) || null;
 
-        // Parse Luftgüteindex (overall)
-        // Look for the overall index statement at the top
         const overallIdxMatch = html.match(/Die aktuelle Belastung heute um \d+ Uhr:\s*Index\s*(\d)/i);
         let luftIndex = null;
         if (overallIdxMatch) {
             luftIndex = parseInt(overallIdxMatch[1], 10);
         } else {
-            // Fallback: Parse WIEN - INDEX row and take maximum value if available
             const idxMatch = html.match(/WIEN\s*-\s*INDEX\s*\|([^\n]+)/);
             if (idxMatch) {
                 const digits = idxMatch[1].match(/\d/g);
@@ -199,17 +254,31 @@ async function fetchAirQualityData() {
             }
         }
 
-        if (pm10 === null && pm25 === null) {
-            throw new Error('Wien Luftgütebericht: No PM values found in MAXIMUM row');
-        }
-
-        return {
-            pm10,
-            pm25,
-            luftIndex,
-            source: 'Wien.gv.at Luftgütebericht (MA 22)',
-        };
+        return { pm10, pm25, luftIndex, source: 'Wien.gv.at Luftgütebericht (MA 22)' };
+    }).catch(err => {
+        console.warn(`Wien.gv.at fetch failed: ${err.message}`);
+        return null;
     });
+
+    if (!iqAir && !wienData) throw new Error('All Air Quality sources failed');
+
+    // Use IQAir AQI if available, otherwise fallback to PM10
+    const value = iqAir ? iqAir.aqi : (wienData?.pm10 || 0);
+
+    return {
+        value,
+        pm10: wienData?.pm10,
+        pm25: wienData?.pm25,
+        luftIndex: wienData?.luftIndex,
+        aqi: iqAir?.aqi,
+        mainPollutant: iqAir?.mainPollutant,
+        description: iqAir?.description,
+        source: iqAir ? iqAir.source : wienData?.source,
+        sourceUrl: iqAir?.sourceUrl || 'https://www.wien.gv.at/umwelt/luft/messwerte/berichte/aktuell.html',
+        extraLinks: [
+            { name: 'Wien.gv.at (MA 22)', url: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm' }
+        ]
+    };
 }
 
 // ── Earthquake: ZAMG FDSN + EMSC fallback ────────────────────────────────────
@@ -1067,7 +1136,7 @@ export async function fetchAlertData() {
         return {
             fetchedAt: timestamp,
             overall: overallLevel,
-            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info',
+            dataSource: 'GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir',
             location: { address: 'Schüttelstraße 79 & 81, 1020 Wien', ...LOCATION },
             hazards: {
                 heat: {
@@ -1120,13 +1189,18 @@ export async function fetchAlertData() {
                 },
                 airQuality: {
                     level: airQualityLevel,
-                    value: airQualityData?.pm10 ?? null,
-                    unit: 'µg/m³',
+                    value: airQualityData?.value ?? null,
+                    unit: airQualityData?.aqi != null ? 'AQI' : 'µg/m³',
                     thresholds: THRESHOLDS.airQuality,
+                    pm10: airQualityData?.pm10 ?? null,
                     pm25: airQualityData?.pm25 ?? null,
                     luftIndex: airQualityData?.luftIndex ?? null,
+                    aqi: airQualityData?.aqi ?? null,
+                    mainPollutant: airQualityData?.mainPollutant ?? null,
+                    description: airQualityData?.description ?? null,
                     source: airQualityData?.source ?? 'Offline',
-                    sourceUrl: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm'
+                    sourceUrl: airQualityData?.sourceUrl ?? 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm',
+                    extraLinks: airQualityData?.extraLinks ?? []
                 },
                 earthquake: {
                     level: earthquakeLevel,

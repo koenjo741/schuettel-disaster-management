@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.6.6</div>
+            v1.6.7</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -191,7 +191,7 @@
       rain: { icon: '🌧️', title: 'Starkregen', sub: 'Risiko: Kanalrückstau im Keller' },
       flood: { icon: '🌊', title: 'Hochwasser', sub: 'Pegel Donaukanal / Schwedenbrücke' },
       radiation: { icon: '☢️', title: 'Radioaktivität', sub: 'Station AT2002 Wien-Radetzkystraße' },
-      airQuality: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M44 38H20a10 10 0 0 1-1.5-19.9A14 14 0 0 1 44.8 24 8 8 0 0 1 44 38Z" fill="none" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 36c4-3 7-8 7-14a8 8 0 0 0-3-2" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/><ellipse cx="40" cy="46" rx="10" ry="6" fill="none" stroke="#22c55e" stroke-width="3" transform="rotate(-35 40 46)"/><path d="M40 46 c-3 3-6 5-10 6" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/></svg>', title: 'Luftverschmutzung / Feinstaub', sub: 'PM10 Wien-Maximum (MA 22 Luftmessnetz)' },
+      airQuality: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M44 38H20a10 10 0 0 1-1.5-19.9A14 14 0 0 1 44.8 24 8 8 0 0 1 44 38Z" fill="none" stroke="#4ade80" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 36c4-3 7-8 7-14a8 8 0 0 0-3-2" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/><ellipse cx="40" cy="46" rx="10" ry="6" fill="none" stroke="#22c55e" stroke-width="3" transform="rotate(-35 40 46)"/><path d="M40 46 c-3 3-6 5-10 6" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"/></svg>', title: 'Luftqualität / Feinstaub (AQI)', sub: 'US AQI (IQAir Echtzeit-Analyse)' },
       earthquake: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 8 8 32h10v20h28V32h10L32 8Z" fill="none" stroke="#EB8345" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 52 30 42 26 36 32 24" fill="none" stroke="#EB8345" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 38c2-3 4-3 6 0s4 3 6 0" fill="none" stroke="#EB8345" stroke-width="2.5" stroke-linecap="round"/><path d="M48 38c2-3 4-3 6 0s4 3 6 0" fill="none" stroke="#EB8345" stroke-width="2.5" stroke-linecap="round"/></svg>', title: 'Erdbeben', sub: 'Seismische Aktivität im Umkreis 150 km' },
       atAlert: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><circle cx="32" cy="32" r="30" fill="#3BA5B5"/><path d="M32 14 15 46h34Z" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/><line x1="32" y1="25" x2="32" y2="37" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="43" r="2.5" fill="#fff"/></svg>', title: 'Behördliche Warnungen', sub: 'AT-Alert (Cell Broadcast Österreich)' },
       pandemic: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><defs><linearGradient id="virusGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs><path fill="url(#virusGrad)" d="M41.7,32c0,2.1-0.7,4.1-1.8,5.7l5.4,5.4l2.8-2.8c0.8-0.8,2.1-0.8,2.9,0c0.8,0.8,0.8,2.1,0,2.9l-5.7,5.7c-0.8,0.8-2.1,0.8-2.9,0c-0.8-0.8-0.8-2.1,0-2.9l2.8-2.8l-5.4-5.4c-1.6,1.2-3.6,1.9-5.7,1.9v7.6h4c1.1,0,2,0.9,2,2c0,1.1-0.9,2-2,2h-10c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h4v-7.6c-2.1,0-4.1-0.7-5.7-1.8l-5.4,5.4l2.8,2.8c0.8,0.8,0.8,2.1,0,2.9c-0.8,0.8-2.1,0.8-2.9,0l-5.7-5.7c-0.8-0.8-0.8-2.1,0-2.9l2.8-2.8l5.4-5.4C18.2,36.1,17.5,34.1,17.5,32c0-2.1,0.7-4.1,1.9-5.7l-5.4-5.4l-2.8,2.8c-0.8,0.8-2.1,0.8-2.9,0c-0.8-0.8-0.8-2.1,0-2.9l5.7-5.7c0.8-0.8,2.1-0.8,2.9,0c0.8,0.8,0.8,2.1,0,2.9l-2.8,2.8l5.4,5.4c1.6-1.2,3.6-1.9,5.7-1.9V12h-4c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2h10c1.1,0,2,0.9,2,2c0,1.1-0.9,2-2,2h-4v7.6c2.1,0,4.1,0.7,5.7,1.8l5.4-5.4l-2.8-2.8c-0.8-0.8-0.8-2.1,0-2.9c0.8-0.8,2.1-0.8,2.9,0l5.7,5.7c0.8,0.8,0.8,2.1,0,2.9l-2.8,2.8l-5.4,5.4C40.9,27.9,41.7,29.9,41.7,32z"/><circle cx="30" cy="26" r="4.5" fill="#fff" fill-opacity="0.4"/><circle cx="36" cy="38" r="3" fill="#fff" fill-opacity="0.3"/><circle cx="26" cy="38" r="2" fill="#fff" fill-opacity="0.2"/></svg>', title: 'Infektionsgefahren', sub: 'WHO Disease Outbreak News' },
@@ -240,8 +240,9 @@
         return `${val} ${unit}${uvPart}`;
       }
 
-      if (key === 'atAlert' || key === 'pandemic') {
-        if (!hazard || !hazard.value) return 'Keine aktiven Meldungen';
+      if (key === 'atAlert' || key === 'pandemic' || key === 'airQuality') {
+        if (!hazard || (hazard.value == null && hazard.pegelCm == null)) return 'Keine Meldungen / Daten';
+        if (key === 'airQuality') return `AQI ${val}`;
         return `${hazard.value} ${hazard.unit}`;
       }
       if (key === 'power' || key === 'gas' || key === 'water') {
@@ -395,7 +396,8 @@
       };
 
       if (sourceUrl) {
-        footerLinks.push(`<a href="${sourceUrl}" target="_blank" class="${linkClass}">${SOURCE_LABELS[key] || 'Quelle'}</a>`);
+        const sourceLabel = (key === 'airQuality' && hazard.source?.includes('IQAir')) ? 'IQAir' : (SOURCE_LABELS[key] || 'Quelle');
+        footerLinks.push(`<a href="${sourceUrl}" target="_blank" class="${linkClass}">${sourceLabel}</a>`);
       }
       if (hazard?.extraLinks?.length) {
         hazard.extraLinks.forEach(l => {
