@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T12:03:24.573Z",
+  "fetchedAt": "2026-02-25T13:41:31.202Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 11.76,
+      "value": 12.31,
       "unit": "°C",
-      "uvi": 2,
+      "uvi": 1.4,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,7 +31,7 @@
     },
     "wind": {
       "level": "green",
-      "value": 13,
+      "value": 14,
       "unit": "km/h",
       "thresholds": {
         "yellow": 60,
@@ -51,7 +51,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 303,
+      "value": 300,
       "unit": "cm",
       "trend": "Erhöhung",
       "thresholds": {
@@ -73,7 +73,7 @@
     },
     "radiation": {
       "level": "green",
-      "value": 64,
+      "value": 65,
       "unit": "nSv/h",
       "thresholds": {
         "yellow": 200,
@@ -134,7 +134,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T12:03:26.860Z",
+      "date": "2026-02-25T13:41:34.900Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -162,7 +162,7 @@
     },
     "space": {
       "level": "green",
-      "value": 2.33,
+      "value": 3,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -220,7 +220,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.029,
+      "value": 49.977,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
