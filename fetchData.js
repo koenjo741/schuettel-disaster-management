@@ -79,14 +79,14 @@ async function fetchJSON(url, options = {}, sourceName = 'API') {
 }
 
 // GeoSphere Austria – INCA analysis (hourly, 1 km grid, near-realtime)
-const buildGeoSphereUrl = (offsetHours = 1) => {
+const buildGeoSphereUrl = (offsetHours = 1, windowHours = 3) => {
     const now = new Date();
-    const start = new Date(now - (offsetHours + 1) * 60 * 60 * 1000);
+    const start = new Date(now - (offsetHours + windowHours) * 60 * 60 * 1000);
     const end = new Date(now - offsetHours * 60 * 60 * 1000);
     const fmt = (d) => d.toISOString().slice(0, 19);
 
     const qs = new URLSearchParams({ start: fmt(start), end: fmt(end), lat_lon: `${LOCATION.lat},${LOCATION.lon}` });
-    for (const p of ['T2M', 'RR', 'UU', 'VV', 'RH2M']) qs.append('parameters', p);
+    for (const p of ['T2M', 'RR', 'UU', 'VV', 'RH2M', 'P0']) qs.append('parameters', p);
 
     return `https://dataset.api.hub.geosphere.at/v1/timeseries/historical/inca-v1-1h-1km?${qs}`;
 };
@@ -826,11 +826,23 @@ async function fetchWeather() {
             const vv = last('VV');
             const windMs = uu != null && vv != null ? Math.sqrt(uu ** 2 + vv ** 2) : null;
 
+            const pData = data['P0']?.data ?? [];
+            const pressureHpa = pData.at(-1) != null ? pData.at(-1) / 100 : null;
+            let pressureTrend = '→';
+            if (pData.length >= 2) {
+                const curr = pData.at(-1);
+                const prev = pData.at(-2);
+                if (curr > prev) pressureTrend = '↑';
+                else if (curr < prev) pressureTrend = '↓';
+            }
+
             const result = {
                 tempC: last('T2M'),
                 rainMmH: last('RR'),
                 windKmH: windMs != null ? Math.round(windMs * 3.6) : null,
                 humidity: last('RH2M'),
+                pressureHpa,
+                pressureTrend
             };
 
             if (result.tempC !== null) {
@@ -1229,6 +1241,8 @@ export async function fetchAlertData() {
                     value: severityRank[uwzData?.wien.level] > severityRank[uwzData?.leopoldstadt.level] ? uwzData.wien.text : (uwzData?.leopoldstadt.text ?? 'Keine Warnung'),
                     district: uwzData?.leopoldstadt.text ?? 'Keine Warnung',
                     city: uwzData?.wien.text ?? 'Keine Warnung',
+                    pressureHpa: weather?.pressureHpa ?? null,
+                    pressureTrend: weather?.pressureTrend ?? '→',
                     source: uwzData?.source ?? 'Offline',
                     sourceUrl: uwzData?.sourceUrl ?? 'https://uwz.at/'
                 },
