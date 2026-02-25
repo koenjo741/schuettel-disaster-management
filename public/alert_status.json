@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T15:43:24.836Z",
+  "fetchedAt": "2026-02-25T15:48:26.461Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info",
   "location": {
@@ -135,7 +135,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T15:43:28.068Z",
+      "date": "2026-02-25T15:48:26.658Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -221,7 +221,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.975,
+      "value": 50.025,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -232,12 +232,22 @@
       "sourceUrl": "https://gridradar.net/de/netzfrequenz"
     },
     "traffic": {
-      "level": "unknown",
-      "value": 1,
+      "level": "yellow",
+      "value": 2,
       "unit": "Status",
-      "message": "Unbekannt",
-      "source": "Offline",
-      "sourceUrl": "https://www.wien.gv.at/verkehr/strassenzustand/"
+      "message": "80A: Bauarbeiten",
+      "source": "Wiener Linien & Google",
+      "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
+      "extraLinks": [
+        {
+          "name": "WL Betriebsinfo",
+          "url": "https://www.wienerlinien.at/betriebsinfo"
+        },
+        {
+          "name": "Baustellen Wien",
+          "url": "https://www.wien.gv.at/verkehr/baustellen/"
+        }
+      ]
     },
     "snow": {
       "level": "green",
@@ -286,5 +296,5 @@
       ]
     }
   },
-  "error": "Traffic/VPI: Traffic status check failed: 404"
+  "error": null
 }
