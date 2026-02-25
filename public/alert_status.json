@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T15:23:31.671Z",
+  "fetchedAt": "2026-02-25T15:43:24.836Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info",
   "location": {
@@ -135,7 +135,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T15:23:31.927Z",
+      "date": "2026-02-25T15:43:28.068Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -221,7 +221,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.944,
+      "value": 49.975,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
