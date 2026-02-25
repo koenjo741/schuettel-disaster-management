@@ -1074,6 +1074,7 @@ export async function fetchAlertData() {
                     level: windLevel,
                     value: weather?.windKmH ?? null,
                     unit: 'km/h',
+                    humidity: weather?.humidity ?? null,
                     thresholds: THRESHOLDS.wind,
                     sourceUrl: 'https://warnungen.zamg.at/'
                 },
