@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T23:50:23.385Z",
+  "fetchedAt": "2026-02-26T01:28:30.134Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 6.91,
+      "value": 4.77,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 10,
+      "value": 5,
       "unit": "km/h",
-      "humidity": 80.29,
+      "humidity": 81.57,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -52,7 +52,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 297,
+      "value": 295,
       "unit": "cm",
       "trend": "Erhöhung",
       "thresholds": {
@@ -77,11 +77,11 @@
       "value": 65,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "25.02.2026 23:00 UTC",
+      "measuredAt": "26.02.2026 01:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 191,
+      "maxNearbyValue": 0,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -97,12 +97,12 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 25,
-      "pm25": 11,
+      "pm10": 27,
+      "pm25": 12,
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "44",
+      "description": "56",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T23:50:25.789Z",
+      "date": "2026-02-26T01:28:32.892Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -179,7 +179,7 @@
     },
     "space": {
       "level": "green",
-      "value": 2,
+      "value": 4,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.997,
+      "value": 50.007,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -251,7 +251,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "80A: Bauarbeiten",
+      "message": "Matzleinsdorfer Platz",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -293,7 +293,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1027.447,
+      "pressureHpa": 1028.3547,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
