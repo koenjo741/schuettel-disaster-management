@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-25T22:48:24.606Z",
+  "fetchedAt": "2026-02-27T14:08:15.986Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 7.66,
+      "value": 11.52,
       "unit": "°C",
-      "uvi": 0,
+      "uvi": 0.7,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 10,
       "unit": "km/h",
-      "humidity": 78.28,
+      "humidity": 60.12,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -52,7 +52,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 297,
+      "value": 288,
       "unit": "cm",
       "trend": "Erhöhung",
       "thresholds": {
@@ -76,12 +76,18 @@
       "level": "green",
       "value": 66,
       "unit": "nSv/h",
-      "thresholds": {
-        "yellow": 200,
-        "red": 300
-      },
+      "station": "AT2002 Wien-Radetzkystraße",
+      "measuredAt": "27.02.2026 14:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
-      "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002"
+      "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
+      "remoteWarning": null,
+      "maxNearbyValue": 193,
+      "extraLinks": [
+        {
+          "name": "EURDEP/REMAP Map",
+          "url": "https://remap.jrc.ec.europa.eu/"
+        }
+      ]
     },
     "airQuality": {
       "level": "green",
@@ -91,12 +97,12 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 25,
-      "pm25": 11,
+      "pm10": 26,
+      "pm25": 17,
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "44",
+      "description": "64",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -108,17 +114,17 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 1.8,
+      "value": 0,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 56,
-      "depthKm": 9.5,
-      "time": "2026-02-24T23:17:32.395Z",
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "distanceKm": null,
+      "depthKm": null,
+      "time": null,
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -145,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-25T22:48:27.338Z",
+      "date": "2026-02-27T14:08:18.693Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -231,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.012,
+      "value": 50.015,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -245,7 +251,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "80A: Bauarbeiten",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -287,8 +293,8 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1027.2312,
-      "pressureTrend": "↑",
+      "pressureHpa": 1024.9032,
+      "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
