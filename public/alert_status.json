@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-28T21:48:18.567Z",
+  "fetchedAt": "2026-02-28T22:12:02.199Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 9.03,
+      "value": 8.21,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 11,
+      "value": 6,
       "unit": "km/h",
-      "humidity": 63.17,
+      "humidity": 69.84,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -74,10 +74,10 @@
     },
     "radiation": {
       "level": "green",
-      "value": 65,
+      "value": 66,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "28.02.2026 21:00 UTC",
+      "measuredAt": "28.02.2026 22:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
@@ -102,7 +102,7 @@
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "68",
+      "description": "69",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-28T21:48:21.501Z",
+      "date": "2026-02-28T22:12:05.176Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.01,
+      "value": 49.988,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -293,24 +293,19 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1023.3527,
+      "pressureHpa": 1023.8364,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
     "thunderstorm": {
-      "level": "green",
-      "value": "Keine Gewitterzellen",
+      "level": "unknown",
+      "value": "Keine Zellen",
       "intensity": 0,
-      "source": "GeoSphere Austria (ZAMG)",
+      "source": "ZAMG",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
-      "extraLinks": [
-        {
-          "name": "Hagelradar",
-          "url": "https://warnungen.zamg.at/wsapp/de/hagel/heute/"
-        }
-      ]
+      "extraLinks": []
     }
   },
-  "error": null
+  "error": "Thunderstorm/ZAMG: fetch failed"
 }
