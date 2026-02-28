@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-28T13:59:47.736Z",
+  "fetchedAt": "2026-02-28T14:34:32.635Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": null,
+      "value": 14.24,
       "unit": "°C",
-      "uvi": 1.4,
+      "uvi": 0.8,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -30,10 +30,10 @@
       ]
     },
     "wind": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 16,
       "unit": "km/h",
-      "humidity": null,
+      "humidity": 46.62,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -41,8 +41,8 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "rain": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 0,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -77,11 +77,11 @@
       "value": 66,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "28.02.2026 13:00 UTC",
+      "measuredAt": "28.02.2026 14:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 194,
+      "maxNearbyValue": 190,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -97,7 +97,7 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 28,
+      "pm10": 27,
       "pm25": 20,
       "luftIndex": 3,
       "aqi": 2,
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-28T13:59:50.674Z",
+      "date": "2026-02-28T14:34:34.937Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.979,
+      "value": 49.976,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -274,7 +274,7 @@
         "red": 10
       },
       "condition": "Kein relevanter Schnee",
-      "source": "Offline",
+      "source": "GeoSphere Austria (SNOWGRID)",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "ice": {
@@ -293,8 +293,8 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": null,
-      "pressureTrend": "→",
+      "pressureHpa": 1022.1321,
+      "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
@@ -312,5 +312,5 @@
       ]
     }
   },
-  "error": "Weather/GeoSphere: fetch failed; Snow/SNOWGRID: fetch failed"
+  "error": null
 }
