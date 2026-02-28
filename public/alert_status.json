@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-02-28T16:38:34.312Z",
+  "fetchedAt": "2026-02-28T16:58:03.023Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -51,15 +51,15 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "flood": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 284,
       "unit": "cm",
-      "trend": null,
+      "trend": "Erhöhung",
       "thresholds": {
         "yellow": 380,
         "red": 432
       },
-      "source": "Offline",
+      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
       "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke",
       "extraLinks": [
         {
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-02-28T16:38:36.728Z",
+      "date": "2026-02-28T16:58:04.992Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.965,
+      "value": 50.01,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -312,5 +312,5 @@
       ]
     }
   },
-  "error": "Flood/DanubeAlert: danubealert.com error: 520"
+  "error": null
 }
