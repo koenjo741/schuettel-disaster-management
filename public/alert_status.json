@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-02-28T14:53:47.259Z",
-  "overall": "yellow",
+  "fetchedAt": "2026-02-28T15:27:02.083Z",
+  "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": null,
+      "value": 14.39,
       "unit": "°C",
-      "uvi": 0.8,
+      "uvi": 0.3,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -30,10 +30,10 @@
       ]
     },
     "wind": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 17,
       "unit": "km/h",
-      "humidity": null,
+      "humidity": 46.26,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -41,8 +41,8 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "rain": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 0,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -77,7 +77,7 @@
       "value": 66,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "28.02.2026 14:00 UTC",
+      "measuredAt": "28.02.2026 15:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
@@ -140,14 +140,19 @@
       "sourceUrl": "https://warnungen.at-alert.at"
     },
     "pandemic": {
-      "level": "green",
-      "value": 0,
+      "level": "red",
+      "value": 1,
       "unit": "Aktiv",
-      "title": "Keine aktuellen Meldungen",
+      "title": "Influenza: Welle (MedUni)",
       "summary": null,
-      "details": [],
-      "date": "2026-02-28T14:53:49.132Z",
-      "source": "WHO DON",
+      "details": [
+        {
+          "name": "Influenza",
+          "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
+        }
+      ],
+      "date": "2026-02-28T15:27:04.388Z",
+      "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
@@ -174,7 +179,7 @@
     },
     "space": {
       "level": "green",
-      "value": 1.33,
+      "value": 2.67,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -232,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.977,
+      "value": 49.947,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -269,7 +274,7 @@
         "red": 10
       },
       "condition": "Kein relevanter Schnee",
-      "source": "Offline",
+      "source": "GeoSphere Austria (SNOWGRID)",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "ice": {
@@ -288,19 +293,24 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": null,
-      "pressureTrend": "→",
+      "pressureHpa": 1022.1028,
+      "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
     "thunderstorm": {
-      "level": "unknown",
-      "value": "Keine Zellen",
+      "level": "green",
+      "value": "Keine Gewitterzellen",
       "intensity": 0,
-      "source": "ZAMG",
+      "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
-      "extraLinks": []
+      "extraLinks": [
+        {
+          "name": "Hagelradar",
+          "url": "https://warnungen.zamg.at/wsapp/de/hagel/heute/"
+        }
+      ]
     }
   },
-  "error": "Weather/GeoSphere: fetch failed; Snow/SNOWGRID: fetch failed; Thunderstorm/ZAMG: fetch failed"
+  "error": null
 }
