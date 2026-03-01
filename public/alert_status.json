@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-01T20:48:40.388Z",
+  "fetchedAt": "2026-03-01T21:13:37.222Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 11.58,
+      "value": 10.61,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 9,
+      "value": 10,
       "unit": "km/h",
-      "humidity": 63.76,
+      "humidity": 66.17,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -77,7 +77,7 @@
       "value": 66,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "01.03.2026 20:00 UTC",
+      "measuredAt": "01.03.2026 21:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
@@ -98,11 +98,11 @@
         "red": 101
       },
       "pm10": 34,
-      "pm25": 25,
+      "pm25": 24,
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "79",
+      "description": "78",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-01T20:48:45.245Z",
+      "date": "2026-03-01T21:13:40.538Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -179,7 +179,7 @@
     },
     "space": {
       "level": "green",
-      "value": 1,
+      "value": 1.67,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.989,
+      "value": 49.997,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -251,7 +251,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Praterstern",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -293,7 +293,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1025.5649,
+      "pressureHpa": 1025.989,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
