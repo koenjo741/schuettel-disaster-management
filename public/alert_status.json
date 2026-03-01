@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-01T09:57:46.690Z",
+  "fetchedAt": "2026-03-01T10:37:07.273Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 7.23,
+      "value": 8.97,
       "unit": "°C",
-      "uvi": 1,
+      "uvi": 1.2,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 3,
       "unit": "km/h",
-      "humidity": 64,
+      "humidity": 60.42,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -52,7 +52,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 283,
+      "value": 282,
       "unit": "cm",
       "trend": "Erhöhung",
       "thresholds": {
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 68,
+      "value": 66,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "01.03.2026 09:00 UTC",
+      "measuredAt": "01.03.2026 10:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 208,
+      "maxNearbyValue": 207,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -97,12 +97,12 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 30,
+      "pm10": 31,
       "pm25": 22,
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "72",
+      "description": "71",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -114,17 +114,17 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 2.4,
+      "value": 2.6,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 84,
-      "depthKm": 5,
-      "time": "2026-03-01T04:16:10.07Z",
+      "distanceKm": 85,
+      "depthKm": 10.2,
+      "time": "2026-03-01T04:16:08.972Z",
       "eventCount": 1,
-      "source": "EMSC FDSN",
+      "source": "ZAMG/GeoSphere FDSN",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-01T09:57:48.908Z",
+      "date": "2026-03-01T10:37:09.641Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.009,
+      "value": 50.025,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -293,19 +293,24 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1026.73,
+      "pressureHpa": 1026.5677,
       "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
     "thunderstorm": {
-      "level": "unknown",
-      "value": "Keine Zellen",
+      "level": "green",
+      "value": "Keine Gewitterzellen",
       "intensity": 0,
-      "source": "ZAMG",
+      "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
-      "extraLinks": []
+      "extraLinks": [
+        {
+          "name": "Hagelradar",
+          "url": "https://warnungen.zamg.at/wsapp/de/hagel/heute/"
+        }
+      ]
     }
   },
-  "error": "Thunderstorm/ZAMG: fetch failed"
+  "error": null
 }
