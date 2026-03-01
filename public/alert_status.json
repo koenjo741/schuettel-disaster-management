@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-01T09:38:54.158Z",
+  "fetchedAt": "2026-03-01T09:57:46.690Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -102,7 +102,7 @@
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "71",
+      "description": "72",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -114,17 +114,17 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 2.6,
+      "value": 2.4,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 85,
-      "depthKm": 10.2,
-      "time": "2026-03-01T04:16:08.972Z",
+      "distanceKm": 84,
+      "depthKm": 5,
+      "time": "2026-03-01T04:16:10.07Z",
       "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "source": "EMSC FDSN",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-01T09:38:56.997Z",
+      "date": "2026-03-01T09:57:48.908Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.031,
+      "value": 50.009,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -299,18 +299,13 @@
       "sourceUrl": "https://uwz.at/"
     },
     "thunderstorm": {
-      "level": "green",
-      "value": "Keine Gewitterzellen",
+      "level": "unknown",
+      "value": "Keine Zellen",
       "intensity": 0,
-      "source": "GeoSphere Austria (ZAMG)",
+      "source": "ZAMG",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
-      "extraLinks": [
-        {
-          "name": "Hagelradar",
-          "url": "https://warnungen.zamg.at/wsapp/de/hagel/heute/"
-        }
-      ]
+      "extraLinks": []
     }
   },
-  "error": null
+  "error": "Thunderstorm/ZAMG: fetch failed"
 }
