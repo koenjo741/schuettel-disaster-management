@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-02T17:04:29.064Z",
+  "fetchedAt": "2026-03-02T17:58:09.233Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 67,
+      "value": 65,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "02.03.2026 16:00 UTC",
+      "measuredAt": "02.03.2026 17:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 189,
+      "maxNearbyValue": 192,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -90,19 +90,19 @@
       ]
     },
     "airQuality": {
-      "level": "yellow",
+      "level": "green",
       "value": 2,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 24,
+      "pm10": 27,
       "pm25": 13,
-      "luftIndex": 3,
+      "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "56",
+      "description": "55",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-02T17:04:31.589Z",
+      "date": "2026-03-02T17:58:12.130Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.009,
+      "value": 50.025,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
