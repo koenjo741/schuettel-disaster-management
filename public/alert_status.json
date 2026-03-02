@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-02T04:27:48.688Z",
+  "fetchedAt": "2026-03-02T05:38:45.740Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 8.27,
+      "value": 7.99,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 8,
+      "value": 13,
       "unit": "km/h",
-      "humidity": 76.08,
+      "humidity": 76.28,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -77,11 +77,11 @@
       "value": 65,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "02.03.2026 04:00 UTC",
+      "measuredAt": "02.03.2026 05:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 196,
+      "maxNearbyValue": 199,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-02T04:27:52.104Z",
+      "date": "2026-03-02T05:38:48.301Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -293,7 +293,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1026.3366,
+      "pressureHpa": 1026.356,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
