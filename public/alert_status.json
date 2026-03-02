@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-02T19:02:06.924Z",
+  "fetchedAt": "2026-03-02T19:47:49.709Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -77,11 +77,11 @@
       "value": 65,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "02.03.2026 18:00 UTC",
+      "measuredAt": "02.03.2026 19:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 192,
+      "maxNearbyValue": 190,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -97,12 +97,12 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 28,
+      "pm10": 29,
       "pm25": 12,
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "55",
+      "description": "54",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-02T19:02:10.484Z",
+      "date": "2026-03-02T19:47:51.628Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.952,
+      "value": 50.002,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
