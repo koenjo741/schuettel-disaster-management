@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-02T16:03:49.590Z",
+  "fetchedAt": "2026-03-02T17:04:29.064Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.73,
+      "value": 12.25,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 4,
+      "value": 5,
       "unit": "km/h",
-      "humidity": 48.3,
+      "humidity": 46.69,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 66,
+      "value": 67,
       "unit": "nSv/h",
       "station": "AT2002 Wien-Radetzkystraße",
-      "measuredAt": "02.03.2026 15:00 UTC",
+      "measuredAt": "02.03.2026 16:00 UTC",
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 191,
+      "maxNearbyValue": 189,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -90,7 +90,7 @@
       ]
     },
     "airQuality": {
-      "level": "green",
+      "level": "yellow",
       "value": 2,
       "unit": "AQI",
       "thresholds": {
@@ -98,11 +98,11 @@
         "red": 101
       },
       "pm10": 24,
-      "pm25": 14,
-      "luftIndex": 2,
+      "pm25": 13,
+      "luftIndex": 3,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "58",
+      "description": "56",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-02T16:03:51.636Z",
+      "date": "2026-03-02T17:04:31.589Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.023,
+      "value": 50.009,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -251,7 +251,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Kliebergasse",
+      "message": "80A: Bauarbeiten",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -293,8 +293,8 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1025.1174,
-      "pressureTrend": "↓",
+      "pressureHpa": 1025.1908,
+      "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
