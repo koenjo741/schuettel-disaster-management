@@ -265,66 +265,40 @@ async function fetchRemoteRadiationData() {
 
 // ── Air Quality: Wien.gv.at Luftgütebericht scraper ─────────────────────────
 // ── Air Quality: IQAir + Wien.gv.at fallback ─────────────────────────
-async function fetchIQAirData() {
+async function fetchOpenMeteoAQI() {
     return withRetry(async () => {
-        const url = 'https://www.iqair.com/de/austria/vienna/vienna';
-        const res = await fetch(url, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html'
-            },
-        });
-        if (!res.ok) throw new Error(`IQAir error: ${res.status}`);
-        const html = await res.text();
+        const url = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=48.2092&longitude=16.4050&current=european_aqi,us_aqi,pm10,pm2_5';
+        const data = await fetchJSON(url, {}, 'Open-Meteo Air Quality');
 
-        // 1. Try to find in a potential JSON blob or hidden input
-        const aqiMatch = html.match(/"aqi":\s*(\d+)/i) ||
-            html.match(/aqi":\s*(\d+)/i) ||
-            html.match(/>(\d+)<\/p><p[^>]*>US AQI/i) ||
-            html.match(/class="aqi-value__value">(\d+)/i) ||
-            html.match(/Luftqualitätsindex \(AQI\)[^0-9]*(\d+)/i);
+        const aqi = data.current?.us_aqi ?? null;
+        if (aqi === null) throw new Error('Open-Meteo: US AQI not found');
 
-        const aqi = aqiMatch ? parseInt(aqiMatch[1], 10) : null;
-
-        // 2. Extract description (e.g. "Gut", "Moderate")
-        const descMatch = html.match(/class="aqi-status__text">([^<]+)</i) ||
-            html.match(/"status":"([^"]+)"/i) ||
-            html.match(/AQI[^<]*<p[^>]*>([^<]+)<\/p>/i);
-        const description = descMatch ? descMatch[1].trim() : null;
-
-        // 3. Extract main pollutant
-        const pollutantMatch = html.match(/Hauptschadstoff:[\s\S]*?<span>([^<]+)</i) ||
-            html.match(/Hauptschadstoff:[\s\S]*?<b>([^<]+)</i) ||
-            html.match(/"mainPollutant":"([^"]+)"/i);
-        const mainPollutant = pollutantMatch ? pollutantMatch[1].trim() : null;
-
-        if (aqi === null) {
-            // Last resort: Look for the first number after "Luftqualitätsindex"
-            const idx = html.indexOf('Luftqualitätsindex');
-            if (idx !== -1) {
-                const sub = html.substring(idx, idx + 1000);
-                const firstNum = sub.match(/>(\d+)</);
-                if (firstNum) return { aqi: parseInt(firstNum[1], 10), description, mainPollutant, source: 'IQAir (Echtzeit)', sourceUrl: url };
-            }
-            throw new Error('IQAir: AQI value not found');
-        }
+        let description = 'Moderate';
+        if (aqi <= 50) description = 'Gut';
+        else if (aqi <= 100) description = 'Moderat';
+        else if (aqi <= 150) description = 'Ungesund für empfindliche Gruppen';
+        else if (aqi <= 200) description = 'Ungesund';
+        else if (aqi <= 300) description = 'Sehr ungesund';
+        else description = 'Gefährlich';
 
         return {
             aqi,
-            mainPollutant,
+            mainPollutant: 'PM2.5/PM10',
             description,
-            source: 'IQAir (Echtzeit)',
-            sourceUrl: url
+            pm10_om: data.current?.pm10,
+            pm25_om: data.current?.pm2_5,
+            source: 'Open-Meteo (US AQI)',
+            sourceUrl: 'https://open-meteo.com/'
         };
     });
 }
 
 async function fetchAirQualityData() {
-    let iqAir = null;
+    let aqiApi = null;
     try {
-        iqAir = await fetchIQAirData();
+        aqiApi = await fetchOpenMeteoAQI();
     } catch (err) {
-        console.warn(`IQAir fetch failed: ${err.message}`);
+        console.warn(`Open-Meteo fetch failed: ${err.message}`);
     }
 
     const wienData = await withRetry(async () => {
@@ -361,21 +335,21 @@ async function fetchAirQualityData() {
         return null;
     });
 
-    if (!iqAir && !wienData) throw new Error('All Air Quality sources failed');
+    if (!aqiApi && !wienData) throw new Error('All Air Quality sources failed');
 
-    // Use IQAir AQI if available, otherwise fallback to PM10
-    const value = iqAir ? iqAir.aqi : (wienData?.pm10 || 0);
+    // Use Open-Meteo AQI if available, otherwise fallback to PM10
+    const value = aqiApi ? aqiApi.aqi : (wienData?.pm10 || 0);
 
     return {
         value,
-        pm10: wienData?.pm10,
-        pm25: wienData?.pm25,
+        pm10: wienData?.pm10 || aqiApi?.pm10_om,
+        pm25: wienData?.pm25 || aqiApi?.pm25_om,
         luftIndex: wienData?.luftIndex,
-        aqi: iqAir?.aqi,
-        mainPollutant: iqAir?.mainPollutant,
-        description: iqAir?.description,
-        source: iqAir ? iqAir.source : wienData?.source,
-        sourceUrl: iqAir?.sourceUrl || null,
+        aqi: aqiApi?.aqi,
+        mainPollutant: aqiApi?.mainPollutant,
+        description: aqiApi?.description,
+        source: aqiApi ? aqiApi.source : wienData?.source,
+        sourceUrl: null,
         extraLinks: [
             { name: 'Wien.gv.at (MA 22)', url: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm' },
             { name: 'IQAir (AQI Echtzeit)', url: 'https://www.iqair.com/de/austria/vienna/vienna' }
