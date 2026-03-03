@@ -139,25 +139,45 @@ async function fetchFloodData() {
     });
 }
 
-// ── Radiation: Strahlenschutz.gv.at HTML scraper ──────────────────────────────
+// ── Radiation: EURDEP/REMAP API scraper ──────────────────────────────
 async function fetchRadiationData() {
     return withRetry(async () => {
-        const res = await fetch('https://mb.strahlenschutz.gv.at/station/AT2002', {
-            headers: { 'User-Agent': 'Mozilla/5.0', Accept: 'text/html' },
+        const pad = (n) => n.toString().padStart(2, '0');
+        const fmt = (d) => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00`;
+
+        const now = new Date();
+        const start = fmt(new Date(now.getTime() - 24 * 3600 * 1000));
+        const end = fmt(now);
+
+        const url = `https://remap.jrc.ec.europa.eu/api/timeseries/v1/stations/timeseries/${start}/${end}?codes=AT2009`;
+
+        const res = await fetch(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0',
+                'Accept': 'application/json'
+            }
         });
-        if (!res.ok) throw new Error(`Strahlenschutz.gv.at error: ${res.status}`);
-        const html = await res.text();
 
-        const match = html.match(/AT2002[\s\S]{0,300}?<td>(\d+)<\/td>/);
-        if (!match) throw new Error('Strahlenschutz.gv.at: AT2002 value not found');
+        if (!res.ok) throw new Error(`REMAP API error: ${res.status}`);
+        const data = await res.json();
 
-        const tsMatch = html.match(/Stand: ([^<]+)</);
+        if (!Array.isArray(data) || data.length === 0) {
+            throw new Error('REMAP API: No data found for AT2009');
+        }
+
+        const latest = data[data.length - 1];
+
+        // REMAP API returns raw values for AT that need to be converted to nSv/h.
+        // E.g., AT2002 reports ~48310 raw for ~68 nSv/h (factor of approx 710).
+        // AT2009 reports ~18409 raw for ~26 nSv/h.
+        const conversionFactor = 710;
+        const nsvH = Math.round(latest.value / conversionFactor);
 
         return {
-            nsvH: parseInt(match[1], 10),
-            station: 'AT2002 Wien-Radetzkystraße',
-            measuredAt: tsMatch?.[1]?.trim() ?? null,
-            source: 'Strahlenschutz.gv.at (IMIS)',
+            nsvH: nsvH,
+            station: 'AT2009',
+            measuredAt: latest.date ? new Date(latest.date).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' }) : null,
+            source: 'EURDEP/REMAP',
         };
     });
 }
@@ -1270,7 +1290,7 @@ export async function fetchAlertData() {
                     station: radiationData?.station ?? 'Unbekannt',
                     measuredAt: radiationData?.measuredAt ?? null,
                     source: radiationData?.source ?? 'Offline',
-                    sourceUrl: 'https://mb.strahlenschutz.gv.at/station/AT2002',
+                    sourceUrl: 'https://remap.jrc.ec.europa.eu/Advanced.aspx',
                     remoteWarning: remoteRadData?.nearestHighStation ?? null,
                     maxNearbyValue: remoteRadData?.maxNearbyValue ?? 0,
                     extraLinks: [
