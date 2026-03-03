@@ -243,7 +243,8 @@
       if (key === 'atAlert' || key === 'pandemic' || key === 'airQuality') {
         if (!hazard || (hazard.value == null && hazard.pegelCm == null)) return 'Keine Meldungen / Daten';
         if (key === 'airQuality') {
-          return hazard.luftIndex != null ? `AQI ${val} ${renderPipe()} LGI ${hazard.luftIndex}` : `AQI ${val}`;
+          const aqiDisplay = hazard.aqi != null ? `AQI ${hazard.aqi}` : `PM10 ${val}`;
+          return hazard.luftIndex != null ? `${aqiDisplay} ${renderPipe()} LGI ${hazard.luftIndex}` : aqiDisplay;
         }
         return `${hazard.value} ${hazard.unit}`;
       }
