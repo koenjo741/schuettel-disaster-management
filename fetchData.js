@@ -917,16 +917,14 @@ async function fetchPandemicData() {
             const svg = await medUniRes.value.text();
 
             const wienMatch = svg.match(/class="Wien"[^>]*fill="([^"]+)"/);
-            const noeMatch = svg.match(/class="Niederösterreich"[^>]*fill="([^"]+)"/);
-            const hasAnyRed = svg.includes('fill="red"') || svg.includes('fill="#ff0000"');
-
             const wienColor = wienMatch?.[1]?.toLowerCase() ?? '';
-            const noeColor = noeMatch?.[1]?.toLowerCase() ?? '';
 
-            if (wienColor.includes('red') || noeColor.includes('red') || hasAnyRed) {
+            if (wienColor.includes('red') || wienColor === '#ff0000') {
                 influenzaLevel = 'red';
-            } else if (wienColor.includes('orange') || noeColor.includes('orange') || wienColor.includes('yellow') || noeColor.includes('yellow')) {
+            } else if (wienColor.includes('orange') || wienColor === '#ffa500' || wienColor.includes('yellow') || wienColor === '#ffff00') {
                 influenzaLevel = 'yellow';
+            } else {
+                influenzaLevel = 'green';
             }
             influenzaSource = 'MedUni Wien Map';
         }
@@ -960,30 +958,34 @@ async function fetchPandemicData() {
         const severityRank = { red: 3, yellow: 2, green: 1, unknown: 0 };
         const finalLevel = severityRank[whoLevel] >= severityRank[influenzaLevel] ? whoLevel : influenzaLevel;
 
-        const infoParts = [];
+        const activeWarnings = [];
         const details = [];
 
+        if (whoLevel !== 'green' && topWho) {
+            activeWarnings.push(`WHO: ${topWho.Title}`);
+        }
+
+        if (influenzaLevel !== 'green') {
+            activeWarnings.push(`Influenza: ${influenzaLevel === 'red' ? 'Welle' : 'Aktivität'} (MedUni Wien)`);
+        }
+
         if (topWho) {
-            infoParts.push(`WHO: ${topWho.Title}`);
             details.push({
                 name: topWho.Title,
                 url: topWho.Url ? (topWho.Url.startsWith('http') ? topWho.Url : `https://www.who.int${topWho.Url}`) : 'https://www.who.int/emergencies/disease-outbreak-news'
             });
         }
 
-        if (influenzaLevel !== 'green') {
-            infoParts.push(`Influenza: ${influenzaLevel === 'red' ? 'Welle' : 'Aktivität'} (MedUni)`);
-            details.push({
-                name: 'Influenza',
-                url: medUniDetailUrl
-            });
-        }
+        details.push({
+            name: 'Influenza-Überwachung',
+            url: medUniDetailUrl
+        });
 
         return {
             active: finalLevel !== 'green',
             level: finalLevel,
-            title: infoParts[0] ?? (influenzaLevel !== 'green' ? 'Influenza-Warnung' : 'Keine aktuellen Meldungen'),
-            summary: infoParts.slice(1).join(' | ') || (topWho?.Summary ? topWho.Summary.replace(/<\/?[^>]+(>|$)/g, "").substring(0, 150) + '...' : null),
+            title: finalLevel !== 'green' ? activeWarnings.join(' + ') : 'Keine aktuellen Warnungen',
+            summary: finalLevel === 'green' && topWho ? `Info (WHO): ${topWho.Title}` : null,
             details: details,
             source: `WHO DON${influenzaSource ? ' + ' + influenzaSource : ''}`,
             date: topWho?.PublicationDateAndTime ?? now.toISOString(),
