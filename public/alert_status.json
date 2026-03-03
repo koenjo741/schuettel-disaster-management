@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-03T05:07:59.022Z",
+  "fetchedAt": "2026-03-03T06:04:24.114Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 3.3,
+      "value": 2.91,
       "unit": "°C",
-      "uvi": 0,
+      "uvi": 0.1,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 7,
+      "value": 3,
       "unit": "km/h",
-      "humidity": 83.44,
+      "humidity": 86.35,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -81,7 +81,7 @@
       "source": "Strahlenschutz.gv.at (IMIS)",
       "sourceUrl": "https://mb.strahlenschutz.gv.at/station/AT2002",
       "remoteWarning": null,
-      "maxNearbyValue": 199,
+      "maxNearbyValue": 198,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -102,7 +102,7 @@
       "luftIndex": 2,
       "aqi": 2,
       "mainPollutant": "Pollenvorhersage in Wien",
-      "description": "59",
+      "description": "60",
       "source": "IQAir (Echtzeit)",
       "sourceUrl": "https://www.iqair.com/de/austria/vienna/vienna",
       "extraLinks": [
@@ -151,7 +151,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-03T05:08:00.994Z",
+      "date": "2026-03-03T06:04:26.273Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -179,7 +179,7 @@
     },
     "space": {
       "level": "green",
-      "value": 1,
+      "value": 2.67,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -237,7 +237,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.963,
+      "value": 49.984,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -293,7 +293,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1027.1909,
+      "pressureHpa": 1027.3857,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
