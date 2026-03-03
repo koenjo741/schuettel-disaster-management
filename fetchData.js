@@ -154,7 +154,8 @@ async function fetchRadiationData() {
         const res = await fetch(url, {
             headers: {
                 'User-Agent': 'Mozilla/5.0',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'stamp': '1000'
             }
         });
 
@@ -167,15 +168,13 @@ async function fetchRadiationData() {
 
         const latest = data[data.length - 1];
 
-        // REMAP API returns raw values for AT that need to be converted to nSv/h.
-        // E.g., AT2002 reports ~48310 raw for ~68 nSv/h (factor of approx 710).
-        // AT2009 reports ~18409 raw for ~26 nSv/h.
-        const conversionFactor = 710;
-        const nsvH = Math.round(latest.value / conversionFactor);
+        // The REMAP API obfuscates data by multiplying by (1001-stamp).
+        // We set stamp=1000 in headers, so (1001-1000) = 1, giving us the raw nSv/h.
+        const nsvH = Math.round(latest.value);
 
         return {
             nsvH: nsvH,
-            station: 'AT2009',
+            station: 'AT2009 Wien - Atomreaktor',
             measuredAt: latest.date ? new Date(latest.date).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' }) : null,
             source: 'EURDEP/REMAP',
         };
