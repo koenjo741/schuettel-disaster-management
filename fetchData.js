@@ -375,9 +375,10 @@ async function fetchAirQualityData() {
         mainPollutant: iqAir?.mainPollutant,
         description: iqAir?.description,
         source: iqAir ? iqAir.source : wienData?.source,
-        sourceUrl: iqAir?.sourceUrl || 'https://www.wien.gv.at/umwelt/luft/messwerte/berichte/aktuell.html',
+        sourceUrl: iqAir?.sourceUrl || null,
         extraLinks: [
-            { name: 'Wien.gv.at (MA 22)', url: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm' }
+            { name: 'Wien.gv.at (MA 22)', url: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm' },
+            { name: 'IQAir (AQI Echtzeit)', url: 'https://www.iqair.com/de/austria/vienna/vienna' }
         ]
     };
 }
@@ -1310,7 +1311,7 @@ export async function fetchAlertData() {
                     mainPollutant: airQualityData?.mainPollutant ?? null,
                     description: airQualityData?.description ?? null,
                     source: airQualityData?.source ?? 'Offline',
-                    sourceUrl: airQualityData?.sourceUrl ?? 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm',
+                    sourceUrl: airQualityData?.sourceUrl ?? null,
                     extraLinks: airQualityData?.extraLinks ?? []
                 },
                 earthquake: {
