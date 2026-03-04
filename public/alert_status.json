@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-04T20:47:44.716Z",
+  "fetchedAt": "2026-03-04T21:21:28.178Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 9.67,
+      "value": 9.32,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 8,
+      "value": 10,
       "unit": "km/h",
-      "humidity": 73.29,
+      "humidity": 74.9,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -77,7 +77,7 @@
       "value": 85,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "19:00",
+      "measuredAt": "20:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
@@ -91,16 +91,16 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 103,
+      "value": 104,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 69,
+      "pm10": 68,
       "pm25": 42,
       "luftIndex": 4,
-      "aqi": 103,
+      "aqi": 104,
       "mainPollutant": "PM2.5/PM10",
       "description": "Ungesund für empfindliche Gruppen",
       "source": "Open-Meteo (US AQI)",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-04T20:47:46.975Z",
+      "date": "2026-03-04T21:21:30.729Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -183,7 +183,7 @@
     },
     "space": {
       "level": "green",
-      "value": 1.33,
+      "value": 2,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.993,
+      "value": 50.003,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,19 +297,24 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1026.3687,
+      "pressureHpa": 1026.6011,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
     "thunderstorm": {
-      "level": "unknown",
-      "value": "Keine Zellen",
+      "level": "green",
+      "value": "Keine Gewitterzellen",
       "intensity": 0,
-      "source": "ZAMG",
+      "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
-      "extraLinks": []
+      "extraLinks": [
+        {
+          "name": "Hagelradar",
+          "url": "https://warnungen.zamg.at/wsapp/de/hagel/heute/"
+        }
+      ]
     }
   },
-  "error": "Thunderstorm/ZAMG: fetch failed"
+  "error": null
 }
