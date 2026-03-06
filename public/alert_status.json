@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-06T17:26:22.846Z",
+  "fetchedAt": "2026-03-06T18:02:08.633Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 15.72,
+      "value": 14.35,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 20,
       "unit": "km/h",
-      "humidity": 43.34,
+      "humidity": 47.17,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -81,7 +81,7 @@
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 194,
+      "maxNearbyValue": 193,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -91,8 +91,8 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 69,
-      "unit": "AQI",
+      "value": 36,
+      "unit": "µg/m³",
       "thresholds": {
         "yellow": 51,
         "red": 101
@@ -100,10 +100,10 @@
       "pm10": 36,
       "pm25": 20,
       "luftIndex": 3,
-      "aqi": 69,
-      "mainPollutant": "PM2.5/PM10",
-      "description": "Moderat",
-      "source": "Open-Meteo (US AQI)",
+      "aqi": null,
+      "mainPollutant": null,
+      "description": null,
+      "source": "Wien.gv.at Luftgütebericht (MA 22)",
       "sourceUrl": null,
       "extraLinks": [
         {
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-06T17:26:25.611Z",
+      "date": "2026-03-06T18:02:11.506Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -183,7 +183,7 @@
     },
     "space": {
       "level": "green",
-      "value": 2,
+      "value": 1.33,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.99,
+      "value": 49.984,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1023.6275,
+      "pressureHpa": 1024.0517,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
