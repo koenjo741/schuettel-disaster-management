@@ -697,12 +697,15 @@ async function fetchWaterStatus() {
 
 async function fetchBlackoutStatus() {
     return withRetry(async () => {
-        const url = 'https://www.netzfrequenz.info/json/act.json';
+        const url = 'https://dat.netzfrequenzmessung.de:9080/frequenz.xml';
         const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
         if (!res.ok) throw new Error(`Netzfrequenz check failed: ${res.status}`);
 
-        const data = await res.json();
-        const frequency = parseFloat(data);
+        const text = await res.text();
+        const match = text.match(/<f>([^<]+)<\/f>/);
+        if (!match) throw new Error('Invalid frequency data format');
+        
+        const frequency = parseFloat(match[1]);
         if (isNaN(frequency)) throw new Error('Invalid frequency data');
 
         let status = 1; // Green
@@ -725,8 +728,8 @@ async function fetchBlackoutStatus() {
             value: frequency,
             unit: 'Hz',
             message,
-            source: 'Netzfrequenz.info (UCTE)',
-            sourceUrl: 'https://gridradar.net/de/netzfrequenz'
+            source: 'Netzfrequenzmessung.de',
+            sourceUrl: 'https://netzfrequenzmessung.de/'
         };
     });
 }

@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-08T09:15:56.579Z",
+  "fetchedAt": "2026-03-08T09:33:08.403Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -77,7 +77,7 @@
       "value": 83,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "08:00",
+      "measuredAt": "09:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-08T09:15:59.973Z",
+      "date": "2026-03-08T09:33:08.856Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -240,22 +240,22 @@
       "sourceUrl": "https://www.wien.gv.at/kontakt/ma31"
     },
     "blackout": {
-      "level": "unknown",
-      "value": 50,
+      "level": "green",
+      "value": 50.01,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
         "red": "±200mHz"
       },
       "message": "Normalbetrieb",
-      "source": "Offline",
-      "sourceUrl": "https://gridradar.net/de/netzfrequenz"
+      "source": "Netzfrequenzmessung.de",
+      "sourceUrl": "https://netzfrequenzmessung.de/"
     },
     "traffic": {
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "80A: Bauarbeiten",
+      "message": "Matzleinsdorfer Platz",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": "Blackout/Netzfrequenz: Unexpected end of JSON input"
+  "error": null
 }
