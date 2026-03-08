@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-08T05:26:28.463Z",
+  "fetchedAt": "2026-03-08T06:05:11.749Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 3.78,
+      "value": 3.53,
       "unit": "°C",
-      "uvi": 0,
+      "uvi": 0.1,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 2,
       "unit": "km/h",
-      "humidity": 65.68,
+      "humidity": 67.19,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -81,7 +81,7 @@
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 201,
+      "maxNearbyValue": 203,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-08T05:26:30.721Z",
+      "date": "2026-03-08T06:05:13.849Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -183,7 +183,7 @@
     },
     "space": {
       "level": "green",
-      "value": 4.67,
+      "value": 3.67,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -240,15 +240,15 @@
       "sourceUrl": "https://www.wien.gv.at/kontakt/ma31"
     },
     "blackout": {
-      "level": "green",
-      "value": 49.99,
+      "level": "unknown",
+      "value": 50,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
         "red": "±200mHz"
       },
       "message": "Normalbetrieb",
-      "source": "Netzfrequenz.info (UCTE)",
+      "source": "Offline",
       "sourceUrl": "https://gridradar.net/de/netzfrequenz"
     },
     "traffic": {
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1027.2475,
+      "pressureHpa": 1027.5703,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Blackout/Netzfrequenz: Unexpected end of JSON input"
 }
