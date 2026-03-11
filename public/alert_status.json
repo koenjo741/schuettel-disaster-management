@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-11T20:34:22.640Z",
+  "fetchedAt": "2026-03-11T21:02:16.924Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.03,
+      "value": 11.27,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 7,
+      "value": 6,
       "unit": "km/h",
-      "humidity": 56.88,
+      "humidity": 60.21,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 79,
+      "value": 80,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,7 +100,7 @@
       "pm10": 45,
       "pm25": 24,
       "luftIndex": 3,
-      "aqi": 79,
+      "aqi": 80,
       "mainPollutant": "PM2.5/PM10",
       "description": "Moderat",
       "source": "Open-Meteo (US AQI)",
@@ -118,17 +118,17 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 2.7,
+      "value": 0,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": 74,
-      "depthKm": 10,
-      "time": "2026-03-10T20:39:50.180Z",
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "distanceKm": null,
+      "depthKm": null,
+      "time": null,
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-11T20:34:25.743Z",
+      "date": "2026-03-11T21:02:19.509Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -217,14 +217,14 @@
     },
     "gas": {
       "level": "green",
-      "value": 1,
+      "value": 0,
       "unit": "Status",
       "thresholds": {
         "yellow": 2,
         "red": 2
       },
-      "message": "Normalbetrieb",
-      "source": "Wiener Netze (Erdgas)",
+      "message": "Unbekannt",
+      "source": "Offline",
       "sourceUrl": "https://www.wienernetze.at/gas"
     },
     "water": {
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.978,
+      "value": 49.95,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,8 +297,8 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1018.815,
-      "pressureTrend": "↑",
+      "pressureHpa": 1018.7824,
+      "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Gas/WienerNetze: Wiener Netze (Stoerungen) error: 429"
 }
