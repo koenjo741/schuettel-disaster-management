@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-11T21:02:16.924Z",
+  "fetchedAt": "2026-03-11T21:46:18.846Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -77,7 +77,7 @@
       "value": 85,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "19:00",
+      "measuredAt": "20:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-11T21:02:19.509Z",
+      "date": "2026-03-11T21:46:21.922Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -183,7 +183,7 @@
     },
     "space": {
       "level": "green",
-      "value": 0.33,
+      "value": 2,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -205,14 +205,14 @@
     },
     "power": {
       "level": "green",
-      "value": 1,
+      "value": 0,
       "unit": "Status",
       "thresholds": {
         "yellow": 2,
         "red": 2
       },
-      "message": "Normalbetrieb",
-      "source": "Wiener Netze Statusseite",
+      "message": "Unbekannt",
+      "source": "Offline",
       "sourceUrl": "https://www.wienernetze.at/stromversorgung"
     },
     "gas": {
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.95,
+      "value": 49.977,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -252,22 +252,13 @@
       "sourceUrl": "https://netzfrequenzmessung.de/"
     },
     "traffic": {
-      "level": "yellow",
-      "value": 2,
+      "level": "unknown",
+      "value": 1,
       "unit": "Status",
-      "message": "80A: Bauarbeiten",
-      "source": "Wiener Linien & Google",
+      "message": "Unbekannt",
+      "source": "Offline",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
-      "extraLinks": [
-        {
-          "name": "WL Betriebsinfo",
-          "url": "https://www.wienerlinien.at/betriebsinfo"
-        },
-        {
-          "name": "Baustellen Wien",
-          "url": "https://www.wien.gv.at/verkehr/baustellen/"
-        }
-      ]
+      "extraLinks": []
     },
     "snow": {
       "level": "green",
@@ -316,5 +307,5 @@
       ]
     }
   },
-  "error": "Gas/WienerNetze: Wiener Netze (Stoerungen) error: 429"
+  "error": "Power/WienerNetze: Wiener Netze error: 429; Gas/WienerNetze: Wiener Netze (Stoerungen) error: 429; Traffic/VPI: WL Traffic check failed: 429"
 }
