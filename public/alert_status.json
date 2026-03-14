@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-14T17:15:13.958Z",
+  "fetchedAt": "2026-03-14T19:00:31.255Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 16.55,
+      "value": 14.93,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 28,
+      "value": 25,
       "unit": "km/h",
-      "humidity": 38.9,
+      "humidity": 42.75,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -51,15 +51,15 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "flood": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 267,
       "unit": "cm",
-      "trend": null,
+      "trend": "Senkung",
       "thresholds": {
         "yellow": 380,
         "red": 432
       },
-      "source": "Offline",
+      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
       "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke",
       "extraLinks": [
         {
@@ -77,11 +77,11 @@
       "value": 85,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "16:00",
+      "measuredAt": "17:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 205,
+      "maxNearbyValue": 197,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -90,8 +90,8 @@
       ]
     },
     "airQuality": {
-      "level": "yellow",
-      "value": 54,
+      "level": "green",
+      "value": 53,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -99,8 +99,8 @@
       },
       "pm10": 21,
       "pm25": 11,
-      "luftIndex": 3,
-      "aqi": 54,
+      "luftIndex": 2,
+      "aqi": 53,
       "mainPollutant": "PM2.5/PM10",
       "description": "Moderat",
       "source": "Open-Meteo (US AQI)",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-14T17:15:16.236Z",
+      "date": "2026-03-14T19:00:33.662Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -182,8 +182,8 @@
       ]
     },
     "space": {
-      "level": "yellow",
-      "value": 5,
+      "level": "green",
+      "value": 3.67,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.022,
+      "value": 49.964,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Matzleinsdorfer Platz",
+      "message": "80A: Bauarbeiten",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1000.3438000000001,
+      "pressureHpa": 1001.4730999999999,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": "Flood/DanubeAlert: danubealert.com error: 502"
+  "error": null
 }
