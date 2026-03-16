@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-16T03:31:59.000Z",
+  "fetchedAt": "2026-03-16T05:32:02.331Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 7.99,
+      "value": 7.09,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 11,
+      "value": 7,
       "unit": "km/h",
-      "humidity": 63.33,
+      "humidity": 68.06,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -52,7 +52,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 275,
+      "value": 274,
       "unit": "cm",
       "trend": "Senkung",
       "thresholds": {
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 84,
+      "value": 86,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "02:00",
+      "measuredAt": "04:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 196,
+      "maxNearbyValue": 198,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-16T03:32:02.410Z",
+      "date": "2026-03-16T05:32:04.668Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.013,
+      "value": 50.015,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "80A: Bauarbeiten",
+      "message": "Praterstern",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -297,8 +297,8 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1015.6927000000001,
-      "pressureTrend": "↓",
+      "pressureHpa": 1015.8261,
+      "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
