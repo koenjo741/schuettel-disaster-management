@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-15T23:42:38.180Z",
+  "fetchedAt": "2026-03-16T00:02:59.377Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 8.07,
+      "value": 8.13,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 12,
+      "value": 11,
       "unit": "km/h",
-      "humidity": 65.92,
+      "humidity": 65.33,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 49,
+      "value": 50,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,7 +100,7 @@
       "pm10": 13,
       "pm25": 9,
       "luftIndex": 1,
-      "aqi": 49,
+      "aqi": 50,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-15T23:42:40.625Z",
+      "date": "2026-03-16T00:03:03.008Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.019,
+      "value": 49.971,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Handelskai",
+      "message": "80A: Bauarbeiten",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -297,8 +297,8 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1016.4567,
-      "pressureTrend": "↑",
+      "pressureHpa": 1016.2724000000001,
+      "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
