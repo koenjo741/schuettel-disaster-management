@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-03-17T07:17:11.100Z",
-  "overall": "yellow",
+  "fetchedAt": "2026-03-17T08:04:36.039Z",
+  "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 4.78,
+      "value": 5.22,
       "unit": "°C",
-      "uvi": 0.6,
+      "uvi": 1.3,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 18,
       "unit": "km/h",
-      "humidity": 72.16,
+      "humidity": 68.66,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -51,15 +51,15 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "flood": {
-      "level": "green",
-      "value": 278,
+      "level": "unknown",
+      "value": null,
       "unit": "cm",
-      "trend": "Erhöhung",
+      "trend": null,
       "thresholds": {
         "yellow": 380,
         "red": 432
       },
-      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
+      "source": "Offline",
       "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke",
       "extraLinks": [
         {
@@ -81,7 +81,7 @@
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 192,
+      "maxNearbyValue": 191,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-17T07:17:12.889Z",
+      "date": "2026-03-17T08:04:38.874Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -204,14 +204,14 @@
       ]
     },
     "power": {
-      "level": "green",
-      "value": 1,
+      "level": "red",
+      "value": 2,
       "unit": "Status",
       "thresholds": {
         "yellow": 2,
         "red": 2
       },
-      "message": "Normalbetrieb",
+      "message": "Störung / Ausfall gemeldet",
       "source": "Wiener Netze Statusseite",
       "sourceUrl": "https://www.wienernetze.at/stromversorgung"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.961,
+      "value": 49.958,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1022.9392,
+      "pressureHpa": 1023.2782000000001,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Flood/DanubeAlert: danubealert.com error: 502"
 }
