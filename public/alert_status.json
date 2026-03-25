@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-25T00:02:02.586Z",
+  "fetchedAt": "2026-03-25T03:16:11.950Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 9.78,
+      "value": 6.87,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 10,
+      "value": 7,
       "unit": "km/h",
-      "humidity": 49.53,
+      "humidity": 59.7,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -51,15 +51,15 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "flood": {
-      "level": "green",
-      "value": 283,
+      "level": "unknown",
+      "value": null,
       "unit": "cm",
-      "trend": "Erhöhung",
+      "trend": null,
       "thresholds": {
         "yellow": 380,
         "red": 432
       },
-      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
+      "source": "Offline",
       "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke",
       "extraLinks": [
         {
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 84,
+      "value": 86,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "22:00",
+      "measuredAt": "02:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 196,
+      "maxNearbyValue": 198,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -97,7 +97,7 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 28,
+      "pm10": 30,
       "pm25": 16,
       "luftIndex": 2,
       "aqi": 62,
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-25T00:02:04.524Z",
+      "date": "2026-03-25T03:16:15.181Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -183,7 +183,7 @@
     },
     "space": {
       "level": "green",
-      "value": 2.67,
+      "value": 3,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.963,
+      "value": 49.989,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,7 +297,7 @@
       "value": "Vorwarnung",
       "district": "Vorwarnung",
       "city": "Unwetter",
-      "pressureHpa": 1016.2348,
+      "pressureHpa": 1014.4471000000001,
       "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Flood/DanubeAlert: danubealert.com error: 522"
 }
