@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-25T23:48:12.599Z",
+  "fetchedAt": "2026-03-26T01:11:50.596Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 5.93,
+      "value": 6.6,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 30,
+      "value": 24,
       "unit": "km/h",
-      "humidity": 80.62,
+      "humidity": 79.61,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -42,7 +42,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0.021,
+      "value": 0.27,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -52,7 +52,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 284,
+      "value": 287,
       "unit": "cm",
       "trend": "Erhöhung",
       "thresholds": {
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 87,
+      "value": 88,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "22:00",
+      "measuredAt": "00:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 194,
+      "maxNearbyValue": 0,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -90,19 +90,19 @@
       ]
     },
     "airQuality": {
-      "level": "yellow",
-      "value": 52,
+      "level": "green",
+      "value": 48,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 30,
-      "pm25": 15,
-      "luftIndex": 3,
-      "aqi": 52,
+      "pm10": 26,
+      "pm25": 13,
+      "luftIndex": 2,
+      "aqi": 48,
       "mainPollutant": "PM2.5/PM10",
-      "description": "Moderat",
+      "description": "Gut",
       "source": "Open-Meteo (US AQI)",
       "sourceUrl": null,
       "extraLinks": [
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-25T23:48:14.593Z",
+      "date": "2026-03-26T01:11:52.449Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -183,7 +183,7 @@
     },
     "space": {
       "level": "green",
-      "value": 2.67,
+      "value": 1,
       "unit": "Scale",
       "thresholds": {
         "yellow": 5,
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.975,
+      "value": 50.014,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,8 +297,8 @@
       "value": "Vorwarnung",
       "district": "Vorwarnung",
       "city": "Unwetter",
-      "pressureHpa": 1003.9217,
-      "pressureTrend": "↑",
+      "pressureHpa": 1002.4911999999999,
+      "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
