@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-26T21:42:47.143Z",
+  "fetchedAt": "2026-03-26T22:01:18.466Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": null,
+      "value": 5.79,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -30,10 +30,10 @@
       ]
     },
     "wind": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 31,
       "unit": "km/h",
-      "humidity": null,
+      "humidity": 62.49,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -41,8 +41,8 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "rain": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 0.001,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-26T21:42:48.881Z",
+      "date": "2026-03-26T22:01:20.368Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -168,7 +168,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA (Offline)",
+      "source": "NASA FIRMS Satelliten-Monitoring",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.974,
+      "value": 49.925,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -278,7 +278,7 @@
         "red": 10
       },
       "condition": "Kein relevanter Schnee",
-      "source": "Offline",
+      "source": "GeoSphere Austria (SNOWGRID)",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "ice": {
@@ -297,8 +297,8 @@
       "value": "Vorwarnung",
       "district": "Keine Warnung",
       "city": "Vorwarnung",
-      "pressureHpa": null,
-      "pressureTrend": "→",
+      "pressureHpa": 1010.1065,
+      "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": "Weather/GeoSphere: fetch failed; Snow/SNOWGRID: fetch failed"
+  "error": null
 }
