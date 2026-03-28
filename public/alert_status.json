@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-28T08:05:40.877Z",
+  "fetchedAt": "2026-03-28T08:57:17.781Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -51,15 +51,15 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "flood": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 287,
       "unit": "cm",
-      "trend": null,
+      "trend": "Erhöhung",
       "thresholds": {
         "yellow": 380,
         "red": 432
       },
-      "source": "Offline",
+      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
       "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke",
       "extraLinks": [
         {
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 84,
+      "value": 85,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "06:00",
+      "measuredAt": "07:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 202,
+      "maxNearbyValue": 199,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-28T08:05:43.679Z",
+      "date": "2026-03-28T08:57:21.488Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.965,
+      "value": 50.071,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": "Flood/DanubeAlert: danubealert.com error: 502"
+  "error": null
 }
