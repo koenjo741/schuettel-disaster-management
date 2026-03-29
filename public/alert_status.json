@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-03-29T19:39:16.645Z",
+  "fetchedAt": "2026-03-29T20:01:35.772Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 6.63,
+      "value": 6.77,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 24,
+      "value": 28,
       "unit": "km/h",
-      "humidity": 73.31,
+      "humidity": 70.66,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-03-29T19:39:19.098Z",
+      "date": "2026-03-29T20:01:37.643Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.014,
+      "value": 49.932,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "80A: Bauarbeiten",
+      "message": "Messe-Prater",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -293,11 +293,11 @@
       "sourceUrl": "https://www.geosphere.at/"
     },
     "uwz": {
-      "level": "yellow",
-      "value": "Vorwarnung",
+      "level": "green",
+      "value": "Keine Warnung",
       "district": "Keine Warnung",
-      "city": "Vorwarnung",
-      "pressureHpa": 1023.8194,
+      "city": "Keine Warnung",
+      "pressureHpa": 1024.0892999999999,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
