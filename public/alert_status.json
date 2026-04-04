@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-04T13:17:34.685Z",
+  "fetchedAt": "2026-04-04T14:02:56.462Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.83,
+      "value": 13.28,
       "unit": "°C",
-      "uvi": 1.5,
+      "uvi": 0.4,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 29,
+      "value": 24,
       "unit": "km/h",
-      "humidity": 64.04,
+      "humidity": 63.84,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -81,7 +81,7 @@
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 195,
+      "maxNearbyValue": 193,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-04T13:17:37.941Z",
+      "date": "2026-04-04T14:02:58.542Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -240,14 +240,14 @@
       "sourceUrl": "https://www.wien.gv.at/kontakt/ma31"
     },
     "blackout": {
-      "level": "green",
-      "value": 50.045,
+      "level": "yellow",
+      "value": 50.105,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
         "red": "±200mHz"
       },
-      "message": "Normalbetrieb",
+      "message": "Erhöhte Netzbelastung",
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
     },
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1021.0350999999999,
+      "pressureHpa": 1021.1816,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
