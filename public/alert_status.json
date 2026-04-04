@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-04T11:37:15.730Z",
+  "fetchedAt": "2026-04-04T11:59:10.409Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 51,
+      "value": 50,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,9 +100,9 @@
       "pm10": 12,
       "pm25": 8,
       "luftIndex": 2,
-      "aqi": 51,
+      "aqi": 50,
       "mainPollutant": "PM2.5/PM10",
-      "description": "Moderat",
+      "description": "Gut",
       "source": "Open-Meteo (US AQI)",
       "sourceUrl": null,
       "extraLinks": [
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-04T11:37:17.978Z",
+      "date": "2026-04-04T11:59:13.099Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.038,
+      "value": 50.06,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
