@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-06T21:36:13.908Z",
+  "fetchedAt": "2026-04-06T22:05:01.202Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.96,
+      "value": 11.63,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 15,
+      "value": 13,
       "unit": "km/h",
-      "humidity": 36.41,
+      "humidity": 38.88,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 43,
+      "value": 41,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,7 +100,7 @@
       "pm10": 7,
       "pm25": 4,
       "luftIndex": 2,
-      "aqi": 43,
+      "aqi": 41,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-06T21:36:15.798Z",
+      "date": "2026-04-06T22:05:04.194Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.989,
+      "value": 49.971,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -293,11 +293,11 @@
       "sourceUrl": "https://www.geosphere.at/"
     },
     "uwz": {
-      "level": "yellow",
-      "value": "Vorwarnung",
+      "level": "green",
+      "value": "Keine Warnung",
       "district": "Keine Warnung",
-      "city": "Vorwarnung",
-      "pressureHpa": 1024.4489,
+      "city": "Keine Warnung",
+      "pressureHpa": 1025.1057,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
