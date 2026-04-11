@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-11T19:47:19.820Z",
+  "fetchedAt": "2026-04-11T20:17:07.746Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 11.8,
+      "value": 10.77,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 8,
+      "value": 7,
       "unit": "km/h",
-      "humidity": 35.64,
+      "humidity": 37.23,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -74,10 +74,10 @@
     },
     "radiation": {
       "level": "green",
-      "value": 84,
+      "value": 85,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "18:00",
+      "measuredAt": "19:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-11T19:47:21.756Z",
+      "date": "2026-04-11T20:17:10.037Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -168,7 +168,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA (Offline)",
+      "source": "NASA FIRMS Satelliten-Monitoring",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.974,
+      "value": 49.961,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Laurenzgasse",
+      "message": "Praterstern",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1017.2619,
+      "pressureHpa": 1018.0210000000001,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
