@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-17T05:51:53.691Z",
+  "fetchedAt": "2026-04-17T07:43:04.388Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 13.42,
+      "value": 15.24,
       "unit": "°C",
-      "uvi": 0.2,
+      "uvi": 1.5,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 9,
+      "value": 11,
       "unit": "km/h",
-      "humidity": 66.22,
+      "humidity": 60.66,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -81,7 +81,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 206,
+      "maxNearbyValue": 202,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -97,8 +97,8 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 32,
-      "pm25": 18,
+      "pm10": 29,
+      "pm25": 17,
       "luftIndex": 2,
       "aqi": 73,
       "mainPollutant": "PM2.5/PM10",
@@ -127,8 +127,8 @@
       "distanceKm": null,
       "depthKm": null,
       "time": null,
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -144,10 +144,10 @@
       "sourceUrl": "https://warnungen.at-alert.at"
     },
     "pandemic": {
-      "level": "green",
-      "value": 0,
+      "level": "yellow",
+      "value": 1,
       "unit": "Aktiv",
-      "title": "Keine aktuellen Warnungen",
+      "title": "Influenza: Aktivität (MedUni Wien)",
       "summary": null,
       "details": [
         {
@@ -155,8 +155,8 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-17T05:51:55.831Z",
-      "source": "WHO DON",
+      "date": "2026-04-17T07:43:06.905Z",
+      "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.022,
+      "value": 50.019,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Nestroyplatz",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1021.3793,
+      "pressureHpa": 1021.7657,
       "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
