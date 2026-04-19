@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-19T00:05:21.634Z",
+  "fetchedAt": "2026-04-19T03:48:50.783Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.79,
+      "value": 10.82,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 3,
       "unit": "km/h",
-      "humidity": 51.77,
+      "humidity": 59.04,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -52,9 +52,9 @@
     },
     "flood": {
       "level": "green",
-      "value": 284,
+      "value": 285,
       "unit": "cm",
-      "trend": "Senkung",
+      "trend": "Konstant",
       "thresholds": {
         "yellow": 380,
         "red": 432
@@ -73,15 +73,15 @@
       ]
     },
     "radiation": {
-      "level": "green",
-      "value": 86,
+      "level": "unknown",
+      "value": null,
       "unit": "nSv/h",
-      "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "22:00",
-      "source": "EURDEP/REMAP",
+      "station": "Unbekannt",
+      "measuredAt": null,
+      "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 203,
+      "maxNearbyValue": 204,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -91,16 +91,16 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 50,
+      "value": 49,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 21,
-      "pm25": 10,
+      "pm10": 22,
+      "pm25": 11,
       "luftIndex": 3,
-      "aqi": 50,
+      "aqi": 49,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-19T00:05:24.615Z",
+      "date": "2026-04-19T03:48:52.640Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.987,
+      "value": 49.994,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1018.3611,
+      "pressureHpa": 1017.3430000000001,
       "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Radiation/IMIS: fetch failed"
 }
