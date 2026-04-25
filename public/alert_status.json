@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-25T15:52:16.925Z",
+  "fetchedAt": "2026-04-25T16:40:23.211Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 23.94,
+      "value": 23.93,
       "unit": "°C",
-      "uvi": 1.5,
+      "uvi": 0.6,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 19,
+      "value": 20,
       "unit": "km/h",
-      "humidity": 21.39,
+      "humidity": 20.11,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -51,15 +51,15 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "flood": {
-      "level": "green",
-      "value": 285,
+      "level": "unknown",
+      "value": null,
       "unit": "cm",
-      "trend": "Erhöhung",
+      "trend": null,
       "thresholds": {
         "yellow": 380,
         "red": 432
       },
-      "source": "danubealert.com (Schwedenbrücke / eHYD #207233)",
+      "source": "Offline",
       "sourceUrl": "https://danubealert.com/at/history/schwedenbrucke",
       "extraLinks": [
         {
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 87,
+      "value": 88,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "14:00",
+      "measuredAt": "15:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 199,
+      "maxNearbyValue": 198,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 41,
+      "value": 43,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,7 +100,7 @@
       "pm10": 20,
       "pm25": 7,
       "luftIndex": 3,
-      "aqi": 41,
+      "aqi": 43,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -127,8 +127,8 @@
       "distanceKm": null,
       "depthKm": null,
       "time": null,
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-25T15:52:18.973Z",
+      "date": "2026-04-25T16:40:26.179Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.981,
+      "value": 49.96,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1011.7833999999999,
+      "pressureHpa": 1011.4603,
       "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Flood/DanubeAlert: danubealert.com error: 502"
 }
