@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-25T21:34:37.454Z",
+  "fetchedAt": "2026-04-25T22:05:39.468Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": null,
+      "value": 18.71,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -30,10 +30,10 @@
       ]
     },
     "wind": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 15,
       "unit": "km/h",
-      "humidity": null,
+      "humidity": 29.92,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -41,8 +41,8 @@
       "sourceUrl": "https://warnungen.zamg.at/"
     },
     "rain": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 0,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 44,
+      "value": 43,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,7 +100,7 @@
       "pm10": 19,
       "pm25": 20,
       "luftIndex": 3,
-      "aqi": 44,
+      "aqi": 43,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -127,8 +127,8 @@
       "distanceKm": null,
       "depthKm": null,
       "time": null,
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -155,13 +155,13 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-25T21:34:40.918Z",
+      "date": "2026-04-25T22:05:42.177Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
       "level": "green",
-      "value": 1,
+      "value": 2,
       "unit": "WBI",
       "thresholds": {
         "yellow": 3,
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.994,
+      "value": 49.976,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -278,7 +278,7 @@
         "red": 10
       },
       "condition": "Kein relevanter Schnee",
-      "source": "Offline",
+      "source": "GeoSphere Austria (SNOWGRID)",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "ice": {
@@ -293,12 +293,12 @@
       "sourceUrl": "https://www.geosphere.at/"
     },
     "uwz": {
-      "level": "green",
-      "value": "Keine Warnung",
+      "level": "yellow",
+      "value": "Vorwarnung",
       "district": "Keine Warnung",
-      "city": "Keine Warnung",
-      "pressureHpa": null,
-      "pressureTrend": "→",
+      "city": "Vorwarnung",
+      "pressureHpa": 1013.1661,
+      "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": "Weather/GeoSphere: fetch failed; Snow/SNOWGRID: fetch failed"
+  "error": null
 }
