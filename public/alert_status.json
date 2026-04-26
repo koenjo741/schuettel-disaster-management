@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-04-26T11:22:46.336Z",
+  "fetchedAt": "2026-04-26T12:03:35.124Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -12,7 +12,7 @@
       "level": "green",
       "value": 13.4,
       "unit": "°C",
-      "uvi": 5.6,
+      "uvi": 5.2,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -127,8 +127,8 @@
       "distanceKm": null,
       "depthKm": null,
       "time": null,
-      "eventCount": 1,
-      "source": "ZAMG/GeoSphere FDSN",
+      "eventCount": 0,
+      "source": "EMSC (keine Ereignisse)",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
     },
     "atAlert": {
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-04-26T11:22:48.701Z",
+      "date": "2026-04-26T12:03:37.937Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.055,
+      "value": 49.999,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -278,7 +278,7 @@
         "red": 10
       },
       "condition": "Kein relevanter Schnee",
-      "source": "Offline",
+      "source": "GeoSphere Austria (SNOWGRID)",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "ice": {
@@ -316,5 +316,5 @@
       ]
     }
   },
-  "error": "Snow/SNOWGRID: fetch failed"
+  "error": null
 }
