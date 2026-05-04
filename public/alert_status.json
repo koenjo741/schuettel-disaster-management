@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-05-04T12:12:13.736Z",
-  "overall": "yellow",
+  "fetchedAt": "2026-05-04T14:32:55.003Z",
+  "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 24.79,
+      "value": 26.77,
       "unit": "°C",
-      "uvi": 4.9,
+      "uvi": 2.9,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 13,
+      "value": 20,
       "unit": "km/h",
-      "humidity": 29.41,
+      "humidity": 21.74,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -74,10 +74,10 @@
     },
     "radiation": {
       "level": "green",
-      "value": 87,
+      "value": 88,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "11:00",
+      "measuredAt": "13:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
@@ -91,16 +91,16 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 36,
+      "value": 40,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
       "pm10": 18,
-      "pm25": 6,
+      "pm25": 7,
       "luftIndex": 3,
-      "aqi": 36,
+      "aqi": 40,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -118,15 +118,15 @@
     },
     "earthquake": {
       "level": "green",
-      "value": 0,
+      "value": 0.5,
       "unit": "M",
       "thresholds": {
         "yellow": 3,
         "red": 4.5
       },
-      "distanceKm": null,
-      "depthKm": null,
-      "time": null,
+      "distanceKm": 101,
+      "depthKm": 7,
+      "time": "2026-05-04T03:22:39.542Z",
       "eventCount": 1,
       "source": "ZAMG/GeoSphere FDSN",
       "sourceUrl": "https://www.emsc-csem.org/Earthquake/"
@@ -155,13 +155,13 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-05-04T12:12:15.827Z",
+      "date": "2026-05-04T14:32:57.078Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
-      "level": "green",
-      "value": 2,
+      "level": "yellow",
+      "value": 3,
       "unit": "WBI",
       "thresholds": {
         "yellow": 3,
@@ -204,14 +204,14 @@
       ]
     },
     "power": {
-      "level": "green",
-      "value": 1,
+      "level": "red",
+      "value": 2,
       "unit": "Status",
       "thresholds": {
         "yellow": 2,
         "red": 2
       },
-      "message": "Normalbetrieb",
+      "message": "Störung / Ausfall gemeldet",
       "source": "Wiener Netze Statusseite",
       "sourceUrl": "https://www.wienernetze.at/stromversorgung"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.969,
+      "value": 50.014,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Handelskai",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -297,7 +297,7 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1013.4572000000001,
+      "pressureHpa": 1012.1036,
       "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
