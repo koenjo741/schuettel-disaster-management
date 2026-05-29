@@ -1335,7 +1335,7 @@ export async function fetchAlertData() {
                     source: fireData?.source ?? 'Offline',
                     sourceUrl: 'https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z',
                     extraLinks: [
-                        { name: 'EFFIS (Copernicus)', url: 'https://effis.jrc.ec.europa.at/' },
+                        { name: 'EFFIS Current Situation (Copernicus)', url: 'https://forest-fire.emergency.copernicus.eu/apps/effis.csv/?c=1000000,6200000&z=5&t=sentinel2' },
                         { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' }
                     ]
                 },

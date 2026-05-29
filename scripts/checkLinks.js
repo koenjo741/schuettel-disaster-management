@@ -56,7 +56,7 @@ async function runHealthCheck() {
         { name: 'AT-Alert API', url: 'https://warnungen.at-alert.at/api/filteredAlerts' },
         { name: 'WHO Pandemic News', url: 'https://www.who.int/api/news/diseaseoutbreaknews?$top=15' },
         { name: 'MedUni Wien SVG', url: 'https://viro.meduniwien.ac.at/fileadmin/content/OE/virologie/dokumente/Virus_Epidemiogie/RespiratorischeViren/ATKarte.svg' },
-        { name: 'EFFIS (Copernicus) Portal', url: 'https://effis.jrc.ec.europa.at/' },
+        { name: 'EFFIS Current Situation (Copernicus)', url: 'https://forest-fire.emergency.copernicus.eu/apps/effis.csv/?c=1000000,6200000&z=5&t=sentinel2' },
         { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' },
         { name: 'NOAA Space Weather API', url: 'https://services.swpc.noaa.gov/products/noaa-scales.json' },
         { name: 'Wiener Netze Status (Power)', url: 'https://www.wienernetze.at/stromversorgung' },
