@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-29T04:47:03.511Z",
+  "fetchedAt": "2026-05-29T08:34:43.757Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,9 +10,9 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 12.78,
+      "value": 19.94,
       "unit": "°C",
-      "uvi": 0.2,
+      "uvi": 4.5,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 3,
+      "value": 4,
       "unit": "km/h",
-      "humidity": 55.47,
+      "humidity": 39.66,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -77,11 +77,11 @@
       "value": 90,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "03:00",
+      "measuredAt": "07:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 209,
+      "maxNearbyValue": 207,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -90,8 +90,8 @@
       ]
     },
     "airQuality": {
-      "level": "green",
-      "value": 25,
+      "level": "yellow",
+      "value": 22,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -99,8 +99,8 @@
       },
       "pm10": 18,
       "pm25": 5,
-      "luftIndex": 2,
-      "aqi": 25,
+      "luftIndex": 3,
+      "aqi": 22,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -144,10 +144,10 @@
       "sourceUrl": "https://warnungen.at-alert.at"
     },
     "pandemic": {
-      "level": "yellow",
-      "value": 1,
+      "level": "green",
+      "value": 0,
       "unit": "Aktiv",
-      "title": "Influenza: Aktivität (MedUni Wien)",
+      "title": "Keine aktuellen Warnungen",
       "summary": null,
       "details": [
         {
@@ -155,7 +155,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-05-29T04:47:06.032Z",
+      "date": "2026-05-29T08:34:45.698Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -168,7 +168,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA (Offline)",
+      "source": "NASA FIRMS Satelliten-Monitoring",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.026,
+      "value": 50.005,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -252,22 +252,13 @@
       "sourceUrl": "https://netzfrequenzmessung.de/"
     },
     "traffic": {
-      "level": "yellow",
-      "value": 2,
+      "level": "unknown",
+      "value": 1,
       "unit": "Status",
-      "message": "Praterstern",
-      "source": "Wiener Linien & Google",
+      "message": "Unbekannt",
+      "source": "Offline",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
-      "extraLinks": [
-        {
-          "name": "WL Betriebsinfo",
-          "url": "https://www.wienerlinien.at/betriebsinfo"
-        },
-        {
-          "name": "Baustellen Wien",
-          "url": "https://www.wien.gv.at/verkehr/baustellen/"
-        }
-      ]
+      "extraLinks": []
     },
     "snow": {
       "level": "green",
@@ -297,8 +288,8 @@
       "value": "Keine Warnung",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
-      "pressureHpa": 1024.9036,
-      "pressureTrend": "↑",
+      "pressureHpa": 1025.0165,
+      "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
@@ -316,5 +307,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Traffic/VPI: WL Traffic check failed: 503"
 }
