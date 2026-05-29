@@ -77,6 +77,23 @@ async function runHealthCheck() {
     console.log(`Success: ${results.length - failed.length}`);
     console.log(`Failed: ${failed.length}`);
 
+    // If --json flag is passed, write structured results to a file
+    const jsonIndex = process.argv.indexOf('--json');
+    if (jsonIndex !== -1 && process.argv[jsonIndex + 1]) {
+        const fs = await import('fs');
+        const outputPath = process.argv[jsonIndex + 1];
+        const report = {
+            timestamp: new Date().toISOString(),
+            total: results.length,
+            success: results.length - failed.length,
+            failedCount: failed.length,
+            failed: failed.map(f => ({ name: f.name, url: f.url, status: f.status, error: f.error || null })),
+            all: results
+        };
+        fs.writeFileSync(outputPath, JSON.stringify(report, null, 2), 'utf-8');
+        console.log(`\n📄 Structured JSON report written to: ${outputPath}`);
+    }
+
     if (failed.length > 0) {
         console.error('\n⚠️ BROKEN LINKS DETECTED. Action required.');
         process.exit(1);

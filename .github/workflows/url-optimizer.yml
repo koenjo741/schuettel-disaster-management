@@ -1,0 +1,42 @@
+name: Weekly AI URL Optimizer
+
+on:
+  schedule:
+    - cron: '0 10 * * 2' # Jeden Dienstag um 10:00 Uhr UTC
+  workflow_dispatch: # Ermöglicht manuellen Start über die UI
+
+permissions:
+  models: read
+  contents: read
+
+jobs:
+  optimize-urls:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run AI URL Optimization Check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/aiOptimizeUrls.js
+
+      - name: Send Recommendation Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com # Kann via Secrets angepasst werden
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "🤖 Wöchentlicher AI-Bericht: URL-Optimierungsvorschläge für das Dashboard"
+          to: ${{ secrets.RECEIVER_EMAIL }}
+          from: "AI URL Optimizer <${{ secrets.MAIL_USERNAME }}>"
+          html_body: file://optimization_report.html

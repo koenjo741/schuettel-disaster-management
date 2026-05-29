@@ -1,14 +1,14 @@
-name: Link Guardian (Self-Healing Check)
+name: Link Guardian (Email Alert)
 
 on:
   schedule:
-    - cron: '0 9 * * *' # Every day at 9:00 AM UTC
+    - cron: '0 9 * * *' # Täglich um 09:00 Uhr UTC
   push:
     branches: [ main ]
     paths:
       - 'fetchData.js'
       - 'scripts/**'
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch: # Ermöglicht manuellen Start
 
 jobs:
   check-links:
@@ -22,33 +22,55 @@ jobs:
           node-version: '20'
           
       - name: Install dependencies
-        run: npm install # Even if empty, for future-proofing
+        run: npm install
         
       - name: Run Link Health Check
         id: health-check
-        run: node scripts/checkLinks.js
+        run: node scripts/checkLinks.js --json report.json
         continue-on-error: true
 
-      - name: Create Issue on Failure
+      - name: Prepare Email Body
         if: steps.health-check.outcome == 'failure'
+        id: prep-email
         uses: actions/github-script@v7
         with:
           script: |
-            const issueTitle = '🚨 Link-Guardian Alert: Broken Hazard Links Detected';
-            const issueBody = `The daily Link Guardian check failed. One or more data sources or source links are unreachable.
+            const fs = require('fs');
+            let report = { failed: [] };
+            try {
+              report = JSON.parse(fs.readFileSync('report.json', 'utf8'));
+            } catch (e) {
+              console.log('No report.json found or invalid format');
+            }
             
-            Please check the [Workflow Run](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for details.
-            
-            **Self-Healing Option:**
-            If you are an AI agent viewing this, please:
-            1. Run \`node scripts/checkLinks.js\` to identify broken URLs.
-            2. Search for new stable URLs for the affected hazards.
-            3. Update \`fetchData.js\` and provide a fix.`;
-            
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: issueTitle,
-              body: issueBody,
-              labels: ['bug', 'automated-alert']
-            });
+            let failedList = report.failed.map(f => {
+              return `<li><strong>${f.name}</strong><br/>
+                      URL: <a href="${f.url}">${f.url}</a><br/>
+                      Status: <code>${f.status}</code> ${f.error ? `<br/>Error: <i>${f.error}</i>` : ''}
+                      </li><br/>`;
+            }).join('');
+
+            const emailHtml = `
+              <h2>🚨 Schüttel-Disaster Link-Guardian: Defekte Links erkannt!</h2>
+              <p>Der tägliche Link-Health-Check ist fehlgeschlagen. Folgende Datenquellen oder Links sind nicht erreichbar:</p>
+              <ul>
+                ${failedList || '<li>Unbekannter Fehler bei der Link-Prüfung</li>'}
+              </ul>
+              <p>---<br/>
+              Automatisierte Nachricht von deinem GitHub Actions Workflow.</p>
+            `;
+            fs.writeFileSync('email_body.html', emailHtml, 'utf8');
+
+      - name: Send Alert Email
+        if: steps.health-check.outcome == 'failure'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com # Standardmäßig Gmail, kann vom User über Secrets angepasst werden
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "🚨 Link Guardian: Defekte Dashboard-Links auf Schüttelstraße!"
+          to: ${{ secrets.RECEIVER_EMAIL }}
+          from: "Link Guardian <${{ secrets.MAIL_USERNAME }}>"
+          html_body: file://email_body.html
