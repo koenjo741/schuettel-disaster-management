@@ -352,6 +352,7 @@ async function fetchAirQualityData() {
         sourceUrl: null,
         extraLinks: [
             { name: 'Wien.gv.at (MA 22)', url: 'https://www.wien.gv.at/ma22-lgb/tb/tb-aktuell.htm' },
+            { name: 'AQICN (Taborstraße/Glockengasse)', url: 'https://aqicn.org/city/austria/ecke-taborstrasse-glockengasse/' },
             { name: 'IQAir (AQI Echtzeit)', url: 'https://www.iqair.com/de/austria/vienna/vienna' }
         ]
     };
@@ -1335,8 +1336,7 @@ export async function fetchAlertData() {
                     source: fireData?.source ?? 'Offline',
                     sourceUrl: 'https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z',
                     extraLinks: [
-                        { name: 'EFFIS Current Situation (Copernicus)', url: 'https://forest-fire.emergency.copernicus.eu/apps/effis.csv/?c=1000000,6200000&z=5&t=sentinel2' },
-                        { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' }
+                        { name: 'EFFIS Current Situation (Copernicus)', url: 'https://forest-fire.emergency.copernicus.eu/apps/effis.csv/?c=1000000,6200000&z=5&t=sentinel2' }
                     ]
                 },
                 space: {

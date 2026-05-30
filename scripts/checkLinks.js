@@ -17,14 +17,14 @@ async function checkUrl(name, url) {
 
         if (res.ok) {
             console.log(`✅ OK: ${name} (${url})`);
-            return { name, status: res.status, ok: true };
+            return { name, url, status: res.status, ok: true };
         } else {
             console.error(`❌ FAILED: ${name} (${url}) -> Status: ${res.status}`);
-            return { name, status: res.status, ok: false };
+            return { name, url, status: res.status, ok: false };
         }
     } catch (err) {
         console.error(`❌ ERROR: ${name} (${url}) -> ${err.message}`);
-        return { name, status: 'ERROR', ok: false, error: err.message };
+        return { name, url, status: 'ERROR', ok: false, error: err.message };
     }
 }
 
@@ -42,6 +42,10 @@ async function runHealthCheck() {
         }
         if (hazard.extraLinks?.length) {
             for (const link of hazard.extraLinks) {
+                if (link.url && link.url.includes('iqair.com')) {
+                    console.log(`Skipping automated check for IQAir link (rate limits on GitHub runners): ${link.name}`);
+                    continue;
+                }
                 results.push(await checkUrl(`Extra link: ${key} -> ${link.name}`, link.url));
             }
         }
@@ -57,10 +61,9 @@ async function runHealthCheck() {
         { name: 'WHO Pandemic News', url: 'https://www.who.int/api/news/diseaseoutbreaknews?$top=15' },
         { name: 'MedUni Wien SVG', url: 'https://viro.meduniwien.ac.at/fileadmin/content/OE/virologie/dokumente/Virus_Epidemiogie/RespiratorischeViren/ATKarte.svg' },
         { name: 'EFFIS Current Situation (Copernicus)', url: 'https://forest-fire.emergency.copernicus.eu/apps/effis.csv/?c=1000000,6200000&z=5&t=sentinel2' },
-        { name: 'Waldbrand-Datenbank (BOKU)', url: 'https://waldbrand.at/' },
         { name: 'NOAA Space Weather API', url: 'https://services.swpc.noaa.gov/products/noaa-scales.json' },
         { name: 'Wiener Netze Status (Power)', url: 'https://www.wienernetze.at/stromversorgung' },
-        { name: 'GeoSphere SNOWGRID API', url: 'https://dataset.api.hub.geosphere.at/v1/timeseries/historical/snowgrid_cl-v2-1d-1km?metadata=true' },
+        { name: 'GeoSphere SNOWGRID API', url: 'https://dataset.api.hub.geosphere.at/v1/timeseries/historical/snowgrid_cl-v2-1d-1km/metadata' },
         { name: 'UWZ (A-Gesamt)', url: 'https://uwz.at/' },
         { name: 'UWZ (Wien-Detail)', url: 'https://uwz.at/de/s/wien' },
         { name: 'GeoSphere Thunderstorm API', url: 'https://warnungen.zamg.at/wsapp/api/getGewitterAuto' }

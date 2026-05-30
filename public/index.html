@@ -137,7 +137,7 @@
           <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
           <div
             class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
-            v1.7.1</div>
+            v1.7.2</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -148,7 +148,7 @@
 
     <main class="flex-1 flex flex-col min-h-0">
       <!-- Overall Status Banner -->
-      <div id="statusBanner"
+      <div id="overallBanner"
         class="shrink-0 mb-4 rounded-3xl border border-slate-800 bg-slate-900/40 p-3 sm:p-4 backdrop-blur-xl transition-all duration-1000 hidden">
         <div class="flex items-center gap-4">
           <div id="overallDot" class="w-5 h-5 rounded-full animate-pulse-slow shrink-0"></div>
@@ -173,10 +173,11 @@
 
       <!-- Metadata & Sources -->
       <div class="shrink-0 mt-2 pt-4 border-t border-slate-800/50">
-        <p class="text-[11px] text-slate-500 leading-none">
+        <p id="dataSource" class="text-[11px] text-slate-500 leading-none">
           Datenquelle: GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht +
           ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS · Standort: Schüttelstraße 79 & 81, 1020 Wien
         </p>
+        <p id="errorMsg" class="text-xs text-red-400 mt-2 hidden"></p>
         <p class="text-[10px] text-slate-600 mt-1">
           Daten werden bei jedem Seitenaufruf live abgerufen und alle 60 Sekunden automatisch aktualisiert.
         </p>
@@ -497,6 +498,7 @@
         // Overall banner
         const overall = data.overall ?? 'unknown';
         const banner = document.getElementById('overallBanner');
+        if (banner) banner.classList.remove('hidden');
         applyLevel(banner, overall, 'card-glow');
         applyLevel(document.getElementById('overallDot'), overall, 'dot');
         applyLevel(document.getElementById('overallBadge'), overall, 'badge');
@@ -596,7 +598,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=23').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=24').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();
