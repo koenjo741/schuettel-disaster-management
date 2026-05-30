@@ -29,8 +29,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Backup old alert status
+        run: |
+          cp public/alert_status.json public/alert_status_old.json || echo "{}" > public/alert_status_old.json
+
       - name: Fetch alert data
         run: node fetchData.js
+
+      - name: Check for new alerts
+        id: check-alerts
+        run: node scripts/checkAlerts.js
+
+      - name: Send Alert Email
+        if: steps.check-alerts.outputs.send_email == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ${{ steps.check-alerts.outputs.subject }}
+          to: ${{ secrets.RECEIVER_EMAIL }}
+          from: "Disaster Guardian <${{ secrets.MAIL_USERNAME }}>"
+          html_body: file://email_alert.html
 
       - name: Commit & push if changed
         run: |
