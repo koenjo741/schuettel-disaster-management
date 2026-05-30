@@ -104,23 +104,27 @@ async function main() {
             <p style="margin: 8px 0 0 0; opacity: 0.9; font-size: 14px;">Schüttelstraße 79 & 81, 1020 Wien</p>
             <p style="margin: 4px 0 0 0; opacity: 0.8; font-size: 12px; font-style: italic;">Stand: ${dateStr} (Lokalzeit)</p>
         </div>
-        <div style="padding: 24px; background-color: #ffffff;">
-            <p style="font-size: 16px; line-height: 1.5; color: #2d3748; margin-top: 0;">
+        <div style="padding: 24px; background-color: #4B0090;">
+            <p style="font-size: 16px; line-height: 1.5; color: #ADEEC5; margin-top: 0;">
                 Hallo Josef,<br/><br/>
                 es wurden neue oder eskalierte Warnungen für deinen Standort in der Schüttelstraße festgestellt:
             </p>
             
-            <hr style="border: 0; border-top: 1px solid #edf2f7; margin: 20px 0;"/>
+            <hr style="border: 0; border-top: 1px solid rgba(173, 238, 197, 0.3); margin: 20px 0;"/>
     `;
 
     for (const w of newWarnings) {
         const valueStr = w.detail.value !== undefined ? `${w.detail.value} ${w.detail.unit || ''}`.trim() : '';
         const descStr = w.detail.message || w.detail.description || w.detail.condition || '';
         
+        const headingLink = w.detail.sourceUrl 
+            ? `<a href="${w.detail.sourceUrl}" style="color: inherit; text-decoration: underline;">${w.name} &mdash; ${getLevelText(w.newLevel)}</a>`
+            : `${w.name} &mdash; ${getLevelText(w.newLevel)}`;
+
         emailHtml += `
             <div style="background-color: ${w.newLevel === 'red' ? '#fff5f5' : '#fffaf0'}; border-left: 4px solid ${w.newLevel === 'red' ? '#e53e3e' : '#dd6b20'}; padding: 16px; border-radius: 4px; margin-bottom: 20px;">
-                <h3 style="margin: 0 0 8px 0; font-size: 18px; color: ${w.newLevel === 'red' ? '#c53030' : '#dd6b20'}; display: flex; align-items: center; gap: 8px;">
-                    ${getEmoji(w.newLevel)} ${w.name} &mdash; ${getLevelText(w.newLevel)}
+                <h3 style="margin: 0 0 8px 0; font-size: 18px; color: ${w.newLevel === 'red' ? '#c53030' : '#dd6b20'}; display: block;">
+                    ${getEmoji(w.newLevel)} ${headingLink}
                 </h3>
                 <p style="margin: 0 0 6px 0; font-size: 14px; color: #4a5568;">
                     <strong>Status/Wert:</strong> <code style="background-color: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px; font-size: 13px;">${valueStr || descStr || 'Aktiv'}</code>
@@ -134,15 +138,15 @@ async function main() {
     }
 
     emailHtml += `
-            <hr style="border: 0; border-top: 1px solid #edf2f7; margin: 20px 0;"/>
+            <hr style="border: 0; border-top: 1px solid rgba(173, 238, 197, 0.3); margin: 20px 0;"/>
             
             <div style="text-align: center; margin: 24px 0;">
-                <a href="https://koenjo741.github.io/schuettel-disaster-management/" style="background-color: #2b6cb0; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <a href="https://schuetteldm.netlify.app/" style="background-color: #2b6cb0; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                     Zum Live-Dashboard &rarr;
                 </a>
             </div>
             
-            <p style="font-size: 12px; color: #a0aec0; text-align: center; margin-bottom: 0;">
+            <p style="font-size: 12px; color: rgba(173, 238, 197, 0.7); text-align: center; margin-bottom: 0;">
                 Diese E-Mail wurde automatisch von deinem Schüttelstraße Disaster Guardian generiert.<br/>
                 Host: github-actions[bot] | Repository: schuettel-disaster-management
             </p>
