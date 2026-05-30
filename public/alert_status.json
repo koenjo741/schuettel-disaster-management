@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-30T11:02:22.008Z",
+  "fetchedAt": "2026-05-30T12:13:04.640Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -9,10 +9,10 @@
   },
   "hazards": {
     "heat": {
-      "level": "green",
-      "value": 26.2,
+      "level": "yellow",
+      "value": 26.98,
       "unit": "°C",
-      "uvi": 4.4,
+      "uvi": 6.1,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -33,7 +33,7 @@
       "level": "green",
       "value": 14,
       "unit": "km/h",
-      "humidity": 28.34,
+      "humidity": 31.74,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -77,7 +77,7 @@
       "value": 90,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "09:00",
+      "measuredAt": "11:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 34,
+      "value": 36,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,7 +100,7 @@
       "pm10": 16,
       "pm25": 5,
       "luftIndex": 3,
-      "aqi": 34,
+      "aqi": 36,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -159,7 +159,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-05-30T11:02:25.428Z",
+      "date": "2026-05-30T12:13:09.303Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.008,
+      "value": 49.992,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -297,7 +297,7 @@
       "value": "Vorwarnung",
       "district": "Vorwarnung",
       "city": "Vorwarnung",
-      "pressureHpa": 1017.1069,
+      "pressureHpa": 1016.2891000000001,
       "pressureTrend": "↓",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
