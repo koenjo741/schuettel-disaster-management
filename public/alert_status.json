@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-05-30T12:13:04.640Z",
-  "overall": "yellow",
+  "fetchedAt": "2026-05-30T14:08:23.151Z",
+  "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
@@ -9,10 +9,10 @@
   },
   "hazards": {
     "heat": {
-      "level": "yellow",
-      "value": 26.98,
+      "level": "green",
+      "value": 24.22,
       "unit": "°C",
-      "uvi": 6.1,
+      "uvi": 2.8,
       "thresholds": {
         "yellow": 30,
         "red": 35
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 14,
+      "value": 36,
       "unit": "km/h",
-      "humidity": 31.74,
+      "humidity": 49.05,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -77,11 +77,11 @@
       "value": 90,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "11:00",
+      "measuredAt": "12:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 205,
+      "maxNearbyValue": 203,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -91,7 +91,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 36,
+      "value": 41,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -100,7 +100,7 @@
       "pm10": 16,
       "pm25": 5,
       "luftIndex": 3,
-      "aqi": 36,
+      "aqi": 41,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -159,13 +159,13 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-05-30T12:13:09.303Z",
+      "date": "2026-05-30T14:08:25.967Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
-      "level": "yellow",
-      "value": 3,
+      "level": "green",
+      "value": 2,
       "unit": "WBI",
       "thresholds": {
         "yellow": 3,
@@ -241,7 +241,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.992,
+      "value": 49.986,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -255,7 +255,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Kliebergasse",
+      "message": "Nestroyplatz",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -293,19 +293,19 @@
       "sourceUrl": "https://www.geosphere.at/"
     },
     "uwz": {
-      "level": "yellow",
-      "value": "Vorwarnung",
-      "district": "Vorwarnung",
-      "city": "Vorwarnung",
-      "pressureHpa": 1016.2891000000001,
-      "pressureTrend": "↓",
+      "level": "red",
+      "value": "Starkes Unwetter",
+      "district": "Starkes Unwetter",
+      "city": "Starkes Unwetter",
+      "pressureHpa": 1016.4481,
+      "pressureTrend": "↑",
       "source": "Österreichische Unwetterzentrale (UWZ)",
       "sourceUrl": "https://uwz.at/"
     },
     "thunderstorm": {
-      "level": "green",
-      "value": "Keine Gewitterzellen",
-      "intensity": 0,
+      "level": "yellow",
+      "value": "Moderate Gewitteraktivität",
+      "intensity": 1,
       "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
       "extraLinks": [
