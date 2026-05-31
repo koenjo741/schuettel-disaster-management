@@ -80,7 +80,9 @@ async function main() {
         }
     }
 
-    if (newWarnings.length === 0) {
+    const forceTestEmail = process.env.FORCE_TEST_EMAIL === 'true';
+
+    if (newWarnings.length === 0 && !forceTestEmail) {
         console.log('No new or escalated warnings detected.');
         if (process.env.GITHUB_OUTPUT) {
             appendFileSync(process.env.GITHUB_OUTPUT, 'send_email=false\n');
@@ -88,7 +90,24 @@ async function main() {
         process.exit(0);
     }
 
-    console.log(`Detected ${newWarnings.length} new/escalated warning(s)!`);
+    if (newWarnings.length === 0 && forceTestEmail) {
+        console.log('Forcing a test email as requested.');
+        newWarnings.push({
+            key: 'uwz',
+            name: 'Unwetterzentrale (UWZ) [TEST]',
+            oldLevel: 'green',
+            newLevel: 'yellow',
+            detail: {
+                level: 'yellow',
+                value: 'Vorwarnung',
+                message: 'Dies ist eine manuell ausgelöste Test-E-Mail zur Verifizierung des E-Mail-Layouts.',
+                source: 'Österreichische Unwetterzentrale (UWZ)',
+                sourceUrl: 'https://uwz.at/'
+            }
+        });
+    }
+
+    console.log(`Detected ${newWarnings.length} warning(s) (including any forced test warnings)!`);
 
     // Prepare email content
     const dateStr = new Date(newData.fetchedAt || new Date()).toLocaleString('de-AT', { timeZone: 'Europe/Vienna' });

@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '1,6,11,16,21,26,31,36,41,46,51,56 * * * *'   # every 5 minutes, slightly offset
   workflow_dispatch:           # allow manual trigger
+    inputs:
+      force_test_email:
+        description: 'Erzwinge das Senden einer Test-E-Mail (auch ohne neue Warnungen)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -38,6 +44,8 @@ jobs:
 
       - name: Check for new alerts
         id: check-alerts
+        env:
+          FORCE_TEST_EMAIL: ${{ github.event.inputs.force_test_email }}
         run: node scripts/checkAlerts.js
 
       - name: Send Alert Email
