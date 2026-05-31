@@ -98,8 +98,8 @@ async function main() {
     const subject = `⚠️ NEUE WARNUNG: ${alertSummaries}`;
 
     let emailHtml = `
-    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-        <div style="background: linear-gradient(135deg, #e53e3e 0%, #b7791f 100%); padding: 24px; text-align: center; color: white;">
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; width: 97%; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <div style="background-color: #B7E7FC; padding: 24px; text-align: center; color: #1e293b;">
             <h1 style="margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">🚨 Neue Katastrophenwarnung</h1>
             <p style="margin: 8px 0 0 0; opacity: 0.9; font-size: 14px;">Schüttelstraße 79 & 81, 1020 Wien</p>
             <p style="margin: 4px 0 0 0; opacity: 0.8; font-size: 12px; font-style: italic;">Stand: ${dateStr} (Lokalzeit)</p>
