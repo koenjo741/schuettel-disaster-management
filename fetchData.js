@@ -1019,6 +1019,64 @@ async function fetchWeather() {
     }
     throw new Error('GeoSphere API: No data found after trying multiple time windows');
 }
+// ── GeoSphere Warn API: Official meteorologist-issued warnings per GPS coordinate ─
+/** Parses German datetime strings like "27.03.2023 18:00" into a UTC Date. */
+function parseDEDate(str) {
+    if (!str) return new Date(0);
+    const [datePart, timePart = '00:00'] = str.split(' ');
+    const [day, month, year] = datePart.split('.');
+    const [hours, minutes] = timePart.split(':');
+    return new Date(Date.UTC(+year, +month - 1, +day, +hours, +minutes));
+}
+
+async function fetchGeoSphereWarnings() {
+    return withRetry(async () => {
+        const url = `https://warnungen.zamg.at/wsapp/api/getWarningsForCoords?lon=${LOCATION.lon}&lat=${LOCATION.lat}&lang=de`;
+        const data = await fetchJSON(url, {}, 'GeoSphere Warn API');
+
+        // The API wraps each warning's fields under .properties
+        const rawWarnings = (data.properties?.warnings ?? []).map(w => w.properties ?? w);
+        const now = new Date();
+
+        const activeWarnings = rawWarnings.filter(w => parseDEDate(w.end) > now);
+
+        if (!activeWarnings.length) {
+            return {
+                level: 'green',
+                count: 0,
+                warnings: [],
+                location: data.properties?.location?.properties?.name ?? 'Wien',
+                source: 'GeoSphere Austria Warn API',
+                sourceUrl: 'https://warnungen.zamg.at/'
+            };
+        }
+
+        const maxLevelId = Math.max(...activeWarnings.map(w => w.warnstufeid ?? 0));
+        // warnstufeid: 1=Gelb, 2=Orange (→ yellow), 3=Rot
+        const levelMap = { 0: 'green', 1: 'yellow', 2: 'yellow', 3: 'red' };
+        const level = levelMap[Math.min(maxLevelId, 3)] ?? 'yellow';
+
+        return {
+            level,
+            count: activeWarnings.length,
+            warnings: activeWarnings.map(w => ({
+                id: w.warnid,
+                typeId: w.warntypid,
+                levelId: w.warnstufeid,
+                text: w.text,
+                begin: w.begin,
+                end: w.end,
+                auswirkungen: w.auswirkungen ?? null,
+                empfehlungen: w.empfehlungen ?? null,
+                meteotext: w.meteotext ?? null
+            })),
+            location: data.properties?.location?.properties?.name ?? 'Wien',
+            source: 'GeoSphere Austria Warn API',
+            sourceUrl: 'https://warnungen.zamg.at/'
+        };
+    });
+}
+
 async function fetchUWZWarnings() {
     return withRetry(async () => {
         const [mainRes, wienRes] = await Promise.all([
@@ -1123,9 +1181,10 @@ export async function fetchAlertData() {
             fetchThunderstormData(),
             fetchUVData(),
             fetchRemoteRadiationData(),
+            fetchGeoSphereWarnings(),     // index 19 – official GeoSphere warnings (primary UWZ replacement)
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Water/MA31', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border', 'GeoSphere/WarnAPI'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -1150,6 +1209,7 @@ export async function fetchAlertData() {
         const thunderData = results[16].status === 'fulfilled' ? results[16].value : { level: 'unknown' };
         const uvData = results[17].status === 'fulfilled' ? results[17].value : { level: 'unknown' };
         const remoteRadData = results[18].status === 'fulfilled' ? results[18].value : null;
+        const geoWarnData = results[19].status === 'fulfilled' ? results[19].value : null;
 
         if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData && !remoteRadData) {
             throw new Error('All data sources failed.');
@@ -1210,7 +1270,11 @@ export async function fetchAlertData() {
         }
 
         // UWZ Logic
-        const uwzLevel = uwzData ? (severityRank[uwzData.wien.level] > severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level) : 'green';
+        // GeoSphere Warn API is the primary source; UWZ scraper is the fallback
+        const uwzFallbackLevel = uwzData
+            ? (severityRank[uwzData.wien.level] >= severityRank[uwzData.leopoldstadt.level] ? uwzData.wien.level : uwzData.leopoldstadt.level)
+            : 'green';
+        const uwzLevel = geoWarnData?.level ?? uwzFallbackLevel;
         const thunderLevel = thunderData?.level ?? 'green';
         const trafficLevel = trafficData?.status ? (trafficData.status === 3 ? 'red' : (trafficData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
@@ -1415,13 +1479,25 @@ export async function fetchAlertData() {
                 },
                 uwz: {
                     level: uwzLevel,
-                    value: severityRank[uwzData?.wien.level] > severityRank[uwzData?.leopoldstadt.level] ? uwzData.wien.text : (uwzData?.leopoldstadt.text ?? 'Keine Warnung'),
-                    district: uwzData?.leopoldstadt.text ?? 'Keine Warnung',
-                    city: uwzData?.wien.text ?? 'Keine Warnung',
+                    // Summary text: prefer GeoSphere warning text, fall back to UWZ level text
+                    value: geoWarnData?.warnings?.[0]?.text
+                        ?? (severityRank[uwzData?.wien.level] >= severityRank[uwzData?.leopoldstadt.level]
+                            ? (uwzData?.wien.text ?? 'Keine Warnung')
+                            : (uwzData?.leopoldstadt.text ?? 'Keine Warnung')),
+                    district: uwzData?.leopoldstadt.text ?? null,
+                    city: uwzData?.wien.text ?? null,
                     pressureHpa: weather?.pressureHpa ?? null,
                     pressureTrend: weather?.pressureTrend ?? '→',
-                    source: uwzData?.source ?? 'Offline',
-                    sourceUrl: uwzData?.sourceUrl ?? 'https://uwz.at/'
+                    // Structured GeoSphere warnings (primary source)
+                    geoWarnings: geoWarnData?.warnings ?? [],
+                    geoLocation: geoWarnData?.location ?? null,
+                    warningCount: geoWarnData?.count ?? 0,
+                    source: geoWarnData?.source ?? uwzData?.source ?? 'Offline',
+                    sourceUrl: geoWarnData?.sourceUrl ?? uwzData?.sourceUrl ?? 'https://warnungen.zamg.at/',
+                    extraLinks: [
+                        { name: 'UWZ Unwetterzentrale', url: 'https://uwz.at/de/s/wien' },
+                        { name: 'GeoSphere Warnkarte', url: 'https://warnungen.zamg.at/' }
+                    ]
                 },
                 thunderstorm: {
                     level: thunderLevel,
