@@ -465,6 +465,23 @@ const AT_ALERT_LEVEL_MAP = {
     MonthlyTest: 'green',
 };
 
+// ── GeoSphere Warn-API – Typ- und Level-Tabellen (shared by atAlert + uwz) ──────────
+const GEOSPHERE_WARN_TYPE = {
+    1: 'Sturm',
+    2: 'Regen',
+    3: 'Schnee',
+    4: 'Glatteis',
+    5: 'Gewitter',
+    6: 'Hitze',
+    7: 'Kälte',
+};
+
+const GEOSPHERE_WARN_LEVEL = {
+    1: 'yellow',  // Gelb
+    2: 'yellow',  // Orange – mapped to yellow in our 3-state model
+    3: 'red',     // Rot
+};
+
 // ── Fire: Waldbrandindex (WBI) & NASA FIRMS Hotspots ────────────────────────
 function calculateWBI(temp, humidity, windKmH, rainMm) {
     // Simplified Waldbrandindex (WBI) logic inspired by BOKU/ZAMG
@@ -790,80 +807,153 @@ async function fetchTrafficStatus() {
     });
 }
 
+/**
+ * Fetches official warnings for the Behördliche Warnungen card.
+ *
+ * Primary:  GeoSphere Austria Warn-API – expert meteorological warnings
+ *           (storm, rain, snow, ice, thunderstorm, heat, cold) as clean JSON.
+ * Fallback: AT-Alert HTML scraper – civil protection Cell Broadcast alerts.
+ *
+ * Data is merged so both sources can contribute simultaneously.
+ */
 async function fetchATAlertData() {
-    return withRetry(async () => {
-        const today = new Date().toISOString().slice(0, 10);
-        const url = `https://warnungen.at-alert.at/api/filteredAlerts?from=${today}&to=${today}&limit=100&offset=0`;
-        const userAgent = 'Mozilla/5.0';
+    // 1. Run both sources concurrently
+    const [geoSphereResult, atAlertResult] = await Promise.allSettled([
+        fetchGeoSphereWarnings(),
+        fetchATAlertHTMLFallback(),
+    ]);
 
-        let rawAlerts = [];
-        try {
-            const data = await fetchJSON(url, { headers: { Accept: 'application/json', 'User-Agent': userAgent } }, 'AT-Alert API');
-            rawAlerts = data.alerts ?? [];
-        } catch (err) {
-            // Fallback: If the API returns HTML (e.g. 404 or redirect), try scraping the main page
-            if (err.message.includes('Expected JSON but received text/html') || err.message.includes('Unexpected token')) {
-                try {
-                    // Use AbortController for timeout
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const geoSphere = geoSphereResult.status === 'fulfilled' ? geoSphereResult.value : null;
+    const atAlert  = atAlertResult.status  === 'fulfilled' ? atAlertResult.value  : null;
 
-                    const res = await fetch('https://warnungen.at-alert.at/de', {
-                        headers: { 'User-Agent': userAgent },
-                        signal: controller.signal
-                    });
-                    clearTimeout(timeoutId);
+    if (geoSphereResult.status === 'rejected') {
+        console.warn('GeoSphere Warn-API failed:', geoSphereResult.reason?.message);
+    }
+    if (atAlertResult.status === 'rejected') {
+        console.warn('AT-Alert fallback failed:', atAlertResult.reason?.message);
+    }
 
-                    if (res.ok) {
-                        const html = await res.text();
-                        const scraped = scrapeATAlertHTML(html);
-                        if (scraped) {
-                            rawAlerts = scraped;
-                        } else {
-                            throw err; // Re-throw original if scraper found no data markers
-                        }
-                    } else {
-                        throw err;
-                    }
-                } catch (fallbackErr) {
-                    throw err; // Always prioritize original API error if fallback also fails
-                }
-            } else {
-                throw err;
-            }
+    if (!geoSphere && !atAlert) {
+        throw new Error('All warning sources failed');
+    }
+
+    // 2. Determine combined severity (higher wins)
+    const severityRank = { red: 3, yellow: 2, green: 1 };
+    const geoLevel = geoSphere?.level ?? 'green';
+    const atLevel  = atAlert?.level  ?? 'green';
+    const combinedLevel = severityRank[geoLevel] >= severityRank[atLevel] ? geoLevel : atLevel;
+
+    // 3. AT-Alert is dominant whenever it has an active alert (broader scope: terrorism, CBRN, etc.)
+    //    Only use GeoSphere title if AT-Alert has nothing active.
+    const dominant = (atAlert?.active) ? atAlert : geoSphere;
+
+    const isActive = combinedLevel !== 'green' ||
+        (geoSphere?.active ?? false) ||
+        (atAlert?.active  ?? false);
+
+    // 4. Collect all individual alert entries – AT-Alert first (civil protection / security)
+    const allAlerts = [
+        ...(atAlert?.alerts  ?? []),   // civil protection, terrorism, CBRN, weather
+        ...(geoSphere?.alerts ?? []),  // meteorological only
+    ];
+
+    const sources = [
+        atAlert   ? 'AT-Alert' : null,
+        geoSphere ? 'GeoSphere Warn-API' : null,
+    ].filter(Boolean).join(' + ');
+
+    // GeoSphere as extra link only when it has active meteorological warnings
+    const extraLinks = (geoSphere?.count > 0)
+        ? [{ name: 'GeoSphere Warnkarte', url: 'https://warnungen.zamg.at/' }]
+        : [];
+
+    return {
+        active: isActive,
+        count: (atAlert?.count ?? 0) + (geoSphere?.count ?? 0),
+        level: combinedLevel,
+        title: dominant?.title ?? (isActive ? 'Aktive Warnung' : 'Keine Warnungen'),
+        description: dominant?.description ?? null,
+        // GeoSphere-specific meteorological detail fields
+        recommendations: geoSphere?.recommendations ?? null,
+        meteoText: geoSphere?.meteoText ?? null,
+        warnType: geoSphere?.warnType ?? null,
+        warnLevel: geoSphere?.warnLevel ?? null,
+        isOrange: geoSphere?.isOrange ?? false,
+        alerts: allAlerts,
+        // AT-Alert specific fields
+        alertLevel: atAlert?.alertLevel ?? null,
+        expires: atAlert?.expires ?? null,
+        sender: atAlert?.sender ?? null,
+        source: sources || 'AT-Alert',
+        // AT-Alert is ALWAYS the primary link — covers all official alert types (incl. terrorism, crime)
+        sourceUrl: 'https://warnungen.at-alert.at/de',
+        extraLinks,
+    };
+}
+
+/**
+ * AT-Alert HTML scraper (fallback for civil protection / Cell Broadcast alerts).
+ * Used only when primary GeoSphere Warn-API is unavailable or returns no data.
+ */
+async function fetchATAlertHTMLFallback() {
+    const today = new Date().toISOString().slice(0, 10);
+    const userAgent = 'Mozilla/5.0';
+
+    let rawAlerts = [];
+    try {
+        // Attempt the Next.js page scrape for initialAlerts
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const res = await fetch('https://warnungen.at-alert.at/de', {
+            headers: { 'User-Agent': userAgent },
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+            const html = await res.text();
+            const scraped = scrapeATAlertHTML(html);
+            if (scraped) rawAlerts = scraped;
         }
+    } catch (err) {
+        console.warn('AT-Alert HTML scrape failed:', err.message);
+        return { active: false, count: 0, level: 'green', alerts: [], source: 'AT-Alert (offline)' };
+    }
 
-        const now = new Date();
-        const activeAlerts = rawAlerts
-            .filter((a) => a.alert_level !== 'MonthlyTest')
-            .filter((a) => new Date(a.info_expires) > now)
-            .filter((a) => {
-                // Check if any polygon covers our location
-                if (!a.polygons?.length) return true; // No polygon = nationwide
-                return a.polygons.some((poly) => pointInPolygon(LOCATION.lat, LOCATION.lon, poly));
-            });
+    const now = new Date();
+    const activeAlerts = rawAlerts
+        .filter((a) => a.alert_level !== 'MonthlyTest')
+        .filter((a) => new Date(a.info_expires) > now)
+        .filter((a) => {
+            if (!a.polygons?.length) return true; // No polygon = nationwide
+            return a.polygons.some((poly) => pointInPolygon(LOCATION.lat, LOCATION.lon, poly));
+        });
 
-        if (!activeAlerts.length) {
-            return { active: false, count: 0, level: 'green', alerts: [], source: 'AT-Alert (keine Warnungen)' };
-        }
+    if (!activeAlerts.length) {
+        return { active: false, count: 0, level: 'green', alerts: [], source: 'AT-Alert (keine Warnungen)' };
+    }
 
-        // Use highest severity alert
-        const severityOrder = ['Extreme', 'Severe', 'Moderate', 'Minor'];
-        activeAlerts.sort((a, b) => severityOrder.indexOf(a.alert_level) - severityOrder.indexOf(b.alert_level));
-        const top = activeAlerts[0];
+    const severityOrder = ['Extreme', 'Severe', 'Moderate', 'Minor'];
+    activeAlerts.sort((a, b) => severityOrder.indexOf(a.alert_level) - severityOrder.indexOf(b.alert_level));
+    const top = activeAlerts[0];
 
-        return {
-            active: true,
-            count: activeAlerts.length,
-            level: AT_ALERT_LEVEL_MAP[top.alert_level] ?? 'yellow',
-            title: top.title ?? top.info_area_description ?? 'Warnung',
-            description: top.description ?? top.info_description ?? null,
-            alertLevel: top.alert_level,
-            expires: top.info_expires,
-            sender: top.sender,
-            source: 'AT-Alert (HTML Scraper Fallback)',
-        };
-    });
+    return {
+        active: true,
+        count: activeAlerts.length,
+        level: AT_ALERT_LEVEL_MAP[top.alert_level] ?? 'yellow',
+        title: top.title ?? top.info_area_description ?? 'Warnung',
+        description: top.description ?? top.info_description ?? null,
+        alertLevel: top.alert_level,
+        expires: top.info_expires,
+        sender: top.sender,
+        alerts: activeAlerts.map(a => ({
+            type: a.type ?? 'AT-Alert',
+            level: AT_ALERT_LEVEL_MAP[a.alert_level] ?? 'yellow',
+            text: a.title ?? a.info_area_description ?? '',
+        })),
+        source: 'AT-Alert (Scraper)',
+    };
 }
 
 // ── Pandemic & Influenza: WHO DON + MedUni Wien Map ──────────────────────────
@@ -1042,9 +1132,12 @@ async function fetchGeoSphereWarnings() {
 
         if (!activeWarnings.length) {
             return {
+                active: false,
                 level: 'green',
                 count: 0,
                 warnings: [],
+                alerts: [],
+                title: 'Keine Unwetterwarnungen',
                 location: data.properties?.location?.properties?.name ?? 'Wien',
                 source: 'GeoSphere Austria Warn API',
                 sourceUrl: 'https://warnungen.zamg.at/'
@@ -1374,11 +1467,21 @@ export async function fetchAlertData() {
                     unit: 'Warnungen',
                     title: atAlertData?.title ?? null,
                     description: atAlertData?.description ?? null,
+                    // AT-Alert civil protection fields
                     alertLevel: atAlertData?.alertLevel ?? null,
                     expires: atAlertData?.expires ?? null,
                     sender: atAlertData?.sender ?? null,
+                    // GeoSphere meteorological warning fields
+                    warnType: atAlertData?.warnType ?? null,
+                    warnLevel: atAlertData?.warnLevel ?? null,
+                    isOrange: atAlertData?.isOrange ?? false,
+                    meteoText: atAlertData?.meteoText ?? null,
+                    recommendations: atAlertData?.recommendations ?? null,
+                    alerts: atAlertData?.alerts ?? [],
                     source: atAlertData?.source ?? 'Offline',
-                    sourceUrl: 'https://warnungen.at-alert.at'
+                    // AT-Alert is always the primary link — covers ALL official alert types
+                    sourceUrl: 'https://warnungen.at-alert.at/de',
+                    extraLinks: atAlertData?.extraLinks ?? [],
                 },
                 pandemic: {
                     level: pandemicLevel,
