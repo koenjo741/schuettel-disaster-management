@@ -15,7 +15,7 @@ const HAZARD_NAMES_DE = {
     space: 'Weltraumwetter / Sonnensturm',
     power: 'Stromausfall',
     gas: 'Gasausfall',
-    water: 'Wasserversorgung',
+    pressure: 'Luftdruck',
     blackout: 'Netzfrequenz (Blackout-Gefahr)',
     traffic: 'Verkehrsbehinderung',
     snow: 'Schneefall / Schneelast',
