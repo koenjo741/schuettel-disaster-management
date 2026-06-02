@@ -144,6 +144,9 @@
           </button>
         </div>
       </div>
+      <div class="mt-2 text-center">
+        <p id="liveClock" class="text-sm font-mono font-semibold tracking-wide" style="color: #4ade80;"></p>
+      </div>
     </header>
 
     <main class="flex-1 flex flex-col min-h-0">
@@ -573,6 +576,22 @@
         lastUpdateEl.classList.remove('animate-pulse');
       }
     }
+
+    // ── Live Clock ────────────────────────────────────────────────────
+    function updateClock() {
+      const now = new Date();
+      const weekday = now.toLocaleDateString('de-AT', { weekday: 'long' });
+      const day    = String(now.getDate()).padStart(2, '0');
+      const month  = String(now.getMonth() + 1).padStart(2, '0');
+      const year   = now.getFullYear();
+      const hh     = String(now.getHours()).padStart(2, '0');
+      const mm     = String(now.getMinutes()).padStart(2, '0');
+      const ss     = String(now.getSeconds()).padStart(2, '0');
+      const el = document.getElementById('liveClock');
+      if (el) el.textContent = `${weekday}, ${day}.${month}.${year}, ${hh}:${mm}:${ss}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
 
     // Initialize
     loadStatus();
