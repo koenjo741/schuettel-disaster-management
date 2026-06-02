@@ -122,6 +122,7 @@
     class="h-[98vh] w-[98vw] flex flex-col p-2 sm:p-4 bg-slate-900/20 rounded-[2rem] border border-slate-800/50 shadow-2xl overflow-hidden">
     <header class="shrink-0 mb-4">
       <div class="flex items-center justify-between gap-4">
+        <!-- Left: Logo + Title -->
         <div class="flex items-center gap-4">
           <div
             class="w-10 h-10 sm:w-12 sm:h-12 bg-slate-800 rounded-2xl flex items-center justify-center shadow-lg border border-slate-700">
@@ -130,22 +131,22 @@
           <div>
             <h1 class="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight leading-none">Schüttelstraße 79 & 81
             </h1>
-            <p class="text-xs text-slate-400 mt-1">1020 Wien - Vorbeugender Katastrophenschutz</p>
+            <p class="text-[11px] text-slate-400 mt-1">1020 Wien - Vorbeugender Katastrophenschutz</p>
           </div>
         </div>
+        <!-- Center: Live Clock -->
+        <p id="liveClock" class="text-[11px] font-mono font-semibold tracking-wide hidden sm:block" style="color: #4ade80;"></p>
+        <!-- Right: lastUpdate + version + installBtn -->
         <div class="flex items-center gap-2">
-          <div id="lastUpdate" class="text-xs text-slate-500 text-right hidden sm:block"></div>
+          <div id="lastUpdate" class="text-[11px] text-slate-500 text-right hidden sm:block"></div>
           <div
-            class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] sm:text-xs font-mono text-slate-400">
+            class="px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[11px] font-mono text-slate-400">
             v1.9.0</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
           </button>
         </div>
-      </div>
-      <div class="mt-2 text-center">
-        <p id="liveClock" class="text-sm font-mono font-semibold tracking-wide" style="color: #4ade80;"></p>
       </div>
     </header>
 
@@ -476,7 +477,7 @@
       }
 
       const exactTime = d.toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      lastUpdateEl.innerHTML = `<span class="opacity-60">Zuletzt aktualisiert:</span> <span class="font-medium text-slate-300 ml-1">${exactTime}</span> <span class="text-xs sm:text-[10px] ml-1 bg-slate-800 px-1.5 py-0.5 rounded text-slate-300 sm:text-slate-400 font-mono">${timeStr}</span>`;
+      lastUpdateEl.innerHTML = `<span class="opacity-60">Zuletzt aktualisiert:</span> <span class="font-medium text-slate-300 ml-1">${exactTime}</span> <span class="text-[11px] ml-1 bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 font-mono">${timeStr}</span>`;
       lastUpdateEl.classList.remove('hidden');
 
       // Warning if data is older than 8 minutes (should be 5 min)
