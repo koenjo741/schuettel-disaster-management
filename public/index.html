@@ -442,8 +442,12 @@
         ? `<div class="mt-2 pt-1 border-t border-slate-700/50 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-300 sm:text-slate-400 sm:font-medium leading-tight">${footerLinks.join('<span class="opacity-30">·</span>')}</div>`
         : '';
 
+      const cardIdAttr = key === 'blackout' ? ' id="blackout-card"' : '';
+      const valueIdAttr = key === 'blackout' ? ' id="blackout-hz-value"' : '';
+      const badgeIdAttr = key === 'blackout' ? ' id="blackout-badge"' : '';
+
       return `
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3 sm:py-3 sm:px-5 card-glow-${level} transition-all duration-1000">
+        <div${cardIdAttr} class="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3 sm:py-3 sm:px-5 card-glow-${level} transition-all duration-1000">
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3">
               <span class="text-2xl">${icon}</span>
@@ -452,9 +456,9 @@
                 <p class="text-[12.5px] mt-0.5 text-slate-200 sm:text-slate-400 font-semibold">${sub}</p>
               </div>
             </div>
-            <span class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold transition-colors duration-500">${LEVEL_LABEL[level]}</span>
+            <span${badgeIdAttr} class="badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold transition-colors duration-500">${LEVEL_LABEL[level]}</span>
           </div>
-          <p class="mt-2 text-3xl sm:text-[28px] font-bold sm:font-semibold tabular-nums tracking-tight text-slate-100">${value}</p>
+          <p${valueIdAttr} class="mt-2 text-3xl sm:text-[28px] font-bold sm:font-semibold tabular-nums tracking-tight text-slate-100">${value}</p>
           ${extraHtml}
           ${thresholdHtml}
           ${footerHtml}
@@ -594,11 +598,46 @@
     updateClock();
     setInterval(updateClock, 1000);
 
+    // ── Live Frequency Updater (Blackout-Karte) ──────────────────────────
+    const LEVEL_LABELS_FREQ = { green: 'SICHER', yellow: 'WARNUNG', red: 'ALARM' };
+
+    async function updateLiveFrequency() {
+      try {
+        const res = await fetch('/.netlify/functions/frequency', { cache: 'no-store' });
+        if (!res.ok) return;
+        const { hz, level } = await res.json();
+        if (typeof hz !== 'number') return;
+
+        const valEl = document.getElementById('blackout-hz-value');
+        const badgeEl = document.getElementById('blackout-badge');
+        const cardEl = document.getElementById('blackout-card');
+
+        if (valEl) valEl.textContent = `${hz.toFixed(3)} Hz`;
+
+        if (badgeEl && level) {
+          badgeEl.className = `badge-${level} shrink-0 px-2.5 py-1 rounded-full border text-xs font-bold transition-colors duration-500`;
+          badgeEl.textContent = LEVEL_LABELS_FREQ[level] ?? level.toUpperCase();
+        }
+
+        if (cardEl && level) {
+          cardEl.className = cardEl.className.replace(/card-glow-\w+/, `card-glow-${level}`);
+        }
+      } catch {
+        // Silently ignore – next interval will retry
+      }
+    }
+
     // Initialize
     loadStatus();
 
     // Aggressive polling: Every 60 seconds (down from 5 min)
     setInterval(loadStatus, 60 * 1000);
+
+    // Live-Frequenz: alle 5 Sekunden aktualisieren (nach erstem Render)
+    setTimeout(() => {
+      updateLiveFrequency();
+      setInterval(updateLiveFrequency, 5000);
+    }, 2000);
 
     // Relative time update: Every 5 seconds
     setInterval(updateRelativeTime, 5000);
