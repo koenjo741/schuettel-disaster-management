@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schuettel-dm-v25';
+const CACHE_NAME = 'schuettel-dm-v26';
 const ASSETS = [
     '/',
     '/index.html',
@@ -28,7 +28,21 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request).then((response) => response || fetch(event.request))
-    );
+    // Network-First-Strategie für HTML / Navigations-Anfragen
+    if (event.request.mode === 'navigate' || event.request.url.endsWith('/') || event.request.url.endsWith('index.html')) {
+        event.respondWith(
+            fetch(event.request)
+                .then((response) => {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+                    return response;
+                })
+                .catch(() => caches.match(event.request))
+        );
+    } else {
+        // Cache-First-Strategie für statische Ressourcen (Bilder, Icons, etc.)
+        event.respondWith(
+            caches.match(event.request).then((response) => response || fetch(event.request))
+        );
+    }
 });
