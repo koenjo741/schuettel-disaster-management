@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-03T22:02:49.939Z",
+  "fetchedAt": "2026-06-03T23:57:54.658Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 16.48,
+      "value": 16.4,
       "unit": "°C",
       "uvi": 0,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 18,
+      "value": 19,
       "unit": "km/h",
-      "humidity": 74.69,
+      "humidity": 73.38,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -74,14 +74,14 @@
     },
     "radiation": {
       "level": "green",
-      "value": 88,
+      "value": 87,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "20:00",
+      "measuredAt": "22:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 198,
+      "maxNearbyValue": 195,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -91,16 +91,16 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 28,
+      "value": 27,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 7,
+      "pm10": 6,
       "pm25": 4,
-      "luftIndex": 1,
-      "aqi": 28,
+      "luftIndex": 2,
+      "aqi": 27,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -166,7 +166,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-06-03T22:02:52.553Z",
+      "date": "2026-06-03T23:57:57.159Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -236,21 +236,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 991,
+      "value": 990.8,
       "unit": "hPa",
       "trend": "→",
       "history": [
-        985.6,
-        985.6,
-        985.7,
-        985.6,
-        985.6,
-        985.8,
-        986,
-        986.2,
-        986.4,
-        986.6,
-        986.5,
         986.6,
         986.5,
         986.4,
@@ -383,14 +372,25 @@
         991,
         991.1,
         991.1,
-        991
+        991,
+        991,
+        991.1,
+        991,
+        991,
+        990.9,
+        990.9,
+        990.9,
+        990.8,
+        990.8,
+        990.8,
+        990.8
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.976,
+      "value": 50.004,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -404,7 +404,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Laurenzgasse",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
