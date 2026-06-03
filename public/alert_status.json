@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-03T10:16:49.000Z",
+  "fetchedAt": "2026-06-03T15:08:58.537Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,7 +10,7 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 16.01,
+      "value": 17.13,
       "unit": "°C",
       "uvi": 0.6,
       "thresholds": {
@@ -31,9 +31,9 @@
     },
     "wind": {
       "level": "green",
-      "value": 21,
+      "value": 18,
       "unit": "km/h",
-      "humidity": 83.21,
+      "humidity": 79.31,
       "thresholds": {
         "yellow": 60,
         "red": 80
@@ -42,7 +42,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 1.505,
+      "value": 0.363,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -52,7 +52,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 302,
+      "value": 295,
       "unit": "cm",
       "trend": "Erhöhung",
       "thresholds": {
@@ -74,10 +74,10 @@
     },
     "radiation": {
       "level": "green",
-      "value": 104,
+      "value": 98,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "09:00",
+      "measuredAt": "13:00",
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
@@ -91,16 +91,16 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 25,
+      "value": 27,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 11,
+      "pm10": 9,
       "pm25": 5,
       "luftIndex": 2,
-      "aqi": 25,
+      "aqi": 27,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -139,7 +139,7 @@
       "level": "green",
       "value": 0,
       "unit": "Warnungen",
-      "title": "Keine Unwetterwarnungen",
+      "title": "Keine Warnungen",
       "description": null,
       "alertLevel": null,
       "expires": null,
@@ -150,7 +150,7 @@
       "meteoText": null,
       "recommendations": null,
       "alerts": [],
-      "source": "AT-Alert + GeoSphere Warn-API",
+      "source": "AT-Alert",
       "sourceUrl": "https://warnungen.at-alert.at/de",
       "extraLinks": []
     },
@@ -166,7 +166,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-06-03T10:16:51.416Z",
+      "date": "2026-06-03T15:09:00.657Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -236,39 +236,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 989.3,
+      "value": 989.7,
       "unit": "hPa",
-      "trend": "↑",
+      "trend": "→",
       "history": [
-        991.6,
-        991.5,
-        991.3,
-        991.2,
-        991.1,
-        991.1,
-        991,
-        990.8,
-        990.8,
-        990.5,
-        990.3,
-        990.3,
-        990.2,
-        990.1,
-        990,
-        989.9,
-        989.6,
-        989.5,
-        989.2,
-        989.1,
-        989,
-        988.9,
-        988.8,
-        988.7,
-        988.6,
-        988.5,
-        988.4,
-        988.2,
-        988.1,
         988,
         987.9,
         987.8,
@@ -383,14 +354,43 @@
         989.1,
         989.1,
         989.2,
-        989.3
+        989.3,
+        989.3,
+        989.3,
+        989.2,
+        989.2,
+        989.2,
+        989.2,
+        989.3,
+        989.3,
+        989.3,
+        989.3,
+        989.3,
+        989.3,
+        989.5,
+        989.5,
+        989.6,
+        989.6,
+        989.6,
+        989.7,
+        989.7,
+        989.7,
+        989.7,
+        989.8,
+        989.8,
+        989.8,
+        989.9,
+        989.8,
+        989.7,
+        989.7,
+        989.7
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.957,
+      "value": 49.979,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -404,7 +404,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Laurenzgasse",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -447,10 +447,10 @@
       "district": "Keine Warnung",
       "city": "Keine Warnung",
       "geoWarnings": [],
-      "geoLocation": "Wien-Leopoldstadt",
+      "geoLocation": null,
       "warningCount": 0,
-      "source": "GeoSphere Austria Warn API",
-      "sourceUrl": "https://warnungen.zamg.at/",
+      "source": "Österreichische Unwetterzentrale (UWZ)",
+      "sourceUrl": "https://uwz.at/",
       "extraLinks": [
         {
           "name": "UWZ Unwetterzentrale",
@@ -463,18 +463,13 @@
       ]
     },
     "thunderstorm": {
-      "level": "green",
-      "value": "Keine Gewitterzellen",
+      "level": "unknown",
+      "value": "Keine Zellen",
       "intensity": 0,
-      "source": "GeoSphere Austria (ZAMG)",
+      "source": "ZAMG",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
-      "extraLinks": [
-        {
-          "name": "Hagelradar",
-          "url": "https://warnungen.zamg.at/wsapp/de/hagel/heute/"
-        }
-      ]
+      "extraLinks": []
     }
   },
-  "error": null
+  "error": "Thunderstorm/ZAMG: fetch failed; GeoSphere/WarnAPI: fetch failed"
 }
