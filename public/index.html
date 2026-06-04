@@ -141,7 +141,7 @@
           <div id="lastUpdate" class="text-[14px] text-slate-500 text-right hidden sm:block"></div>
           <div
             class="h-[22px] inline-flex items-center px-2 bg-slate-800 border border-slate-700 rounded text-[14px] font-mono text-slate-400">
-            v1.10.4</div>
+            v1.11.0</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -408,6 +408,33 @@
           </div>`;
         } else {
           extraHtml = `<p class="text-[11px] text-slate-500 mt-1 italic">Keine Werte > 300 nSv/h im Umkreis (500km)</p>`;
+        }
+
+        if (hazard.history && hazard.history.length > 1) {
+          const minVal = Math.min(...hazard.history);
+          const maxVal = Math.max(...hazard.history);
+          const range = maxVal - minVal || 1;
+          const points = hazard.history.map((val, i) => {
+            const x = (i / (hazard.history.length - 1)) * 300;
+            const y = 35 - ((val - minVal) / range) * 30;
+            return `${x.toFixed(1)},${y.toFixed(1)}`;
+          });
+          const pathD = `M ${points.join(' L ')}`;
+          const gradD = `${pathD} L 300,40 L 0,40 Z`;
+          
+          extraHtml += `
+            <div class="mt-4 h-12 w-full relative">
+              <svg viewBox="0 0 300 40" class="w-full h-full overflow-visible" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="radiationGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(245, 158, 11, 0.25)" />
+                    <stop offset="100%" stop-color="rgba(245, 158, 11, 0.0)" />
+                  </linearGradient>
+                </defs>
+                <path d="${gradD}" fill="url(#radiationGrad)" />
+                <path d="${pathD}" fill="none" stroke="rgba(245, 158, 11, 0.65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>`;
         }
       }
 
@@ -728,7 +755,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=27').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=28').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();

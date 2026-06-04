@@ -171,8 +171,13 @@ async function fetchRadiationData() {
         // We set stamp=1000 in headers, so (1001-1000) = 1, giving us the raw nSv/h.
         const nsvH = Math.round(latest.value);
 
+        const validValues = data
+            .map(item => Math.round(item.value))
+            .filter(v => v !== null && !isNaN(v));
+
         return {
             nsvH: nsvH,
+            history: validValues,
             station: 'AT2009 Wien - Atomreaktor',
             measuredAt: latest.date ? new Date(latest.date).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' }) : null,
             source: 'EURDEP/REMAP',
@@ -1410,6 +1415,7 @@ export async function fetchAlertData() {
                     unit: 'nSv/h',
                     station: radiationData?.station ?? 'Unbekannt',
                     measuredAt: radiationData?.measuredAt ?? null,
+                    history: radiationData?.history ?? [],
                     source: radiationData?.source ?? 'Offline',
                     sourceUrl: 'https://remap.jrc.ec.europa.eu/Advanced.aspx',
                     remoteWarning: remoteRadData?.nearestHighStation ?? null,

@@ -1,6 +1,6 @@
 {
   "name": "schuettel-disaster-management",
-  "version": "1.10.4",
+  "version": "1.11.0",
   "description": "Automated disaster warning system for Schüttelstraße 79 & 81, Vienna",
   "type": "module",
   "scripts": {
