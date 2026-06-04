@@ -320,20 +320,21 @@
          temp: hourly.temperature_2m.slice(startIndex, startIndex + 24),
          precip: hourly.precipitation_probability.slice(startIndex, startIndex + 24),
          wind: hourly.wind_speed_10m.slice(startIndex, startIndex + 24),
+         time: hourly.time.slice(startIndex, startIndex + 24)
       };
 
-      const createPath = (dataArr, color, strokeWidth = 2, isFill = false) => {
+      const createPath = (dataArr, color, strokeWidth = 1.5, isFill = false) => {
         const minVal = Math.min(...dataArr, 0);
         const maxVal = Math.max(...dataArr, 1);
         const range = maxVal - minVal || 1;
         const pts = dataArr.map((v, i) => {
             const x = (i / (dataArr.length - 1)) * 300;
-            const y = 50 - ((v - minVal) / range) * 40;
+            const y = 45 - ((v - minVal) / range) * 35; // Leave some space for vertical scaling
             return `${x.toFixed(1)},${y.toFixed(1)}`;
         });
         const pathD = `M ${pts.join(' L ')}`;
         if (isFill) {
-            return `<path d="${pathD} L 300,55 L 0,55 Z" fill="${color}" opacity="0.2" />
+            return `<path d="${pathD} L 300,55 L 0,55 Z" fill="${color}" opacity="0.15" />
                     <path d="${pathD}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round" />`;
         }
         return `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round" />`;
@@ -351,6 +352,13 @@
          return '☁️';
       };
 
+      // Generate 6 time labels for the x-axis
+      const timeLabels = [];
+      for (let i = 0; i < 24; i += 4) {
+          const d = new Date(next24.time[i]);
+          timeLabels.push(d.toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' }));
+      }
+
       return `
         <div class="hazard-card sm:col-span-2 lg:col-span-2 lg:row-start-5 lg:col-start-1 rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2 sm:py-3 sm:px-4 transition-all duration-1000 h-full flex flex-col overflow-hidden" style="min-height: 250px;">
           <div class="flex items-start justify-between gap-2 shrink-0">
@@ -365,52 +373,65 @@
           </div>
 
           <div class="flex-1 mt-4 flex flex-col">
-            <div class="flex gap-4 border-b border-slate-700/50 text-xs text-slate-400 font-medium mb-3">
-              <button class="weather-tab pb-1 text-blue-400 border-b-2 border-blue-400" data-type="temp">Temperatur</button>
-              <button class="weather-tab pb-1 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-type="precip">Niederschlag</button>
-              <button class="weather-tab pb-1 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-type="wind">Wind</button>
+            <div class="flex gap-4 border-b border-slate-700/50 text-[13px] text-slate-400 font-medium mb-3">
+              <button class="weather-tab pb-2 text-slate-100 border-b-[3px] border-yellow-400" data-type="temp">Temperatur</button>
+              <button class="weather-tab pb-2 hover:text-slate-200 transition-colors border-b-[3px] border-transparent" data-type="precip">Niederschlag</button>
+              <button class="weather-tab pb-2 hover:text-slate-200 transition-colors border-b-[3px] border-transparent" data-type="wind">Wind</button>
             </div>
             
-            <div class="relative w-full flex-1 min-h-[60px] mb-4">
+            <div class="relative w-full flex-1 min-h-[80px] mb-2">
               <div id="weather-chart-temp" class="weather-chart absolute inset-0 flex flex-col">
-                 <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+                 <div class="flex justify-between text-[11px] text-slate-300 font-medium mb-1 px-1">
                     <span>${Math.round(next24.temp[0])}°C</span>
                     <span>${Math.round(next24.temp[12])}°C</span>
                     <span>${Math.round(next24.temp[23])}°C</span>
                  </div>
                  <svg viewBox="0 0 300 55" class="w-full flex-1 overflow-visible" preserveAspectRatio="none">
-                    ${createPath(next24.temp, '#fbbf24', 2, true)}
+                    ${createPath(next24.temp, '#fbbf24', 1.5, true)}
                  </svg>
+                 <div class="flex justify-between text-[10px] text-slate-400 mt-2 px-1">
+                    ${timeLabels.map(t => `<span>${t}</span>`).join('')}
+                 </div>
               </div>
               <div id="weather-chart-precip" class="weather-chart absolute inset-0 flex flex-col hidden">
-                 <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+                 <div class="flex justify-between text-[11px] text-slate-300 font-medium mb-1 px-1">
                     <span>${Math.round(next24.precip[0])}%</span>
                     <span>${Math.round(next24.precip[12])}%</span>
                     <span>${Math.round(next24.precip[23])}%</span>
                  </div>
                  <svg viewBox="0 0 300 55" class="w-full flex-1 overflow-visible" preserveAspectRatio="none">
-                    ${createPath(next24.precip, '#38bdf8', 2, true)}
+                    ${createPath(next24.precip, '#38bdf8', 1.5, true)}
                  </svg>
+                 <div class="flex justify-between text-[10px] text-slate-400 mt-2 px-1">
+                    ${timeLabels.map(t => `<span>${t}</span>`).join('')}
+                 </div>
               </div>
               <div id="weather-chart-wind" class="weather-chart absolute inset-0 flex flex-col hidden">
-                 <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+                 <div class="flex justify-between text-[11px] text-slate-300 font-medium mb-1 px-1">
                     <span>${Math.round(next24.wind[0])} km/h</span>
                     <span>${Math.round(next24.wind[12])} km/h</span>
                     <span>${Math.round(next24.wind[23])} km/h</span>
                  </div>
                  <svg viewBox="0 0 300 55" class="w-full flex-1 overflow-visible" preserveAspectRatio="none">
-                    ${createPath(next24.wind, '#a855f7', 2, true)}
+                    ${createPath(next24.wind, '#a855f7', 1.5, true)}
                  </svg>
+                 <div class="flex justify-between text-[10px] text-slate-400 mt-2 px-1">
+                    ${timeLabels.map(t => `<span>${t}</span>`).join('')}
+                 </div>
               </div>
             </div>
 
-            <div class="flex justify-between items-center text-xs mt-auto pt-3 border-t border-slate-700/50">
+            <div class="flex justify-between items-center mt-auto pt-3 border-t border-slate-700/50">
               ${daily.time.slice(0, 8).map((time, i) => `
-                <div class="flex flex-col items-center">
-                  <span class="text-slate-400">${new Date(time).toLocaleDateString('de-AT', {weekday:'short'})}</span>
-                  <span class="text-lg my-1">${wmoToIcon(daily.weather_code[i])}</span>
-                  <span class="font-bold text-slate-200">${Math.round(daily.temperature_2m_max[i])}°</span>
-                  <span class="text-slate-500">${Math.round(daily.temperature_2m_min[i])}°</span>
+                <div class="flex flex-col items-center justify-center p-2 rounded-xl ${i === 0 ? 'bg-slate-800/80 shadow-sm' : ''}">
+                  <span class="${i === 0 ? 'text-slate-200 font-medium' : 'text-slate-400'} text-xs">
+                    ${new Date(time).toLocaleDateString('de-AT', {weekday:'short'})}.
+                  </span>
+                  <span class="text-xl my-1.5">${wmoToIcon(daily.weather_code[i])}</span>
+                  <div class="flex gap-1.5 text-[11px] sm:text-xs">
+                    <span class="font-bold text-slate-200">${Math.round(daily.temperature_2m_max[i])}°</span>
+                    <span class="text-slate-500">${Math.round(daily.temperature_2m_min[i])}°</span>
+                  </div>
                 </div>
               `).join('')}
             </div>
@@ -1111,11 +1132,11 @@
       if (e.target.matches('.weather-tab')) {
         const type = e.target.dataset.type;
         document.querySelectorAll('.weather-tab').forEach(btn => {
-           btn.classList.remove('text-blue-400', 'border-blue-400');
-           btn.classList.add('hover:text-slate-200', 'border-transparent');
+           btn.classList.remove('text-slate-100', 'border-yellow-400');
+           btn.classList.add('text-slate-400', 'hover:text-slate-200', 'border-transparent');
            if (btn.dataset.type === type) {
-               btn.classList.add('text-blue-400', 'border-blue-400');
-               btn.classList.remove('hover:text-slate-200', 'border-transparent');
+               btn.classList.add('text-slate-100', 'border-yellow-400');
+               btn.classList.remove('text-slate-400', 'hover:text-slate-200', 'border-transparent');
            }
         });
         document.querySelectorAll('.weather-chart').forEach(chart => {
