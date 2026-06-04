@@ -662,7 +662,7 @@ async function fetchPowerOutageData() {
 
 async function fetchWeatherForecast() {
     return withRetry(async () => {
-        const url = 'https://api.open-meteo.com/v1/forecast?latitude=48.2092&longitude=16.4050&hourly=temperature_2m,precipitation_probability,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FBerlin';
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=48.2092&longitude=16.4050&hourly=temperature_2m,precipitation_probability,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin';
         const data = await fetchJSON(url, {}, 'Open-Meteo Forecast');
         return data;
     });

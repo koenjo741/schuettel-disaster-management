@@ -306,54 +306,45 @@
 
     function renderWeatherWidget(hazard) {
       if (!hazard || !hazard.forecast) return '';
-      const f = hazard.forecast;
-      const hourly = f.hourly;
-      const daily  = f.daily;
-      if (!hourly || !daily) return '';
+      const daily = hazard.forecast.daily;
+      if (!daily) return '';
 
-      const nowMs = Date.now();
-      let si = hourly.time.findIndex(t => new Date(t).getTime() > nowMs);
-      if (si < 0) si = 0;
-      if (si > 0) si--;
-      const N = 24;
-
-      const temp   = hourly.temperature_2m.slice(si, si + N);
-      const precip = hourly.precipitation_probability.slice(si, si + N);
-      const wind   = hourly.wind_speed_10m.slice(si, si + N);
-      const times  = hourly.time.slice(si, si + N);
-
+      const D = daily.time.length; // number of days (7 or 8)
       const VW = 600, VH = 60;
-      const buildChart = (vals, strokeColor, fillColor) => {
-        const lo = Math.min(...vals), hi = Math.max(...vals, lo + 1);
+
+      const buildChart = (vals, strokeColor, fillColor, labelSuffix) => {
+        if (!vals || !vals.length) return '<text x="300" y="30" text-anchor="middle" font-size="10" fill="#64748b" font-family="sans-serif">Keine Daten</text>';
+        const lo = Math.min(...vals), hi = Math.max(...vals, lo + 0.1);
         const pts = vals.map((v, i) => {
-          const x = (i / (N - 1)) * VW;
-          const y = 55 - ((v - lo) / (hi - lo)) * 50;
+          const x = (i / (D - 1)) * VW;
+          const y = 55 - ((v - lo) / (hi - lo)) * 48;
           return `${x.toFixed(1)},${y.toFixed(1)}`;
         });
         const line = `M ${pts.join(' L ')}`;
         const fill = `${line} L ${VW},${VH} L 0,${VH} Z`;
-        const labels = [0, 5, 11, 17, 23].map(idx => {
-          const x = (idx / (N - 1)) * VW;
-          const y = 55 - ((vals[idx] - lo) / (hi - lo)) * 50 - 4;
-          const anchor = idx === 0 ? 'start' : idx === 23 ? 'end' : 'middle';
-          return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" font-size="8" fill="#94a3b8" font-family="system-ui,sans-serif" font-weight="500">${Math.round(vals[idx])}</text>`;
+        // Value labels above each data point
+        const labels = vals.map((v, i) => {
+          const x = (i / (D - 1)) * VW;
+          const y = 55 - ((v - lo) / (hi - lo)) * 48 - 4;
+          const anchor = i === 0 ? 'start' : i === D-1 ? 'end' : 'middle';
+          return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" font-size="8" fill="#94a3b8" font-family="system-ui,sans-serif" font-weight="500">${Math.round(v)}${labelSuffix}</text>`;
         }).join('');
         return `<path d="${fill}" fill="${fillColor}"/><path d="${line}" fill="none" stroke="${strokeColor}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>${labels}`;
       };
 
       const charts = {
-        temp:   buildChart(temp,   '#ffcc00', 'rgba(255,204,0,0.2)'),
-        precip: buildChart(precip, '#38bdf8', 'rgba(56,189,248,0.2)'),
-        wind:   buildChart(wind,   '#c084fc', 'rgba(192,132,252,0.2)'),
+        temp:   buildChart(daily.temperature_2m_max,          '#ffcc00', 'rgba(255,204,0,0.2)',    '\u00b0'),
+        precip: buildChart(daily.precipitation_probability_max,'#38bdf8', 'rgba(56,189,248,0.2)',  '%'),
+        wind:   buildChart(daily.wind_speed_10m_max,           '#c084fc', 'rgba(192,132,252,0.2)', ''),
       };
 
-      const timeLabels = [];
-      for (let i = 0; i < N; i += 3) {
-        const pct = (i / (N - 1)) * 100;
-        const lbl = new Date(times[i]).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' });
-        const align = i === 0 ? 'left:0;transform:none' : i >= 21 ? `left:${pct.toFixed(1)}%;transform:translateX(-100%)` : `left:${pct.toFixed(1)}%;transform:translateX(-50%)`;
-        timeLabels.push(`<span style="position:absolute;${align};white-space:nowrap">${lbl}</span>`);
-      }
+      // X-axis day labels (short day name)
+      const dayLabels = daily.time.map((t, i) => {
+        const pct = D > 1 ? (i / (D - 1)) * 100 : 0;
+        const name = new Date(t).toLocaleDateString('de-AT', { weekday: 'short' }) + '.';
+        const align = i === 0 ? 'left:0;transform:none' : i === D-1 ? `left:${pct.toFixed(1)}%;transform:translateX(-100%)` : `left:${pct.toFixed(1)}%;transform:translateX(-50%)`;
+        return `<span style="position:absolute;${align};white-space:nowrap">${name}</span>`;
+      }).join('');
 
       const wmoIcon = c => {
         if (c === 0) return '\u2600\ufe0f';
@@ -366,8 +357,8 @@
         return '\u26c8\ufe0f';
       };
 
-      const tiles = daily.time.slice(0, 8).map((t, i) => {
-        const day = new Date(t).toLocaleDateString('de-AT', { weekday: 'short' }) + '.';
+      const tiles = daily.time.slice(0, D).map((t, i) => {
+        const day  = new Date(t).toLocaleDateString('de-AT', { weekday: 'short' }) + '.';
         const icon = wmoIcon(daily.weather_code[i]);
         const hi   = Math.round(daily.temperature_2m_max[i]);
         const lo   = Math.round(daily.temperature_2m_min[i]);
@@ -383,42 +374,50 @@
       }).join('');
 
       return `
-        <div class="hazard-card sm:col-span-2 lg:col-span-2 lg:row-start-5 lg:col-start-1 rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2 sm:py-3 sm:px-4 transition-all duration-1000 h-full flex flex-col overflow-hidden" style="min-height:260px">
-          <div class="flex items-start justify-between gap-2 shrink-0">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="text-xl sm:text-2xl shrink-0">\ud83c\udf24\ufe0f</span>
-              <div class="min-w-0">
-                <p class="text-[14px] sm:text-[14.5px] font-semibold text-slate-100 sm:text-slate-400 truncate leading-tight">Wetter - Wien</p>
-                <p class="text-[10px] sm:text-[11px] mt-0.5 text-slate-400 truncate leading-tight">7-Tage Prognose &amp; 24h Trend</p>
-              </div>
+        <div class="hazard-card sm:col-span-2 lg:col-span-2 lg:row-start-5 lg:col-start-1 rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2 sm:py-3 sm:px-4 transition-all duration-1000 h-full flex flex-col overflow-hidden" style="min-height:240px">
+
+          <!-- Header: icon + title + tabs in one row -->
+          <div class="flex items-center gap-3 shrink-0">
+            <span class="text-xl shrink-0">\ud83c\udf24\ufe0f</span>
+            <div class="min-w-0">
+              <p class="text-[14px] font-semibold text-slate-100 sm:text-slate-400 leading-tight">Wetter - Wien</p>
             </div>
-            <span class="badge-green shrink-0 px-2 py-0.5 rounded-full border text-[10px] sm:text-xs font-bold">INFO</span>
+            <!-- Tabs next to title -->
+            <div class="flex gap-3 ml-2 text-[12px] font-medium border-b border-slate-700/0 shrink-0">
+              <button class="weather-tab pb-0.5 text-yellow-400 border-b-2 border-yellow-400" data-chart="temp">Temperatur</button>
+              <button class="weather-tab pb-0.5 text-slate-400 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-chart="precip">Niederschlag</button>
+              <button class="weather-tab pb-0.5 text-slate-400 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-chart="wind">Wind</button>
+            </div>
+            <span class="badge-green ml-auto shrink-0 px-2 py-0.5 rounded-full border text-[10px] font-bold">INFO</span>
           </div>
-          <div class="flex gap-4 border-b border-slate-700/50 text-[13px] font-medium mt-3 mb-0 shrink-0">
-            <button class="weather-tab pb-2 text-slate-100 border-b-[3px] border-yellow-400" data-chart="temp">Temperatur</button>
-            <button class="weather-tab pb-2 text-slate-400 hover:text-slate-200 transition-colors border-b-[3px] border-transparent" data-chart="precip">Niederschlag</button>
-            <button class="weather-tab pb-2 text-slate-400 hover:text-slate-200 transition-colors border-b-[3px] border-transparent" data-chart="wind">Wind</button>
-          </div>
-          <div class="shrink-0 relative" style="height:75px;margin-top:4px">
+
+          <!-- SVG Chart -->
+          <div class="shrink-0 relative" style="height:72px;margin-top:6px">
             <svg id="wchart-temp"   class="wchart w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none">${charts.temp}</svg>
             <svg id="wchart-precip" class="wchart w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none" style="display:none">${charts.precip}</svg>
             <svg id="wchart-wind"   class="wchart w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none" style="display:none">${charts.wind}</svg>
           </div>
-          <div class="shrink-0 relative" style="height:18px;font-size:10px;color:#64748b;margin-top:2px">
-            ${timeLabels.join('')}
+
+          <!-- X-axis: day labels -->
+          <div class="shrink-0 relative" style="height:16px;font-size:10px;color:#64748b;margin-top:2px">
+            ${dayLabels}
           </div>
+
+          <!-- Day tiles -->
           <div class="shrink-0 flex mt-1 pt-2 border-t border-slate-700/50">${tiles}</div>
+
+          <!-- Source -->
           <div class="mt-2 pt-1 border-t border-slate-700/50 flex text-[11px] text-slate-500 shrink-0">
             <a href="${hazard.sourceUrl}" target="_blank" class="hover:text-slate-400 transition-colors no-underline">${hazard.source}</a>
           </div>
         </div>`;
     }
 
-
     function renderHazardCard(key, hazard) {
       if (key === 'weatherWidget') {
         return renderWeatherWidget(hazard);
       }
+
       const { icon, title, sub } = LABELS[key];
       const level = hazard?.level ?? 'unknown';
       const value = formatValue(key, hazard);
@@ -1098,18 +1097,16 @@
       if (e.target.matches('.weather-tab')) {
         const type = e.target.dataset.chart;
         document.querySelectorAll('.weather-tab').forEach(btn => {
-           btn.classList.remove('text-slate-100', 'border-yellow-400');
-           btn.classList.add('text-slate-400', 'border-transparent');
-           if (btn.dataset.chart === type) {
-               btn.classList.add('text-slate-100', 'border-yellow-400');
-               btn.classList.remove('text-slate-400', 'border-transparent');
-           }
+          btn.classList.remove('text-yellow-400', 'text-slate-100', 'border-yellow-400');
+          btn.classList.add('text-slate-400', 'border-transparent');
+          if (btn.dataset.chart === type) {
+            btn.classList.add('text-yellow-400', 'border-yellow-400');
+            btn.classList.remove('text-slate-400', 'border-transparent');
+          }
         });
-        document.querySelectorAll('.weather-chart').forEach(chart => {
-           chart.classList.add('hidden');
-        });
-        const chart = document.getElementById(`weather-chart-${type}`);
-        if (chart) chart.classList.remove('hidden');
+        document.querySelectorAll('.wchart').forEach(svg => { svg.style.display = 'none'; });
+        const svg = document.getElementById('wchart-' + type);
+        if (svg) svg.style.display = '';
       }
     });
   </script>
