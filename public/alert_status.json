@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-04T08:47:53.787Z",
+  "fetchedAt": "2026-06-04T08:56:59.176Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -77,7 +77,7 @@
       "value": 88,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "09:00",
+      "measuredAt": "07:00",
       "history": [
         104,
         99,
@@ -191,7 +191,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-06-04T08:47:53.982Z",
+      "date": "2026-06-04T08:57:02.389Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -261,11 +261,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 990.4,
+      "value": 990.5,
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        988.9,
         989,
         989,
         989,
@@ -407,14 +406,15 @@
         990.7,
         990.5,
         990.5,
-        990.4
+        990.4,
+        990.5
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.023,
+      "value": 50.045,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -428,7 +428,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Kliebergasse",
+      "message": "Laurenzgasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
