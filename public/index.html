@@ -157,13 +157,13 @@
           </div>
         </div>
         <!-- Center: Live Clock -->
-        <p id="liveClock" class="text-xl sm:text-[22px] font-mono font-bold sm:font-semibold tracking-wide hidden sm:block" style="color: #4ade80;"></p>
+        <p id="liveClock" class="text-xl sm:text-[22px] font-bold sm:font-semibold tabular-nums tracking-tight hidden sm:block" style="color: #4ade80;"></p>
         <!-- Right: lastUpdate + version + installBtn -->
         <div class="flex items-center gap-2">
           <div id="lastUpdate" class="text-[14px] text-slate-500 text-right hidden sm:block"></div>
           <div
             class="h-[22px] inline-flex items-center px-2 bg-slate-800 border border-slate-700 rounded text-[14px] font-mono text-slate-400">
-            v1.14.4</div>
+            v1.14.5</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -944,7 +944,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=33').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=34').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();
