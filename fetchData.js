@@ -128,11 +128,18 @@ async function fetchFloodData() {
 
         if (!pegelMatch) throw new Error('danubealert.com: Pegel value not found in HTML');
 
+        let history = [];
+        const historyMatch = html.match(/label:\s*chartTranslations\.waterLevel,\s*data:\s*\[([\s\d,.]*)\]/i);
+        if (historyMatch) {
+            history = historyMatch[1].split(',').map(v => parseInt(v.trim(), 10)).filter(v => !isNaN(v)).reverse();
+        }
+
         return {
             pegelCm: parseInt(pegelMatch[1], 10),
             ldc: ldcMatch ? parseInt(ldcMatch[1], 10) : 288,
             hdc: hdcMatch ? parseInt(hdcMatch[1], 10) : 432,
             trend: trendMatch ? trendMatch[1].trim() : null,
+            history: history,
             source: 'danubealert.com (Schwedenbrücke / eHYD #207233)',
         };
     });
@@ -623,8 +630,10 @@ async function fetchUVData() {
     return withRetry(async () => {
         const url = `https://currentuvindex.com/api/v1/uvi?latitude=${LOCATION.lat}&longitude=${LOCATION.lon}`;
         const data = await fetchJSON(url, {}, 'CurrentUVIndex');
+        const uvHistory = [...(data.history || []).map(h => h.uvi), data.now?.uvi].filter(v => v !== null && v !== undefined);
         return {
             uvi: data.now?.uvi ?? null,
+            history: uvHistory,
             source: 'currentuvindex.com (NOAA Data)',
             sourceUrl: 'https://currentuvindex.com/'
         };
@@ -696,6 +705,46 @@ async function fetchPressureHistory() {
             value: current,
             trend,
             history: validValues,
+            source: 'GeoSphere Österreich',
+            sourceUrl: 'https://www.geosphere.at/'
+        };
+    });
+}
+
+async function fetchTempHistory() {
+    return withRetry(async () => {
+        const now = new Date();
+        const start = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        const url = `https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min?station_ids=11034&parameters=TL&start=${start.toISOString()}&end=${now.toISOString()}`;
+        const data = await fetchJSON(url, {}, 'GeoSphere Temperature History');
+        const values = data.features?.[0]?.properties?.parameters?.TL?.data ?? [];
+        
+        const validValues = values.filter(v => v !== null);
+        
+        return {
+            history: validValues,
+            source: 'GeoSphere Österreich',
+            sourceUrl: 'https://www.geosphere.at/'
+        };
+    });
+}
+
+async function fetchWindHumHistory() {
+    return withRetry(async () => {
+        const now = new Date();
+        const start = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        const url = `https://dataset.api.hub.geosphere.at/v1/station/historical/tawes-v1-10min?station_ids=11034&parameters=FF,RF&start=${start.toISOString()}&end=${now.toISOString()}`;
+        const data = await fetchJSON(url, {}, 'GeoSphere Wind/Hum History');
+        const ffValues = data.features?.[0]?.properties?.parameters?.FF?.data ?? [];
+        const rfValues = data.features?.[0]?.properties?.parameters?.RF?.data ?? [];
+        
+        // Convert wind from m/s to km/h
+        const windHistory = ffValues.map(v => v !== null ? Math.round(v * 3.6) : null).filter(v => v !== null);
+        const humHistory = rfValues.filter(v => v !== null);
+        
+        return {
+            windHistory,
+            humHistory,
             source: 'GeoSphere Österreich',
             sourceUrl: 'https://www.geosphere.at/'
         };
@@ -1264,9 +1313,11 @@ export async function fetchAlertData() {
             fetchUVData(),
             fetchRemoteRadiationData(),
             fetchGeoSphereWarnings(),     // index 19 – official GeoSphere warnings (primary UWZ replacement)
+            fetchTempHistory(),           // index 20 - 24h temperature history
+            fetchWindHumHistory(),        // index 21 - 24h wind and humidity history
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Pressure/GeoSphere', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border', 'GeoSphere/WarnAPI'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Pressure/GeoSphere', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border', 'GeoSphere/WarnAPI', 'TempHistory/GeoSphere', 'WindHumHistory/GeoSphere'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -1292,6 +1343,8 @@ export async function fetchAlertData() {
         const uvData = results[17].status === 'fulfilled' ? results[17].value : { level: 'unknown' };
         const remoteRadData = results[18].status === 'fulfilled' ? results[18].value : null;
         const geoWarnData = results[19].status === 'fulfilled' ? results[19].value : null;
+        const tempHistoryData = results[20].status === 'fulfilled' ? results[20].value : null;
+        const windHumHistoryData = results[21].status === 'fulfilled' ? results[21].value : null;
 
         if (!weather && !floodData && !radiationData && !airQualityData && !earthquakeData && !atAlertData && !pandemicData && !fireData && !spaceData && !powerData && !snowData && !uwzData && !thunderData && !uvData && !remoteRadData) {
             throw new Error('All data sources failed.');
@@ -1374,6 +1427,8 @@ export async function fetchAlertData() {
                     value: weather?.tempC ?? null,
                     unit: '°C',
                     uvi: uvData?.uvi ?? null,
+                    tempHistory: tempHistoryData?.history ?? [],
+                    uvHistory: uvData?.history ?? [],
                     thresholds: THRESHOLDS.heat,
                     uvThresholds: THRESHOLDS.uv,
                     sourceUrl: 'https://warnungen.zamg.at/',
@@ -1386,6 +1441,8 @@ export async function fetchAlertData() {
                     value: weather?.windKmH ?? null,
                     unit: 'km/h',
                     humidity: weather?.humidity ?? null,
+                    windHistory: windHumHistoryData?.windHistory ?? [],
+                    humHistory: windHumHistoryData?.humHistory ?? [],
                     thresholds: THRESHOLDS.wind,
                     sourceUrl: 'https://warnungen.zamg.at/'
                 },
@@ -1401,6 +1458,7 @@ export async function fetchAlertData() {
                     value: floodData?.pegelCm ?? null,
                     unit: 'cm',
                     trend: floodData?.trend ?? null,
+                    history: floodData?.history ?? [],
                     thresholds: THRESHOLDS.flood,
                     source: floodData?.source ?? 'Offline',
                     sourceUrl: 'https://danubealert.com/at/history/schwedenbrucke',
