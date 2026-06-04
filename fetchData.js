@@ -7,7 +7,7 @@
  * Also runs as a CLI script (writes JSON to disk) when executed directly.
  */
 
-import { writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 // ── Configuration ────────────────────────────────────────────────────────────
@@ -1378,6 +1378,37 @@ export async function fetchAlertData() {
         const pressureLevel = pressureData?.level ?? 'green';
         const blackoutLevel = blackoutData?.status ? (blackoutData.status === 3 ? 'red' : (blackoutData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
+        // Retrieve previous blackout history
+        let blackoutHistory = [];
+        const pathsToTry = [
+            OUTPUT_PATH,
+            join(process.cwd(), 'public', 'alert_status.json'),
+            'public/alert_status.json',
+            'public/alert_status_old.json'
+        ];
+        for (const p of pathsToTry) {
+            try {
+                const fileContent = readFileSync(p, 'utf-8');
+                const prevData = JSON.parse(fileContent);
+                if (prevData?.hazards?.blackout?.history) {
+                    blackoutHistory = prevData.hazards.blackout.history;
+                    break;
+                }
+            } catch (err) {
+                // ignore and try next path
+            }
+        }
+
+        // Only append to history if the current data is valid (i.e. not Offline)
+        if (blackoutData && blackoutData.source !== 'Offline' && typeof blackoutData.value === 'number') {
+            blackoutHistory.push(blackoutData.value);
+        }
+
+        // Limit to 24 hours of data (at 5 minute intervals, this is 288 points)
+        if (blackoutHistory.length > 288) {
+            blackoutHistory = blackoutHistory.slice(blackoutHistory.length - 288);
+        }
+
         // Winterdienst Logic: Combination of depth, temp and rain
         let snowLevel = 'green';
         if (snowData) {
@@ -1599,6 +1630,7 @@ export async function fetchAlertData() {
                     unit: 'Hz',
                     thresholds: { yellow: '±100mHz', red: '±200mHz' },
                     message: blackoutData?.message ?? 'Normalbetrieb',
+                    history: blackoutHistory,
                     source: blackoutData?.source ?? 'Offline',
                     sourceUrl: blackoutData?.sourceUrl ?? 'https://gridradar.net/de/netzfrequenz',
                 },

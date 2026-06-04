@@ -163,7 +163,7 @@
           <div id="lastUpdate" class="text-[14px] text-slate-500 text-right hidden sm:block"></div>
           <div
             class="h-[22px] inline-flex items-center px-2 bg-slate-800 border border-slate-700 rounded text-[14px] font-mono text-slate-400">
-            v1.14.1</div>
+            v1.14.3</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -593,6 +593,39 @@
           </div>`;
       }
 
+      if (key === 'blackout' && hazard && hazard.history && hazard.history.length > 1) {
+        const minVal = Math.min(...hazard.history);
+        const maxVal = Math.max(...hazard.history);
+        let range = maxVal - minVal;
+        let adjustedMin = minVal;
+        if (range < 0.05) {
+          range = 0.05;
+          const center = (minVal + maxVal) / 2;
+          adjustedMin = center - 0.025;
+        }
+        const points = hazard.history.map((val, i) => {
+          const x = (i / (hazard.history.length - 1)) * 300;
+          const y = 35 - ((val - adjustedMin) / range) * 22;
+          return `${x.toFixed(1)},${y.toFixed(1)}`;
+        });
+        const pathD = `M ${points.join(' L ')}`;
+        const gradD = `${pathD} L 300,40 L 0,40 Z`;
+        
+        extraHtml = (extraHtml || '') + `
+          <div class="mt-3 h-8 w-full relative">
+            <svg viewBox="0 0 300 40" class="w-full h-full overflow-visible" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="blackoutGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(20, 184, 166, 0.25)" />
+                  <stop offset="100%" stop-color="rgba(20, 184, 166, 0.0)" />
+                </linearGradient>
+              </defs>
+              <path d="${gradD}" id="blackout-curve-grad" fill="url(#blackoutGrad)" />
+              <path d="${pathD}" id="blackout-curve-path" fill="none" stroke="rgba(20, 184, 166, 0.65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>`;
+      }
+
       // ── Footer & Links (Unified) ──
       const footerLinks = [];
       const SOURCE_LABELS = {
@@ -831,6 +864,34 @@
         if (cardEl && level) {
           cardEl.className = cardEl.className.replace(/card-glow-\w+/, `card-glow-${level}`);
         }
+
+        // Dynamically update the curve path if history is present
+        if (lastFetchedData?.hazards?.blackout?.history?.length > 1) {
+          const hist = lastFetchedData.hazards.blackout.history;
+          hist[hist.length - 1] = hz; // update the current value in history
+
+          const minVal = Math.min(...hist);
+          const maxVal = Math.max(...hist);
+          let range = maxVal - minVal;
+          let adjustedMin = minVal;
+          if (range < 0.05) {
+            range = 0.05;
+            const center = (minVal + maxVal) / 2;
+            adjustedMin = center - 0.025;
+          }
+          const points = hist.map((val, i) => {
+            const x = (i / (hist.length - 1)) * 300;
+            const y = 35 - ((val - adjustedMin) / range) * 22;
+            return `${x.toFixed(1)},${y.toFixed(1)}`;
+          });
+          const pathD = `M ${points.join(' L ')}`;
+          const gradD = `${pathD} L 300,40 L 0,40 Z`;
+
+          const pathEl = document.getElementById('blackout-curve-path');
+          const gradEl = document.getElementById('blackout-curve-grad');
+          if (pathEl) pathEl.setAttribute('d', pathD);
+          if (gradEl) gradEl.setAttribute('d', gradD);
+        }
       } catch {
         // Silently ignore – next interval will retry
       }
@@ -883,7 +944,7 @@
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=30').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=32').then(reg => {
           // Check for updates every 15 minutes
           setInterval(() => {
             reg.update();
