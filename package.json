@@ -1,6 +1,6 @@
 {
   "name": "schuettel-disaster-management",
-  "version": "1.14.7",
+  "version": "1.14.8",
   "description": "Echtzeit-Gefahrenwarnsystem für die Gründerzeithäuser Schüttelstraße 79 und 81",
   "type": "module",
   "scripts": {
