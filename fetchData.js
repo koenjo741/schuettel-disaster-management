@@ -660,24 +660,11 @@ async function fetchPowerOutageData() {
     });
 }
 
-async function fetchGasStatus() {
+async function fetchWeatherForecast() {
     return withRetry(async () => {
-        const url = 'https://www.wienernetze.at/stoerungen';
-        const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' }, redirect: 'follow' });
-        if (!res.ok) throw new Error(`Wiener Netze (Stoerungen) error: ${res.status}`);
-        const html = await res.text();
-
-        // Check for specific gas disruption indicators that are likely to be present in HTML
-        // We look for active markers. If none found, assume Normalbetrieb.
-        const disruptionMarkers = ['aktuelles Gasgebrechen', 'Gasversorgung unterbrochen', 'Gasaustritt gemeldet'];
-        const hasSpecificDisruption = disruptionMarkers.some(kw => html.includes(kw));
-
-        return {
-            status: hasSpecificDisruption ? 2 : 1,
-            message: hasSpecificDisruption ? 'Störung gemeldet' : 'Normalbetrieb',
-            source: 'Wiener Netze (Erdgas)',
-            sourceUrl: 'https://www.wienernetze.at/gas' // More informative landing page
-        };
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=48.2092&longitude=16.4050&hourly=temperature_2m,precipitation_probability,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FBerlin';
+        const data = await fetchJSON(url, {}, 'Open-Meteo Forecast');
+        return data;
     });
 }
 
@@ -1303,7 +1290,7 @@ export async function fetchAlertData() {
             fetchFireData(),
             fetchSpaceWeatherData(),
             fetchPowerOutageData(),
-            fetchGasStatus(),
+            fetchWeatherForecast(),       // index 10
             fetchPressureHistory(),
             fetchBlackoutStatus(),
             fetchTrafficStatus(),
@@ -1317,7 +1304,7 @@ export async function fetchAlertData() {
             fetchWindHumHistory(),        // index 21 - 24h wind and humidity history
         ]);
 
-        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Gas/WienerNetze', 'Pressure/GeoSphere', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border', 'GeoSphere/WarnAPI', 'TempHistory/GeoSphere', 'WindHumHistory/GeoSphere'];
+        const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Weather/OpenMeteo', 'Pressure/GeoSphere', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border', 'GeoSphere/WarnAPI', 'TempHistory/GeoSphere', 'WindHumHistory/GeoSphere'];
 
         const errors = results
             .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
@@ -1333,7 +1320,7 @@ export async function fetchAlertData() {
         const fireData = results[7].status === 'fulfilled' ? results[7].value : null;
         const spaceData = results[8].status === 'fulfilled' ? results[8].value : null;
         const powerData = results[9].status === 'fulfilled' ? results[9].value : { level: 'unknown' };
-        const gasData = results[10].status === 'fulfilled' ? results[10].value : { level: 'unknown' };
+        const forecastData = results[10].status === 'fulfilled' ? results[10].value : null;
         const pressureData = results[11].status === 'fulfilled' ? results[11].value : { level: 'unknown' };
         const blackoutData = results[12].status === 'fulfilled' ? results[12].value : { level: 'unknown' };
         const trafficData = results[13].status === 'fulfilled' ? results[13].value : { level: 'unknown' };
@@ -1374,7 +1361,6 @@ export async function fetchAlertData() {
 
         const spaceLevel = spaceData ? alertLevel(spaceData.level, THRESHOLDS.space) : 'unknown';
         const powerLevel = powerData ? alertLevel(powerData.status, THRESHOLDS.power) : 'unknown';
-        const gasLevel = gasData ? alertLevel(gasData.status, THRESHOLDS.gas) : 'unknown';
         const pressureLevel = pressureData?.level ?? 'green';
         const blackoutLevel = blackoutData?.status ? (blackoutData.status === 3 ? 'red' : (blackoutData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
@@ -1409,30 +1395,20 @@ export async function fetchAlertData() {
             blackoutHistory = blackoutHistory.slice(blackoutHistory.length - 288);
         }
 
-        // Winterdienst Logic: Combination of depth, temp and rain
-        let snowLevel = 'green';
-        if (snowData) {
-            const depth = snowData.value;
-            const temp = weather?.tempC ?? 10;
-            const rain = weather?.rainMmH ?? 0;
-
-            if (depth >= THRESHOLDS.snow.red || (rain > 2 && temp < 1.0)) snowLevel = 'red';
-            else if (depth >= THRESHOLDS.snow.yellow || (rain > 0 && temp < 1.5)) snowLevel = 'yellow';
-        }
-
-        // Ice (Glatteis) Logic
-        let iceLevel = 'green';
-        let iceMessage = 'Sicher';
+        // Winterdienst & Glättegefahr Logic (Merged)
+        let winterLevel = 'green';
+        let winterMessage = 'Sicher';
+        const depth = snowData?.value ?? 0;
         const temp = weather?.tempC ?? 10;
         const rain = weather?.rainMmH ?? 0;
         const hum = weather?.humidity ?? 50;
 
-        if (temp <= 0 && rain > 0) {
-            iceLevel = 'red';
-            iceMessage = 'Gefrierender Regen! ⚠️';
-        } else if (temp < 1.5 && (rain > 0 || (temp < 0 && hum > 85))) {
-            iceLevel = 'yellow';
-            iceMessage = temp < 0 ? 'Überfrierende Nässe / Reif' : 'Glatteisgefahr möglich';
+        if (depth >= THRESHOLDS.snow.red || (rain > 2 && temp < 1.0) || (temp <= 0 && rain > 0)) {
+            winterLevel = 'red';
+            winterMessage = depth >= THRESHOLDS.snow.red ? 'Schneechaos / Räumpflicht!' : 'Gefrierender Regen! ⚠️';
+        } else if (depth >= THRESHOLDS.snow.yellow || (rain > 0 && temp < 1.5) || (temp < 1.5 && (rain > 0 || (temp < 0 && hum > 85)))) {
+            winterLevel = 'yellow';
+            winterMessage = temp < 0 ? 'Überfrierende Nässe / Reif' : 'Schneefall / Glatteisgefahr';
         }
 
         // UWZ Logic
@@ -1444,7 +1420,7 @@ export async function fetchAlertData() {
         const thunderLevel = thunderData?.level ?? 'green';
         const trafficLevel = trafficData?.status ? (trafficData.status === 3 ? 'red' : (trafficData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
-        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, gasLevel, pressureLevel, blackoutLevel, trafficLevel, snowLevel, iceLevel, uwzLevel, thunderLevel];
+        const levels = [heatLevel, windLevel, rainLevel, floodLevel, radiationLevel, airQualityLevel, earthquakeLevel, atAlertLevel, pandemicLevel, fireLevel, spaceLevel, powerLevel, pressureLevel, blackoutLevel, trafficLevel, winterLevel, uwzLevel, thunderLevel];
         const overallLevel = levels.reduce((max, lvl) => severityRank[lvl] > severityRank[max] ? lvl : max, 'green');
 
         return {
@@ -1606,14 +1582,11 @@ export async function fetchAlertData() {
                     source: powerData?.source ?? 'Offline',
                     sourceUrl: powerData?.sourceUrl ?? 'https://www.wienernetze.at/stromversorgung',
                 },
-                gas: {
-                    level: gasLevel,
-                    value: gasData?.status ?? 0,
-                    unit: 'Status',
-                    thresholds: THRESHOLDS.gas,
-                    message: gasData?.message ?? 'Unbekannt',
-                    source: gasData?.source ?? 'Offline',
-                    sourceUrl: gasData?.sourceUrl ?? 'https://www.wienernetze.at/gas',
+                weatherWidget: {
+                    level: 'green',
+                    forecast: forecastData,
+                    source: 'Open-Meteo',
+                    sourceUrl: 'https://open-meteo.com/',
                 },
                 pressure: {
                     level: pressureLevel,
@@ -1643,21 +1616,13 @@ export async function fetchAlertData() {
                     sourceUrl: trafficData?.sourceUrl ?? 'https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1',
                     extraLinks: trafficData?.extraLinks ?? []
                 },
-                snow: {
-                    level: snowLevel,
-                    value: Math.round((snowData?.value ?? 0) * 100), // Convert to cm for UI
-                    unit: 'cm',
-                    thresholds: { yellow: THRESHOLDS.snow.yellow * 100, red: THRESHOLDS.snow.red * 100 },
-                    condition: snowLevel === 'red' ? 'Schneechaos / Räumpflicht!' : (snowLevel === 'yellow' ? 'Schneefall / Räumung empfohlen' : 'Kein relevanter Schnee'),
-                    source: snowData?.source ?? 'Offline',
-                    sourceUrl: snowData?.sourceUrl ?? 'https://www.geosphere.at/',
-                },
-                ice: {
-                    level: iceLevel,
-                    value: iceMessage,
+                winter: {
+                    level: winterLevel,
+                    value: winterMessage,
                     unit: '',
+                    depthCm: Math.round((snowData?.value ?? 0) * 100),
                     thresholds: { yellow: 'Risk', red: 'Gefahr' },
-                    source: 'GeoSphere Rohdaten-Analyse',
+                    source: 'GeoSphere (SNOWGRID & Rohdaten)',
                     sourceUrl: 'https://www.geosphere.at/',
                 },
                 uwz: {

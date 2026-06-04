@@ -228,11 +228,10 @@
       space: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><defs><radialGradient id="sunGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#f59e0b"/></radialGradient></defs><path d="M32 4 C33 12 30 12 32 16 M46 8 C42 15 45 15 48 18 M56 20 C48 22 48 18 52 24 M60 32 C52 33 52 30 56 32 M56 46 C48 42 52 45 49 49 M46 56 C42 48 45 52 38 52 M32 60 C33 52 30 52 32 48 M18 56 C22 48 19 52 15 49 M8 46 C15 42 12 45 15 38 M4 32 C12 33 12 30 8 32 M8 20 C15 18 12 22 15 15 M18 8 C22 15 19 12 24 15" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="32" r="14" fill="url(#sunGrad)" stroke="#d97706" stroke-width="1"/></svg>', title: 'Weltraumwetter', sub: 'Sonnenaktivität & Erdmagnetfeld' },
       power: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M38 4 18 36h14l-4 24 20-32H34L38 4Z" fill="#fbbf24" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/></svg>', title: 'Stromversorgung', sub: 'Status Wiener Netze (Echtzeit)' },
       blackout: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 4 L60 54 H4 Z" fill="#fbbf24" stroke="#000" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="34" r="10" fill="none" stroke="#000" stroke-width="2"/><path d="M34 22 L24 38 H32 L30 48 L40 32 H32 L34 22 Z" fill="#000"/></svg>', title: 'Blackout-Frühwarnung', sub: 'Netzfrequenz (Echtzeit)' },
-      gas: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 4c-5 8-10 12-10 24 0 10 8 18 10 18s10-8 10-18c0-12-5-16-10-24Z" fill="#f97316"/><path d="M32 18c-3 5-6 8-6 14 0 6 4 10 6 10s6-4 6-10c0-6-3-9-6-14Z" fill="#fbbf24"/></svg>', title: 'Erdgasversorgung', sub: 'Status Wiener Netze (Echtzeit)' },
+      weatherWidget: { icon: '🌤️', title: 'Wetter - Wien', sub: '7-Tage Prognose & Niederschlag' },
       pressure: { icon: '<svg viewBox="0 0 64 64" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 40a22 22 0 1 1 40 0" /><path d="M32 40 L32 20" stroke-width="4" /><circle cx="32" cy="40" r="4" fill="#38bdf8" /></svg>', title: 'Luftdruck', sub: 'Station 11034 (Taborstraße)' },
       traffic: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M54 44H10l-2-4 4-20h40l4 20-2 4z" fill="#334155"/><rect x="14" y="24" width="8" height="8" rx="1" fill="#bae6fd"/><rect x="42" y="24" width="8" height="8" rx="1" fill="#bae6fd"/><circle cx="18" cy="48" r="6" fill="#1e293b"/><circle cx="46" cy="48" r="6" fill="#1e293b"/><path d="M22 10l-4 10h28l-4-10z" fill="#ef4444"/><rect x="28" y="14" width="8" height="4" fill="#60a5fa"/></svg>', title: 'Taktische Zufahrt', sub: 'Verkehr (1020 Leopoldstadt)' },
-      snow: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 8v48M8 32h48M15 15l34 34M49 15L15 49" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#fff" stroke="#60a5fa" stroke-width="1"/></svg>', title: 'Schnee & Winterdienst', sub: 'SNOWGRID & Niederschlagsprognose' },
-      ice: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 10v34M24 44h16m-8 0v10" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="50" r="6" fill="#38bdf8"/><path d="M22 18h20M22 28h20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/><path d="M32 6c1 12 8 8 12 16c2 4 0 10-4 10s-8-4-8-10" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/></svg>', title: 'Glatteis-Gefahr', sub: 'Analyse von Reif & gefrierendem Regen' },
+      winter: { icon: '❄️🧊', title: 'Schnee & Glatteis', sub: 'Winterdienst & Glättegefahr' },
       uwz: { icon: '<svg viewBox="0 0 64 64" width="28" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M32 10 L58 54 H6 Z" fill="#fff" stroke="#ef4444" stroke-width="6" stroke-linejoin="round"/><g transform="translate(20, 24) scale(0.7)"><path d="M22 6c-3.3 0-6 2.7-6 6 0 .3 0 .7.1 1-.9-.6-2-.9-3.1-.9-3.3 0-6 2.7-6 6s2.7 6 6 6h9c3.3 0 6-2.7 6-6s-2.7-6-6-6c0-3.3-2.7-6-6-6z" fill="#334155"/><path d="M10 18l-3 6h4l-3 8" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 18l-1 3m4-3l-1 3m4-3l-1 3" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/></g></svg>', title: 'Unwetterwarnungen', sub: 'Status Wien (Gesamt) & Leopoldstadt (Lokal)' },
       thunderstorm: { icon: '⛈️🧊', title: 'Gewitter & Hagel', sub: 'Echtzeit-Analyse (GeoSphere/ZAMG)' }
     };
@@ -277,13 +276,10 @@
         }
         return `${hazard.value} ${hazard.unit}`;
       }
-      if (key === 'power' || key === 'gas') {
+      if (key === 'power') {
         return hazard?.message ?? 'Normalbetrieb';
       }
-      if (key === 'snow') {
-        return hazard?.condition ?? 'Kein Schnee';
-      }
-      if (key === 'ice') {
+      if (key === 'winter') {
         return hazard?.value ?? 'Sicher';
       }
       if (key === 'space') {
@@ -308,7 +304,129 @@
       return `${val}${unit ? ' ' + unit : ''}`;
     }
 
+    function renderWeatherWidget(hazard) {
+      if (!hazard || !hazard.forecast) return '';
+      const f = hazard.forecast;
+      const hourly = f.hourly;
+      const daily = f.daily;
+      if (!hourly || !daily) return '';
+
+      const nowMs = Date.now();
+      let startIndex = hourly.time.findIndex(t => new Date(t).getTime() > nowMs);
+      if (startIndex < 0) startIndex = 0;
+      if (startIndex > 0) startIndex--;
+
+      const next24 = {
+         temp: hourly.temperature_2m.slice(startIndex, startIndex + 24),
+         precip: hourly.precipitation_probability.slice(startIndex, startIndex + 24),
+         wind: hourly.wind_speed_10m.slice(startIndex, startIndex + 24),
+      };
+
+      const createPath = (dataArr, color, strokeWidth = 2, isFill = false) => {
+        const minVal = Math.min(...dataArr, 0);
+        const maxVal = Math.max(...dataArr, 1);
+        const range = maxVal - minVal || 1;
+        const pts = dataArr.map((v, i) => {
+            const x = (i / (dataArr.length - 1)) * 300;
+            const y = 50 - ((v - minVal) / range) * 40;
+            return `${x.toFixed(1)},${y.toFixed(1)}`;
+        });
+        const pathD = `M ${pts.join(' L ')}`;
+        if (isFill) {
+            return `<path d="${pathD} L 300,55 L 0,55 Z" fill="${color}" opacity="0.2" />
+                    <path d="${pathD}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round" />`;
+        }
+        return `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round" />`;
+      };
+
+      const wmoToIcon = (code) => {
+         if (code === 0) return '☀️';
+         if (code === 1 || code === 2) return '🌤️';
+         if (code === 3) return '☁️';
+         if (code >= 45 && code <= 48) return '🌫️';
+         if (code >= 51 && code <= 67) return '🌧️';
+         if (code >= 71 && code <= 77) return '❄️';
+         if (code >= 80 && code <= 82) return '🌦️';
+         if (code >= 95 && code <= 99) return '⛈️';
+         return '☁️';
+      };
+
+      return `
+        <div class="hazard-card sm:col-span-2 lg:col-span-2 lg:row-start-5 lg:col-start-1 rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2 sm:py-3 sm:px-4 transition-all duration-1000 h-full flex flex-col overflow-hidden" style="min-height: 250px;">
+          <div class="flex items-start justify-between gap-2 shrink-0">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-xl sm:text-2xl shrink-0 flex items-center justify-center">🌤️</span>
+              <div class="min-w-0">
+                <p class="text-[14px] sm:text-[14.5px] font-semibold text-slate-100 sm:text-slate-400 truncate leading-tight">Wetter - Wien</p>
+                <p class="text-[10px] sm:text-[11px] mt-0.5 text-slate-200 sm:text-slate-400 font-semibold truncate leading-tight">7-Tage Prognose & 24h Trend</p>
+              </div>
+            </div>
+            <span class="badge-green shrink-0 px-2 py-0.5 rounded-full border text-[10px] sm:text-xs font-bold transition-colors duration-500">INFO</span>
+          </div>
+
+          <div class="flex-1 mt-4 flex flex-col">
+            <div class="flex gap-4 border-b border-slate-700/50 text-xs text-slate-400 font-medium mb-3">
+              <button class="weather-tab pb-1 text-blue-400 border-b-2 border-blue-400" data-type="temp">Temperatur</button>
+              <button class="weather-tab pb-1 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-type="precip">Niederschlag</button>
+              <button class="weather-tab pb-1 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-type="wind">Wind</button>
+            </div>
+            
+            <div class="relative w-full flex-1 min-h-[60px] mb-4">
+              <div id="weather-chart-temp" class="weather-chart absolute inset-0 flex flex-col">
+                 <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+                    <span>${Math.round(next24.temp[0])}°C</span>
+                    <span>${Math.round(next24.temp[12])}°C</span>
+                    <span>${Math.round(next24.temp[23])}°C</span>
+                 </div>
+                 <svg viewBox="0 0 300 55" class="w-full flex-1 overflow-visible" preserveAspectRatio="none">
+                    ${createPath(next24.temp, '#fbbf24', 2, true)}
+                 </svg>
+              </div>
+              <div id="weather-chart-precip" class="weather-chart absolute inset-0 flex flex-col hidden">
+                 <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+                    <span>${Math.round(next24.precip[0])}%</span>
+                    <span>${Math.round(next24.precip[12])}%</span>
+                    <span>${Math.round(next24.precip[23])}%</span>
+                 </div>
+                 <svg viewBox="0 0 300 55" class="w-full flex-1 overflow-visible" preserveAspectRatio="none">
+                    ${createPath(next24.precip, '#38bdf8', 2, true)}
+                 </svg>
+              </div>
+              <div id="weather-chart-wind" class="weather-chart absolute inset-0 flex flex-col hidden">
+                 <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+                    <span>${Math.round(next24.wind[0])} km/h</span>
+                    <span>${Math.round(next24.wind[12])} km/h</span>
+                    <span>${Math.round(next24.wind[23])} km/h</span>
+                 </div>
+                 <svg viewBox="0 0 300 55" class="w-full flex-1 overflow-visible" preserveAspectRatio="none">
+                    ${createPath(next24.wind, '#a855f7', 2, true)}
+                 </svg>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center text-xs mt-auto pt-3 border-t border-slate-700/50">
+              ${daily.time.slice(0, 8).map((time, i) => `
+                <div class="flex flex-col items-center">
+                  <span class="text-slate-400">${new Date(time).toLocaleDateString('de-AT', {weekday:'short'})}</span>
+                  <span class="text-lg my-1">${wmoToIcon(daily.weather_code[i])}</span>
+                  <span class="font-bold text-slate-200">${Math.round(daily.temperature_2m_max[i])}°</span>
+                  <span class="text-slate-500">${Math.round(daily.temperature_2m_min[i])}°</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div class="mt-3 pt-1 border-t border-slate-700/50 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-slate-500">
+             <a href="${hazard.sourceUrl}" target="_blank" class="hover:text-slate-400 transition-colors no-underline">${hazard.source}</a>
+          </div>
+        </div>
+      `;
+    }
+
     function renderHazardCard(key, hazard) {
+      if (key === 'weatherWidget') {
+        return renderWeatherWidget(hazard);
+      }
       const { icon, title, sub } = LABELS[key];
       const level = hazard?.level ?? 'unknown';
       const value = formatValue(key, hazard);
@@ -647,9 +765,9 @@
         earthquake: 'GeoSphere / EMSC', atAlert: 'AT-Alert', pandemic: 'WHO / MedUni Wien',
         fire: 'NASA / GeoSphere', space: 'NOAA / SWPC', power: 'Wiener Netze',
         blackout: 'Netzfrequenzmessung.de',
-        gas: 'Wiener Netze', pressure: 'GeoSphere Österreich',
+        pressure: 'GeoSphere Österreich',
         traffic: 'Wiener Linien & Google Maps',
-        snow: 'GeoSphere (SNOWGRID)', ice: 'GeoSphere', uwz: 'UWZ.at', thunderstorm: 'GeoSphere / ZAMG'
+        winter: 'GeoSphere', uwz: 'UWZ.at', thunderstorm: 'GeoSphere / ZAMG'
       };
 
       if (sourceUrl) {
@@ -740,9 +858,9 @@
       const severityRank = { red: 3, yellow: 2, green: 1, unknown: 0 };
 
       const PRIORITY_ORDER = [
-        'blackout', 'power', 'traffic', 'space', 'radiation', 'earthquake', 'atAlert', 'pandemic', 'gas', 'pressure',
+        'blackout', 'power', 'traffic', 'space', 'radiation', 'earthquake', 'atAlert', 'pandemic', 'pressure',
         'uwz', 'heat', 'fire', 'rain', 'wind', 'thunderstorm',
-        'flood', 'ice', 'snow', 'airQuality'
+        'weatherWidget', 'flood', 'winter', 'airQuality'
       ];
 
       const sortedHazards = Object.entries(LABELS)
@@ -987,6 +1105,26 @@
         window.location.reload();
       });
     }
+
+    // Weather widget tab interaction
+    document.getElementById('hazardGrid').addEventListener('click', (e) => {
+      if (e.target.matches('.weather-tab')) {
+        const type = e.target.dataset.type;
+        document.querySelectorAll('.weather-tab').forEach(btn => {
+           btn.classList.remove('text-blue-400', 'border-blue-400');
+           btn.classList.add('hover:text-slate-200', 'border-transparent');
+           if (btn.dataset.type === type) {
+               btn.classList.add('text-blue-400', 'border-blue-400');
+               btn.classList.remove('hover:text-slate-200', 'border-transparent');
+           }
+        });
+        document.querySelectorAll('.weather-chart').forEach(chart => {
+           chart.classList.add('hidden');
+        });
+        const chart = document.getElementById(`weather-chart-${type}`);
+        if (chart) chart.classList.remove('hidden');
+      }
+    });
   </script>
 </body>
 
