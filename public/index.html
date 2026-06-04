@@ -365,7 +365,7 @@
         const bg   = i === 0 ? 'background:rgba(51,65,85,0.9);border-radius:8px;' : '';
         return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 2px;${bg}">
           <span style="font-size:11px;color:${i===0?'#e2e8f0':'#94a3b8'};font-weight:${i===0?600:400}">${day}</span>
-          <span style="font-size:22px;line-height:1.3;margin:3px 0">${icon}</span>
+          <span style="font-size:26px;line-height:1.3;margin:4px 0">${icon}</span>
           <div style="display:flex;gap:5px;font-size:11px">
             <span style="font-weight:700;color:#e2e8f0">${hi}\u00b0</span>
             <span style="color:#64748b">${lo}\u00b0</span>
@@ -405,11 +405,6 @@
 
           <!-- Day tiles -->
           <div class="shrink-0 flex mt-1 pt-2 border-t border-slate-700/50">${tiles}</div>
-
-          <!-- Source -->
-          <div class="mt-2 pt-1 border-t border-slate-700/50 flex text-[11px] text-slate-500 shrink-0">
-            <a href="${hazard.sourceUrl}" target="_blank" class="hover:text-slate-400 transition-colors no-underline">${hazard.source}</a>
-          </div>
         </div>`;
     }
 
