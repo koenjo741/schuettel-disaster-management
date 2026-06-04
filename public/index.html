@@ -309,10 +309,11 @@
       const daily = hazard.forecast.daily;
       if (!daily) return '';
 
-      const D = daily.time.length; // number of days (7 or 8)
-      const VW = 600, VH = 60;
+      const D = daily.time.length;
+      const VW = 600, VH = 60, CH = 72; // CH = container height px
 
-      const buildChart = (vals, strokeColor, fillColor, labelSuffix) => {
+      // Returns only SVG paths (no text — text stretches with preserveAspectRatio:none)
+      const buildPaths = (vals, strokeColor, fillColor) => {
         if (!vals || !vals.length) return '<text x="300" y="30" text-anchor="middle" font-size="10" fill="#64748b" font-family="sans-serif">Keine Daten</text>';
         const lo = Math.min(...vals), hi = Math.max(...vals, lo + 0.1);
         const pts = vals.map((v, i) => {
@@ -322,25 +323,31 @@
         });
         const line = `M ${pts.join(' L ')}`;
         const fill = `${line} L ${VW},${VH} L 0,${VH} Z`;
-        // Value labels above each data point
-        const labels = vals.map((v, i) => {
-          const x = (i / (D - 1)) * VW;
-          const y = 55 - ((v - lo) / (hi - lo)) * 48 - 4;
-          const anchor = i === 0 ? 'start' : i === D-1 ? 'end' : 'middle';
-          return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" font-size="8" fill="#94a3b8" font-family="system-ui,sans-serif" font-weight="500">${Math.round(v)}${labelSuffix}</text>`;
+        return `<path d="${fill}" fill="${fillColor}"/><path d="${line}" fill="none" stroke="${strokeColor}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>`;
+      };
+
+      // Returns HTML label spans positioned absolutely over the chart container
+      const buildLabels = (vals, suffix) => {
+        if (!vals || !vals.length) return '';
+        const lo = Math.min(...vals), hi = Math.max(...vals, lo + 0.1);
+        return vals.map((v, i) => {
+          const svgY  = 55 - ((v - lo) / (hi - lo)) * 48 - 5; // same y as curve, nudge up
+          const topPx = Math.max(0, (svgY / VH) * CH - 10);    // convert to container px, keep in bounds
+          const leftPct = (i / (D - 1)) * 100;
+          const tx = i === 0 ? 'translateX(0)' : i === D - 1 ? 'translateX(-100%)' : 'translateX(-50%)';
+          return `<span style="position:absolute;left:${leftPct.toFixed(1)}%;top:${topPx.toFixed(0)}px;transform:${tx};font-size:9px;color:#94a3b8;font-weight:500;white-space:nowrap;pointer-events:none">${Math.round(v)}${suffix}</span>`;
         }).join('');
-        return `<path d="${fill}" fill="${fillColor}"/><path d="${line}" fill="none" stroke="${strokeColor}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>${labels}`;
       };
 
-      const charts = {
-        temp:   buildChart(daily.temperature_2m_max,          '#ffcc00', 'rgba(255,204,0,0.2)',    '\u00b0'),
-        precip: buildChart(daily.precipitation_probability_max,'#38bdf8', 'rgba(56,189,248,0.2)',  '%'),
-        wind:   buildChart(daily.wind_speed_10m_max,           '#c084fc', 'rgba(192,132,252,0.2)', ''),
+      const series = {
+        temp:   { paths: buildPaths(daily.temperature_2m_max,           '#ffcc00', 'rgba(255,204,0,0.2)'),   labels: buildLabels(daily.temperature_2m_max,           '\u00b0') },
+        precip: { paths: buildPaths(daily.precipitation_probability_max, '#38bdf8', 'rgba(56,189,248,0.2)'),  labels: buildLabels(daily.precipitation_probability_max, '%') },
+        wind:   { paths: buildPaths(daily.wind_speed_10m_max,            '#c084fc', 'rgba(192,132,252,0.2)'), labels: buildLabels(daily.wind_speed_10m_max,            '') },
       };
 
-      // X-axis day labels (short day name)
+      // X-axis day labels (HTML — never stretch)
       const dayLabels = daily.time.map((t, i) => {
-        const pct = D > 1 ? (i / (D - 1)) * 100 : 0;
+        const pct  = D > 1 ? (i / (D - 1)) * 100 : 0;
         const name = new Date(t).toLocaleDateString('de-AT', { weekday: 'short' }) + '.';
         const align = i === 0 ? 'left:0;transform:none' : i === D-1 ? `left:${pct.toFixed(1)}%;transform:translateX(-100%)` : `left:${pct.toFixed(1)}%;transform:translateX(-50%)`;
         return `<span style="position:absolute;${align};white-space:nowrap">${name}</span>`;
@@ -364,8 +371,8 @@
         const lo   = Math.round(daily.temperature_2m_min[i]);
         const bg   = i === 0 ? 'background:rgba(51,65,85,0.9);border-radius:8px;' : '';
         return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 2px;${bg}">
-          <span style="font-size:11px;color:${i===0?'#e2e8f0':'#94a3b8'};font-weight:${i===0?600:400}">${day}</span>
-          <span style="font-size:26px;line-height:1.3;margin:4px 0">${icon}</span>
+          <span style="font-size:13px;color:${i===0?'#e2e8f0':'#94a3b8'};font-weight:${i===0?600:400}">${day}</span>
+          <span style="font-size:28px;line-height:1.3;margin:4px 0">${icon}</span>
           <div style="display:flex;gap:5px;font-size:11px">
             <span style="font-weight:700;color:#e2e8f0">${hi}\u00b0</span>
             <span style="color:#64748b">${lo}\u00b0</span>
@@ -383,7 +390,7 @@
               <p class="text-[14px] font-semibold text-slate-100 sm:text-slate-400 leading-tight">Wetter - Wien</p>
             </div>
             <!-- Tabs next to title -->
-            <div class="flex gap-3 ml-2 text-[12px] font-medium border-b border-slate-700/0 shrink-0">
+            <div class="flex gap-3 ml-2 text-[12px] font-medium shrink-0">
               <button class="weather-tab pb-0.5 text-yellow-400 border-b-2 border-yellow-400" data-chart="temp">Temperatur</button>
               <button class="weather-tab pb-0.5 text-slate-400 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-chart="precip">Niederschlag</button>
               <button class="weather-tab pb-0.5 text-slate-400 hover:text-slate-200 transition-colors border-b-2 border-transparent" data-chart="wind">Wind</button>
@@ -391,11 +398,14 @@
             <span class="badge-green ml-auto shrink-0 px-2 py-0.5 rounded-full border text-[10px] font-bold">INFO</span>
           </div>
 
-          <!-- SVG Chart -->
-          <div class="shrink-0 relative" style="height:72px;margin-top:6px">
-            <svg id="wchart-temp"   class="wchart w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none">${charts.temp}</svg>
-            <svg id="wchart-precip" class="wchart w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none" style="display:none">${charts.precip}</svg>
-            <svg id="wchart-wind"   class="wchart w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none" style="display:none">${charts.wind}</svg>
+          <!-- SVG Chart + HTML label overlay (labels stay fixed-size, don't stretch) -->
+          <div class="shrink-0 relative" style="height:${CH}px;margin-top:6px">
+            <svg id="wchart-temp"   class="wchart absolute inset-0 w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none">${series.temp.paths}</svg>
+            <svg id="wchart-precip" class="wchart absolute inset-0 w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none" style="display:none">${series.precip.paths}</svg>
+            <svg id="wchart-wind"   class="wchart absolute inset-0 w-full h-full" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="none" style="display:none">${series.wind.paths}</svg>
+            <div id="wlabels-temp"   class="wlabels absolute inset-0">${series.temp.labels}</div>
+            <div id="wlabels-precip" class="wlabels absolute inset-0" style="display:none">${series.precip.labels}</div>
+            <div id="wlabels-wind"   class="wlabels absolute inset-0" style="display:none">${series.wind.labels}</div>
           </div>
 
           <!-- X-axis: day labels -->
@@ -408,7 +418,9 @@
         </div>`;
     }
 
+
     function renderHazardCard(key, hazard) {
+
       if (key === 'weatherWidget') {
         return renderWeatherWidget(hazard);
       }
@@ -1099,9 +1111,12 @@
             btn.classList.remove('text-slate-400', 'border-transparent');
           }
         });
-        document.querySelectorAll('.wchart').forEach(svg => { svg.style.display = 'none'; });
+        document.querySelectorAll('.wchart').forEach(el => { el.style.display = 'none'; });
+        document.querySelectorAll('.wlabels').forEach(el => { el.style.display = 'none'; });
         const svg = document.getElementById('wchart-' + type);
+        const lbl = document.getElementById('wlabels-' + type);
         if (svg) svg.style.display = '';
+        if (lbl) lbl.style.display = '';
       }
     });
   </script>
