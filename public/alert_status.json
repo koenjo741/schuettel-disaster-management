@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-14T11:20:32.333Z",
+  "fetchedAt": "2026-06-14T13:11:22.497Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,21 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 21.37,
+      "value": 20.71,
       "unit": "°C",
-      "uvi": 5.3,
+      "uvi": 4.5,
       "tempHistory": [
-        21.5,
-        21.5,
-        21.6,
-        21.6,
-        22,
-        21.9,
-        22.2,
-        23,
-        23.3,
-        23.2,
-        23.4,
         23.6,
         23.7,
         23.3,
@@ -156,7 +145,19 @@
         21.7,
         21.7,
         21.4,
-        21.6
+        21.6,
+        21.6,
+        21.1,
+        20.8,
+        20.5,
+        20.4,
+        20.5,
+        20.7,
+        20.9,
+        20.9,
+        21.1,
+        21.3,
+        21.3
       ],
       "uvHistory": [
         2.2,
@@ -181,7 +182,9 @@
         2.1,
         5,
         6.2,
-        5.3
+        5.3,
+        5.9,
+        4.5
       ],
       "thresholds": {
         "yellow": 30,
@@ -201,21 +204,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 16,
+      "value": 26,
       "unit": "km/h",
-      "humidity": 49.06,
+      "humidity": 46.15,
       "windHistory": [
-        14,
-        10,
-        10,
-        11,
-        8,
-        8,
-        4,
-        4,
-        5,
-        6,
-        7,
         5,
         6,
         6,
@@ -347,20 +339,21 @@
         25,
         26,
         24,
-        22
+        22,
+        18,
+        22,
+        23,
+        25,
+        25,
+        24,
+        24,
+        31,
+        28,
+        28,
+        22,
+        20
       ],
       "humHistory": [
-        61,
-        61,
-        60,
-        58,
-        59,
-        57,
-        56,
-        55,
-        53,
-        57,
-        54,
         53,
         52,
         58,
@@ -492,7 +485,19 @@
         43,
         44,
         44,
-        44
+        44,
+        44,
+        44,
+        45,
+        46,
+        46,
+        45,
+        44,
+        44,
+        44,
+        45,
+        44,
+        43
       ],
       "thresholds": {
         "yellow": 60,
@@ -512,7 +517,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 333,
+      "value": 330,
       "unit": "cm",
       "trend": "Erhöhung",
       "history": [
@@ -523,7 +528,7 @@
         326,
         330,
         333,
-        333
+        330
       ],
       "thresholds": {
         "yellow": 380,
@@ -544,13 +549,11 @@
     },
     "radiation": {
       "level": "green",
-      "value": 88,
+      "value": 87,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "10:00",
+      "measuredAt": "12:00",
       "history": [
-        87,
-        86,
         85,
         87,
         88,
@@ -571,12 +574,14 @@
         87,
         87,
         87,
-        88
+        88,
+        87,
+        87
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 194,
+      "maxNearbyValue": 196,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -586,16 +591,16 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 27,
+      "value": 30,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 14,
+      "pm10": 15,
       "pm25": 7,
       "luftIndex": 2,
-      "aqi": 27,
+      "aqi": 30,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -666,7 +671,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-06-14T11:20:34.901Z",
+      "date": "2026-06-14T13:11:25.904Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -679,7 +684,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA FIRMS Satelliten-Monitoring",
+      "source": "NASA (Offline)",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -727,7 +732,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.6024837493896484,
+        "generationtime_ms": 0.286102294921875,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1500,21 +1505,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 991.4,
+      "value": 991.3,
       "unit": "hPa",
       "trend": "→",
       "history": [
-        996.7,
-        996.5,
-        996.2,
-        996.2,
-        996,
-        995.9,
-        995.8,
-        995.7,
-        995.6,
-        995.4,
-        995.4,
         995.3,
         995.2,
         995.2,
@@ -1646,14 +1640,26 @@
         991.4,
         991.3,
         991.4,
-        991.4
+        991.4,
+        991.3,
+        991.3,
+        991.3,
+        991.3,
+        991.4,
+        991.4,
+        991.3,
+        991.3,
+        991.3,
+        991.3,
+        991.2,
+        991.3
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.99,
+      "value": 50.005,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1762,7 +1768,8 @@
         49.97,
         49.987,
         49.983,
-        49.99
+        49.99,
+        50.005
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
