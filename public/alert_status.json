@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-19T17:06:30.074Z",
+  "fetchedAt": "2026-06-19T19:09:07.454Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,22 +10,10 @@
   "hazards": {
     "heat": {
       "level": "yellow",
-      "value": 32.68,
+      "value": 31.3,
       "unit": "°C",
-      "uvi": 0.5,
+      "uvi": 0,
       "tempHistory": [
-        29.5,
-        29.6,
-        29.5,
-        29.5,
-        29.5,
-        29.4,
-        29.2,
-        29.1,
-        29,
-        28.9,
-        28.8,
-        28.8,
         28.7,
         28.5,
         28.3,
@@ -157,7 +145,19 @@
         32.5,
         32.5,
         32.5,
-        32.4
+        32.4,
+        32.3,
+        32.1,
+        32.1,
+        31.9,
+        31.8,
+        31.6,
+        31.4,
+        31.2,
+        31,
+        30.8,
+        30.6,
+        30.3
       ],
       "uvHistory": [
         3.5,
@@ -188,7 +188,9 @@
         4.4,
         2.7,
         1.4,
-        0.5
+        0.5,
+        0.1,
+        0
       ],
       "thresholds": {
         "yellow": 30,
@@ -208,22 +210,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 13,
+      "value": 15,
       "unit": "km/h",
-      "humidity": 33.22,
+      "humidity": 36.41,
       "windHistory": [
-        10,
-        7,
-        9,
-        9,
-        6,
-        8,
-        9,
-        5,
-        6,
-        8,
-        6,
-        5,
         5,
         4,
         4,
@@ -355,21 +345,21 @@
         14,
         14,
         10,
-        9
+        9,
+        12,
+        10,
+        11,
+        13,
+        13,
+        15,
+        14,
+        16,
+        14,
+        16,
+        15,
+        15
       ],
       "humHistory": [
-        40,
-        40,
-        40,
-        40,
-        40,
-        41,
-        41,
-        41,
-        42,
-        42,
-        42,
-        42,
         42,
         43,
         44,
@@ -501,7 +491,19 @@
         33,
         33,
         33,
-        33
+        33,
+        33,
+        34,
+        34,
+        33,
+        35,
+        35,
+        36,
+        37,
+        37,
+        38,
+        39,
+        40
       ],
       "thresholds": {
         "yellow": 60,
@@ -553,13 +555,11 @@
     },
     "radiation": {
       "level": "green",
-      "value": 90,
+      "value": 91,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "15:00",
+      "measuredAt": "17:00",
       "history": [
-        87,
-        90,
         89,
         89,
         88,
@@ -579,12 +579,14 @@
         90,
         89,
         90,
-        90
+        90,
+        90,
+        91
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 195,
+      "maxNearbyValue": 197,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -594,7 +596,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 52,
+      "value": 50,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -603,9 +605,9 @@
       "pm10": 17,
       "pm25": 10,
       "luftIndex": 3,
-      "aqi": 52,
+      "aqi": 50,
       "mainPollutant": "PM2.5/PM10",
-      "description": "Moderat",
+      "description": "Gut",
       "source": "Open-Meteo (US AQI)",
       "sourceUrl": null,
       "extraLinks": [
@@ -674,7 +676,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-06-19T17:06:32.652Z",
+      "date": "2026-06-19T19:09:10.548Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -735,7 +737,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.2968311309814453,
+        "generationtime_ms": 0.26619434356689453,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1510,20 +1512,8 @@
       "level": "green",
       "value": 997.1,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "→",
       "history": [
-        998.7,
-        998.6,
-        998.6,
-        998.6,
-        998.6,
-        998.6,
-        998.6,
-        998.6,
-        998.6,
-        998.6,
-        998.6,
-        998.7,
         998.8,
         998.9,
         999,
@@ -1655,6 +1645,18 @@
         997.3,
         997.3,
         997.1,
+        997.1,
+        997.1,
+        997.1,
+        997,
+        997,
+        997,
+        997,
+        996.9,
+        996.9,
+        996.9,
+        997,
+        997,
         997.1
       ],
       "source": "GeoSphere Österreich",
@@ -1662,7 +1664,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.013,
+      "value": 49.98,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1811,7 +1813,8 @@
         50.025,
         49.996,
         50,
-        50.013
+        50.013,
+        49.98
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
