@@ -104,7 +104,7 @@ const THRESHOLDS = {
     earthquake: { yellow: 3.0, red: 4.5 }, // Magnitude (Richter)
     fire: { yellow: 3, red: 4 },           // WBI Index (1-5)
     space: { yellow: 5, red: 7 },          // Kp-Index (0-9)
-    power: { yellow: 2, red: 2 },          // Status level (1: OK, 2: Outage)
+    power: { yellow: 2, red: 2 },          // Kept for display only; level is set district-aware (see powerLevel computation)
     gas: { yellow: 2, red: 2 },            // Status level (1: OK, 2: Outage)
     snow: { yellow: 0.03, red: 0.10 },     // Snow depth in meters
 };
@@ -651,9 +651,39 @@ async function fetchPowerOutageData() {
         const okPhrase = 'Derzeit sind alle Kundinnen und Kunden im Versorgungsgebiet der Wiener Netze versorgt.';
         const isOk = html.includes(okPhrase);
 
+        // ── District-2 detection ─────────────────────────────────────────────
+        // Red alarm is ONLY triggered when the outage affects the 2nd Bezirk
+        // (Leopoldstadt), where Schüttelstraße 79 & 81 is located.
+        // We search the HTML for district-specific identifiers.
+        const DISTRICT_2_KEYWORDS = [
+            'Leopoldstadt',
+            '2. Bezirk',
+            '1020',
+            // Major streets / landmarks of Wien 1020
+            'Schüttelstraße', 'Schuttelstrasse',
+            'Praterstern', 'Praterstraße', 'Praterstrasse',
+            'Taborstraße', 'Taborstrasse',
+            'Nordbahnstraße', 'Nordbahnstrasse',
+            'Lassallestraße', 'Lassallestrasse',
+            'Engerthstraße', 'Engerthstrasse',
+            'Ausstellungsstraße', 'Ausstellungsstrasse',
+            'Mexikoplatz',
+            'Handelskai',
+            'Castellezgasse',
+            'Rembrandtstraße', 'Rembrandtstrasse',
+        ];
+
+        const affectsDistrict2 = !isOk &&
+            DISTRICT_2_KEYWORDS.some(kw => html.includes(kw));
+
         return {
             status: isOk ? 1 : 2,
-            message: isOk ? 'Normalbetrieb' : 'Störung / Ausfall gemeldet',
+            affectsDistrict2,
+            message: isOk
+                ? 'Normalbetrieb'
+                : affectsDistrict2
+                    ? 'Störung / Ausfall im 2. Bezirk (Leopoldstadt) gemeldet'
+                    : 'Störung / Ausfall gemeldet (außerhalb 2. Bezirk)',
             source: 'Wiener Netze Statusseite',
             sourceUrl: url
         };
@@ -1360,7 +1390,12 @@ export async function fetchAlertData() {
         if (fireData?.alert) fireLevel = 'red'; // Upgrade to red if NASA detects hotspot
 
         const spaceLevel = spaceData ? alertLevel(spaceData.level, THRESHOLDS.space) : 'unknown';
-        const powerLevel = powerData ? alertLevel(powerData.status, THRESHOLDS.power) : 'unknown';
+        // Power alert: red ONLY if the outage affects the 2nd Bezirk (Leopoldstadt/1020 Wien).
+        // Any other outage in the wider Wiener Netze grid triggers yellow (awareness, not emergency).
+        const powerLevel = (() => {
+            if (!powerData || powerData.status === 1) return powerData ? 'green' : 'unknown';
+            return powerData.affectsDistrict2 ? 'red' : 'yellow';
+        })();
         const pressureLevel = pressureData?.level ?? 'green';
         const blackoutLevel = blackoutData?.status ? (blackoutData.status === 3 ? 'red' : (blackoutData.status === 2 ? 'yellow' : 'green')) : 'unknown';
 
@@ -1578,6 +1613,7 @@ export async function fetchAlertData() {
                     value: powerData?.status ?? 0,
                     unit: 'Status',
                     thresholds: THRESHOLDS.power,
+                    affectsDistrict2: powerData?.affectsDistrict2 ?? false,
                     message: powerData?.message ?? 'Unbekannt',
                     source: powerData?.source ?? 'Offline',
                     sourceUrl: powerData?.sourceUrl ?? 'https://www.wienernetze.at/stromversorgung',
