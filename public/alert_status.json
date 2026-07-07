@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-07-07T17:27:36.676Z",
-  "overall": "red",
+  "fetchedAt": "2026-07-07T19:22:20.068Z",
+  "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
     "address": "Schüttelstraße 79 & 81, 1020 Wien",
@@ -9,23 +9,11 @@
   },
   "hazards": {
     "heat": {
-      "level": "yellow",
-      "value": 30.55,
+      "level": "green",
+      "value": 29.44,
       "unit": "°C",
-      "uvi": 0.4,
+      "uvi": 0,
       "tempHistory": [
-        23.9,
-        23.5,
-        23.5,
-        23.6,
-        23.7,
-        23.5,
-        23.4,
-        23.4,
-        23.4,
-        23.3,
-        23,
-        22.6,
         22.3,
         22.2,
         22.3,
@@ -157,7 +145,19 @@
         30.4,
         30.3,
         30.2,
-        30.1
+        30.1,
+        30,
+        29.9,
+        29.8,
+        29.6,
+        29.4,
+        29.3,
+        29.2,
+        29,
+        28.9,
+        28.8,
+        28.7,
+        28.5
       ],
       "uvHistory": [
         5.2,
@@ -188,7 +188,9 @@
         1.8,
         1.9,
         1,
-        0.4
+        0.4,
+        0.1,
+        0
       ],
       "thresholds": {
         "yellow": 30,
@@ -208,22 +210,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 19,
+      "value": 15,
       "unit": "km/h",
-      "humidity": 24.66,
+      "humidity": 27.16,
       "windHistory": [
-        16,
-        13,
-        12,
-        14,
-        10,
-        9,
-        12,
-        10,
-        11,
-        9,
-        6,
-        11,
         14,
         14,
         10,
@@ -355,21 +345,21 @@
         18,
         20,
         18,
-        16
+        16,
+        15,
+        12,
+        13,
+        15,
+        15,
+        14,
+        14,
+        16,
+        17,
+        17,
+        13,
+        14
       ],
       "humHistory": [
-        51,
-        54,
-        53,
-        52,
-        51,
-        52,
-        51,
-        51,
-        51,
-        51,
-        55,
-        57,
         58,
         58,
         57,
@@ -501,7 +491,19 @@
         26,
         26,
         26,
-        25
+        25,
+        25,
+        25,
+        25,
+        26,
+        26,
+        26,
+        26,
+        27,
+        27,
+        27,
+        28,
+        28
       ],
       "thresholds": {
         "yellow": 60,
@@ -552,13 +554,11 @@
     },
     "radiation": {
       "level": "green",
-      "value": 91,
+      "value": 90,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "16:00",
+      "measuredAt": "18:00",
       "history": [
-        90,
-        90,
         91,
         92,
         91,
@@ -579,12 +579,14 @@
         90,
         92,
         90,
-        91
+        91,
+        90,
+        90
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 203,
+      "maxNearbyValue": 201,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -594,7 +596,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 38,
+      "value": 39,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -603,7 +605,7 @@
       "pm10": 11,
       "pm25": 4,
       "luftIndex": 3,
-      "aqi": 38,
+      "aqi": 39,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -674,13 +676,13 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-07-07T17:27:38.750Z",
+      "date": "2026-07-07T19:22:22.630Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
-      "level": "red",
-      "value": 4,
+      "level": "yellow",
+      "value": 3,
       "unit": "WBI",
       "thresholds": {
         "yellow": 3,
@@ -736,7 +738,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.32520294189453125,
+        "generationtime_ms": 0.5058050155639648,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1509,22 +1511,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 989.7,
+      "value": 989.3,
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        995.7,
-        995.6,
-        995.7,
-        995.8,
-        995.8,
-        995.8,
-        995.8,
-        995.9,
-        995.9,
-        996,
-        996,
-        996.3,
         996.4,
         996.4,
         996.4,
@@ -1656,14 +1646,26 @@
         989.9,
         989.8,
         989.8,
-        989.7
+        989.7,
+        989.7,
+        989.6,
+        989.6,
+        989.6,
+        989.6,
+        989.5,
+        989.5,
+        989.3,
+        989.2,
+        989.3,
+        989.3,
+        989.3
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.981,
+      "value": 50.006,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1671,7 +1673,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.051,
         49.979,
         49.954,
         49.993,
@@ -1958,7 +1959,8 @@
         49.954,
         49.983,
         49.965,
-        49.981
+        49.981,
+        50.006
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -1997,7 +1999,7 @@
       "level": "yellow",
       "value": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
       "district": "Keine Warnung",
-      "city": "Vorwarnung",
+      "city": "Keine Warnung",
       "geoWarnings": [
         {
           "id": 10,
