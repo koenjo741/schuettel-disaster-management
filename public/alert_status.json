@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-07-17T17:58:49.606Z",
+  "fetchedAt": "2026-07-17T19:22:43.201Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,19 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 23.33,
+      "value": 24.89,
       "unit": "°C",
-      "uvi": 0.4,
+      "uvi": 0,
       "tempHistory": [
-        30.3,
-        30.1,
-        30,
-        29.8,
-        29.6,
-        29.5,
-        29.3,
-        29.2,
-        29.1,
         28.9,
         28.8,
         28.6,
@@ -157,38 +148,25 @@
         24.7,
         24.9,
         24.9,
-        25
+        25,
+        25.1,
+        25.3,
+        25.1,
+        25.1,
+        25,
+        24.8,
+        24.9,
+        24.9,
+        24.9
       ],
       "uvHistory": [
-        4.8,
-        2.3,
-        1.1,
-        1.2,
-        0.4,
+        5.8,
+        1.8,
+        0.3,
+        0.3,
         0.1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
         0.1,
-        0.5,
-        1.4,
-        2.6,
-        4.2,
-        6,
-        7.4,
-        7.7,
-        7,
-        5.4,
-        4,
-        2.4,
-        1.2,
-        0.4
+        0
       ],
       "thresholds": {
         "yellow": 30,
@@ -208,19 +186,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 9,
+      "value": 7,
       "unit": "km/h",
-      "humidity": 80.08,
+      "humidity": 76.76,
       "windHistory": [
-        14,
-        12,
-        10,
-        14,
-        12,
-        7,
-        8,
-        12,
-        11,
         10,
         12,
         14,
@@ -355,18 +324,18 @@
         8,
         9,
         10,
-        7
+        7,
+        7,
+        8,
+        8,
+        8,
+        9,
+        9,
+        8,
+        9,
+        8
       ],
       "humHistory": [
-        40,
-        40,
-        40,
-        41,
-        42,
-        42,
-        42,
-        42,
-        43,
         43,
         44,
         45,
@@ -501,7 +470,16 @@
         74,
         73,
         73,
-        74
+        74,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        77,
+        76,
+        76
       ],
       "thresholds": {
         "yellow": 60,
@@ -511,7 +489,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 12.535,
+      "value": 0,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -521,7 +499,7 @@
     },
     "flood": {
       "level": "green",
-      "value": 280,
+      "value": 273,
       "unit": "cm",
       "trend": "Senkung",
       "history": [
@@ -532,7 +510,7 @@
         279,
         281,
         281,
-        280
+        273
       ],
       "thresholds": {
         "yellow": 380,
@@ -553,13 +531,11 @@
     },
     "radiation": {
       "level": "green",
-      "value": 137,
+      "value": 97,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "16:00",
+      "measuredAt": "18:00",
       "history": [
-        91,
-        89,
         90,
         89,
         91,
@@ -580,12 +556,14 @@
         91,
         120,
         162,
-        137
+        137,
+        114,
+        97
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 227,
+      "maxNearbyValue": 215,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -594,8 +572,8 @@
       ]
     },
     "airQuality": {
-      "level": "green",
-      "value": 85,
+      "level": "yellow",
+      "value": 75,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -603,8 +581,8 @@
       },
       "pm10": 18,
       "pm25": 10,
-      "luftIndex": 2,
-      "aqi": 85,
+      "luftIndex": 3,
+      "aqi": 75,
       "mainPollutant": "PM2.5/PM10",
       "description": "Moderat",
       "source": "Open-Meteo (US AQI)",
@@ -641,7 +619,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 4,
+      "value": 2,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -675,7 +653,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-07-17T17:58:51.828Z",
+      "date": "2026-07-17T19:22:46.247Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -720,15 +698,15 @@
       ]
     },
     "power": {
-      "level": "green",
-      "value": 1,
+      "level": "yellow",
+      "value": 2,
       "unit": "Status",
       "thresholds": {
         "yellow": 2,
         "red": 2
       },
       "affectsDistrict2": false,
-      "message": "Normalbetrieb",
+      "message": "Störung / Ausfall gemeldet (außerhalb 2. Bezirk)",
       "source": "Wiener Netze Statusseite",
       "sourceUrl": "https://www.wienernetze.at/stromversorgung"
     },
@@ -737,7 +715,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.8404254913330078,
+        "generationtime_ms": 0.39505958557128906,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1512,17 +1490,8 @@
       "level": "green",
       "value": 989.8,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "↑",
       "history": [
-        996,
-        995.9,
-        995.9,
-        995.9,
-        995.9,
-        995.9,
-        995.9,
-        996,
-        996.2,
         996.3,
         996.2,
         996.2,
@@ -1657,6 +1626,15 @@
         990.2,
         990.1,
         989.9,
+        989.8,
+        989.8,
+        989.8,
+        989.6,
+        989.7,
+        989.8,
+        989.7,
+        989.7,
+        989.8,
         989.8
       ],
       "source": "GeoSphere Österreich",
@@ -1664,7 +1642,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.017,
+      "value": 50.006,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1672,7 +1650,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.978,
         50.013,
         49.953,
         49.956,
@@ -1959,7 +1936,8 @@
         49.99,
         49.984,
         50.011,
-        50.017
+        50.017,
+        50.006
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2021,32 +1999,10 @@
           "auswirkungen": "*  Kleine Muren, lokal überflutete Straßen\r\n*  Punktuell kann es zu Überschwemmungen kommen, Keller können überflutet werden.\r\n*  Blitzschlag kann zu Stromausfällen führen und Gebäude oder Bäume in Brand stecken.\r\n*  Aufgrund von Sturmböen können Gegenstände herumgewirbelt werden, Äste abbrechen und vereinzelt auch Bäume umfallen.\r\n*  Im Straßen-, Schienen- und Flugverkehr kann es zu vorübergehenden Beeinträchtigungen und Verspätungen kommen.",
           "empfehlungen": "*  Schließen Sie Fenster, Türen und Garagentore sowie Dachfenster und Lichtkuppeln!\r\n*  Rechnen Sie mit vorübergehenden Verspätungen im Straßen-, Schienen- und Flugverkehr!\r\n*  Verlassen Sie bei einem herannahenden Gewitter umgehend Gewässer!\r\n*  Suchen Sie vor allem im Gebirge rechtzeitig Schutz!\r\n*  Landen Sie Sportfluggeräte frühzeitig, laufen Sie mit Booten zügig Häfen an!\r\n*  Beachten Sie Gewitter- und Sturmwarnungen an Seen!",
           "meteotext": "Am Freitag steigt in weiten Teilen Österreichs tagsüber die Gefahr kräftiger, lokal unwetterartiger Gewitter mit heftigem Starkregen, Hagel und schweren Sturmböen."
-        },
-        {
-          "id": 5,
-          "typeId": 5,
-          "levelId": 1,
-          "text": "Es ist mit Gewittern zu rechnen.",
-          "begin": "17.07.2026 17:00",
-          "end": "17.07.2026 18:00",
-          "auswirkungen": null,
-          "empfehlungen": null,
-          "meteotext": null
-        },
-        {
-          "id": 5,
-          "typeId": 5,
-          "levelId": 1,
-          "text": "Es ist mit Gewittern zu rechnen.",
-          "begin": "17.07.2026 18:00",
-          "end": "17.07.2026 19:00",
-          "auswirkungen": null,
-          "empfehlungen": null,
-          "meteotext": null
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 4,
+      "warningCount": 2,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
