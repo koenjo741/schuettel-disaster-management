@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-07-18T19:50:26.442Z",
+  "fetchedAt": "2026-07-18T20:39:37.377Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,14 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 25.18,
+      "value": 24.88,
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        24.3,
-        24.1,
-        24.1,
-        24,
         23.9,
         24.4,
         24.9,
@@ -156,7 +152,12 @@
         26.2,
         26.3,
         26.4,
-        26.5
+        26.5,
+        25.9,
+        25.4,
+        25.1,
+        24.9,
+        24.9
       ],
       "uvHistory": [
         4.9,
@@ -165,6 +166,7 @@
         1.1,
         0.1,
         0.1,
+        0,
         0
       ],
       "thresholds": {
@@ -185,14 +187,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 14,
+      "value": 6,
       "unit": "km/h",
-      "humidity": 54.95,
+      "humidity": 56.55,
       "windHistory": [
-        7,
-        8,
-        10,
-        10,
         8,
         9,
         11,
@@ -331,13 +329,14 @@
         8,
         8,
         9,
-        7
+        7,
+        14,
+        8,
+        6,
+        4,
+        3
       ],
       "humHistory": [
-        76,
-        74,
-        71,
-        69,
         67,
         59,
         52,
@@ -476,7 +475,12 @@
         46,
         45,
         45,
-        44
+        44,
+        49,
+        52,
+        52,
+        53,
+        51
       ],
       "thresholds": {
         "yellow": 60,
@@ -486,7 +490,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0,
+      "value": 0.001,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -528,12 +532,11 @@
     },
     "radiation": {
       "level": "green",
-      "value": 89,
+      "value": 88,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "18:00",
+      "measuredAt": "19:00",
       "history": [
-        90,
         89,
         89,
         88,
@@ -555,12 +558,13 @@
         88,
         89,
         90,
-        89
+        89,
+        88
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 213,
+      "maxNearbyValue": 215,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -570,7 +574,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 58,
+      "value": 56,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -579,7 +583,7 @@
       "pm10": 10,
       "pm25": 6,
       "luftIndex": 3,
-      "aqi": 58,
+      "aqi": 56,
       "mainPollutant": "PM2.5/PM10",
       "description": "Moderat",
       "source": "Open-Meteo (US AQI)",
@@ -616,7 +620,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 2,
+      "value": 1,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -650,13 +654,13 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-07-18T19:50:29.048Z",
+      "date": "2026-07-18T20:39:40.530Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
       "level": "green",
-      "value": 2,
+      "value": 1,
       "unit": "WBI",
       "thresholds": {
         "yellow": 3,
@@ -712,7 +716,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.5061626434326172,
+        "generationtime_ms": 0.7156133651733398,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1485,14 +1489,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 992,
+      "value": 992.2,
       "unit": "hPa",
       "trend": "↑",
       "history": [
-        990.1,
-        990.1,
-        990.2,
-        990.3,
         990.4,
         990.4,
         990.4,
@@ -1631,14 +1631,19 @@
         991.9,
         992,
         992,
-        992
+        992,
+        992.2,
+        992.3,
+        992.3,
+        992.2,
+        992.2
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.992,
+      "value": 50.003,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1646,7 +1651,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.033,
         50.03,
         49.982,
         49.985,
@@ -1933,7 +1937,8 @@
         49.963,
         49.972,
         49.973,
-        49.992
+        49.992,
+        50.003
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -1970,21 +1975,10 @@
     },
     "uwz": {
       "level": "yellow",
-      "value": "Es ist mit Gewittern zu rechnen.",
+      "value": "Gelbe Windwarnung von So, 19.07.2026 09:00 bis So, 19.07.2026 15:00",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
       "geoWarnings": [
-        {
-          "id": 5,
-          "typeId": 5,
-          "levelId": 1,
-          "text": "Es ist mit Gewittern zu rechnen.",
-          "begin": "18.07.2026 19:00",
-          "end": "18.07.2026 20:00",
-          "auswirkungen": null,
-          "empfehlungen": null,
-          "meteotext": null
-        },
         {
           "id": 4820,
           "typeId": 1,
@@ -1998,7 +1992,7 @@
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 2,
+      "warningCount": 1,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
