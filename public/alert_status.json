@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-07-19T17:39:29.027Z",
+  "fetchedAt": "2026-07-19T18:39:37.960Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,16 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 21.34,
+      "value": 21.7,
       "unit": "°C",
-      "uvi": 0.1,
+      "uvi": 0,
       "tempHistory": [
-        28.4,
-        26.8,
-        25.5,
-        25.8,
-        25.7,
-        25.6,
         25.8,
         25.9,
         26,
@@ -157,7 +151,13 @@
         21.8,
         21.7,
         21.7,
-        21.5
+        21.5,
+        21.6,
+        21.5,
+        21.5,
+        21.5,
+        21.4,
+        21.4
       ],
       "uvHistory": [
         4.9,
@@ -188,7 +188,8 @@
         2.6,
         0.2,
         0.1,
-        0.1
+        0.1,
+        0
       ],
       "thresholds": {
         "yellow": 30,
@@ -208,16 +209,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 10,
+      "value": 17,
       "unit": "km/h",
-      "humidity": 59.37,
+      "humidity": 52.04,
       "windHistory": [
-        13,
-        19,
-        13,
-        8,
-        6,
-        4,
         2,
         5,
         7,
@@ -355,15 +350,15 @@
         14,
         18,
         17,
-        16
+        16,
+        14,
+        14,
+        13,
+        10,
+        11,
+        10
       ],
       "humHistory": [
-        36,
-        44,
-        50,
-        50,
-        49,
-        49,
         48,
         48,
         47,
@@ -501,6 +496,12 @@
         52,
         49,
         50,
+        51,
+        51,
+        51,
+        51,
+        51,
+        52,
         51
       ],
       "thresholds": {
@@ -511,7 +512,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0,
+      "value": 0.008,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -556,9 +557,8 @@
       "value": 91,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "16:00",
+      "measuredAt": "17:00",
       "history": [
-        89,
         88,
         91,
         89,
@@ -580,12 +580,13 @@
         94,
         91,
         89,
+        91,
         91
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 207,
+      "maxNearbyValue": 206,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -595,16 +596,16 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 47,
+      "value": 46,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 10,
+      "pm10": 9,
       "pm25": 6,
       "luftIndex": 3,
-      "aqi": 47,
+      "aqi": 46,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -670,7 +671,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-07-19T17:39:31.194Z",
+      "date": "2026-07-19T18:39:40.185Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -683,7 +684,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA FIRMS Satelliten-Monitoring",
+      "source": "NASA (Offline)",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -715,15 +716,15 @@
       ]
     },
     "power": {
-      "level": "green",
-      "value": 1,
+      "level": "yellow",
+      "value": 2,
       "unit": "Status",
       "thresholds": {
         "yellow": 2,
         "red": 2
       },
       "affectsDistrict2": false,
-      "message": "Normalbetrieb",
+      "message": "Störung / Ausfall gemeldet (außerhalb 2. Bezirk)",
       "source": "Wiener Netze Statusseite",
       "sourceUrl": "https://www.wienernetze.at/stromversorgung"
     },
@@ -732,7 +733,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.2872943878173828,
+        "generationtime_ms": 0.3718137741088867,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1505,16 +1506,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 995.9,
+      "value": 996.2,
       "unit": "hPa",
       "trend": "↑",
       "history": [
-        990.9,
-        991.2,
-        991.3,
-        991.3,
-        991.4,
-        991.4,
         991.6,
         991.8,
         991.9,
@@ -1652,14 +1647,20 @@
         995.5,
         995.5,
         995.9,
-        995.9
+        995.9,
+        996.2,
+        996,
+        996.3,
+        996.4,
+        996.3,
+        996.2
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.959,
+      "value": 49.983,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1667,7 +1668,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.005,
         49.977,
         49.99,
         50.016,
@@ -1954,7 +1954,8 @@
         49.988,
         49.985,
         50.02,
-        49.959
+        49.959,
+        49.983
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -1963,7 +1964,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Laurenzgasse",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -1991,9 +1992,9 @@
     },
     "uwz": {
       "level": "green",
-      "value": "Vorwarnung",
+      "value": "Keine Warnung",
       "district": "Keine Warnung",
-      "city": "Vorwarnung",
+      "city": "Keine Warnung",
       "geoWarnings": [],
       "geoLocation": "Wien-Leopoldstadt",
       "warningCount": 0,
