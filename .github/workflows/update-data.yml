@@ -29,7 +29,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -49,7 +49,9 @@ jobs:
         run: node scripts/checkAlerts.js
 
       - name: Send Alert Email
+        id: send-email
         if: steps.check-alerts.outputs.send_email == 'true'
+        continue-on-error: true
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -61,6 +63,10 @@ jobs:
           to: ${{ secrets.RECEIVER_EMAIL }}
           from: "Disaster Guardian <${{ secrets.MAIL_USERNAME }}>"
           html_body: file://email_alert.html
+
+      - name: Warn if email failed
+        if: steps.send-email.outcome == 'failure'
+        run: echo '::warning::E-Mail-Versand fehlgeschlagen – bitte MAIL_PASSWORD Secret prüfen (Google App-Passwort nötig).'
 
       - name: Commit & push if changed
         run: |

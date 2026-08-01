@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           
       - name: Install dependencies
         run: npm install
@@ -63,6 +63,7 @@ jobs:
 
       - name: Send Alert Email
         if: steps.health-check.outcome == 'failure'
+        continue-on-error: true
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com # Standardmäßig Gmail, kann vom User über Secrets angepasst werden
