@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-08T20:42:59.022Z",
+  "fetchedAt": "2026-08-08T21:13:58.797Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,13 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 25.99,
+      "value": 24.78,
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        26.4,
-        26.4,
-        26.2,
         26,
         25.8,
         25.9,
@@ -157,7 +154,10 @@
         25.6,
         25.5,
         25.3,
-        25.1
+        25.1,
+        25.1,
+        24.8,
+        24.6
       ],
       "uvHistory": [
         5.3,
@@ -165,6 +165,7 @@
         2,
         0.9,
         0.3,
+        0,
         0,
         0,
         0
@@ -187,13 +188,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 11,
+      "value": 7,
       "unit": "km/h",
-      "humidity": 35.12,
+      "humidity": 36.7,
       "windHistory": [
-        8,
-        7,
-        10,
         14,
         15,
         7,
@@ -334,12 +332,12 @@
         8,
         10,
         9,
-        11
+        11,
+        9,
+        11,
+        10
       ],
       "humHistory": [
-        44,
-        44,
-        44,
         45,
         46,
         46,
@@ -480,6 +478,9 @@
         35,
         35,
         36,
+        36,
+        36,
+        36,
         36
       ],
       "thresholds": {
@@ -504,7 +505,6 @@
       "unit": "cm",
       "trend": "Konstant",
       "history": [
-        278,
         278,
         277,
         278,
@@ -535,10 +535,9 @@
       "value": 90,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "19:00",
+      "measuredAt": "20:00",
       "history": [
         92,
-        92,
         91,
         89,
         90,
@@ -557,6 +556,7 @@
         89,
         89,
         91,
+        90,
         90,
         90,
         90
@@ -574,7 +574,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 51,
+      "value": 49,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -583,9 +583,9 @@
       "pm10": 16,
       "pm25": 8,
       "luftIndex": 3,
-      "aqi": 51,
+      "aqi": 49,
       "mainPollutant": "PM2.5/PM10",
-      "description": "Moderat",
+      "description": "Gut",
       "source": "Open-Meteo (US AQI)",
       "sourceUrl": null,
       "extraLinks": [
@@ -654,7 +654,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-08T20:43:02.616Z",
+      "date": "2026-08-08T21:14:01.012Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -716,7 +716,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.31447410583496094,
+        "generationtime_ms": 0.40280818939208984,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1489,13 +1489,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 999.5,
+      "value": 999.6,
       "unit": "hPa",
-      "trend": "↑",
+      "trend": "→",
       "history": [
-        997.6,
-        997.5,
-        997.5,
         997.6,
         997.5,
         997.6,
@@ -1636,14 +1633,17 @@
         999.6,
         999.5,
         999.5,
-        999.5
+        999.5,
+        999.5,
+        999.6,
+        999.6
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.026,
+      "value": 50.035,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1651,7 +1651,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.999,
         50.032,
         49.96,
         50.005,
@@ -1938,7 +1937,8 @@
         49.998,
         50.003,
         49.994,
-        50.026
+        50.026,
+        50.035
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
