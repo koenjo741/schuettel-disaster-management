@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-11T07:39:28.113Z",
+  "fetchedAt": "2026-08-11T08:37:34.836Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,16 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 24.42,
+      "value": 25.14,
       "unit": "°C",
-      "uvi": 2.1,
+      "uvi": 3.5,
       "tempHistory": [
-        25.9,
-        26.1,
-        26.3,
-        26.4,
-        26.7,
-        27.1,
         27.5,
         27.6,
         27.7,
@@ -157,7 +151,13 @@
         25.6,
         25.5,
         25.8,
-        25.7
+        25.7,
+        25.9,
+        25.8,
+        25.6,
+        25.4,
+        25.8,
+        26
       ],
       "uvHistory": [
         5,
@@ -178,7 +178,8 @@
         0,
         0.3,
         1,
-        2.1
+        2.1,
+        3.5
       ],
       "thresholds": {
         "yellow": 30,
@@ -198,16 +199,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 15,
+      "value": 18,
       "unit": "km/h",
-      "humidity": 47.56,
+      "humidity": 45.61,
       "windHistory": [
-        5,
-        4,
-        3,
-        2,
-        4,
-        2,
         5,
         4,
         3,
@@ -345,15 +340,15 @@
         15,
         20,
         21,
-        19
+        19,
+        17,
+        19,
+        21,
+        18,
+        16,
+        14
       ],
       "humHistory": [
-        45,
-        44,
-        45,
-        45,
-        44,
-        43,
         42,
         41,
         41,
@@ -491,7 +486,13 @@
         44,
         44,
         44,
-        44
+        44,
+        44,
+        44,
+        44,
+        45,
+        44,
+        43
       ],
       "thresholds": {
         "yellow": 60,
@@ -543,12 +544,11 @@
     },
     "radiation": {
       "level": "green",
-      "value": 94,
+      "value": 93,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "06:00",
+      "measuredAt": "07:00",
       "history": [
-        92,
         94,
         92,
         92,
@@ -570,12 +570,13 @@
         92,
         92,
         93,
-        94
+        94,
+        93
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 219,
+      "maxNearbyValue": 220,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -591,8 +592,8 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 25,
-      "pm25": 9,
+      "pm10": 24,
+      "pm25": 8,
       "luftIndex": 3,
       "aqi": 52,
       "mainPollutant": "PM2.5/PM10",
@@ -631,7 +632,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 3,
+      "value": 2,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -665,7 +666,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-11T07:39:31.456Z",
+      "date": "2026-08-11T08:37:37.493Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -727,7 +728,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.6145238876342773,
+        "generationtime_ms": 0.35953521728515625,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1500,16 +1501,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 998.7,
+      "value": 999.2,
       "unit": "hPa",
       "trend": "↑",
       "history": [
-        995.2,
-        995.3,
-        995.4,
-        995.5,
-        995.4,
-        995.5,
         995.6,
         995.7,
         995.7,
@@ -1647,14 +1642,20 @@
         998.5,
         998.6,
         998.6,
-        998.7
+        998.7,
+        999,
+        999.1,
+        999.1,
+        999.2,
+        999.3,
+        999.2
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.035,
+      "value": 50.006,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1662,7 +1663,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.949,
         49.975,
         50.014,
         50.011,
@@ -1949,7 +1949,8 @@
         50.024,
         49.992,
         50.001,
-        50.035
+        50.035,
+        50.006
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2006,17 +2007,6 @@
           "typeId": 6,
           "levelId": 1,
           "text": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
-          "begin": "14.08.2026 00:00",
-          "end": "14.08.2026 23:59",
-          "auswirkungen": "* Erhöhte Körpertemperatur\n* Erhöhter Puls\n* Schwäche/Müdigkeit\n* Kopfschmerzen\n* Muskelkrämpfe\n* Trockener Mund und Hals\n* Verwirrtheit, Schwindel, Bewusstseinsstörungen\n* Übelkeit, Erbrechen, Durchfall",
-          "empfehlungen": "* Meiden Sie direktes Sonnenlicht! Achten Sie darauf, dass Kinder vor der Sonne geschützt sind!\n* Meiden Sie verbaute und versiegelte Plätze wo es keinen Schatten gibt.\n* Gehen Sie nicht in der heißesten Tageszeit nach draußen!\n* Ziehen Sie die Vorhänge zu bzw. schließen Sie die Jalousien. Öffnen Sie die Fenster vorwiegend in der Nacht bzw. in den kühlen Morgenstunden!\n* Vermeiden Sie große Anstrengungen bzw. verschieben Sie körperliche Aktivitäten im Freien auf die frühen Morgenstunden oder den Abend!\n* Tragen Sie luftige, helle Kleidung und eine Kopfbedeckung!\n* Nehmen Sie eine kühle Dusche! Auch kalte Arm- und Fußbäder wirken entlastend.\n* Trinken Sie ausreichend und regelmäßig (mindestens 2 - 3 Liter pro Tag)! Optimal sind Wasser, ungesüßter Tee oder mit Wasser verdünnte Fruchtsäfte.\n* Denken Sie an ältere Mitmenschen und Kinder, dass auch diese regelmäßig trinken. \n* Bevorzugen Sie leichtes Essen!\n* Meiden Sie Alkohol!",
-          "meteotext": null
-        },
-        {
-          "id": 10,
-          "typeId": 6,
-          "levelId": 1,
-          "text": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
           "begin": "15.08.2026 00:00",
           "end": "15.08.2026 23:59",
           "auswirkungen": "* Erhöhte Körpertemperatur\n* Erhöhter Puls\n* Schwäche/Müdigkeit\n* Kopfschmerzen\n* Muskelkrämpfe\n* Trockener Mund und Hals\n* Verwirrtheit, Schwindel, Bewusstseinsstörungen\n* Übelkeit, Erbrechen, Durchfall",
@@ -2025,7 +2015,7 @@
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 3,
+      "warningCount": 2,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
