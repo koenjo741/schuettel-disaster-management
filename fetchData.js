@@ -1630,6 +1630,8 @@ export async function fetchAlertData() {
                     unit: 'hPa',
                     trend: pressureData?.trend ?? '→',
                     history: pressureData?.history ?? [],
+                    humidity: weather?.humidity ?? null,
+                    humHistory: windHumHistoryData?.humHistory ?? [],
                     source: pressureData?.source ?? 'Offline',
                     sourceUrl: pressureData?.sourceUrl ?? 'https://www.geosphere.at/'
                 },
