@@ -186,7 +186,7 @@
           <div id="lastUpdate" class="text-[14px] text-slate-500 text-right hidden sm:block"></div>
           <div
             class="h-[22px] inline-flex items-center px-2 bg-slate-800 border border-slate-700 rounded text-[14px] font-mono text-slate-400">
-            v1.17.0</div>
+            v1.17.1</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -227,7 +227,7 @@
       power: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M38 4 18 36h14l-4 24 20-32H34L38 4Z" fill="#fbbf24" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/></svg>', title: 'Stromversorgung', sub: 'Status Wiener Netze (Echtzeit)' },
       blackout: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M32 4 L60 54 H4 Z" fill="#fbbf24" stroke="#000" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="34" r="10" fill="none" stroke="#000" stroke-width="2"/><path d="M34 22 L24 38 H32 L30 48 L40 32 H32 L34 22 Z" fill="#000"/></svg>', title: 'Blackout-Frühwarnung', sub: 'Netzfrequenz (Echtzeit)' },
       weatherWidget: { icon: '🌤️', title: 'Wetter - Wien', sub: '7-Tage Prognose & Niederschlag' },
-      pressure: { icon: '<svg viewBox="0 0 64 64" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 40a22 22 0 1 1 40 0" /><path d="M32 40 L32 20" stroke-width="4" /><circle cx="32" cy="40" r="4" fill="#38bdf8" /></svg>', title: 'Luftdruck & Luftfeuchtigkeit', sub: 'Station 11034 (Taborstraße)' },
+      pressure: { icon: '<svg viewBox="0 0 64 64" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#FFEBE8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 40a22 22 0 1 1 40 0" /><path d="M32 40 L32 20" stroke-width="4" /><circle cx="32" cy="40" r="4" fill="#FFEBE8" /></svg>', title: 'Luftdruck & Luftfeuchtigkeit', sub: 'Station 11034 (Taborstraße)' },
       traffic: { icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28"><path d="M54 44H10l-2-4 4-20h40l4 20-2 4z" fill="#334155"/><rect x="14" y="24" width="8" height="8" rx="1" fill="#bae6fd"/><rect x="42" y="24" width="8" height="8" rx="1" fill="#bae6fd"/><circle cx="18" cy="48" r="6" fill="#1e293b"/><circle cx="46" cy="48" r="6" fill="#1e293b"/><path d="M22 10l-4 10h28l-4-10z" fill="#ef4444"/><rect x="28" y="14" width="8" height="4" fill="#60a5fa"/></svg>', title: 'Taktische Zufahrt', sub: 'Verkehr (1020 Leopoldstadt)' },
       winter: { icon: '❄️🧊', title: 'Schnee & Glatteis', sub: 'Winterdienst & Glättegefahr' },
       uwz: { icon: '<svg viewBox="0 0 64 64" width="28" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M32 10 L58 54 H6 Z" fill="#fff" stroke="#ef4444" stroke-width="6" stroke-linejoin="round"/><g transform="translate(20, 24) scale(0.7)"><path d="M22 6c-3.3 0-6 2.7-6 6 0 .3 0 .7.1 1-.9-.6-2-.9-3.1-.9-3.3 0-6 2.7-6 6s2.7 6 6 6h9c3.3 0 6-2.7 6-6s-2.7-6-6-6c0-3.3-2.7-6-6-6z" fill="#334155"/><path d="M10 18l-3 6h4l-3 8" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 18l-1 3m4-3l-1 3m4-3l-1 3" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/></g></svg>', title: 'Unwetterwarnungen', sub: 'Status Wien (Gesamt) & Leopoldstadt (Lokal)' },
@@ -673,10 +673,10 @@
           extraHtml = `
             <div class="flex items-center gap-3 text-[11px] text-slate-400 mt-2 font-medium">
               <span class="flex items-center gap-1">
-                <span class="w-2.5 h-0.5 rounded bg-sky-400"></span> Luftdruck (hPa)
+                <span class="w-2.5 h-0.5 rounded bg-[#FFEBE8]"></span> Luftdruck (hPa)
               </span>
               <span class="flex items-center gap-1">
-                <span class="w-2.5 h-0.5 rounded bg-cyan-500"></span> Feuchtigkeit (%)
+                <span class="w-2.5 h-0.5 rounded bg-[#10add0]"></span> Feuchtigkeit (%)
               </span>
             </div>
           `;
@@ -706,8 +706,8 @@
           extraHtml += `
             <div class="mt-3 h-12 w-full relative">
               <svg viewBox="0 0 300 40" class="w-full h-full overflow-visible" preserveAspectRatio="none">
-                <path d="${pathD}" fill="none" stroke="rgba(56, 189, 248, 0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="${humPathD}" fill="none" stroke="rgba(6, 182, 212, 0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="${pathD}" fill="none" stroke="#FFEBE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="${humPathD}" fill="none" stroke="#10add0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </div>`;
         } else {
@@ -727,12 +727,12 @@
               <svg viewBox="0 0 300 40" class="w-full h-full overflow-visible" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="pressureGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="rgba(56, 189, 248, 0.25)" />
-                    <stop offset="100%" stop-color="rgba(56, 189, 248, 0.0)" />
+                    <stop offset="0%" stop-color="rgba(255, 235, 232, 0.25)" />
+                    <stop offset="100%" stop-color="rgba(255, 235, 232, 0.0)" />
                   </linearGradient>
                 </defs>
                 <path d="${gradD}" fill="url(#pressureGrad)" />
-                <path d="${pathD}" fill="none" stroke="rgba(56, 189, 248, 0.65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="${pathD}" fill="none" stroke="#FFEBE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </div>`;
         }
