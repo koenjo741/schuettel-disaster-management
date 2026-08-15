@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-15T14:31:02.732Z",
+  "fetchedAt": "2026-08-15T14:54:30.405Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,8 +14,6 @@
       "unit": "°C",
       "uvi": 3.3,
       "tempHistory": [
-        30.6,
-        30.3,
         30.5,
         29.9,
         30.1,
@@ -156,7 +154,10 @@
         34.6,
         35,
         34.2,
-        35.2
+        35.2,
+        35.6,
+        34.4,
+        34.2
       ],
       "uvHistory": [
         5.1,
@@ -208,8 +209,6 @@
       "unit": "km/h",
       "humidity": 18.57,
       "windHistory": [
-        9,
-        8,
         7,
         10,
         9,
@@ -350,11 +349,12 @@
         20,
         17,
         21,
-        14
+        14,
+        14,
+        18,
+        18
       ],
       "humHistory": [
-        17,
-        18,
         18,
         18,
         18,
@@ -495,7 +495,10 @@
         16,
         16,
         17,
-        16
+        16,
+        16,
+        17,
+        17
       ],
       "thresholds": {
         "yellow": 60,
@@ -578,7 +581,7 @@
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 220,
+      "maxNearbyValue": 221,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -668,7 +671,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-15T14:31:04.715Z",
+      "date": "2026-08-15T14:54:32.471Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -680,7 +683,7 @@
         "yellow": 3,
         "red": 4
       },
-      "hotspots": 0,
+      "hotspots": 2,
       "source": "NASA FIRMS Satelliten-Monitoring",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
@@ -730,7 +733,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.5202293395996094,
+        "generationtime_ms": 2.1102428436279297,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1507,8 +1510,6 @@
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        998.1,
-        998,
         997.9,
         997.8,
         997.7,
@@ -1649,12 +1650,13 @@
         993.3,
         993.1,
         993,
+        992.9,
+        992.9,
+        992.9,
         992.9
       ],
       "humidity": 18.57,
       "humHistory": [
-        17,
-        18,
         18,
         18,
         18,
@@ -1795,14 +1797,17 @@
         16,
         16,
         17,
-        16
+        16,
+        16,
+        17,
+        17
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.024,
+      "value": 49.953,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1810,7 +1815,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.981,
         49.975,
         49.998,
         50.021,
@@ -2097,7 +2101,8 @@
         49.981,
         49.998,
         49.972,
-        50.024
+        50.024,
+        49.953
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2106,7 +2111,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Laurenzgasse",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
