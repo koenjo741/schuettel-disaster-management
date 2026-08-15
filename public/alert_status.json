@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-15T07:57:20.830Z",
+  "fetchedAt": "2026-08-15T08:38:40.403Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,14 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 20.7,
+      "value": 23.87,
       "unit": "°C",
-      "uvi": 2.1,
+      "uvi": 3.6,
       "tempHistory": [
-        22.8,
-        23,
-        22.9,
-        23.1,
         23.2,
         23.6,
         24,
@@ -157,7 +153,11 @@
         25.9,
         26.2,
         26.4,
-        26.1
+        26.1,
+        26.9,
+        27.1,
+        27.3,
+        28.1
       ],
       "uvHistory": [
         5.1,
@@ -178,7 +178,8 @@
         0,
         0.3,
         0.9,
-        2.1
+        2.1,
+        3.6
       ],
       "thresholds": {
         "yellow": 30,
@@ -198,14 +199,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 9,
+      "value": 7,
       "unit": "km/h",
-      "humidity": 43.83,
+      "humidity": 37.34,
       "windHistory": [
-        4,
-        3,
-        6,
-        5,
         5,
         2,
         6,
@@ -345,13 +342,13 @@
         9,
         9,
         5,
-        5
+        5,
+        6,
+        9,
+        7,
+        10
       ],
       "humHistory": [
-        36,
-        36,
-        37,
-        36,
         35,
         35,
         34,
@@ -491,7 +488,11 @@
         31,
         30,
         31,
-        31
+        31,
+        29,
+        28,
+        28,
+        27
       ],
       "thresholds": {
         "yellow": 60,
@@ -542,12 +543,11 @@
     },
     "radiation": {
       "level": "green",
-      "value": 93,
+      "value": 95,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "06:00",
+      "measuredAt": "07:00",
       "history": [
-        91,
         92,
         91,
         92,
@@ -569,12 +569,13 @@
         92,
         93,
         94,
-        93
+        93,
+        95
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 220,
+      "maxNearbyValue": 223,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -664,7 +665,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-15T07:57:22.993Z",
+      "date": "2026-08-15T08:38:43.101Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -726,7 +727,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.7470846176147461,
+        "generationtime_ms": 0.6273984909057617,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1499,14 +1500,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 995.7,
+      "value": 995.4,
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        1001.6,
-        1001.6,
-        1001.6,
-        1001.6,
         1001.5,
         1001.5,
         1001.5,
@@ -1646,14 +1643,14 @@
         995.8,
         995.7,
         995.7,
-        995.7
+        995.7,
+        995.6,
+        995.6,
+        995.5,
+        995.4
       ],
-      "humidity": 43.83,
+      "humidity": 37.34,
       "humHistory": [
-        36,
-        36,
-        37,
-        36,
         35,
         35,
         34,
@@ -1793,14 +1790,18 @@
         31,
         30,
         31,
-        31
+        31,
+        29,
+        28,
+        28,
+        27
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.986,
+      "value": 50.015,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1808,7 +1809,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.023,
         49.976,
         50.007,
         49.999,
@@ -2095,7 +2095,8 @@
         49.962,
         50.04,
         49.998,
-        49.986
+        49.986,
+        50.015
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2132,10 +2133,21 @@
     },
     "uwz": {
       "level": "yellow",
-      "value": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
+      "value": "Es ist mit starker Hitzebelastung zu rechnen.",
       "district": "Keine Warnung",
       "city": "Keine Warnung",
       "geoWarnings": [
+        {
+          "id": 10,
+          "typeId": 6,
+          "levelId": 2,
+          "text": "Es ist mit starker Hitzebelastung zu rechnen.",
+          "begin": "16.08.2026 00:00",
+          "end": "16.08.2026 23:59",
+          "auswirkungen": "* Erhöhte Körpertemperatur\n* Erhöhter Puls\n* Schwäche/Müdigkeit\n* Kopfschmerzen\n* Muskelkrämpfe\n* Trockener Mund und Hals\n* Verwirrtheit, Schwindel, Bewusstseinsstörungen\n* Übelkeit, Erbrechen, Durchfall",
+          "empfehlungen": "* Meiden Sie direktes Sonnenlicht! Achten Sie darauf, dass Kinder vor der Sonne geschützt sind!\n* Meiden Sie verbaute und versiegelte Plätze wo es keinen Schatten gibt.\n* Gehen Sie nicht in der heißesten Tageszeit nach draußen!\n* Ziehen Sie die Vorhänge zu bzw. schließen Sie die Jalousien. Öffnen Sie die Fenster vorwiegend in der Nacht bzw. in den kühlen Morgenstunden!\n* Vermeiden Sie große Anstrengungen bzw. verschieben Sie körperliche Aktivitäten im Freien auf die frühen Morgenstunden oder den Abend!\n* Tragen Sie luftige, helle Kleidung und eine Kopfbedeckung!\n* Nehmen Sie eine kühle Dusche! Auch kalte Arm- und Fußbäder wirken entlastend.\n* Trinken Sie ausreichend und regelmäßig (mindestens 2 - 3 Liter pro Tag)! Optimal sind Wasser, ungesüßter Tee oder mit Wasser verdünnte Fruchtsäfte.\n* Denken Sie an ältere Mitmenschen und Kinder, dass auch diese regelmäßig trinken. \n* Bevorzugen Sie leichtes Essen!\n* Meiden Sie Alkohol!",
+          "meteotext": null
+        },
         {
           "id": 10,
           "typeId": 6,
@@ -2148,26 +2160,15 @@
           "meteotext": null
         },
         {
-          "id": 10,
-          "typeId": 6,
+          "id": 4842,
+          "typeId": 5,
           "levelId": 1,
-          "text": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
-          "begin": "16.08.2026 00:00",
-          "end": "16.08.2026 23:59",
-          "auswirkungen": "* Erhöhte Körpertemperatur\n* Erhöhter Puls\n* Schwäche/Müdigkeit\n* Kopfschmerzen\n* Muskelkrämpfe\n* Trockener Mund und Hals\n* Verwirrtheit, Schwindel, Bewusstseinsstörungen\n* Übelkeit, Erbrechen, Durchfall",
-          "empfehlungen": "* Meiden Sie direktes Sonnenlicht! Achten Sie darauf, dass Kinder vor der Sonne geschützt sind!\n* Meiden Sie verbaute und versiegelte Plätze wo es keinen Schatten gibt.\n* Gehen Sie nicht in der heißesten Tageszeit nach draußen!\n* Ziehen Sie die Vorhänge zu bzw. schließen Sie die Jalousien. Öffnen Sie die Fenster vorwiegend in der Nacht bzw. in den kühlen Morgenstunden!\n* Vermeiden Sie große Anstrengungen bzw. verschieben Sie körperliche Aktivitäten im Freien auf die frühen Morgenstunden oder den Abend!\n* Tragen Sie luftige, helle Kleidung und eine Kopfbedeckung!\n* Nehmen Sie eine kühle Dusche! Auch kalte Arm- und Fußbäder wirken entlastend.\n* Trinken Sie ausreichend und regelmäßig (mindestens 2 - 3 Liter pro Tag)! Optimal sind Wasser, ungesüßter Tee oder mit Wasser verdünnte Fruchtsäfte.\n* Denken Sie an ältere Mitmenschen und Kinder, dass auch diese regelmäßig trinken. \n* Bevorzugen Sie leichtes Essen!\n* Meiden Sie Alkohol!",
-          "meteotext": null
-        },
-        {
-          "id": 10,
-          "typeId": 6,
-          "levelId": 1,
-          "text": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
-          "begin": "17.08.2026 00:00",
-          "end": "17.08.2026 23:59",
-          "auswirkungen": "* Erhöhte Körpertemperatur\n* Erhöhter Puls\n* Schwäche/Müdigkeit\n* Kopfschmerzen\n* Muskelkrämpfe\n* Trockener Mund und Hals\n* Verwirrtheit, Schwindel, Bewusstseinsstörungen\n* Übelkeit, Erbrechen, Durchfall",
-          "empfehlungen": "* Meiden Sie direktes Sonnenlicht! Achten Sie darauf, dass Kinder vor der Sonne geschützt sind!\n* Meiden Sie verbaute und versiegelte Plätze wo es keinen Schatten gibt.\n* Gehen Sie nicht in der heißesten Tageszeit nach draußen!\n* Ziehen Sie die Vorhänge zu bzw. schließen Sie die Jalousien. Öffnen Sie die Fenster vorwiegend in der Nacht bzw. in den kühlen Morgenstunden!\n* Vermeiden Sie große Anstrengungen bzw. verschieben Sie körperliche Aktivitäten im Freien auf die frühen Morgenstunden oder den Abend!\n* Tragen Sie luftige, helle Kleidung und eine Kopfbedeckung!\n* Nehmen Sie eine kühle Dusche! Auch kalte Arm- und Fußbäder wirken entlastend.\n* Trinken Sie ausreichend und regelmäßig (mindestens 2 - 3 Liter pro Tag)! Optimal sind Wasser, ungesüßter Tee oder mit Wasser verdünnte Fruchtsäfte.\n* Denken Sie an ältere Mitmenschen und Kinder, dass auch diese regelmäßig trinken. \n* Bevorzugen Sie leichtes Essen!\n* Meiden Sie Alkohol!",
-          "meteotext": null
+          "text": "Gelbe Gewitterwarnung von Mo, 17.08.2026 10:00 bis Mo, 17.08.2026 18:00",
+          "begin": "17.08.2026 10:00",
+          "end": "17.08.2026 18:00",
+          "auswirkungen": "*  Kleine Muren, lokal überflutete Straßen\r\n*  Punktuell kann es zu Überschwemmungen kommen, Keller können überflutet werden.\r\n*  Blitzschlag kann zu Stromausfällen führen und Gebäude oder Bäume in Brand stecken.\r\n*  Aufgrund von Sturmböen können Gegenstände herumgewirbelt werden, Äste abbrechen und vereinzelt auch Bäume umfallen.",
+          "empfehlungen": "*  Schließen Sie Fenster, Türen und Garagentore sowie Dachfenster und Lichtkuppeln!\r\n*  Verlassen Sie bei einem herannahenden Gewitter umgehend Gewässer!\r\n*  Suchen Sie vor allem im Gebirge rechtzeitig Schutz!\r\n*  Beachten Sie Gewitter- und Sturmwarnungen an Seen!",
+          "meteotext": "Mit dem Durchgang einer Kaltfront kommt es zu teils kräftigen Regenschauern und Gewittern. Dabei besteht ein örtliches Starkregenrisiko, in Gewitternähe kann auch der Wind stark auffrischen."
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
