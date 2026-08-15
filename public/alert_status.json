@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-15T05:10:05.660Z",
+  "fetchedAt": "2026-08-15T05:42:44.875Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,9 +14,6 @@
       "unit": "°C",
       "uvi": 0.3,
       "tempHistory": [
-        18.1,
-        18.8,
-        19.4,
         19.7,
         20.3,
         20.9,
@@ -156,7 +153,11 @@
         19.6,
         19.5,
         19.7,
-        19.7
+        19.7,
+        19.9,
+        20.4,
+        20.8,
+        21.2
       ],
       "uvHistory": [
         5.1,
@@ -199,9 +200,6 @@
       "unit": "km/h",
       "humidity": 53.57,
       "windHistory": [
-        5,
-        4,
-        6,
         4,
         3,
         3,
@@ -341,12 +339,13 @@
         4,
         4,
         3,
-        4
+        4,
+        3,
+        6,
+        5,
+        8
       ],
       "humHistory": [
-        44,
-        43,
-        41,
         41,
         40,
         38,
@@ -486,7 +485,11 @@
         45,
         45,
         45,
-        44
+        44,
+        44,
+        42,
+        41,
+        40
       ],
       "thresholds": {
         "yellow": 60,
@@ -536,16 +539,40 @@
       ]
     },
     "radiation": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 93,
       "unit": "nSv/h",
-      "station": "Unbekannt",
-      "measuredAt": null,
-      "history": [],
-      "source": "Offline",
+      "station": "AT2009 Wien - Atomreaktor",
+      "measuredAt": "04:00",
+      "history": [
+        92,
+        91,
+        91,
+        92,
+        91,
+        92,
+        91,
+        92,
+        91,
+        91,
+        91,
+        90,
+        92,
+        91,
+        90,
+        91,
+        92,
+        92,
+        93,
+        92,
+        93,
+        92,
+        93
+      ],
+      "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 228,
+      "maxNearbyValue": 225,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -561,7 +588,7 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 23,
+      "pm10": 24,
       "pm25": 7,
       "luftIndex": 2,
       "aqi": 32,
@@ -635,7 +662,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-15T05:10:08.223Z",
+      "date": "2026-08-15T05:42:48.267Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -697,7 +724,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 1.346588134765625,
+        "generationtime_ms": 0.4115104675292969,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1470,13 +1497,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 995.8,
+      "value": 995.9,
       "unit": "hPa",
       "trend": "→",
       "history": [
-        1002,
-        1002.1,
-        1002.1,
         1002.1,
         1002.1,
         1002.1,
@@ -1616,13 +1640,14 @@
         995.8,
         995.8,
         995.8,
-        995.8
+        995.8,
+        995.8,
+        995.8,
+        995.8,
+        995.9
       ],
       "humidity": 53.57,
       "humHistory": [
-        44,
-        43,
-        41,
         41,
         40,
         38,
@@ -1762,14 +1787,18 @@
         45,
         45,
         45,
-        44
+        44,
+        44,
+        42,
+        41,
+        40
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.982,
+      "value": 50.001,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1777,7 +1806,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.019,
         50.004,
         49.99,
         49.982,
@@ -2064,7 +2092,8 @@
         50.009,
         49.965,
         50,
-        49.982
+        49.982,
+        50.001
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2168,5 +2197,5 @@
       ]
     }
   },
-  "error": "Radiation/IMIS: REMAP API: No data found for AT2009"
+  "error": null
 }
