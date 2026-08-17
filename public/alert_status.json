@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-17T16:09:25.710Z",
+  "fetchedAt": "2026-08-17T16:46:50.544Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,10 +14,6 @@
       "unit": "°C",
       "uvi": 0.5,
       "tempHistory": [
-        29.8,
-        29.7,
-        29.6,
-        29.4,
         29.3,
         29.3,
         29.3,
@@ -157,7 +153,11 @@
         26.1,
         25.6,
         25.2,
-        25.4
+        25.4,
+        25.6,
+        25.6,
+        25.5,
+        24.9
       ],
       "uvHistory": [
         4.1,
@@ -211,10 +211,6 @@
       "unit": "km/h",
       "humidity": 47.91,
       "windHistory": [
-        12,
-        12,
-        9,
-        11,
         10,
         10,
         9,
@@ -354,13 +350,13 @@
         19,
         23,
         26,
-        23
+        23,
+        24,
+        31,
+        26,
+        34
       ],
       "humHistory": [
-        31,
-        31,
-        32,
-        33,
         33,
         33,
         33,
@@ -500,6 +496,10 @@
         50,
         52,
         55,
+        52,
+        51,
+        51,
+        51,
         52
       ],
       "thresholds": {
@@ -510,7 +510,7 @@
     },
     "rain": {
       "level": "green",
-      "value": null,
+      "value": 0,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -550,10 +550,10 @@
     },
     "radiation": {
       "level": "green",
-      "value": 91,
+      "value": 94,
       "unit": "nSv/h",
       "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "14:00",
+      "measuredAt": "15:00",
       "history": [
         93,
         92,
@@ -576,12 +576,13 @@
         95,
         92,
         93,
-        91
+        91,
+        94
       ],
       "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 223,
+      "maxNearbyValue": 222,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -671,7 +672,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-17T16:09:28.153Z",
+      "date": "2026-08-17T16:46:54.121Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -733,7 +734,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.5764961242675781,
+        "generationtime_ms": 0.43189525604248047,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1506,14 +1507,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 988.1,
+      "value": 988.4,
       "unit": "hPa",
       "trend": "→",
       "history": [
-        992,
-        992,
-        992,
-        992,
         992,
         992,
         992,
@@ -1653,14 +1650,14 @@
         988.4,
         988.4,
         988.1,
-        988.1
+        988.1,
+        988,
+        988,
+        988.2,
+        988.4
       ],
       "humidity": 47.91,
       "humHistory": [
-        31,
-        31,
-        32,
-        33,
         33,
         33,
         33,
@@ -1800,6 +1797,10 @@
         50,
         52,
         55,
+        52,
+        51,
+        51,
+        51,
         52
       ],
       "source": "GeoSphere Österreich",
@@ -1807,7 +1808,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 49.979,
+      "value": 50.036,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1815,7 +1816,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.033,
         50.024,
         50.034,
         50.046,
@@ -2102,7 +2102,8 @@
         49.981,
         50.044,
         49.974,
-        49.979
+        49.979,
+        50.036
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
