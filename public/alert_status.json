@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-18T22:57:59.575Z",
+  "fetchedAt": "2026-08-18T23:30:04.767Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,14 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 19.49,
+      "value": 19.31,
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        18.9,
-        18.7,
-        18.7,
-        18.8,
         18.8,
         19,
         19,
@@ -157,7 +153,10 @@
         19.3,
         19.2,
         19.1,
-        19.2
+        19.2,
+        19.1,
+        19,
+        19.1
       ],
       "uvHistory": [
         0.9,
@@ -165,6 +164,7 @@
         0.2,
         0.2,
         0.1,
+        0,
         0,
         0,
         0,
@@ -189,14 +189,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 10,
+      "value": 5,
       "unit": "km/h",
-      "humidity": 69.06,
+      "humidity": 71.28,
       "windHistory": [
-        11,
-        9,
-        13,
-        12,
         8,
         8,
         8,
@@ -336,13 +332,12 @@
         9,
         8,
         7,
-        8
+        8,
+        10,
+        12,
+        12
       ],
       "humHistory": [
-        66,
-        66,
-        67,
-        67,
         68,
         67,
         66,
@@ -482,7 +477,10 @@
         72,
         72,
         72,
-        72
+        72,
+        73,
+        74,
+        74
       ],
       "thresholds": {
         "yellow": 60,
@@ -556,7 +554,7 @@
         "red": 101
       },
       "pm10": 12,
-      "pm25": 9,
+      "pm25": 8,
       "luftIndex": 2,
       "aqi": 37,
       "mainPollutant": "PM2.5/PM10",
@@ -629,7 +627,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-18T22:58:02.606Z",
+      "date": "2026-08-18T23:30:08.427Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -691,7 +689,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.335693359375,
+        "generationtime_ms": 0.35893917083740234,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1464,14 +1462,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 991,
+      "value": 990.9,
       "unit": "hPa",
-      "trend": "→",
+      "trend": "↓",
       "history": [
-        991.9,
-        991.8,
-        991.8,
-        991.6,
         991.6,
         991.8,
         991.6,
@@ -1611,14 +1605,13 @@
         991.1,
         991.1,
         991,
-        991
+        991,
+        991.1,
+        991,
+        990.9
       ],
-      "humidity": 69.06,
+      "humidity": 71.28,
       "humHistory": [
-        66,
-        66,
-        67,
-        67,
         68,
         67,
         66,
@@ -1758,14 +1751,17 @@
         72,
         72,
         72,
-        72
+        72,
+        73,
+        74,
+        74
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.991,
+      "value": 49.995,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1773,7 +1769,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.02,
         49.986,
         49.997,
         50.011,
@@ -2060,7 +2055,8 @@
         50.02,
         50.028,
         50.009,
-        49.991
+        49.991,
+        49.995
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2129,9 +2125,9 @@
       ]
     },
     "thunderstorm": {
-      "level": "yellow",
-      "value": "Moderate Gewitteraktivität",
-      "intensity": 1,
+      "level": "green",
+      "value": "Keine Gewitterzellen",
+      "intensity": 0,
       "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
       "extraLinks": [
