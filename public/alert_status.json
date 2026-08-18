@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-18T01:24:35.187Z",
+  "fetchedAt": "2026-08-18T02:38:04.430Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,17 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 18.55,
+      "value": 18.51,
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        25.2,
-        25.1,
-        24.9,
-        24.8,
-        24.7,
-        24.4,
-        24.2,
         24.1,
         24.1,
         24,
@@ -157,13 +150,21 @@
         19,
         18.9,
         18.9,
-        18.9
+        18.9,
+        19,
+        18.7,
+        18.7,
+        18.7,
+        18.7,
+        18.6,
+        18.5
       ],
       "uvHistory": [
         3.7,
         2.1,
         0.2,
         0.4,
+        0,
         0,
         0,
         0,
@@ -192,17 +193,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 10,
+      "value": 13,
       "unit": "km/h",
-      "humidity": 68.09,
+      "humidity": 68.6,
       "windHistory": [
-        6,
-        17,
-        13,
-        10,
-        15,
-        17,
-        14,
         14,
         9,
         13,
@@ -339,16 +333,16 @@
         11,
         12,
         8,
-        11
+        11,
+        8,
+        10,
+        10,
+        10,
+        11,
+        11,
+        10
       ],
       "humHistory": [
-        41,
-        41,
-        42,
-        42,
-        42,
-        44,
-        45,
         46,
         46,
         47,
@@ -485,7 +479,14 @@
         65,
         66,
         66,
-        66
+        66,
+        67,
+        71,
+        72,
+        74,
+        74,
+        75,
+        76
       ],
       "thresholds": {
         "yellow": 60,
@@ -533,16 +534,40 @@
       ]
     },
     "radiation": {
-      "level": "unknown",
-      "value": null,
+      "level": "green",
+      "value": 92,
       "unit": "nSv/h",
-      "station": "Unbekannt",
-      "measuredAt": null,
-      "history": [],
-      "source": "Offline",
+      "station": "AT2009 Wien - Atomreaktor",
+      "measuredAt": "01:00",
+      "history": [
+        93,
+        93,
+        94,
+        100,
+        110,
+        100,
+        95,
+        94,
+        95,
+        92,
+        93,
+        91,
+        94,
+        92,
+        92,
+        93,
+        92,
+        94,
+        93,
+        92,
+        93,
+        92,
+        92
+      ],
+      "source": "EURDEP/REMAP",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 221,
+      "maxNearbyValue": 222,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -552,16 +577,16 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 43,
+      "value": 42,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 18,
+      "pm10": 17,
       "pm25": 10,
       "luftIndex": 2,
-      "aqi": 43,
+      "aqi": 42,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -632,7 +657,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-18T01:24:38.172Z",
+      "date": "2026-08-18T02:38:06.436Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -645,7 +670,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA FIRMS Satelliten-Monitoring",
+      "source": "NASA (Offline)",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -694,7 +719,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.4404783248901367,
+        "generationtime_ms": 6.059169769287109,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1467,17 +1492,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 991.5,
+      "value": 991.6,
       "unit": "hPa",
       "trend": "→",
       "history": [
-        992.2,
-        992.2,
-        992.1,
-        992.1,
-        992.1,
-        992.2,
-        992,
         991.9,
         991.8,
         991.8,
@@ -1614,17 +1632,17 @@
         991.6,
         991.6,
         991.6,
-        991.5
+        991.5,
+        991.5,
+        991.5,
+        991.5,
+        991.5,
+        991.6,
+        991.6,
+        991.6
       ],
-      "humidity": 68.09,
+      "humidity": 68.6,
       "humHistory": [
-        41,
-        41,
-        42,
-        42,
-        42,
-        44,
-        45,
         46,
         46,
         47,
@@ -1761,14 +1779,21 @@
         65,
         66,
         66,
-        66
+        66,
+        67,
+        71,
+        72,
+        74,
+        74,
+        75,
+        76
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.987,
+      "value": 49.995,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1776,7 +1801,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.994,
         49.978,
         49.977,
         50.041,
@@ -2063,7 +2087,8 @@
         50.013,
         49.987,
         49.994,
-        49.987
+        49.987,
+        49.995
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2145,5 +2170,5 @@
       ]
     }
   },
-  "error": "Radiation/IMIS: fetch failed"
+  "error": null
 }
