@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-18T10:11:45.716Z",
+  "fetchedAt": "2026-08-18T10:48:57.742Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,9 +14,6 @@
       "unit": "°C",
       "uvi": 3.4,
       "tempHistory": [
-        25.9,
-        26.3,
-        26.1,
         26.3,
         25.9,
         26.4,
@@ -156,7 +153,11 @@
         21.6,
         21.2,
         21.4,
-        21.7
+        21.7,
+        21.6,
+        21.6,
+        21.5,
+        21.5
       ],
       "uvHistory": [
         3.7,
@@ -204,9 +205,6 @@
       "unit": "km/h",
       "humidity": 50.1,
       "windHistory": [
-        11,
-        9,
-        14,
         15,
         17,
         9,
@@ -346,12 +344,13 @@
         13,
         13,
         15,
-        14
+        14,
+        16,
+        17,
+        17,
+        21
       ],
       "humHistory": [
-        51,
-        50,
-        52,
         50,
         52,
         50,
@@ -491,7 +490,11 @@
         52,
         54,
         51,
-        49
+        49,
+        47,
+        47,
+        50,
+        51
       ],
       "thresholds": {
         "yellow": 60,
@@ -565,7 +568,7 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 15,
+      "pm10": 16,
       "pm25": 11,
       "luftIndex": 2,
       "aqi": 30,
@@ -639,7 +642,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-18T10:11:47.463Z",
+      "date": "2026-08-18T10:48:59.914Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -652,7 +655,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA FIRMS Satelliten-Monitoring",
+      "source": "NASA (Offline)",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -701,7 +704,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.5974769592285156,
+        "generationtime_ms": 0.6679296493530273,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1454,8 +1457,8 @@
             0,
             2,
             2.1,
-            0,
-            0,
+            0.15,
+            3.6,
             0
           ],
           "wind_speed_10m_max": [
@@ -1476,11 +1479,8 @@
       "level": "green",
       "value": 992.2,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "→",
       "history": [
-        990.3,
-        990.3,
-        990.2,
         990.2,
         990.1,
         990,
@@ -1620,13 +1620,14 @@
         992.4,
         992.3,
         992.2,
+        992.2,
+        992.3,
+        992.3,
+        992.3,
         992.2
       ],
       "humidity": 50.1,
       "humHistory": [
-        51,
-        50,
-        52,
         50,
         52,
         50,
@@ -1766,14 +1767,18 @@
         52,
         54,
         51,
-        49
+        49,
+        47,
+        47,
+        50,
+        51
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.05,
+      "value": 49.992,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1781,7 +1786,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.98,
         49.963,
         49.973,
         50.044,
@@ -2068,7 +2072,8 @@
         49.97,
         50.006,
         50.018,
-        50.05
+        50.05,
+        49.992
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
