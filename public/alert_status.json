@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-17T23:54:09.695Z",
+  "fetchedAt": "2026-08-18T01:24:35.187Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,15 +14,6 @@
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        25,
-        25.1,
-        25.1,
-        25.3,
-        25.5,
-        25.5,
-        25.4,
-        25.2,
-        25.1,
         25.2,
         25.1,
         24.9,
@@ -157,13 +148,24 @@
         18.7,
         18.8,
         18.8,
-        19
+        19,
+        19,
+        19,
+        18.8,
+        19,
+        18.9,
+        19,
+        18.9,
+        18.9,
+        18.9
       ],
       "uvHistory": [
         3.7,
         2.1,
         0.2,
         0.4,
+        0,
+        0,
         0,
         0,
         0,
@@ -190,19 +192,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 16,
+      "value": 10,
       "unit": "km/h",
-      "humidity": 74.78,
+      "humidity": 68.09,
       "windHistory": [
-        1,
-        1,
-        3,
-        4,
-        5,
-        4,
-        5,
-        5,
-        5,
         6,
         17,
         13,
@@ -337,18 +330,18 @@
         13,
         12,
         8,
-        8
+        8,
+        8,
+        10,
+        13,
+        9,
+        14,
+        11,
+        12,
+        8,
+        11
       ],
       "humHistory": [
-        45,
-        44,
-        44,
-        43,
-        42,
-        41,
-        41,
-        41,
-        41,
         41,
         41,
         42,
@@ -483,7 +476,16 @@
         67,
         67,
         68,
-        67
+        67,
+        66,
+        66,
+        65,
+        65,
+        65,
+        65,
+        66,
+        66,
+        66
       ],
       "thresholds": {
         "yellow": 60,
@@ -493,7 +495,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0.01,
+      "value": 0,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -531,37 +533,13 @@
       ]
     },
     "radiation": {
-      "level": "green",
-      "value": 92,
+      "level": "unknown",
+      "value": null,
       "unit": "nSv/h",
-      "station": "AT2009 Wien - Atomreaktor",
-      "measuredAt": "22:00",
-      "history": [
-        94,
-        93,
-        93,
-        93,
-        93,
-        94,
-        100,
-        110,
-        100,
-        95,
-        94,
-        95,
-        92,
-        93,
-        91,
-        94,
-        92,
-        92,
-        93,
-        92,
-        94,
-        93,
-        92
-      ],
-      "source": "EURDEP/REMAP",
+      "station": "Unbekannt",
+      "measuredAt": null,
+      "history": [],
+      "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
       "maxNearbyValue": 221,
@@ -574,16 +552,16 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 46,
+      "value": 43,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 20,
-      "pm25": 11,
+      "pm10": 18,
+      "pm25": 10,
       "luftIndex": 2,
-      "aqi": 46,
+      "aqi": 43,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -654,7 +632,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-17T23:54:12.222Z",
+      "date": "2026-08-18T01:24:38.172Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -716,7 +694,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.7288455963134766,
+        "generationtime_ms": 0.4404783248901367,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1489,19 +1467,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 991.8,
+      "value": 991.5,
       "unit": "hPa",
       "trend": "→",
       "history": [
-        991.5,
-        991.4,
-        991.3,
-        991.2,
-        991.2,
-        991.2,
-        991.2,
-        991.2,
-        991.2,
         992.2,
         992.2,
         992.1,
@@ -1636,19 +1605,19 @@
         991.8,
         991.6,
         991.6,
-        991.8
+        991.8,
+        991.6,
+        991.5,
+        991.6,
+        991.5,
+        991.5,
+        991.6,
+        991.6,
+        991.6,
+        991.5
       ],
-      "humidity": 74.78,
+      "humidity": 68.09,
       "humHistory": [
-        45,
-        44,
-        44,
-        43,
-        42,
-        41,
-        41,
-        41,
-        41,
         41,
         41,
         42,
@@ -1783,14 +1752,23 @@
         67,
         67,
         68,
-        67
+        67,
+        66,
+        66,
+        65,
+        65,
+        65,
+        65,
+        66,
+        66,
+        66
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.994,
+      "value": 49.987,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1798,7 +1776,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.99,
         49.994,
         49.978,
         49.977,
@@ -2085,7 +2062,8 @@
         49.986,
         50.013,
         49.987,
-        49.994
+        49.994,
+        49.987
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2167,5 +2145,5 @@
       ]
     }
   },
-  "error": null
+  "error": "Radiation/IMIS: fetch failed"
 }
