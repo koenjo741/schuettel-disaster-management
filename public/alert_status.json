@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-19T07:49:03.088Z",
+  "fetchedAt": "2026-08-19T08:23:44.464Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,14 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 21.3,
+      "value": 22,
       "unit": "°C",
-      "uvi": 0.5,
+      "uvi": 1.3,
       "tempHistory": [
-        20.4,
-        20.6,
-        20.8,
-        21.1,
         21.1,
         21.1,
         21.2,
@@ -157,7 +153,11 @@
         22,
         22.1,
         22.1,
-        22.3
+        22.3,
+        22.5,
+        22.4,
+        22.6,
+        22.7
       ],
       "uvHistory": [
         0.9,
@@ -178,7 +178,8 @@
         0,
         0.2,
         0.7,
-        0.5
+        0.5,
+        1.3
       ],
       "thresholds": {
         "yellow": 30,
@@ -198,14 +199,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 15,
+      "value": 13,
       "unit": "km/h",
-      "humidity": 66.47,
+      "humidity": 64.93,
       "windHistory": [
-        13,
-        14,
-        17,
-        13,
         13,
         13,
         10,
@@ -345,13 +342,13 @@
         11,
         13,
         14,
+        14,
+        13,
+        17,
+        14,
         14
       ],
       "humHistory": [
-        53,
-        52,
-        51,
-        49,
         50,
         49,
         50,
@@ -491,7 +488,11 @@
         63,
         63,
         63,
-        63
+        63,
+        62,
+        63,
+        62,
+        62
       ],
       "thresholds": {
         "yellow": 60,
@@ -605,7 +606,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 1,
+      "value": 2,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -639,7 +640,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-19T07:49:06.912Z",
+      "date": "2026-08-19T08:23:46.838Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -701,7 +702,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.3527402877807617,
+        "generationtime_ms": 0.4379749298095703,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1474,14 +1475,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 991.3,
+      "value": 991.4,
       "unit": "hPa",
       "trend": "→",
       "history": [
-        992.4,
-        992.5,
-        992.4,
-        992.4,
         992.3,
         992.4,
         992.4,
@@ -1621,14 +1618,14 @@
         991.3,
         991.3,
         991.3,
-        991.3
+        991.3,
+        991.4,
+        991.5,
+        991.5,
+        991.4
       ],
-      "humidity": 66.47,
+      "humidity": 64.93,
       "humHistory": [
-        53,
-        52,
-        51,
-        49,
         50,
         49,
         50,
@@ -1768,14 +1765,18 @@
         63,
         63,
         63,
-        63
+        63,
+        62,
+        63,
+        62,
+        62
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.021,
+      "value": 50.023,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1783,7 +1784,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.982,
         50.02,
         50.003,
         49.964,
@@ -2070,7 +2070,8 @@
         49.984,
         49.976,
         49.988,
-        50.021
+        50.021,
+        50.023
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2121,10 +2122,21 @@
           "auswirkungen": "* Erhöhte Körpertemperatur\n* Erhöhter Puls\n* Schwäche/Müdigkeit\n* Kopfschmerzen\n* Muskelkrämpfe\n* Trockener Mund und Hals\n* Verwirrtheit, Schwindel, Bewusstseinsstörungen\n* Übelkeit, Erbrechen, Durchfall",
           "empfehlungen": "* Meiden Sie direktes Sonnenlicht! Achten Sie darauf, dass Kinder vor der Sonne geschützt sind!\n* Meiden Sie verbaute und versiegelte Plätze wo es keinen Schatten gibt.\n* Gehen Sie nicht in der heißesten Tageszeit nach draußen!\n* Ziehen Sie die Vorhänge zu bzw. schließen Sie die Jalousien. Öffnen Sie die Fenster vorwiegend in der Nacht bzw. in den kühlen Morgenstunden!\n* Vermeiden Sie große Anstrengungen bzw. verschieben Sie körperliche Aktivitäten im Freien auf die frühen Morgenstunden oder den Abend!\n* Tragen Sie luftige, helle Kleidung und eine Kopfbedeckung!\n* Nehmen Sie eine kühle Dusche! Auch kalte Arm- und Fußbäder wirken entlastend.\n* Trinken Sie ausreichend und regelmäßig (mindestens 2 - 3 Liter pro Tag)! Optimal sind Wasser, ungesüßter Tee oder mit Wasser verdünnte Fruchtsäfte.\n* Denken Sie an ältere Mitmenschen und Kinder, dass auch diese regelmäßig trinken. \n* Bevorzugen Sie leichtes Essen!\n* Meiden Sie Alkohol!",
           "meteotext": null
+        },
+        {
+          "id": 4844,
+          "typeId": 5,
+          "levelId": 1,
+          "text": "Gelbe Gewitterwarnung von Do, 20.08.2026 16:00 bis Fr, 21.08.2026 00:00",
+          "begin": "20.08.2026 16:00",
+          "end": "21.08.2026 00:00",
+          "auswirkungen": "*  Kleine Muren, lokal überflutete Straßen\r\n*  Punktuell kann es zu Überschwemmungen kommen, Keller können überflutet werden.\r\n*  Blitzschlag kann zu Stromausfällen führen und Gebäude oder Bäume in Brand stecken.\r\n*  Aufgrund von Sturmböen können Gegenstände herumgewirbelt werden, Äste abbrechen und vereinzelt auch Bäume umfallen.\r\n*  Im Straßen-, Schienen- und Flugverkehr kann es zu vorübergehenden Beeinträchtigungen und Verspätungen kommen.",
+          "empfehlungen": "*  Schließen Sie Fenster, Türen und Garagentore sowie Dachfenster und Lichtkuppeln!\r\n*  Rechnen Sie mit vorübergehenden Verspätungen im Straßen-, Schienen- und Flugverkehr!\r\n*  Verlassen Sie bei einem herannahenden Gewitter umgehend Gewässer!\r\n*  Suchen Sie vor allem im Gebirge rechtzeitig Schutz!\r\n*  Landen Sie Sportfluggeräte frühzeitig, laufen Sie mit Booten zügig Häfen an!\r\n*  Beachten Sie Gewitter- und Sturmwarnungen an Seen!",
+          "meteotext": "Im Lauf des Nachmittags und Abends breiten sich von Südwesten einige teils kräftige Gewitter aus, welche nördlich der Alpen ein größerer Gewitterkomplex werden können. Hauptgefahr ist vor allem Starkregen, aber auch kurzzeitige Sturmböen sind dabei. Nach Mitternacht Beruhigung der Lage."
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 1,
+      "warningCount": 2,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
