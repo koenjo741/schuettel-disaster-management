@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-20T17:16:36.382Z",
+  "fetchedAt": "2026-08-20T17:51:03.804Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,10 +14,6 @@
       "unit": "°C",
       "uvi": 0.1,
       "tempHistory": [
-        28.9,
-        28.8,
-        28.6,
-        28.4,
         28.2,
         27.9,
         27.7,
@@ -157,7 +153,10 @@
         22.2,
         22.2,
         22.3,
-        22.1
+        22.1,
+        21.7,
+        21.5,
+        21.3
       ],
       "uvHistory": [
         4.7,
@@ -212,10 +211,6 @@
       "unit": "km/h",
       "humidity": 86.65,
       "windHistory": [
-        6,
-        7,
-        8,
-        11,
         8,
         7,
         6,
@@ -355,13 +350,12 @@
         17,
         10,
         16,
-        12
+        12,
+        15,
+        7,
+        6
       ],
       "humHistory": [
-        40,
-        40,
-        41,
-        42,
         42,
         43,
         44,
@@ -501,7 +495,10 @@
         84,
         84,
         83,
-        82
+        82,
+        79,
+        81,
+        80
       ],
       "thresholds": {
         "yellow": 60,
@@ -511,7 +508,7 @@
     },
     "rain": {
       "level": "green",
-      "value": null,
+      "value": 1.096,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -559,7 +556,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 215,
+      "maxNearbyValue": 232,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -649,7 +646,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-20T17:16:38.524Z",
+      "date": "2026-08-20T17:51:06.102Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -711,7 +708,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.3129243850708008,
+        "generationtime_ms": 0.32591819763183594,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1484,14 +1481,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 991,
+      "value": 990.2,
       "unit": "hPa",
-      "trend": "↑",
+      "trend": "↓",
       "history": [
-        987.7,
-        987.6,
-        987.6,
-        987.5,
         987.5,
         987.4,
         987.4,
@@ -1631,14 +1624,13 @@
         991.3,
         990.9,
         991.2,
-        991
+        991,
+        990.8,
+        990.9,
+        990.2
       ],
       "humidity": 86.65,
       "humHistory": [
-        40,
-        40,
-        41,
-        42,
         42,
         43,
         44,
@@ -1778,14 +1770,17 @@
         84,
         84,
         83,
-        82
+        82,
+        79,
+        81,
+        80
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.045,
+      "value": 49.982,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1793,7 +1788,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.991,
         49.994,
         50.009,
         50.02,
@@ -2080,7 +2074,8 @@
         50.003,
         50.036,
         49.981,
-        50.045
+        50.045,
+        49.982
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
