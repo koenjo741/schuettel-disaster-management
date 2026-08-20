@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-20T14:06:39.744Z",
+  "fetchedAt": "2026-08-20T14:53:39.211Z",
   "overall": "red",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,11 +14,6 @@
       "unit": "°C",
       "uvi": 2.4,
       "tempHistory": [
-        28.9,
-        28.9,
-        28.4,
-        28.3,
-        28.5,
         28.5,
         28.7,
         28.9,
@@ -157,7 +152,12 @@
         24.1,
         24.6,
         25.2,
-        26
+        26,
+        23.6,
+        23.3,
+        23.2,
+        22.1,
+        22.2
       ],
       "uvHistory": [
         4.7,
@@ -209,11 +209,6 @@
       "unit": "km/h",
       "humidity": 59.81,
       "windHistory": [
-        17,
-        13,
-        15,
-        13,
-        12,
         15,
         13,
         11,
@@ -352,14 +347,14 @@
         10,
         8,
         7,
-        13
+        13,
+        32,
+        15,
+        8,
+        10,
+        5
       ],
       "humHistory": [
-        38,
-        38,
-        43,
-        44,
-        43,
         43,
         42,
         41,
@@ -498,7 +493,12 @@
         66,
         62,
         62,
-        56
+        56,
+        70,
+        72,
+        75,
+        84,
+        84
       ],
       "thresholds": {
         "yellow": 60,
@@ -556,7 +556,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 214,
+      "maxNearbyValue": 236,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -574,7 +574,7 @@
       },
       "pm10": 20,
       "pm25": 7,
-      "luftIndex": 4,
+      "luftIndex": 3,
       "aqi": 42,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
@@ -612,7 +612,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 5,
+      "value": 6,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -646,7 +646,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-20T14:06:42.139Z",
+      "date": "2026-08-20T14:53:42.519Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -691,15 +691,15 @@
       ]
     },
     "power": {
-      "level": "green",
-      "value": 1,
+      "level": "yellow",
+      "value": 2,
       "unit": "Status",
       "thresholds": {
         "yellow": 2,
         "red": 2
       },
       "affectsDistrict2": false,
-      "message": "Normalbetrieb",
+      "message": "Störung / Ausfall gemeldet (außerhalb 2. Bezirk)",
       "source": "Wiener Netze Statusseite",
       "sourceUrl": "https://www.wienernetze.at/stromversorgung"
     },
@@ -708,7 +708,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 47.50680923461914,
+        "generationtime_ms": 1.3486146926879883,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1481,15 +1481,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 989,
+      "value": 989.9,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "↑",
       "history": [
-        989.2,
-        989.2,
-        989.1,
-        989,
-        988.8,
         988.8,
         988.8,
         988.6,
@@ -1628,15 +1623,15 @@
         988.4,
         987.9,
         987.8,
-        989
+        989,
+        989.5,
+        989.8,
+        990.5,
+        988.9,
+        989.9
       ],
       "humidity": 59.81,
       "humHistory": [
-        38,
-        38,
-        43,
-        44,
-        43,
         43,
         42,
         41,
@@ -1775,14 +1770,19 @@
         66,
         62,
         62,
-        56
+        56,
+        70,
+        72,
+        75,
+        84,
+        84
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.017,
+      "value": 49.99,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1790,7 +1790,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.038,
         50.016,
         49.978,
         49.976,
@@ -2077,7 +2076,8 @@
         50.024,
         50.005,
         49.985,
-        50.017
+        50.017,
+        49.99
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2086,7 +2086,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Laurenzgasse",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -2115,8 +2115,8 @@
     "uwz": {
       "level": "yellow",
       "value": "Es ist mit starken Gewittern, Starkregen, Hagel und Sturm zu rechnen.",
-      "district": "Sehr starkes Unwetter",
-      "city": "Sehr starkes Unwetter",
+      "district": "Starkes Unwetter",
+      "city": "Starkes Unwetter",
       "geoWarnings": [
         {
           "id": 5,
@@ -2125,17 +2125,6 @@
           "text": "Es ist mit starken Gewittern, Starkregen, Hagel und Sturm zu rechnen.",
           "begin": "20.08.2026 15:00",
           "end": "20.08.2026 16:00",
-          "auswirkungen": null,
-          "empfehlungen": null,
-          "meteotext": null
-        },
-        {
-          "id": 5,
-          "typeId": 5,
-          "levelId": 2,
-          "text": "Es ist mit starken Gewittern, Starkregen, Hagel und Sturm zu rechnen.",
-          "begin": "20.08.2026 16:00",
-          "end": "20.08.2026 17:00",
           "auswirkungen": null,
           "empfehlungen": null,
           "meteotext": null
@@ -2163,6 +2152,17 @@
           "meteotext": null
         },
         {
+          "id": 5,
+          "typeId": 5,
+          "levelId": 1,
+          "text": "Es ist mit Gewittern zu rechnen.",
+          "begin": "20.08.2026 16:00",
+          "end": "20.08.2026 17:00",
+          "auswirkungen": null,
+          "empfehlungen": null,
+          "meteotext": null
+        },
+        {
           "id": 4844,
           "typeId": 5,
           "levelId": 1,
@@ -2172,10 +2172,21 @@
           "auswirkungen": "*  Kleine Muren, lokal überflutete Straßen\r\n*  Punktuell kann es zu Überschwemmungen kommen, Keller können überflutet werden.\r\n*  Blitzschlag kann zu Stromausfällen führen und Gebäude oder Bäume in Brand stecken.\r\n*  Aufgrund von Sturmböen können Gegenstände herumgewirbelt werden, Äste abbrechen und vereinzelt auch Bäume umfallen.\r\n*  Im Straßen-, Schienen- und Flugverkehr kann es zu vorübergehenden Beeinträchtigungen und Verspätungen kommen.",
           "empfehlungen": "*  Schließen Sie Fenster, Türen und Garagentore sowie Dachfenster und Lichtkuppeln!\r\n*  Rechnen Sie mit vorübergehenden Verspätungen im Straßen-, Schienen- und Flugverkehr!\r\n*  Verlassen Sie bei einem herannahenden Gewitter umgehend Gewässer!\r\n*  Suchen Sie vor allem im Gebirge rechtzeitig Schutz!\r\n*  Landen Sie Sportfluggeräte frühzeitig, laufen Sie mit Booten zügig Häfen an!\r\n*  Beachten Sie Gewitter- und Sturmwarnungen an Seen!",
           "meteotext": "Im Lauf des Nachmittags und Abends breiten sich von Südwesten einige teils kräftige Gewitter aus, welche nördlich der Alpen ein größerer Gewitterkomplex werden können. Hauptgefahr ist vor allem Starkregen, aber auch kurzzeitige Sturmböen sind dabei. Nach Mitternacht Beruhigung der Lage."
+        },
+        {
+          "id": 5,
+          "typeId": 5,
+          "levelId": 1,
+          "text": "Es ist mit Gewittern zu rechnen.",
+          "begin": "20.08.2026 17:00",
+          "end": "20.08.2026 18:00",
+          "auswirkungen": null,
+          "empfehlungen": null,
+          "meteotext": null
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 5,
+      "warningCount": 6,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
