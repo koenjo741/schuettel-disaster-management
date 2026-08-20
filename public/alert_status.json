@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-20T12:16:24.752Z",
+  "fetchedAt": "2026-08-20T13:20:43.653Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,17 +10,10 @@
   "hazards": {
     "heat": {
       "level": "yellow",
-      "value": 32.67,
+      "value": 33.36,
       "unit": "°C",
-      "uvi": 5.5,
+      "uvi": 4.2,
       "tempHistory": [
-        28,
-        28.1,
-        28.3,
-        29.1,
-        28.9,
-        28.9,
-        28.7,
         28.7,
         29.1,
         29,
@@ -157,7 +150,13 @@
         32.7,
         33.4,
         33,
-        33
+        33,
+        32.5,
+        32.2,
+        29.8,
+        24.1,
+        21.9,
+        23
       ],
       "uvHistory": [
         4.7,
@@ -183,7 +182,8 @@
         4.7,
         5.8,
         5.9,
-        5.5
+        5.5,
+        4.2
       ],
       "thresholds": {
         "yellow": 30,
@@ -203,17 +203,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 13,
+      "value": 14,
       "unit": "km/h",
-      "humidity": 33.54,
+      "humidity": 32.32,
       "windHistory": [
-        24,
-        26,
-        18,
-        15,
-        18,
-        17,
-        16,
         17,
         19,
         16,
@@ -350,16 +343,15 @@
         8,
         12,
         13,
-        15
+        15,
+        12,
+        12,
+        13,
+        37,
+        29,
+        14
       ],
       "humHistory": [
-        40,
-        40,
-        40,
-        39,
-        39,
-        38,
-        39,
         38,
         36,
         37,
@@ -496,7 +488,13 @@
         32,
         31,
         31,
-        31
+        31,
+        32,
+        36,
+        48,
+        68,
+        70,
+        66
       ],
       "thresholds": {
         "yellow": 60,
@@ -554,7 +552,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 206,
+      "maxNearbyValue": 208,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -564,16 +562,16 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 36,
+      "value": 39,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
         "red": 101
       },
-      "pm10": 19,
+      "pm10": 20,
       "pm25": 7,
       "luftIndex": 4,
-      "aqi": 36,
+      "aqi": 39,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -610,7 +608,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 3,
+      "value": 4,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -644,7 +642,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-20T12:16:26.707Z",
+      "date": "2026-08-20T13:20:45.954Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -677,7 +675,7 @@
       "scales": {
         "g": 0,
         "s": 0,
-        "r": 1
+        "r": 0
       },
       "source": "NOAA Space Weather Prediction Center",
       "sourceUrl": "https://www.swpc.noaa.gov/",
@@ -706,7 +704,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.35941600799560547,
+        "generationtime_ms": 0.6672143936157227,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1479,17 +1477,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 989.1,
+      "value": 989,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "→",
       "history": [
-        990.1,
-        990.1,
-        990.1,
-        990,
-        989.8,
-        989.8,
-        989.7,
         989.6,
         989.5,
         989.3,
@@ -1626,17 +1617,16 @@
         989.2,
         989.1,
         989.2,
-        989.1
+        989.1,
+        988.9,
+        988.9,
+        989.6,
+        990.7,
+        989.3,
+        989
       ],
-      "humidity": 33.54,
+      "humidity": 32.32,
       "humHistory": [
-        40,
-        40,
-        40,
-        39,
-        39,
-        38,
-        39,
         38,
         36,
         37,
@@ -1773,14 +1763,20 @@
         32,
         31,
         31,
-        31
+        31,
+        32,
+        36,
+        48,
+        68,
+        70,
+        66
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.005,
+      "value": 49.985,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1788,7 +1784,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.957,
         49.994,
         50.038,
         50.016,
@@ -2075,7 +2070,8 @@
         50.011,
         50.016,
         50.024,
-        50.005
+        50.005,
+        49.985
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2084,7 +2080,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Handelskai",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -2113,8 +2109,8 @@
     "uwz": {
       "level": "yellow",
       "value": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
-      "district": "Unwetter",
-      "city": "Unwetter",
+      "district": "Sehr starkes Unwetter",
+      "city": "Sehr starkes Unwetter",
       "geoWarnings": [
         {
           "id": 10,
@@ -2139,6 +2135,17 @@
           "meteotext": null
         },
         {
+          "id": 5,
+          "typeId": 5,
+          "levelId": 1,
+          "text": "Es ist mit Gewittern zu rechnen.",
+          "begin": "20.08.2026 15:00",
+          "end": "20.08.2026 16:00",
+          "auswirkungen": null,
+          "empfehlungen": null,
+          "meteotext": null
+        },
+        {
           "id": 4844,
           "typeId": 5,
           "levelId": 1,
@@ -2151,7 +2158,7 @@
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 3,
+      "warningCount": 4,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
