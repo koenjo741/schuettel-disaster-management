@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-20T11:45:36.283Z",
+  "fetchedAt": "2026-08-20T12:16:24.752Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,13 +10,10 @@
   "hazards": {
     "heat": {
       "level": "yellow",
-      "value": 30.7,
+      "value": 32.67,
       "unit": "°C",
-      "uvi": 5.9,
+      "uvi": 5.5,
       "tempHistory": [
-        27.3,
-        27.8,
-        28.1,
         28,
         28.1,
         28.3,
@@ -157,7 +154,10 @@
         32.4,
         32.3,
         32.7,
-        32.7
+        32.7,
+        33.4,
+        33,
+        33
       ],
       "uvHistory": [
         4.7,
@@ -182,7 +182,8 @@
         3.2,
         4.7,
         5.8,
-        5.9
+        5.9,
+        5.5
       ],
       "thresholds": {
         "yellow": 30,
@@ -202,13 +203,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 11,
+      "value": 13,
       "unit": "km/h",
-      "humidity": 39.7,
+      "humidity": 33.54,
       "windHistory": [
-        17,
-        18,
-        17,
         24,
         26,
         18,
@@ -349,12 +347,12 @@
         14,
         10,
         12,
-        8
+        8,
+        12,
+        13,
+        15
       ],
       "humHistory": [
-        45,
-        43,
-        42,
         40,
         40,
         40,
@@ -495,7 +493,10 @@
         32,
         32,
         31,
-        32
+        32,
+        31,
+        31,
+        31
       ],
       "thresholds": {
         "yellow": 60,
@@ -569,7 +570,7 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 18,
+      "pm10": 19,
       "pm25": 7,
       "luftIndex": 4,
       "aqi": 36,
@@ -609,7 +610,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 2,
+      "value": 3,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -643,7 +644,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-20T11:45:38.333Z",
+      "date": "2026-08-20T12:16:26.707Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -676,7 +677,7 @@
       "scales": {
         "g": 0,
         "s": 0,
-        "r": 2
+        "r": 1
       },
       "source": "NOAA Space Weather Prediction Center",
       "sourceUrl": "https://www.swpc.noaa.gov/",
@@ -705,7 +706,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.46563148498535156,
+        "generationtime_ms": 0.35941600799560547,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1478,13 +1479,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 989.2,
+      "value": 989.1,
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        990.2,
-        990.1,
-        990,
         990.1,
         990.1,
         990.1,
@@ -1625,13 +1623,13 @@
         989.5,
         989.2,
         989.2,
-        989.2
+        989.2,
+        989.1,
+        989.2,
+        989.1
       ],
-      "humidity": 39.7,
+      "humidity": 33.54,
       "humHistory": [
-        45,
-        43,
-        42,
         40,
         40,
         40,
@@ -1772,14 +1770,17 @@
         32,
         32,
         31,
-        32
+        32,
+        31,
+        31,
+        31
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.024,
+      "value": 50.005,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1787,7 +1788,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.939,
         49.957,
         49.994,
         50.038,
@@ -2074,7 +2074,8 @@
         49.988,
         50.011,
         50.016,
-        50.024
+        50.024,
+        50.005
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2112,8 +2113,8 @@
     "uwz": {
       "level": "yellow",
       "value": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
-      "district": "Vorwarnung",
-      "city": "Vorwarnung",
+      "district": "Unwetter",
+      "city": "Unwetter",
       "geoWarnings": [
         {
           "id": 10,
@@ -2124,6 +2125,17 @@
           "end": "20.08.2026 23:59",
           "auswirkungen": "* Erhöhte Körpertemperatur\n* Erhöhter Puls\n* Schwäche/Müdigkeit\n* Kopfschmerzen\n* Muskelkrämpfe\n* Trockener Mund und Hals\n* Verwirrtheit, Schwindel, Bewusstseinsstörungen\n* Übelkeit, Erbrechen, Durchfall",
           "empfehlungen": "* Meiden Sie direktes Sonnenlicht! Achten Sie darauf, dass Kinder vor der Sonne geschützt sind!\n* Meiden Sie verbaute und versiegelte Plätze wo es keinen Schatten gibt.\n* Gehen Sie nicht in der heißesten Tageszeit nach draußen!\n* Ziehen Sie die Vorhänge zu bzw. schließen Sie die Jalousien. Öffnen Sie die Fenster vorwiegend in der Nacht bzw. in den kühlen Morgenstunden!\n* Vermeiden Sie große Anstrengungen bzw. verschieben Sie körperliche Aktivitäten im Freien auf die frühen Morgenstunden oder den Abend!\n* Tragen Sie luftige, helle Kleidung und eine Kopfbedeckung!\n* Nehmen Sie eine kühle Dusche! Auch kalte Arm- und Fußbäder wirken entlastend.\n* Trinken Sie ausreichend und regelmäßig (mindestens 2 - 3 Liter pro Tag)! Optimal sind Wasser, ungesüßter Tee oder mit Wasser verdünnte Fruchtsäfte.\n* Denken Sie an ältere Mitmenschen und Kinder, dass auch diese regelmäßig trinken. \n* Bevorzugen Sie leichtes Essen!\n* Meiden Sie Alkohol!",
+          "meteotext": null
+        },
+        {
+          "id": 5,
+          "typeId": 5,
+          "levelId": 1,
+          "text": "Es ist mit Gewittern zu rechnen.",
+          "begin": "20.08.2026 14:00",
+          "end": "20.08.2026 15:00",
+          "auswirkungen": null,
+          "empfehlungen": null,
           "meteotext": null
         },
         {
@@ -2139,7 +2151,7 @@
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 2,
+      "warningCount": 3,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
@@ -2154,9 +2166,9 @@
       ]
     },
     "thunderstorm": {
-      "level": "green",
-      "value": "Keine Gewitterzellen",
-      "intensity": 0,
+      "level": "yellow",
+      "value": "Moderate Gewitteraktivität",
+      "intensity": 1,
       "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
       "extraLinks": [
