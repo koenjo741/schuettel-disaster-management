@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-20T18:31:34.443Z",
+  "fetchedAt": "2026-08-20T19:16:27.848Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,14 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 21.79,
+      "value": 20.62,
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        27.3,
-        27.2,
-        27.2,
-        27,
         26.8,
         26.5,
         26.3,
@@ -157,7 +153,11 @@
         21.4,
         21.2,
         21,
-        21.1
+        21.1,
+        21,
+        21.1,
+        21.1,
+        21
       ],
       "uvHistory": [
         4.7,
@@ -189,6 +189,7 @@
         0.6,
         0.3,
         0.1,
+        0,
         0
       ],
       "thresholds": {
@@ -209,14 +210,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 17,
+      "value": 6,
       "unit": "km/h",
-      "humidity": 86.26,
+      "humidity": 85.39,
       "windHistory": [
-        7,
-        7,
-        6,
-        8,
         9,
         10,
         11,
@@ -356,13 +353,13 @@
         6,
         6,
         10,
-        5
+        5,
+        7,
+        2,
+        3,
+        4
       ],
       "humHistory": [
-        44,
-        44,
-        44,
-        45,
         46,
         47,
         47,
@@ -502,6 +499,10 @@
         78,
         79,
         80,
+        81,
+        80,
+        80,
+        81,
         81
       ],
       "thresholds": {
@@ -512,7 +513,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 4.734,
+      "value": 3.697,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -569,7 +570,7 @@
       ]
     },
     "airQuality": {
-      "level": "yellow",
+      "level": "green",
       "value": 49,
       "unit": "AQI",
       "thresholds": {
@@ -578,7 +579,7 @@
       },
       "pm10": 20,
       "pm25": 8,
-      "luftIndex": 3,
+      "luftIndex": 2,
       "aqi": 49,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
@@ -616,7 +617,7 @@
     },
     "atAlert": {
       "level": "yellow",
-      "value": 4,
+      "value": 3,
       "unit": "Warnungen",
       "title": "Aktive Warnung",
       "description": null,
@@ -650,7 +651,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-20T18:31:37.590Z",
+      "date": "2026-08-20T19:16:30.755Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -712,7 +713,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.29289722442626953,
+        "generationtime_ms": 0.3007650375366211,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1485,14 +1486,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 989.8,
+      "value": 990.4,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "↑",
       "history": [
-        987.5,
-        987.4,
-        987.4,
-        987.4,
         987.4,
         987.3,
         987.1,
@@ -1632,14 +1629,14 @@
         989.9,
         989.6,
         989.5,
-        989.8
+        989.8,
+        990.2,
+        990.2,
+        990.4,
+        990.4
       ],
-      "humidity": 86.26,
+      "humidity": 85.39,
       "humHistory": [
-        44,
-        44,
-        44,
-        45,
         46,
         47,
         47,
@@ -1779,6 +1776,10 @@
         78,
         79,
         80,
+        81,
+        80,
+        80,
+        81,
         81
       ],
       "source": "GeoSphere Österreich",
@@ -1786,7 +1787,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.016,
+      "value": 49.973,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1794,7 +1795,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.009,
         50.02,
         50.022,
         50.024,
@@ -2081,7 +2081,8 @@
         49.981,
         50.045,
         49.982,
-        50.016
+        50.016,
+        49.973
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2090,7 +2091,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Laurenzgasse",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -2119,8 +2120,8 @@
     "uwz": {
       "level": "yellow",
       "value": "Es ist mit erhöhter Hitzebelastung zu rechnen.",
-      "district": "Unwetter",
-      "city": "Unwetter",
+      "district": "Vorwarnung",
+      "city": "Vorwarnung",
       "geoWarnings": [
         {
           "id": 10,
@@ -2149,17 +2150,6 @@
           "typeId": 5,
           "levelId": 1,
           "text": "Es ist mit Gewittern zu rechnen.",
-          "begin": "20.08.2026 18:00",
-          "end": "20.08.2026 19:00",
-          "auswirkungen": null,
-          "empfehlungen": null,
-          "meteotext": null
-        },
-        {
-          "id": 5,
-          "typeId": 5,
-          "levelId": 1,
-          "text": "Es ist mit Gewittern zu rechnen.",
           "begin": "20.08.2026 19:00",
           "end": "20.08.2026 20:00",
           "auswirkungen": null,
@@ -2168,7 +2158,7 @@
         }
       ],
       "geoLocation": "Wien-Leopoldstadt",
-      "warningCount": 4,
+      "warningCount": 3,
       "source": "GeoSphere Austria Warn API",
       "sourceUrl": "https://warnungen.zamg.at/",
       "extraLinks": [
