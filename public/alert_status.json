@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-21T10:29:21.559Z",
+  "fetchedAt": "2026-08-21T11:00:01.393Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,14 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 24.48,
+      "value": 25.22,
       "unit": "°C",
-      "uvi": 5.8,
+      "uvi": 5.3,
       "tempHistory": [
-        31.4,
-        31.4,
-        32,
-        32.3,
         32.4,
         32.3,
         32.7,
@@ -157,7 +153,10 @@
         25,
         24.9,
         25,
-        25
+        25,
+        25.2,
+        25.7,
+        25.9
       ],
       "uvHistory": [
         3.1,
@@ -181,7 +180,8 @@
         0.1,
         2,
         3.4,
-        5.8
+        5.8,
+        5.3
       ],
       "thresholds": {
         "yellow": 30,
@@ -201,14 +201,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 3,
+      "value": 6,
       "unit": "km/h",
-      "humidity": 69.75,
+      "humidity": 66.44,
       "windHistory": [
-        11,
-        9,
-        12,
-        11,
         14,
         10,
         12,
@@ -348,13 +344,12 @@
         7,
         7,
         12,
-        10
+        10,
+        8,
+        9,
+        8
       ],
       "humHistory": [
-        34,
-        34,
-        33,
-        33,
         32,
         32,
         31,
@@ -494,7 +489,10 @@
         66,
         65,
         64,
-        63
+        63,
+        62,
+        60,
+        60
       ],
       "thresholds": {
         "yellow": 60,
@@ -552,7 +550,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 206,
+      "maxNearbyValue": 204,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -642,13 +640,13 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-21T10:29:23.500Z",
+      "date": "2026-08-21T11:00:04.330Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
       "level": "green",
-      "value": 1,
+      "value": 2,
       "unit": "WBI",
       "thresholds": {
         "yellow": 3,
@@ -704,7 +702,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.6434917449951172,
+        "generationtime_ms": 275.7713794708252,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1477,14 +1475,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 989.2,
+      "value": 989.1,
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        989.8,
-        989.8,
-        989.7,
-        989.5,
         989.5,
         989.2,
         989.2,
@@ -1624,14 +1618,13 @@
         989.6,
         989.3,
         989.1,
-        989.2
+        989.2,
+        989.3,
+        989.2,
+        989.1
       ],
-      "humidity": 69.75,
+      "humidity": 66.44,
       "humHistory": [
-        34,
-        34,
-        33,
-        33,
         32,
         32,
         31,
@@ -1771,14 +1764,17 @@
         66,
         65,
         64,
-        63
+        63,
+        62,
+        60,
+        60
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.017,
+      "value": 49.994,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1786,7 +1782,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.973,
         50.036,
         50.006,
         49.991,
@@ -2073,7 +2068,8 @@
         50.01,
         50.038,
         50.027,
-        50.017
+        50.017,
+        49.994
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2082,7 +2078,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Kliebergasse",
+      "message": "Laurenzgasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
