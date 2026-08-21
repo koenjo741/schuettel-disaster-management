@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-21T17:04:45.868Z",
+  "fetchedAt": "2026-08-21T17:42:21.073Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,10 +14,6 @@
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        22.1,
-        21.7,
-        21.5,
-        21.3,
         21.3,
         21.4,
         21.2,
@@ -157,7 +153,11 @@
         26.9,
         26.8,
         26.7,
-        26.6
+        26.6,
+        26.6,
+        26.2,
+        25.3,
+        24.9
       ],
       "uvHistory": [
         3.1,
@@ -212,10 +212,6 @@
       "unit": "km/h",
       "humidity": 63.48,
       "windHistory": [
-        12,
-        15,
-        7,
-        6,
         5,
         6,
         6,
@@ -355,13 +351,13 @@
         16,
         14,
         15,
-        17
+        17,
+        18,
+        23,
+        23,
+        16
       ],
       "humHistory": [
-        82,
-        79,
-        81,
-        80,
         80,
         78,
         79,
@@ -501,7 +497,11 @@
         56,
         57,
         57,
-        57
+        57,
+        58,
+        61,
+        68,
+        71
       ],
       "thresholds": {
         "yellow": 60,
@@ -559,7 +559,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 239,
+      "maxNearbyValue": 244,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -575,8 +575,8 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 15,
-      "pm25": 10,
+      "pm10": 14,
+      "pm25": 9,
       "luftIndex": 3,
       "aqi": 48,
       "mainPollutant": "PM2.5/PM10",
@@ -649,7 +649,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-21T17:04:48.995Z",
+      "date": "2026-08-21T17:42:24.334Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -711,7 +711,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.4063844680786133,
+        "generationtime_ms": 0.3782510757446289,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1488,10 +1488,6 @@
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        991,
-        990.8,
-        990.9,
-        990.2,
         990,
         989.9,
         989.6,
@@ -1631,14 +1627,14 @@
         984.1,
         984,
         983.6,
+        983.6,
+        983.8,
+        983.6,
+        983.6,
         983.6
       ],
       "humidity": 63.48,
       "humHistory": [
-        82,
-        79,
-        81,
-        80,
         80,
         78,
         79,
@@ -1778,14 +1774,18 @@
         56,
         57,
         57,
-        57
+        57,
+        58,
+        61,
+        68,
+        71
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.074,
+      "value": 49.976,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1793,7 +1793,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.022,
         50.022,
         49.986,
         49.954,
@@ -2080,7 +2079,8 @@
         50.032,
         49.974,
         50.006,
-        50.074
+        50.074,
+        49.976
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2089,7 +2089,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Matzleinsdorfer Platz",
+      "message": "Kliebergasse",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
@@ -2149,9 +2149,9 @@
       ]
     },
     "thunderstorm": {
-      "level": "green",
-      "value": "Keine Gewitterzellen",
-      "intensity": 0,
+      "level": "yellow",
+      "value": "Moderate Gewitteraktivität",
+      "intensity": 1,
       "source": "GeoSphere Austria (ZAMG)",
       "sourceUrl": "https://warnungen.zamg.at/wsapp/de/gewitter/heute/",
       "extraLinks": [
