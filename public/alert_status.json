@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-22T11:01:46.995Z",
+  "fetchedAt": "2026-08-22T11:31:20.663Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,9 +14,6 @@
       "unit": "°C",
       "uvi": 4.7,
       "tempHistory": [
-        26.2,
-        26.2,
-        26.4,
         26.6,
         26.7,
         27,
@@ -156,7 +153,11 @@
         22.6,
         22.7,
         22.9,
-        23.2
+        23.2,
+        23.4,
+        23.9,
+        24,
+        24.4
       ],
       "uvHistory": [
         3.4,
@@ -205,9 +206,6 @@
       "unit": "km/h",
       "humidity": 46,
       "windHistory": [
-        11,
-        9,
-        9,
         9,
         15,
         11,
@@ -347,12 +345,13 @@
         27,
         32,
         28,
+        22,
+        24,
+        21,
+        24,
         22
       ],
       "humHistory": [
-        60,
-        59,
-        59,
         57,
         55,
         54,
@@ -492,7 +491,11 @@
         43,
         43,
         40,
-        40
+        40,
+        39,
+        38,
+        37,
+        36
       ],
       "thresholds": {
         "yellow": 60,
@@ -566,8 +569,8 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 8,
-      "pm25": 5,
+      "pm10": 7,
+      "pm25": 4,
       "luftIndex": 3,
       "aqi": 33,
       "mainPollutant": "PM2.5/PM10",
@@ -635,7 +638,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-22T11:01:49.478Z",
+      "date": "2026-08-22T11:31:22.725Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -697,7 +700,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.438690185546875,
+        "generationtime_ms": 0.5540847778320312,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1470,13 +1473,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 995.1,
+      "value": 995.2,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "→",
       "history": [
-        989.1,
-        989,
-        988.9,
         988.6,
         988.7,
         988.7,
@@ -1616,13 +1616,14 @@
         995.1,
         995.1,
         995.1,
-        995.1
+        995.1,
+        995.1,
+        995.2,
+        995.3,
+        995.2
       ],
       "humidity": 46,
       "humHistory": [
-        60,
-        59,
-        59,
         57,
         55,
         54,
@@ -1762,14 +1763,18 @@
         43,
         43,
         40,
-        40
+        40,
+        39,
+        38,
+        37,
+        36
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.969,
+      "value": 49.971,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1777,7 +1782,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.996,
         50.012,
         50,
         50.009,
@@ -2064,7 +2068,8 @@
         49.991,
         50.017,
         50.03,
-        49.969
+        49.969,
+        49.971
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
