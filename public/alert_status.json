@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-22T14:12:21.290Z",
+  "fetchedAt": "2026-08-22T14:41:20.257Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,9 +14,6 @@
       "unit": "°C",
       "uvi": 3.1,
       "tempHistory": [
-        27,
-        26.9,
-        27.1,
         27,
         26.9,
         26.8,
@@ -157,7 +154,10 @@
         25.5,
         25.5,
         26.4,
-        25.8
+        25.8,
+        25.6,
+        25.9,
+        26
       ],
       "uvHistory": [
         3.4,
@@ -209,9 +209,6 @@
       "unit": "km/h",
       "humidity": 36.13,
       "windHistory": [
-        19,
-        14,
-        15,
         12,
         15,
         14,
@@ -352,12 +349,12 @@
         18,
         21,
         18,
-        22
+        22,
+        22,
+        21,
+        19
       ],
       "humHistory": [
-        59,
-        59,
-        60,
         60,
         60,
         62,
@@ -498,7 +495,10 @@
         33,
         33,
         31,
-        32
+        32,
+        32,
+        31,
+        30
       ],
       "thresholds": {
         "yellow": 60,
@@ -556,7 +556,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 205,
+      "maxNearbyValue": 206,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -641,7 +641,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-22T14:12:23.949Z",
+      "date": "2026-08-22T14:41:22.486Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -654,7 +654,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA FIRMS Satelliten-Monitoring",
+      "source": "NASA (Offline)",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -703,7 +703,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.3826618194580078,
+        "generationtime_ms": 0.4748106002807617,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1476,13 +1476,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 995.2,
+      "value": 995.5,
       "unit": "hPa",
-      "trend": "→",
+      "trend": "↑",
       "history": [
-        986.3,
-        985.9,
-        985.8,
         985.8,
         985.6,
         985.4,
@@ -1623,13 +1620,13 @@
         995.1,
         995.1,
         995.2,
-        995.2
+        995.2,
+        995.3,
+        995.4,
+        995.5
       ],
       "humidity": 36.13,
       "humHistory": [
-        59,
-        59,
-        60,
         60,
         60,
         62,
@@ -1770,14 +1767,17 @@
         33,
         33,
         31,
-        32
+        32,
+        32,
+        31,
+        30
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.991,
+      "value": 49.971,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1785,7 +1785,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.982,
         50.001,
         49.962,
         50.04,
@@ -2072,7 +2071,8 @@
         50.014,
         50.034,
         49.968,
-        49.991
+        49.991,
+        49.971
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
