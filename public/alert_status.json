@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-23T14:22:43.535Z",
+  "fetchedAt": "2026-08-23T14:49:27.281Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,8 +14,6 @@
       "unit": "°C",
       "uvi": 2.5,
       "tempHistory": [
-        25.9,
-        26,
         25.5,
         25.3,
         25.2,
@@ -157,6 +155,8 @@
         26,
         26.7,
         26.2,
+        25.8,
+        25.5,
         25.8
       ],
       "uvHistory": [
@@ -209,8 +209,6 @@
       "unit": "km/h",
       "humidity": 32.47,
       "windHistory": [
-        21,
-        19,
         25,
         26,
         22,
@@ -352,11 +350,11 @@
         9,
         9,
         9,
-        6
+        6,
+        3,
+        4
       ],
       "humHistory": [
-        31,
-        30,
         31,
         30,
         30,
@@ -498,6 +496,8 @@
         30,
         29,
         30,
+        30,
+        31,
         30
       ],
       "thresholds": {
@@ -557,7 +557,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 200,
+      "maxNearbyValue": 205,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -647,7 +647,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-23T14:22:45.888Z",
+      "date": "2026-08-23T14:49:29.225Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -709,7 +709,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 1.0416507720947266,
+        "generationtime_ms": 0.4464387893676758,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1482,12 +1482,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 999.3,
+      "value": 999.5,
       "unit": "hPa",
-      "trend": "↓",
+      "trend": "→",
       "history": [
-        995.4,
-        995.5,
         995.5,
         995.6,
         995.7,
@@ -1629,12 +1627,12 @@
         999.5,
         999.3,
         999.3,
-        999.3
+        999.3,
+        999.3,
+        999.5
       ],
       "humidity": 32.47,
       "humHistory": [
-        31,
-        30,
         31,
         30,
         30,
@@ -1776,6 +1774,8 @@
         30,
         29,
         30,
+        30,
+        31,
         30
       ],
       "source": "GeoSphere Österreich",
@@ -1783,7 +1783,7 @@
     },
     "blackout": {
       "level": "green",
-      "value": 50.019,
+      "value": 49.992,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1791,7 +1791,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.02,
         50.006,
         50.023,
         50.034,
@@ -2078,7 +2077,8 @@
         50.002,
         49.987,
         49.995,
-        50.019
+        50.019,
+        49.992
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
