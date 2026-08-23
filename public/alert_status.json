@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-23T18:27:43.239Z",
+  "fetchedAt": "2026-08-23T18:59:07.383Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,9 +14,6 @@
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        22,
-        21.9,
-        21.7,
         21.6,
         21.5,
         21.3,
@@ -157,7 +154,10 @@
         24.3,
         24.1,
         23.9,
-        23.8
+        23.8,
+        23.7,
+        23.7,
+        23.5
       ],
       "uvHistory": [
         4.4,
@@ -213,9 +213,6 @@
       "unit": "km/h",
       "humidity": 33.82,
       "windHistory": [
-        13,
-        12,
-        12,
         9,
         12,
         11,
@@ -356,12 +353,12 @@
         11,
         10,
         9,
-        7
+        7,
+        6,
+        5,
+        5
       ],
       "humHistory": [
-        42,
-        42,
-        42,
         43,
         43,
         44,
@@ -502,7 +499,10 @@
         37,
         37,
         38,
-        38
+        38,
+        39,
+        39,
+        40
       ],
       "thresholds": {
         "yellow": 60,
@@ -561,7 +561,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 199,
+      "maxNearbyValue": 204,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -651,7 +651,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-23T18:27:46.258Z",
+      "date": "2026-08-23T18:59:10.716Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -713,7 +713,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.2802610397338867,
+        "generationtime_ms": 0.48160552978515625,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1486,13 +1486,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 999.2,
+      "value": 999.6,
       "unit": "hPa",
       "trend": "↑",
       "history": [
-        997.9,
-        998.1,
-        998.2,
         998.4,
         998.5,
         998.7,
@@ -1633,13 +1630,13 @@
         999.1,
         999.1,
         999.1,
-        999.2
+        999.2,
+        999.3,
+        999.5,
+        999.6
       ],
       "humidity": 33.82,
       "humHistory": [
-        42,
-        42,
-        42,
         43,
         43,
         44,
@@ -1780,14 +1777,17 @@
         37,
         37,
         38,
-        38
+        38,
+        39,
+        39,
+        40
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.989,
+      "value": 50.001,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1795,7 +1795,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.005,
         49.978,
         49.999,
         49.986,
@@ -2082,7 +2081,8 @@
         49.997,
         50.04,
         49.989,
-        49.989
+        49.989,
+        50.001
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
@@ -2091,7 +2091,7 @@
       "level": "yellow",
       "value": 2,
       "unit": "Status",
-      "message": "Kliebergasse",
+      "message": "Handelskai",
       "source": "Wiener Linien & Google",
       "sourceUrl": "https://www.google.com/maps/@48.2092,16.4050,15z/data=!5m1!1e1",
       "extraLinks": [
