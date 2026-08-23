@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-23T09:46:32.615Z",
+  "fetchedAt": "2026-08-23T10:08:54.484Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -9,13 +9,11 @@
   },
   "hazards": {
     "heat": {
-      "level": "green",
-      "value": 20.34,
+      "level": "yellow",
+      "value": 21.15,
       "unit": "°C",
-      "uvi": 4.9,
+      "uvi": 6,
       "tempHistory": [
-        22.3,
-        23,
         22.6,
         22.6,
         22.7,
@@ -157,7 +155,9 @@
         20.8,
         21.3,
         21.1,
-        21.4
+        21.4,
+        21.5,
+        22.2
       ],
       "uvHistory": [
         4.4,
@@ -180,7 +180,8 @@
         0.8,
         1.9,
         3.3,
-        4.9
+        4.9,
+        6
       ],
       "thresholds": {
         "yellow": 30,
@@ -202,10 +203,8 @@
       "level": "green",
       "value": 7,
       "unit": "km/h",
-      "humidity": 49.85,
+      "humidity": 46.32,
       "windHistory": [
-        21,
-        23,
         30,
         27,
         32,
@@ -347,11 +346,11 @@
         6,
         6,
         5,
-        5
+        5,
+        5,
+        4
       ],
       "humHistory": [
-        44,
-        43,
         43,
         43,
         43,
@@ -493,7 +492,9 @@
         45,
         44,
         43,
-        43
+        43,
+        42,
+        38
       ],
       "thresholds": {
         "yellow": 60,
@@ -562,7 +563,7 @@
     },
     "airQuality": {
       "level": "green",
-      "value": 24,
+      "value": 26,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -571,7 +572,7 @@
       "pm10": 7,
       "pm25": 4,
       "luftIndex": 2,
-      "aqi": 24,
+      "aqi": 26,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -642,7 +643,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-23T09:46:35.067Z",
+      "date": "2026-08-23T10:08:58.030Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -704,7 +705,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.4633665084838867,
+        "generationtime_ms": 0.35691261291503906,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1481,8 +1482,6 @@
       "unit": "hPa",
       "trend": "↓",
       "history": [
-        995.3,
-        995.2,
         995.2,
         995.1,
         995.1,
@@ -1624,12 +1623,12 @@
         1001.4,
         1001.3,
         1001.3,
+        1001.2,
+        1001.2,
         1001.2
       ],
-      "humidity": 49.85,
+      "humidity": 46.32,
       "humHistory": [
-        44,
-        43,
         43,
         43,
         43,
@@ -1771,14 +1770,16 @@
         45,
         44,
         43,
-        43
+        43,
+        42,
+        38
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.022,
+      "value": 49.998,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1786,7 +1787,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.011,
         49.996,
         49.972,
         49.966,
@@ -2073,7 +2073,8 @@
         49.938,
         49.998,
         50.048,
-        50.022
+        50.022,
+        49.998
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
