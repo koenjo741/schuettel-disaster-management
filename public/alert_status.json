@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-24T20:11:04.064Z",
+  "fetchedAt": "2026-08-24T20:50:04.087Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -14,10 +14,6 @@
       "unit": "°C",
       "uvi": 0,
       "tempHistory": [
-        21.3,
-        21,
-        20.7,
-        20.6,
         20.4,
         20.2,
         20.1,
@@ -157,7 +153,10 @@
         23.1,
         22.9,
         22.7,
-        22.6
+        22.6,
+        22.4,
+        22.2,
+        22.1
       ],
       "uvHistory": [
         4.4,
@@ -191,10 +190,6 @@
       "unit": "km/h",
       "humidity": 41.97,
       "windHistory": [
-        7,
-        8,
-        9,
-        8,
         8,
         8,
         6,
@@ -334,13 +329,12 @@
         12,
         12,
         11,
-        12
+        12,
+        10,
+        12,
+        13
       ],
       "humHistory": [
-        47,
-        48,
-        50,
-        50,
         51,
         52,
         52,
@@ -480,7 +474,10 @@
         40,
         40,
         40,
-        40
+        40,
+        40,
+        40,
+        41
       ],
       "thresholds": {
         "yellow": 60,
@@ -540,7 +537,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 203,
+      "maxNearbyValue": 205,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -556,7 +553,7 @@
         "yellow": 51,
         "red": 101
       },
-      "pm10": 14,
+      "pm10": 15,
       "pm25": 5,
       "luftIndex": 3,
       "aqi": 42,
@@ -630,7 +627,7 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-24T20:11:06.161Z",
+      "date": "2026-08-24T20:50:05.806Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
@@ -643,7 +640,7 @@
         "red": 4
       },
       "hotspots": 0,
-      "source": "NASA FIRMS Satelliten-Monitoring",
+      "source": "NASA (Offline)",
       "sourceUrl": "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@16.4,48.2,12.0z",
       "extraLinks": [
         {
@@ -692,7 +689,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 0.2900362014770508,
+        "generationtime_ms": 1.267552375793457,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1470,10 +1467,6 @@
       "trend": "↑",
       "history": [
         999.7,
-        999.7,
-        999.7,
-        999.7,
-        999.7,
         999.6,
         999.6,
         999.7,
@@ -1611,14 +1604,14 @@
         996.7,
         996.7,
         996.7,
+        996.9,
+        997,
+        997,
+        997,
         996.9
       ],
       "humidity": 41.97,
       "humHistory": [
-        47,
-        48,
-        50,
-        50,
         51,
         52,
         52,
@@ -1758,14 +1751,17 @@
         40,
         40,
         40,
-        40
+        40,
+        40,
+        40,
+        41
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 50.012,
+      "value": 50.015,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1773,7 +1769,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        50.006,
         49.959,
         49.997,
         50.029,
@@ -2060,7 +2055,8 @@
         50.006,
         49.979,
         50.014,
-        50.012
+        50.012,
+        50.015
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
