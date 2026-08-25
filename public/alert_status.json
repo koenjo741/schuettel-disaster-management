@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-25T17:59:54.487Z",
+  "fetchedAt": "2026-08-25T18:52:39.203Z",
   "overall": "yellow",
   "dataSource": "GeoSphere Austria + danubealert.com + Strahlenschutz.gv.at + Wien.gv.at Luftgütebericht + ZAMG/EMSC Erdbebendienst + AT-Alert + WHO DON + NASA FIRMS + Netzfrequenz.info + IQAir",
   "location": {
@@ -10,16 +10,10 @@
   "hazards": {
     "heat": {
       "level": "green",
-      "value": 23.71,
+      "value": 22.61,
       "unit": "°C",
-      "uvi": 0.1,
+      "uvi": 0,
       "tempHistory": [
-        24.6,
-        24.5,
-        24.3,
-        24.1,
-        24,
-        23.8,
         23.6,
         23.5,
         23.3,
@@ -157,7 +151,13 @@
         23,
         22.8,
         22.9,
-        22.7
+        22.7,
+        22.7,
+        22.6,
+        22.6,
+        22.4,
+        22.4,
+        22.3
       ],
       "uvHistory": [
         4.4,
@@ -188,7 +188,8 @@
         2.2,
         1.2,
         0.5,
-        0.1
+        0.1,
+        0
       ],
       "thresholds": {
         "yellow": 30,
@@ -208,16 +209,10 @@
     },
     "wind": {
       "level": "green",
-      "value": 11,
+      "value": 7,
       "unit": "km/h",
-      "humidity": 48.56,
+      "humidity": 58.94,
       "windHistory": [
-        13,
-        14,
-        11,
-        10,
-        13,
-        12,
         12,
         14,
         14,
@@ -355,15 +350,15 @@
         6,
         8,
         6,
-        5
+        5,
+        4,
+        7,
+        8,
+        9,
+        9,
+        10
       ],
       "humHistory": [
-        37,
-        38,
-        38,
-        38,
-        38,
-        39,
         39,
         39,
         39,
@@ -501,7 +496,13 @@
         57,
         57,
         57,
-        57
+        57,
+        57,
+        56,
+        57,
+        58,
+        58,
+        59
       ],
       "thresholds": {
         "yellow": 60,
@@ -511,7 +512,7 @@
     },
     "rain": {
       "level": "green",
-      "value": 0.001,
+      "value": 0.004,
       "unit": "mm/h",
       "thresholds": {
         "yellow": 15,
@@ -561,7 +562,7 @@
       "source": "Offline",
       "sourceUrl": "https://remap.jrc.ec.europa.eu/Advanced.aspx",
       "remoteWarning": null,
-      "maxNearbyValue": 211,
+      "maxNearbyValue": 209,
       "extraLinks": [
         {
           "name": "EURDEP/REMAP Map",
@@ -571,7 +572,7 @@
     },
     "airQuality": {
       "level": "yellow",
-      "value": 41,
+      "value": 42,
       "unit": "AQI",
       "thresholds": {
         "yellow": 51,
@@ -580,7 +581,7 @@
       "pm10": 19,
       "pm25": 6,
       "luftIndex": 3,
-      "aqi": 41,
+      "aqi": 42,
       "mainPollutant": "PM2.5/PM10",
       "description": "Gut",
       "source": "Open-Meteo (US AQI)",
@@ -651,13 +652,13 @@
           "url": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
         }
       ],
-      "date": "2026-08-25T17:59:57.191Z",
+      "date": "2026-08-25T18:52:42.067Z",
       "source": "WHO DON + MedUni Wien Map",
       "sourceUrl": "https://viro.meduniwien.ac.at/forschung/virus-epidemiologie-2/ueberwachung-der-zirkulation-respiratorischer-viren-in-oesterreich/influenza-diagnostisches-influenza-netzwerk-oesterreich-dinoe/"
     },
     "fire": {
       "level": "green",
-      "value": 2,
+      "value": 1,
       "unit": "WBI",
       "thresholds": {
         "yellow": 3,
@@ -713,7 +714,7 @@
       "forecast": {
         "latitude": 48.2,
         "longitude": 16.4,
-        "generationtime_ms": 1.0249614715576172,
+        "generationtime_ms": 0.546574592590332,
         "utc_offset_seconds": 7200,
         "timezone": "Europe/Berlin",
         "timezone_abbreviation": "GMT+2",
@@ -1486,16 +1487,10 @@
     },
     "pressure": {
       "level": "green",
-      "value": 993.3,
+      "value": 993.8,
       "unit": "hPa",
       "trend": "↑",
       "history": [
-        996.6,
-        996.5,
-        996.6,
-        996.8,
-        996.8,
-        996.8,
         996.7,
         996.6,
         996.7,
@@ -1633,16 +1628,16 @@
         993,
         993.1,
         993.2,
-        993.3
+        993.3,
+        993.4,
+        993.5,
+        993.6,
+        993.7,
+        993.7,
+        993.8
       ],
-      "humidity": 48.56,
+      "humidity": 58.94,
       "humHistory": [
-        37,
-        38,
-        38,
-        38,
-        38,
-        39,
         39,
         39,
         39,
@@ -1780,14 +1775,20 @@
         57,
         57,
         57,
-        57
+        57,
+        57,
+        56,
+        57,
+        58,
+        58,
+        59
       ],
       "source": "GeoSphere Österreich",
       "sourceUrl": "https://www.geosphere.at/"
     },
     "blackout": {
       "level": "green",
-      "value": 49.976,
+      "value": 50.007,
       "unit": "Hz",
       "thresholds": {
         "yellow": "±100mHz",
@@ -1795,7 +1796,6 @@
       },
       "message": "Normalbetrieb",
       "history": [
-        49.987,
         49.994,
         49.987,
         49.995,
@@ -2082,7 +2082,8 @@
         50.042,
         49.975,
         49.967,
-        49.976
+        49.976,
+        50.007
       ],
       "source": "Netzfrequenzmessung.de",
       "sourceUrl": "https://netzfrequenzmessung.de/"
