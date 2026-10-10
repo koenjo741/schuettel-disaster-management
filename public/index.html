@@ -186,7 +186,7 @@
           <div id="lastUpdate" class="text-[14px] text-slate-500 text-right hidden sm:block"></div>
           <div
             class="h-[22px] inline-flex items-center px-2 bg-slate-800 border border-slate-700 rounded text-[14px] font-mono text-slate-400">
-            v1.17.1</div>
+            v1.17.3</div>
           <button id="installBtn"
             class="hidden ml-2 px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-cyan-900/20">
             <span>📲 App installieren</span>
@@ -247,6 +247,9 @@
     }
 
     function formatValue(key, hazard) {
+      if (hazard?.unavailable) {
+        return 'Quelle nicht verfügbar';
+      }
       if (!hazard || (hazard.value == null && hazard.pegelCm == null)) {
         return '— Kein Messwert —';
       }
@@ -638,6 +641,10 @@
           </div>`;
         } else {
           extraHtml = `<p class="text-[11px] text-slate-500 mt-1 italic">Keine Werte > 300 nSv/h im Umkreis (500km)</p>`;
+        }
+
+        if (hazard.unavailable) {
+          extraHtml = `<p class="text-[11px] text-amber-400/80 mt-1">ℹ️ ${hazard.unavailableReason ?? 'Datenquelle derzeit nicht erreichbar'}</p>` + extraHtml;
         }
 
         if (hazard.history && hazard.history.length > 1) {

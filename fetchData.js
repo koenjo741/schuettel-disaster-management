@@ -14,13 +14,27 @@ import { join } from 'path';
 const LOCATION = { lat: 48.2092, lon: 16.4050 };
 const OUTPUT_PATH = join('public', 'alert_status.json');
 
+// ── Helper: Source permanently unreachable ───────────────────────────────────
+/**
+ * Signals that a data source is reachable but deliberately refuses access
+ * (e.g. endpoint removed, captcha or WAF in front of it). Such failures are
+ * not retried and are surfaced as `unavailable` on the hazard instead of as a
+ * generic fetch error.
+ */
+class SourceUnavailableError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'SourceUnavailableError';
+    }
+}
+
 // ── Helper: Retry logic ──────────────────────────────────────────────────────
 async function withRetry(fn, retries = 3, delay = 2000) {
     for (let i = 0; i < retries; i++) {
         try {
             return await fn();
         } catch (err) {
-            if (i === retries - 1) throw err;
+            if (err instanceof SourceUnavailableError || i === retries - 1) throw err;
             console.warn(`Retry ${i + 1}/${retries} failed: ${err.message}. Waiting ${delay}ms...`);
             await new Promise(resolve => setTimeout(resolve, delay));
         }
@@ -153,21 +167,70 @@ async function fetchRadiationData() {
 
         const now = new Date();
         const start = fmt(new Date(now.getTime() - 24 * 3600 * 1000));
+        const start7d = fmt(new Date(now.getTime() - 7 * 24 * 3600 * 1000));
         const end = fmt(now);
 
-        const url = `https://remap.jrc.ec.europa.eu/api/timeseries/v1/stations/timeseries/${start}/${end}?codes=AT2009`;
+        const pageUrl = `https://remap.jrc.ec.europa.eu/TimeSeriesStandAlone.aspx?stationCode=AT2009&latitude=48.2&longitude=16.41&startDate=${start7d}&endDate=${end}`;
 
-        const res = await fetch(url, {
+        // 1. Standalone-Seite abrufen, um Session-Parameter und dynamische Auth-Keys zu extrahieren
+        const pageRes = await fetch(pageUrl, {
             headers: {
-                'User-Agent': 'Mozilla/5.0',
-                'Accept': 'application/json',
-                'stamp': '1000'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
             }
         });
 
-        if (!res.ok) throw new Error(`REMAP API error: ${res.status}`);
-        const data = await res.json();
+        if (!pageRes.ok) {
+            throw new SourceUnavailableError(`EURDEP/REMAP TimeSeriesStandAlone nicht erreichbar (HTTP ${pageRes.status})`);
+        }
 
+        const html = await pageRes.text();
+        const adrMatch = html.match(/adr\s*=\s*"([^"]+)"/);
+        const keyMatches = [...html.matchAll(/__key2\s*=\s*"([^"]+)"/g)];
+        const adr = adrMatch ? adrMatch[1] : null;
+        const key2 = keyMatches.length ? keyMatches[keyMatches.length - 1][1] : null;
+
+        if (!adr || !key2) {
+            throw new SourceUnavailableError('EURDEP/REMAP: Authentifizierungsdaten in TimeSeriesStandAlone.aspx nicht gefunden');
+        }
+
+        const mpu = `${adr}_time_series_standalone_legacy`;
+
+        // 2. Token über /mapSvc/api/auth/login anfordern
+        const loginRes = await fetch('https://remap.jrc.ec.europa.eu/mapSvc/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+            },
+            body: JSON.stringify({ username: mpu, password: key2 })
+        });
+
+        if (!loginRes.ok) {
+            throw new SourceUnavailableError(`EURDEP/REMAP API Login fehlgeschlagen (HTTP ${loginRes.status})`);
+        }
+
+        const loginData = await loginRes.json();
+        const token = loginData?.token;
+        if (!token) {
+            throw new SourceUnavailableError('EURDEP/REMAP: Kein Bearer Token erhalten');
+        }
+
+        // 3. 24h-Messreihe von /mapSvc/api/timeseries/v1/ abrufen
+        const dataUrl = `https://remap.jrc.ec.europa.eu/mapSvc/api/timeseries/v1/stations/timeseries/${start}/${end}?codes=AT2009`;
+        const dataRes = await fetch(dataUrl, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'stamp': '1000',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+            }
+        });
+
+        if (!dataRes.ok) {
+            throw new Error(`REMAP API error: ${dataRes.status}`);
+        }
+
+        const data = await dataRes.json();
         if (!Array.isArray(data) || data.length === 0) {
             throw new Error('REMAP API: No data found for AT2009');
         }
@@ -188,6 +251,7 @@ async function fetchRadiationData() {
             station: 'AT2009 Wien - Atomreaktor',
             measuredAt: latest.date ? new Date(latest.date).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' }) : null,
             source: 'EURDEP/REMAP',
+            sourceUrl: pageUrl
         };
     });
 }
@@ -1336,9 +1400,11 @@ export async function fetchAlertData() {
 
         const sourceNames = ['Weather/GeoSphere', 'Flood/DanubeAlert', 'Radiation/IMIS', 'AirQuality/MA22', 'Earthquake/GeoSphere', 'AT-Alert', 'Pandemic/WHO', 'Fire/NASA', 'SpaceWeather/NOAA', 'Power/WienerNetze', 'Weather/OpenMeteo', 'Pressure/GeoSphere', 'Blackout/Netzfrequenz', 'Traffic/VPI', 'Snow/SNOWGRID', 'UWZ', 'Thunderstorm/ZAMG', 'UVIndex', 'RemoteRadiation/BfS+Border', 'GeoSphere/WarnAPI', 'TempHistory/GeoSphere', 'WindHumHistory/GeoSphere'];
 
+        const isUnavailable = (r) => r.status === 'rejected' && r.reason instanceof SourceUnavailableError;
         const errors = results
-            .map((r, i) => r.status === 'rejected' ? `${sourceNames[i]}: ${r.reason.message}` : null)
+            .map((r, i) => r.status === 'rejected' && !isUnavailable(r) ? `${sourceNames[i]}: ${r.reason.message}` : null)
             .filter(Boolean);
+        const radiationUnavailableReason = isUnavailable(results[2]) ? results[2].reason.message : null;
 
         const weather = results[0].status === 'fulfilled' ? results[0].value : null;
         const floodData = results[1].status === 'fulfilled' ? results[1].value : null;
@@ -1517,7 +1583,9 @@ export async function fetchAlertData() {
                     measuredAt: radiationData?.measuredAt ?? null,
                     history: radiationData?.history ?? [],
                     source: radiationData?.source ?? 'Offline',
-                    sourceUrl: 'https://remap.jrc.ec.europa.eu/Advanced.aspx',
+                    unavailable: radiationUnavailableReason != null,
+                    unavailableReason: radiationUnavailableReason,
+                    sourceUrl: radiationData?.sourceUrl ?? 'https://remap.jrc.ec.europa.eu/TimeSeriesStandAlone.aspx?stationCode=AT2009&latitude=48.2&longitude=16.41',
                     remoteWarning: remoteRadData?.nearestHighStation ?? null,
                     maxNearbyValue: remoteRadData?.maxNearbyValue ?? 0,
                     extraLinks: [

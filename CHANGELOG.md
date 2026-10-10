@@ -8,6 +8,35 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [1.17.3] – 2026-10-10
+
+### Fixed
+- **Radioaktivitäts-Überwachung wiederhergestellt (Station AT2009 Wien-Atominstitut)**:
+  Der zuvor defekte REMAP-Zugang wurde erfolgreich auf den dedizierten
+  `TimeSeriesStandAlone`-Endpunkt (`https://remap.jrc.ec.europa.eu/TimeSeriesStandAlone.aspx?stationCode=AT2009&latitude=48.2&longitude=16.41`)
+  umgestellt.
+- Dynamische Aushandlung des Bearer-Tokens über die JRC-`mapSvc`-Authentifizierung
+  implementiert, wodurch die 24-Stunden-Messreihe wieder in Echtzeit abgerufen wird.
+- Die Dashboard-Kachel für Radioaktivität zeigt wieder Live-Werte (nSv/h)
+  und verlinkt als `sourceUrl` direkt auf das interaktive TimeSeries-Diagramm
+  der Station AT2009.
+
+---
+
+## [1.17.2] – 2026-10-10
+
+### Fixed
+- **Radioaktivität (AT2009 Wien-Atominstitut)**: Der EURDEP/REMAP-Endpoint
+  liefert seit der Umstellung der JRC (Captcha/WAF) HTTP 404. Statt einer
+  globalen Fehlermeldung zeigt die Kachel nun **„Quelle nicht verfügbar"**
+  inkl. Grund an; die 500-km-Umkreisüberwachung (BfS + AT-Grenzstationen)
+  bleibt aktiv.
+- Gesperrte Quellen (404/403/HTML statt JSON) werden nicht mehr 3× wiederholt
+  (`SourceUnavailableError`) und erscheinen nicht mehr im `error`-Feld.
+- Neue Felder `unavailable` / `unavailableReason` im `radiation`-Hazard.
+
+---
+
 ## [1.16.1] – 2026-06-21
 
 ### Fixed
